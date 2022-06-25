@@ -1,0 +1,98 @@
+<section class="w-100">
+  <div class="container">
+    <div class="row pt-4">
+      <div class="d-block m-auto w-100" style="max-width: 460px;">
+
+        <div *ngIf="typeAccount == 'login'" >
+          <div class="col-12 mb-4">
+            <div class="d-flex justify-content-center">
+              <a class="btn _color_green" style="text-decoration: underline;">
+                <h3>Login</h3>
+              </a>
+              <a class="btn" (click)="typeAccount = 'cadastro'">
+                <h3>Cadastro</h3>
+              </a>
+            </div>
+          </div>
+          <div class="col-12">
+            <input type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Email"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+            <br>
+            <input type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Senha"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+          </div>
+          <div class="col-12">
+            <br>
+            <div class="d-flex align-items-center justify-content-between">
+              <label class="d-flex align-items-center">
+                <input type="checkbox" class="mr-3"> <strong>Lembrar-me</strong>
+              </label>
+              <button class="btn _color_green" style="text-decoration: underline;"><strong>Esqueci a
+                  Senha</strong></button>
+            </div>
+          </div>
+          <div class="col-12">
+            <br>
+            <button class="btn btn_green w-100 text-uppercase">Login</button>
+          </div>
+          <div class="col-12 my-4 d-flex align-items-center">
+            <div style="height: 1px; background-color: #999;" class="w-100"></div>
+            <div class="px-3">Ou</div>
+            <div style="height: 1px; background-color: #999;" class="w-100"></div>
+          </div>
+          <div class="col-12">
+            <button class="btn w-100 p-3 text-white mb-3" style="background-color: #005DDB;">Login com Facebook</button>
+            <button class="btn w-100 p-3 text-white" style="background-color: #FF0000;">Login com Google</button>
+          </div>
+        </div>
+
+        <div *ngIf="typeAccount == 'cadastro'">
+
+          <div class="col-12 mb-4">
+            <div class="d-flex justify-content-center">
+              <a class="btn" (click)="typeAccount = 'login'">
+                <h3>Login</h3>
+              </a>
+              <a class="btn _color_green" style="text-decoration: underline;">
+                <h3>Cadastro</h3>
+              </a>
+            </div>
+          </div>
+          <div class="col-12">
+            <input type="text" name="cnpj" class="form-control rounded-0 border-0 px-0 py-4" placeholder="CNPJ"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+            <br>
+            <input type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Email"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+            <br>
+            <input type="text" name="telefone" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Telefone"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+            <br>
+            <input type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Senha"
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+          </div>
+          <div class="col-12">
+            <br>
+            <label class="d-flex align-items-center">
+              <input type="checkbox" class="mr-3"> <span style="font-size: 13px;">Sim, eu quero receber comunicações e
+                promocões</span>
+            </label>
+            <div style="color: grey; font-size: 13px;">Gostaríamos que você fosse o primeiro a receber notícias
+              personalizadas, ofertas especiais exclusivas relacionadas à PRIMA, nossos produtos e nossa colaboração com
+              terceiros.</div>
+            <div class="mt-2" style="font-size: 13px;">Sim eu aceito os <a class="text-dark"
+                style="text-decoration: underline;" href="#">Termos de serviço</a> & <a class="text-dark"
+                style="text-decoration: underline;" href="#">Politica de Privacidade</a></div>
+          </div>
+          <div class="col-12">
+            <br>
+            <button class="btn btn_green w-100 text-uppercase">Criar conta</button>
+          </div>
+
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</section>

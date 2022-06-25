@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Histórico de compras</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/rSlider.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <!--=========== header ===========-->
+    <header class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center py-3">
+            <button class="btn d-lg-none btn_open_menu">
+              <img src="assets/img/menu.svg">
+            </button>
+            <img style="height: 53px;" src="assets/img/logo.webp">
+            
+            <div class="w-100 d-none d-lg-block centro_menu">
+              <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex">
+                <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text bg-white">
+                        <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                      </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="procure por nome, marca...">
+                    <div class="input-group-append">
+                      <span class="input-group-text p-0 bg-white">
+                        <button class="btn btn-link btn_buscar _color_green">Buscar</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <div class="ml-0 ml-lg-3 mr-3">
+                    <strong style="font-weight: bold;font-size: 14px;">Bem vindo!</strong>
+                    <a class="d-block btn_entrar _color_green" href="#">Entre ou cadastre-se</a>
+                  </div>
+
+                  <div class="d-flex">
+                    <button class="btn ml-1 btn_perfil"><img style="height: 23px;" src="assets/img/user.svg"></button>
+                    <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
+              <img style="height: 23px;" src="assets/img/bag.svg">
+              <div class="btn_green tot_itens_pedido d-none">0</div>
+            </button>
+          </div>
+          <div id="menu_fechar_pedido" class="bg-white">
+            <div class="p-4 cont_valor">
+              <div class="valor">= R$ 1,120,00</div>
+            </div>
+            <div class="p-4 w-100">
+              <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido">Fechar Pedido</button>
+              <div class="mt-3 text-center text_n_tem_conta">Não possui conta? <a href="" class="_color_green">Cadastre-se</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <hr class="mt-0 mb-5">
+    <!--=========== fim header ===========-->
+    
+    <!--=========== minha conta ===========-->
+    <section class="w-100 section_minha_conta mb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <div style="color: #686868;">
+                        Home <i class="fa fa-angle-right"></i>
+                        Informações de Compra <i class="fa fa-angle-right"></i>
+                        <strong style="color: #000;">Histórico de compras</strong>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="pt-3 pl-3 mr-4" style="position: relative; background-image: url('assets/img/circles.png'); background-size: 72px 72px; background-repeat: no-repeat;">
+                        <h3 class="bg-white pt-2 px-3"><strong>Histórico de compras</strong></h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-1"></div>
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="mb-2"><a style="color: #000; font-weight: 400;" href="minha_conta.html">Minha conta</a></div>
+                    <div class="mb-2"><a href="informacoes_pessoais.html" class="opt_menu_left">Informações Pessoais</a></div>
+                    <div class="mb-2"><a href="enderecos.html" class="opt_menu_left">Endereços</a></div>
+                    <div class="mb-2"><a href="minha_lista.html" class="opt_menu_left">Minha lista</a></div>
+
+                    <div class="mb-2 mt-4" style="color: #000; font-weight: 400;">Informações de Compra</div>
+                    <div class="mb-2"><a href="historico_compras.html" class="opt_menu_left _active">Histórico de Compra</a></div>
+                    <hr class="mt-4 mb-0 d-md-none">
+                </div>
+                <div class="col-12 col-md-6 col-lg-7">
+                    <div class="w-100 compra">
+                        <h5 class="mb-3"><strong>Abril 2022</strong></h5>
+                        <div class="card mb-5" style="border-radius: 0;">
+                            <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
+                                <div class="mb-3 mb-lg-0">
+                                    <div>Vendido e entrege por</div>
+                                    <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle mr-2"></i>
+                                    <h2 class="mb-0">
+                                        R$ 380,00
+                                        <i class="fa fa-angle-right ml-2"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="border-bottom: 0;">Produtos</th>
+                                            <th class="border-bottom: 0;">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-right bg-transparent">
+                                <button class="btn text-uppercase btn_green">Repetir pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-100 compra">
+                        <h5 class="mb-3"><strong>Maio 2022</strong></h5>
+                        <div class="card mb-5" style="border-radius: 0;">
+                            <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
+                                <div class="mb-3 mb-lg-0">
+                                    <div>Vendido e entrege por</div>
+                                    <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="fa fa-exclamation-circle mr-2"></i>
+                                    <h2 class="mb-0">
+                                        R$ 380,00
+                                        <i class="fa fa-angle-right ml-2"></i>
+                                    </h2>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="border-bottom: 0;">Produtos</th>
+                                            <th class="border-bottom: 0;">Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Açúcar Mascavo Orgânico 2</td>
+                                            <td>R$ 120.00</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="card-footer text-right bg-transparent">
+                                <button class="btn text-uppercase btn_green">Repetir pedido</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=========== fim minha conta ===========-->
+
+    <!--=========== footer ===========-->
+    <footer style="background: linear-gradient(134.99deg, #45842E 3.35%, #E0E454 99.07%);;">
+        <div class="container pt-5 pb-5">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+              <img style="width: 113px;" class="mb-3" src="assets/img/logo_2.svg">
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/location.png"></div>
+                <div class="text-white" style="font-size: 14px;">Rua Fernandes Moraes de Alvim, 271 Vila Andrade - São Paulo / SP</div>
+              </div>
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/phone.png"></div>
+                <div class="text-white" style="font-size: 14px;">(11) 99999-9999</div>
+              </div>
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/mail.png"></div>
+                <div class="text-white" style="font-size: 14px;">email-endereço.com</div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+              <h6 class="text-white mb-4">SITEMAP</h6>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Sobre a prima</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Lojas Parceiros</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Cadastro</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Login</a>
+            </div>
+            <div class="col-12 col-lg-6 d-flex flex-wrap">
+              <div class="w-50">
+                <h6 class="text-white mb-4">HELP</h6>
+                <a href="#" class="d-block text-white mb-2">Duvidas Frequentes</a>
+                <a href="#" class="d-block text-white mb-2">Contato</a>
+              </div>
+              <div class="w-50">
+                <h6 class="text-white mb-4">POLITICA DE PRIVACIDADE</h6>
+                <a href="#" class="d-block text-white mb-2">Termos de Uso</a>
+              </div>
+              <div class="w-100 w-lg-75 mt-4">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                      <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                    </span>
+                  </div>
+                  <input type="text" style="height: 55px;" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="Receba nossas promoções">
+                  <div class="input-group-append">
+                    <span class="input-group-text p-0 bg-white" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                      <button class="btn btn-link btn_buscar _color_green"><strong>SUBSCRIBE</strong></button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 pt-5 mt-5">
+              <p class="text-white text-center" style="font-size: 14px;">Copyright © 2020. todos os direitos reservados.</p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!--=========== fim footer ===========-->
+
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/rSlider.js"></script>
+    <script src="assets/js/script.js"></script>
+    <script src="assets/js/maskedinput_2.js"></script>
+    <script>
+      $(function() {
+        $('input[name="cnpj"]').mask('99.999.999/9999-99')
+        $('input[name="telefone"]').mask('(99) 9 9999-9999')
+      })
+    </script>
+  </body>
+</html>

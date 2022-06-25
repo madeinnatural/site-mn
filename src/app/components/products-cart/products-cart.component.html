@@ -1,0 +1,200 @@
+<!--=========== section tabela ===========-->
+<section class="pt-5 pb-5 section_table">
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-12 d-block d-md-flex justify-content-between">
+        <div
+          class="input-group mb-3 mb-md-0"
+          style="height: 50px; max-width: 676px"
+        >
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-white">
+              <img style="height: 22px" src="assets/img/pesquisa.svg" />
+            </span>
+          </div>
+          <input
+            type="text"
+            style="height: auto"
+            placeholder="procure por nome, marca..."
+            class="form-control border-left-0"
+          />
+        </div>
+        <button
+          id="btn_open_filtro"
+          class="btn mb-4 ml-md-3 mb-md-0 w-100 d-flex align-items-center justify-content-center text-uppercase btn_green"
+          style="max-width: 320px"
+        >
+          <img style="width: 32px" src="assets/img/filtro.webp" />
+          <div class="ml-3 text-white">Filtro Avançado</div>
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr class="bg-white">
+              <th class="border-0">Produto</th>
+              <th class="border-0 d-none d-lg-inline-block">Categoria</th>
+              <th class="border-0 d-none d-lg-inline-block">Preço</th>
+              <th class="border-0 d-none d-lg-inline-block">Peso</th>
+              <th class="border-0 d-none d-lg-inline-block">
+                Adicionar ao carrinho
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let product of listProduct; index as i">
+              <td>
+                <strong [innerText]="product.name"></strong>
+                <div class="d-lg-none">
+                  <div class="d-flex justify-content-between mt-2">
+                    <div [innerText]="product.category"></div>
+                    <div [innerText]="product.price | currency: 'BRL'"></div>
+                  </div>
+                  <div [innerText]="product.weigth"></div>
+                  <br />
+                  <div class="d-flex w-100 justify-content-center">
+                    <button
+                      class="btn btn_remove"
+                      (click)="product.amount = product.amount - 1"
+                    >
+                      <img style="width: 12px" src="assets/img/minus.svg" />
+                    </button>
+                    <h5 class="mx-2" [innerText]="product.amount"></h5>
+                    <button
+                      class="btn btn_remove"
+                      (click)="product.amount = product.amount + 1"
+                    >
+                      <img style="width: 12px" src="assets/img/add.svg" />
+                    </button>
+                  </div>
+                </div>
+              </td>
+              <td
+                class="d-none d-lg-inline-block"
+                [innerText]="product.category"
+              ></td>
+              <td
+                class="d-none d-lg-inline-block"
+                [innerText]="product.price | currency: 'BRL'"
+              ></td>
+              <td class="d-none d-lg-inline-block">1kg</td>
+              <td class="d-none d-lg-inline-block" *ngIf="product.amount > 0">
+                <div class="d-flex pl-2">
+                  <button
+                    class="btn btn_remove"
+                    (click)="product.amount = product.amount - 1"
+                  >
+                    <img style="width: 12px" src="assets/img/minus.svg" />
+                  </button>
+                  <h5 class="mx-2" [innerText]="product.amount"></h5>
+                  <button
+                    class="btn btn_remove"
+                    (click)="product.amount = product.amount + 1"
+                  >
+                    <img style="width: 12px" src="assets/img/add.svg" />
+                  </button>
+                </div>
+              </td>
+              <td class="d-none d-lg-inline-block" *ngIf="product.amount == 0">
+                <div class="d-flex">
+                  <button
+                    class="btn d-flex align-items-center"
+                    (click)="product.amount = product.amount + 1"
+                  >
+                    <img style="width: 26px" src="assets/img/carrinho.svg" />
+                    <h6 class="_color_green ml-3 mb-0">
+                      Adicionar ao carrinho
+                    </h6>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h6 style="font-size: 14px">
+          * Compra minima por forncedor - R$400.00
+        </h6>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-4">
+        <button
+          class="btn d-block m-auto btn_outline_green"
+          (click)="showProductsAll()"
+        >
+          VER LISTA COMPLETA
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========== fim section tabela ===========-->
+
+<!--=========== categorias ===========-->
+
+<section class="w-100 pt-5 section_categorias" style="overflow: hidden">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 class="_color_green text-center">Categorias</h1>
+
+        <div class="pb-5">
+          <div class="d-flex cont_categorias">
+            <div class="categoria">
+              <div class="shadow mr-4">
+                <img src="assets/img/categorias/img1.jpeg" />
+                <h6 class="_color_green">Snacks</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+            <div class="categoria">
+              <div class="shadow mr-4">
+                <img src="assets/img/categorias/img2.jpeg" />
+                <h6 class="_color_green">Castanhas, Sementes & Frutas Secas</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+            <div class="categoria">
+              <div class="shadow mr-4">
+                <img src="assets/img/categorias/img3.jpeg" />
+                <h6 class="_color_green">Temperos & Especiarias</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+            <div class="categoria">
+              <div class="shadow mr-4">
+                <img src="assets/img/categorias/img4.jpeg" />
+                <h6 class="_color_green">Farinhas, Moídos & Pó</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+            <div class="categoria">
+              <div class="shadow mr-4">
+                <img src="assets/img/categorias/img5.jpeg" />
+                <h6 class="_color_green">Chás & Ervas</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mb-4">
+    <div class="row">
+      <div class="col-12 d-flex align-items-center justify-content-center">
+        <button class="btn p-0 rounded-circle mr-2 btn_prev">
+          <img style="width: 40px" src="assets/img/arrow_circle_left.png" />
+        </button>
+        <button class="btn p-0 rounded-circle ml-2 btn_next">
+          <img style="width: 40px" src="assets/img/arrow_circle_right.png" />
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========== fim categorias ===========-->
+

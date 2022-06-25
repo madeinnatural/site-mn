@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <title>Home</title>
+    <link rel="icon" type="image/x-icon" href="assets/img/icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/rSlider.css">
+    <link href="assets/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <!--=========== header ===========-->
+    <header class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-between align-items-center py-3">
+            <button class="btn d-lg-none btn_open_menu">
+              <img src="assets/img/menu.svg">
+            </button>
+            <img style="height: 53px;" src="assets/img/logo.webp">
+            
+            <div class="w-100 d-none d-lg-block centro_menu">
+              <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex">
+                <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text bg-white">
+                        <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                      </span>
+                    </div>
+                    <input type="text" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="procure por nome, marca...">
+                    <div class="input-group-append">
+                      <span class="input-group-text p-0 bg-white">
+                        <button class="btn btn-link btn_buscar _color_green">Buscar</button>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                  <div class="ml-0 ml-lg-3 mr-3">
+                    <strong style="font-weight: bold;font-size: 14px;">Bem vindo!</strong>
+                    <a class="d-block btn_entrar _color_green" href="#">Entre ou cadastre-se</a>
+                  </div>
+
+                  <div class="d-flex">
+                    <button class="btn ml-1 btn_perfil"><img style="height: 23px;" src="assets/img/user.svg"></button>
+                    <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
+              <img style="height: 23px;" src="assets/img/bag.svg">
+              <div class="btn_green tot_itens_pedido d-none">0</div>
+            </button>
+          </div>
+          <div id="menu_fechar_pedido" class="bg-white">
+            <div class="p-4 cont_valor">
+              <div class="valor">= R$ 1,120,00</div>
+            </div>
+            <div class="p-4 w-100">
+              <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido">Fechar Pedido</button>
+              <div class="mt-3 text-center text_n_tem_conta">Não possui conta? <a href="" class="_color_green">Cadastre-se</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!--=========== fim header ===========-->
+
+    <!--=========== carrousel ===========-->
+    <section class="w-100">
+      <div id="carouselExampleControls" class="carousel slide" data-interval="10000000" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active" style="background-image: url('assets/img/bg.webp');">
+            <div class="w-100 h-100 carousel-inner_in pt-5 pb-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <h1 class="mb-0">Compre com o menor preço <br>nos melhores fornecedores.</h1>
+                    <br>
+                    <p>Tecnologia que conecta os principais fornecedores de alimentos no atacado <br>com compradores que buscam a melhor qualidade com o menor preço.</p>
+                    <br>
+                    <button class="btn text-white mb-4 mb-md-0 text-uppercase btn_green btn_buscar_produto">Buscar produto</button>
+                    <button class="btn text-white ml-0 ml-md-3 text-uppercase btn_outline_white btn_criar_cotacao">Criar cotação</button>
+                  </div>
+                </div>
+                <div class="row mt-5 pt-0 pt-lg-5">
+                  <div class="col-12 d-flex justify-content-end">
+                    <div>
+                      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <img src="assets/img/arrow_left.svg">
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <img src="assets/img/arrow_right.svg">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('assets/img/bg.webp');">
+            <div class="w-100 h-100 carousel-inner_in pt-5 pb-5">
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <h1 class="mb-0">Compre com o menor preço <br>nos melhores fornecedores.</h1>
+                    <br>
+                    <p>Tecnologia que conecta os principais fornecedores de alimentos no atacado <br>com compradores que buscam a melhor qualidade com o menor preço.</p>
+                    <br>
+                    <button class="btn mb-4 mb-md-0 text-uppercase btn_green btn_buscar_produto">Buscar produto</button>
+                    <button class="btn ml-0 ml-md-3 text-uppercase btn_outline_white btn_criar_cotacao">Criar cotação</button>
+                  </div>
+                </div>
+                <div class="row mt-5 pt-0 pt-lg-5">
+                  <div class="col-12 d-flex justify-content-end">
+                    <div>
+                      <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                        <img src="assets/img/arrow_left.svg">
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                        <img src="assets/img/arrow_right.svg">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=========== fim carrousel ===========-->
+
+    <section class="w-100">
+      <div class="container pt-5 pb-5">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-3 mb-2">
+            <div class="w-100 d-block d-md-flex">
+              <div class="mr-3 mb-2 mb-md-0"><img style="width: 31px;" src="assets/img/percent.webp"></div>
+              <div>
+                <h6 class="_color_green text-uppercase" style="font-size: 12px;">Menor preço do mercado</h6>
+                <p>Sistema inteligente de comparação de preços com atualização automática.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-2">
+            <div class="w-100 d-block d-md-flex">
+              <div class="mr-3 mb-2 mb-md-0"><img style="width: 31px;" src="assets/img/computador.webp"></div>
+              <div>
+                <h6 class="_color_green text-uppercase" style="font-size: 12px;">Maior variedade</h6>
+                <p>Milhares de itens disponíveis para você escolher.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-2">
+            <div class="w-100 d-block d-md-flex">
+              <div class="mr-3 mb-2 mb-md-0"><img style="width: 31px;" src="assets/img/store.webp"></div>
+              <div>
+                <h6 class="_color_green text-uppercase" style="font-size: 12px;">PEDIDO ONLINE</h6>
+                <p>Tecnologia que conecta os principais fornecedores de alimentos no atacado com compradores.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-2">
+            <div class="w-100 d-block d-md-flex">
+              <div class="mr-3 mb-2 mb-md-0"><img style="width: 31px;" src="assets/img/maquina.webp"></div>
+              <div>
+                <h6 class="_color_green text-uppercase" style="font-size: 12px;">Cotação automática de preços</h6>
+                <p>Os preços sofrem variações de acordo com a taxa de câmbio, safra, estoque, mal tempo, mas a Prima organiza-os em tempo real.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--=========== section tabela ===========-->
+    <section class="pt-5 pb-5 section_table">
+      <div class="container">
+        <div class="row mb-3">
+          <div class="col-12 d-block d-md-flex justify-content-between">
+            <div class="w-100 d-block d-xl-flex align-items-center">
+              <div class="input-group mb-3 mb-md-0 w-100" style="height: 50px; max-width: 676px;">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white">
+                    <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                  </span>
+                </div>
+                <input type="text" style="height: auto;" placeholder="procure por nome, marca..." class="form-control border-left-0">
+              </div>
+              <div class="d-block d-xl-flex mt-3 mb-3 mt-xl-0 mb-lg-0">
+                <label class="d-flex align-items-center ml-3" style="color: #243044; white-space: nowrap;">
+                  <input type="checkbox" class="mr-2"> Participa do Simples Nacional
+                </label>
+                <label class="d-flex align-items-center ml-3" style="color: #243044; white-space: nowrap;">
+                  <input type="checkbox" class="mr-2"> Compra dentro do estado de São Paulo
+                </label>
+              </div>
+            </div>
+            <div>
+              <button id="btn_open_filtro" class="btn mb-4 ml-md-3 mb-md-0 w-100 d-flex align-items-center justify-content-center text-uppercase btn_green" style="background: #45842E !important; max-width: 320px; white-space: nowrap;">
+                <img style="width: 32px;" src="assets/img/filtro.webp">
+                <div class="ml-3 text-white">Filtro Avançado</div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <table class="table">
+              <thead>
+                <tr class="bg-white">
+                  <th class="border-0">Produto</th>
+                  <th class="border-0 d-none d-lg-inline-block">Categoria</th>
+                  <th class="border-0 d-none d-lg-inline-block">Preço</th>
+                  <th class="border-0 d-none d-lg-inline-block">Peso</th>
+                  <th class="border-0 d-none d-lg-inline-block">Adicionar ao carrinho</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <strong>Açúcar Mascavo Orgânico</strong>
+                    <div class="d-lg-none">
+                      <div class="d-flex justify-content-between mt-2">
+                        <div>Naturais</div>
+                        <div>R$ 10.00 - 20.00</div>
+                      </div>
+                      <div>1kg, 2kg, 5kg</div>
+                      <br>
+                      <div class="d-flex w-100 justify-content-center">
+                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
+                        <h5 class="mx-2">0</h5>
+                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="d-none d-lg-inline-block">Naturais</td>
+                  <td class="d-none d-lg-inline-block">R$ 10.00 </td>
+                  <td class="d-none d-lg-inline-block">1kg</td>
+                  <td class="d-none d-lg-inline-block">
+                    <div class="d-flex pl-2">
+                      <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
+                      <h5 class="mx-2">0</h5>
+                      <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <strong>Açúcar Mascavo Orgânico</strong>
+                    <div class="d-lg-none">
+                      <div class="d-flex justify-content-between mt-2">
+                        <div>Naturais</div>
+                        <div>R$ 10.00 - 20.00</div>
+                      </div>
+                      <div>1kg, 2kg, 5kg</div>
+                      <br>
+                      <div class="d-flex w-100 justify-content-center">
+                        <button class="btn d-flex align-items-center">
+                          <img style="width: 26px;" src="assets/img/carrinho.svg">
+                          <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
+                        </button>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="d-none d-lg-inline-block">Naturais</td>
+                  <td class="d-none d-lg-inline-block">R$ 10.00 </td>
+                  <td class="d-none d-lg-inline-block">1kg</td>
+                  <td class="d-none d-lg-inline-block">
+                    <div class="d-flex">
+                      <button class="btn d-flex align-items-center">
+                        <img style="width: 26px;" src="assets/img/carrinho.svg">
+                        <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h6 style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mt-4">
+            <button class="btn d-block m-auto btn_outline_green">VER LISTA COMPLETA</button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=========== fim section tabela ===========-->
+
+    <!--=========== avaliacoes ===========-->
+    <section class="section_avaliacoes mt-5" style="overflow: hidden;">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 d-block d-md-flex">
+            <div class="mb-5 pb-5 mb-md-0 pb-md-0 mt-3">
+              <div class="pt-3 pl-3 mr-4" style="position: relative; background-image: url('assets/img/circles.png'); background-size: 72px 72px; background-repeat: no-repeat;">
+                <h1 class="bg-white pt-2 px-3">Avaliações <br><span style="white-space: nowrap;">de clientes</span></h1>
+                <div class="px-3" style="font-size: 16px; color: #757575;">
+                  <span style="white-space: nowrap;">Nós valorizamos o bom</span> <br>
+                  <span style="white-space: nowrap;">atendimento e a satisfação</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="d-flex cont_avaliacoes">
+              <div class="avaliacao">
+                <div class="avaliacao_in mr-4 mt-5">
+                  <div class="cont_img">
+                    <img class="img_cliente" src="assets/img/clientes/cliente1.png">
+                    <img class="d-block ml-auto mr-auto mt-4 img_aspas" src="assets/img/aspas_white.svg">
+                  </div>
+                  <h6>Nome do Cliente 1</h6>
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+                </div>
+              </div>
+              <div class="avaliacao">
+                <div class="avaliacao_in mr-4 mt-5">
+                  <div class="cont_img">
+                    <img class="img_cliente" src="assets/img/clientes/cliente2.png">
+                    <img class="d-block ml-auto mr-auto mt-4 img_aspas" src="assets/img/aspas_white.svg">
+                  </div>
+                  <h6>Nome do Cliente 2</h6>
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+                </div>
+              </div>
+              <div class="avaliacao">
+                <div class="avaliacao_in mr-4 mt-5">
+                  <div class="cont_img">
+                    <img class="img_cliente" src="assets/img/clientes/cliente3.png">
+                    <img class="d-block ml-auto mr-auto mt-4 img_aspas" src="assets/img/aspas_white.svg">
+                  </div>
+                  <h6>Nome do Cliente 3</h6>
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+                </div>
+              </div>
+              <div class="avaliacao">
+                <div class="avaliacao_in mr-4 mt-5">
+                  <div class="cont_img">
+                    <img class="img_cliente" src="assets/img/clientes/cliente4.png">
+                    <img class="d-block ml-auto mr-auto mt-4 img_aspas" src="assets/img/aspas_white.svg">
+                  </div>
+                  <h6>Nome do Cliente 4</h6>
+                  <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 mt-4 mb-5">
+            <div class="col-12 d-flex align-items-center justify-content-end">
+              <button class="btn p-0 rounded-circle mr-2 btn_prev">
+                <img style="width: 40px;" src="assets/img/arrow_circle_left.png">
+              </button>
+              <button class="btn p-0 rounded-circle ml-2 btn_next">
+                <img style="width: 40px;" src="assets/img/arrow_circle_right.png">
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=========== fim avaliacoes ===========-->
+
+    <!--=========== parceiros ===========-->
+    <section class="w-100 section_parceiros" style="background-image: url('assets/img/bg_empresas_2.png');background-repeat: no-repeat;background-size: cover;">
+      <div class="container py-5">
+        <div class="row d-flex align-items-center py-5">
+          <div class="col-12 col-lg-6 col-xl-5 text-center text-lg-right">
+            <h1 class="text-white text-uppercase" style="font-weight: 300;font-size: 40px;">Páginas exclusivas</h1>
+            <h1 class="text-white text-uppercase mb-4" style="font-weight: bold;font-size: 32px;">dos nossos parceiros</h1>
+            <button class="btn ml-0 px-5 ml-md-3 mb-4 text-uppercase btn_outline_white">Ver todas</button>
+          </div>
+          <div class="col-12 col-lg-6 col-xl-7 d-flex flex-wrap">
+            <div class="w-100 w-md-50 pl-0 pl-md-4 mb-3">
+              <div class="bg-white p-3 w-100 parceiro">
+                <div class="w-100 d-flex align-items-center pb-4 cont_img">
+                  <img src="assets/img/parceiros/parceiro_1.png">
+                  <h6 class="ml-3 mb-0" style="font-weight: 700;">Nome da Empresa</h6>
+                </div>
+                <button class="btn mt-2 w-100 rounded-0" style="color: #45842E;font-weight: 700;font-size: 14px;box-shadow: none !important;">Ver pagina de produtos</button>
+              </div>
+            </div>
+            <div class="w-100 w-md-50 pl-0 pl-md-4 mb-3">
+              <div class="bg-white p-3 w-100 parceiro">
+                <div class="w-100 d-flex align-items-center pb-4 cont_img">
+                  <img src="assets/img/parceiros/parceiro_2.png">
+                  <h6 class="ml-3 mb-0" style="font-weight: 700;">Nome da Empresa</h6>
+                </div>
+                <button class="btn mt-2 w-100 rounded-0" style="color: #45842E;font-weight: 700;font-size: 14px;box-shadow: none !important;">Ver pagina de produtos</button>
+              </div>
+            </div>
+            <div class="w-100 w-md-50 pl-0 pl-md-4 mb-3">
+              <div class="bg-white p-3 w-100 parceiro">
+                <div class="w-100 d-flex align-items-center pb-4 cont_img">
+                  <img src="assets/img/parceiros/parceiro_3.png">
+                  <h6 class="ml-3 mb-0" style="font-weight: 700;">Nome da Empresa</h6>
+                </div>
+                <button class="btn mt-2 w-100 rounded-0" style="color: #45842E;font-weight: 700;font-size: 14px;box-shadow: none !important;">Ver pagina de produtos</button>
+              </div>
+            </div>
+            <div class="w-100 w-md-50 pl-0 pl-md-4 mb-3">
+              <div class="bg-white p-3 w-100 parceiro">
+                <div class="w-100 d-flex align-items-center pb-4 cont_img">
+                  <img src="assets/img/parceiros/parceiro_4.png">
+                  <h6 class="ml-3 mb-0" style="font-weight: 700;">Nome da Empresa</h6>
+                </div>
+                <button class="btn mt-2 w-100 rounded-0" style="color: #45842E;font-weight: 700;font-size: 14px;box-shadow: none !important;">Ver pagina de produtos</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row d-none d-md-block">
+          <div class="col-12 d-flex align-items-center justify-content-end">
+            <button class="btn p-0 rounded-circle mr-2 btn_prev">
+              <img style="width: 40px;" src="assets/img/arrow_circle_left_white.png">
+            </button>
+            <button class="btn p-0 rounded-circle ml-2 btn_next">
+              <img style="width: 40px;" src="assets/img/arrow_circle_right_white.png">
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=========== fim parceiros ===========-->
+    
+    <!--=========== NEWSLETTER ===========-->
+    <section class="w-100">
+      <div class="container py-5">
+        <div class="row py-5">
+          <div class="col-12">
+            <h2 class="text-center" style="font-weight: 700;">Receba nossas ofertas!</h2>
+            <p class="text-center" style="color: #898989; font-size: 14px;">Inscreva-se agora e receba ofertas exclusivas em primeira mão.</p>
+            <div class="d-flex justify-content-center">
+              <div class="input-group" style="max-width: 952px;">
+                <input type="text" style="height: 60px;" class="form-control border-right-0 input_pesquisa" placeholder="Digite seu email">
+                <div class="input-group-append">
+                  <span class="input-group-text p-0 bg-white">
+                    <button class="btn text-white text-uppercase btn_green" style="height: 58px; background: #45842E !important; border-top-left-radius: 0; border-bottom-left-radius: 0;">SUBSCRIBE</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!--=========== fim NEWSLETTER ===========-->
+
+    <!--=========== footer ===========-->
+    <footer style="background: linear-gradient(134.99deg, #45842E 3.35%, #E0E454 99.07%);;">
+      <div class="container pt-5 pb-5">
+        <div class="row">
+          <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <img style="width: 113px;" class="mb-3" src="assets/img/logo_2.svg">
+            <div class="d-flex mb-3">
+              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/location.png"></div>
+              <div class="text-white" style="font-size: 14px;">Rua Fernandes Moraes de Alvim, 271 Vila Andrade - São Paulo / SP</div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/phone.png"></div>
+              <div class="text-white" style="font-size: 14px;">(11) 99999-9999</div>
+            </div>
+            <div class="d-flex mb-3">
+              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/mail.png"></div>
+              <div class="text-white" style="font-size: 14px;">email-endereço.com</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+            <h6 class="text-white mb-4">SITEMAP</h6>
+            <a href="#" class="d-block float-left w-100 text-white mb-2">Sobre a prima</a>
+            <a href="#" class="d-block float-left w-100 text-white mb-2">Lojas Parceiros</a>
+            <a href="#" class="d-block float-left w-100 text-white mb-2">Cadastro</a>
+            <a href="#" class="d-block float-left w-100 text-white mb-2">Login</a>
+          </div>
+          <div class="col-12 col-lg-6 d-flex flex-wrap">
+            <div class="w-50">
+              <h6 class="text-white mb-4">HELP</h6>
+              <a href="#" class="d-block text-white mb-2">Duvidas Frequentes</a>
+              <a href="#" class="d-block text-white mb-2">Contato</a>
+            </div>
+            <div class="w-50">
+              <h6 class="text-white mb-4">POLITICA DE PRIVACIDADE</h6>
+              <a href="#" class="d-block text-white mb-2">Termos de Uso</a>
+            </div>
+            <div class="w-100 w-lg-75 mt-4 d-none">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                    <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                  </span>
+                </div>
+                <input type="text" style="height: 55px;" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="Receba nossas promoções">
+                <div class="input-group-append">
+                  <span class="input-group-text p-0 bg-white" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                    <button class="btn btn-link btn_buscar _color_green"><strong>SUBSCRIBE</strong></button>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 pt-5 mt-5">
+            <p class="text-white text-center" style="font-size: 14px;">Copyright © 2020. todos os direitos reservados.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!--=========== fim footer ===========-->
+
+    <!--=========== modal filtros ===========-->
+    <div class="modal" id="modal_filtro" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px;">
+          <div class="modal-header border-0">
+            <h5 class="modal-title"><strong>Filtros</strong></h5>
+            <button type="button" style="opacity: 1;" class="close" data-dismiss="modal" aria-label="Close">
+              <img style="width: 20px; color: #000;" src="assets/img/close_modal.svg">
+            </button>
+          </div>
+          <div class="modal-body border-0">
+            <div class="form-group">
+              <label>Embalagem</label>
+              <select class="form-control">
+                <option>Selecionar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Categoria</label>
+              <select class="form-control">
+                <option>Selecionar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tipo</label>
+              <select class="form-control">
+                <option>Selecionar</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Preço</label>
+              <div class="slider-container pl-2">
+                  <input type="text" id="slider3" class="slider" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--=========== fim modal filtros ===========-->
+
+    <script src="assets/js/jquery-3.4.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/rSlider.js"></script>
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

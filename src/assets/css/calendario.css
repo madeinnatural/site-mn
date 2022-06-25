@@ -1,0 +1,23 @@
+
+#cont_caendar {display: none; position: absolute; right: 0; top: 95px; z-index: 99; width: 620px;border: 1px solid #1b202e; border-radius: 3px; background-color: #fff;}
+.calendar {margin: auto;font-family: 'Lato', sans-serif;font-weight: 400;}
+.calendar_weekdays {color: #757575;font-size: 80%;}
+.calendar_content, .calendar_weekdays, .calendar_header {position: relative;}
+.calendar_weekdays div, .calendar_content div {width: 39px;height: 38px;line-height: 38px;padding: 0;text-align: center;color: #757575;background-color: transparent;}
+.calendar_content div {position: relative;border: none; cursor: pointer;margin: 0;} 
+.calendar_content div:hover {background-color: rgba(153, 153, 161, .2);}
+.calendar_content div.blank {cursor: default;pointer-events: none;}
+.calendar_content div.past-date {cursor: initial;color: #d5d5d5;}
+.calendar_content div.selected {background-color: #FCEFE0; border: none !important;}
+.calendar_content .first_data, 
+.calendar_content .last_data {background-color: #ff5722 !important;color: #fff;border-radius: 3px;}
+.calendar_content .first_data::after {content: "";position: absolute;top: 50%;width: 0;height: 0;z-index: 99;border-top: 5px solid transparent;border-bottom: 5px solid transparent;margin-top: -5px;left: 100%;border-left: 5px solid #ff5722;}
+.calendar_content .last_data::after {content: "";position: absolute;top: 50%;width: 0;height: 0;border-top: 5px solid transparent;border-bottom: 5px solid transparent;margin-top: -5px;right: 100%;border-right: 5px solid #ff5722;}
+.calendar_header h2 {color: #3c3f40;margin-top: 7px;font-size: 18px;margin-bottom: 2px;font-weight: 700;caption-side: top;}  
+button.switch-month {padding: 6px 9px;border: 1px solid #dce0e0;background-color: #fff;color: #757575;border-radius: 3px;}  
+button.switch-month:hover {border: 1px solid #c4c4c4;}
+button.switch-month:active {background-color: rgba(113, 113, 125, .4);}
+.cont_opcoes_periodos {border-top: 1px solid #e4e6ea;}
+.cont_opcoes_periodos .btn {margin-bottom: -1px; cursor: pointer;position: relative;padding: 0 10px;color: #353944;font-weight: 300;outline: none;box-shadow: none;}
+.cont_opcoes_periodos .btn div {padding: 10px 0;}
+.cont_opcoes_periodos .btn.active_ div {font-weight: 600;border-bottom: solid 1px rgb(255, 87, 34);}
