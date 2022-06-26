@@ -1,5 +1,7 @@
+import { LoginService } from './../../core/account/login.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserLogin } from 'src/app/core/model/User';
 
 @Component({
   selector: 'app-account',
@@ -12,9 +14,11 @@ export class AccountComponent implements OnInit {
   promo = false;
 
   formCadastro: FormGroup;
+  formLogin: FormGroup;
 
   constructor(
     private formBuilder: FormBuilder,
+    private authServeice: LoginService,
   ) {
     this.formCadastro = formBuilder.group({
       name: [],
@@ -22,6 +26,11 @@ export class AccountComponent implements OnInit {
       cnpj: [],
       phone: [],
       senha: [],
+    });
+
+    this.formLogin = formBuilder.group({
+      email: [],
+      password: []
     });
   }
 
@@ -31,6 +40,10 @@ export class AccountComponent implements OnInit {
   submit(event?: any) {
     console.log('promo ', this.promo)
     console.log(this.formCadastro)
+  }
+
+  login() {
+    this.authServeice.loginUser(this.formLogin.value)
   }
 
 

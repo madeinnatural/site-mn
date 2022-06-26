@@ -1,3 +1,4 @@
+import { FooterComponent } from './footer/footer.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +12,8 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
   declarations: [
     HeaderComponent,
     CarrouselComponent,
-    ProductsCartComponent
+    ProductsCartComponent,
+    FooterComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
   exports: [
     HeaderComponent,
     CarrouselComponent,
-    ProductsCartComponent
+    ProductsCartComponent,
+    FooterComponent
   ]
 })
 export class ComponentsModule { }

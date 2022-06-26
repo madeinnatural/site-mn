@@ -1,3 +1,4 @@
+import { LoginService } from './core/account/login.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'SITE-MADE-IN-NATURAL';
+
+  showFooterHeader = false;
+
+  constructor(
+    private authService: LoginService,
+  ) {
+    this.authService.hidderHeaderFooter.subscribe((mostrar)=>{
+      this.showFooterHeader = mostrar;
+    })
+  }
+
 }
