@@ -8,14 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
-  showFooterHeader = false;
-
-  constructor(
-    private authService: LoginService,
-  ) {
-    this.authService.hidderHeaderFooter.subscribe((mostrar)=>{
-      this.showFooterHeader = mostrar;
-    })
-  }
 
 }

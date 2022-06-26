@@ -9,8 +9,6 @@ export class LoginService {
 
   private userAutentication = false;
 
-  hidderHeaderFooter = new EventEmitter<boolean>();
-
   constructor(
     public router: Router,
   ) { }
@@ -18,7 +16,6 @@ export class LoginService {
   loginUser(userLogin: UserLogin) {
 
     if (userLogin.email == '' || userLogin.password == '') {
-      this.hidderHeaderFooter.emit(false);
       throw new Error('Ou email ou senha não pode ser nulo')
     } else {
       this.userAutentication = true;
@@ -26,10 +23,9 @@ export class LoginService {
       // COLOCA A LÓGICA DE LOGIN QUE RETONA O TOKEN OU CAMPOS INVALIDOS AQUI
       console.log(userLogin)
 
-      this.hidderHeaderFooter.emit(true);
-
       this.router.navigate(['/'])
     }
 
   }
+
 }

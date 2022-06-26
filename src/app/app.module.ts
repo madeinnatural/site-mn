@@ -1,3 +1,4 @@
+import { AccountService } from './core/account/account.service';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +20,7 @@ import { LoginService } from './core/account/login.service';
     ComponentsModule,
     ReactiveFormsModule
   ],
-  providers: [LoginService],
+  providers: [LoginService, AccountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

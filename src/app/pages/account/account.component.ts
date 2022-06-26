@@ -1,5 +1,6 @@
+import { AccountService } from './../../core/account/account.service';
 import { LoginService } from './../../core/account/login.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UserLogin } from 'src/app/core/model/User';
 
@@ -8,7 +9,7 @@ import { UserLogin } from 'src/app/core/model/User';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
-export class AccountComponent implements OnInit {
+export class AccountComponent implements OnInit, OnDestroy {
 
   typeAccount: 'login' | 'cadastro' = 'login';
   promo = false;
@@ -18,7 +19,8 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authServeice: LoginService,
+    private authService: LoginService,
+    private accountService: AccountService
   ) {
     this.formCadastro = formBuilder.group({
       name: [],
@@ -32,6 +34,9 @@ export class AccountComponent implements OnInit {
       email: [],
       password: []
     });
+
+    accountService.loginActiver(true);
+
   }
 
   ngOnInit(): void {
@@ -43,9 +48,12 @@ export class AccountComponent implements OnInit {
   }
 
   login() {
-    this.authServeice.loginUser(this.formLogin.value)
+    this.authService.loginUser(this.formLogin.value)
   }
 
+  ngOnDestroy() {
+    this.accountService.loginActiver(false);
+  }
 
 
 }

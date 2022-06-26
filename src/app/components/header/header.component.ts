@@ -1,3 +1,6 @@
+import { AccountService } from './../../core/account/account.service';
+import { AccountComponent } from './../../pages/account/account.component';
+import { LoginService } from './../../core/account/login.service';
 import { Component, OnInit } from '@angular/core';
 import { Navigation, Router } from '@angular/router';
 
@@ -8,9 +11,19 @@ import { Navigation, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  showHeader: boolean = true;
+
   constructor(
-    public nav: Router
-  ) { }
+    private nav: Router,
+    private accountService: AccountService,
+  ) {
+
+    // QUANDO NA ROTA DE LOGIN FECHAR MENU
+    accountService.hidderHeaderFooter.subscribe((mostrar)=>{
+      this.showHeader = !mostrar;
+    })
+
+   }
 
   ngOnInit(): void {
   }
@@ -18,5 +31,6 @@ export class HeaderComponent implements OnInit {
   goPageLogin() {
     this.nav.navigate(['login']);
   }
+
 
 }
