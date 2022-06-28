@@ -1,3 +1,4 @@
+import { GlobalEventService } from './../../core/global/global.service';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Item, Product } from './../../core/model/Product';
 import { ServerService } from './../../core/server/server.service';
@@ -19,7 +20,8 @@ export class ProductsCartComponent implements OnInit {
 
   constructor(
     private server: ServerService,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    private globalEventService: GlobalEventService,
   ) {}
 
   async showProductsAll() {
@@ -42,7 +44,8 @@ export class ProductsCartComponent implements OnInit {
         productName: e.productName,
         price: e.price ? e.price : 0.00,
         product_type: e.product_type ? e.product_type : 'INDEFINIDO',
-        weight: e.weight ? e.weight : 0.00
+        weight: e.weight ? e.weight : 0.00,
+        amount: 0,
       }
     });
 
@@ -50,13 +53,36 @@ export class ProductsCartComponent implements OnInit {
   }
 
   initCart(product: Product) {
+
+    this.addItemCart(product);
+
+  }
+
+  addItemCart(product: Product) {
+
+    this.listProduct[this.listProduct.findIndex(e => e.id == product.id)].amount += 1;
+
     const item: Item = {
       id: product.id,
-      amount: 1,
+      amount: 0,
       parcial_price: product.price,
       product
     };
+
     this.purchaseService.addItemCart(item);
+  }
+
+  removeItem (product: Product) {
+    this.listProduct[this.listProduct.findIndex(e => e.id == product.id)].amount -= 1;
+
+    const item: Item = {
+      id: product.id,
+      amount: product.amount,
+      parcial_price: product.price,
+      product
+    };
+
+    this.purchaseService.removeItem(item);
   }
 
 }

@@ -13,6 +13,86 @@ export class PurchaseService {
 
   constructor( private cookieService:CookieService ) { }
 
+  itemCount() {
+    const cart_jason = this.cookieService.getItem('cart');
+
+    if (cart_jason) {
+      const cart = this.getCartLocalStorage();
+      return cart.length
+    }
+
+    return 0;
+  }
+
+  clearCart() {
+    this.cookieService.removeItem('cart');
+  }
+
+  deleItem(item: Item) {
+    const cart_json = this.cookieService.getItem('cart');
+
+    if (cart_json) {
+      const cart = this.getCartLocalStorage();
+
+      if (cart.some(e => e.id == item.id)) {
+
+        cart.splice(cart.findIndex(e => e.id == item.id), 1);
+
+        this.cookieService.setItem('cart', JSON.stringify(cart));
+
+      }
+
+    }
+  }
+
+  removeItem(item: Item) {
+
+    // CASO JÁ EXISTA CARRINHO
+    if (this.cookieService.hasItem('cart')) {
+
+      const cart = this.getCartLocalStorage();
+
+      // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
+      if ( cart.some(current_item => current_item.id == item.id )) {
+
+        const count_item = cart[cart.findIndex((e)=> e.id == item.id)].amount - 1;
+        const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].product.price * count_item;
+
+        if (count_item == 0) {
+
+          cart.splice(cart.findIndex((e)=> e.id == item.id), 1)
+
+          this.cookieService.setItem('cart', JSON.stringify(cart));
+
+          return;
+
+        }
+
+        cart.splice(cart.findIndex((e)=> e.id == item.id), 1)
+
+        cart.push({
+          amount: count_item,
+          id: item.id,
+          parcial_price: curret_price,
+          product: item.product
+        });
+
+
+
+        this.cookieService.setItem('cart', JSON.stringify(cart));
+
+      } else {
+
+        cart.push(item)
+
+        this.cookieService.setItem('cart', JSON.stringify(cart));
+      }
+    } else {
+      this.addDirectItem(item);
+    }
+
+  }
+
   addItemCart(item: Item) {
 
     // CASO JÁ EXISTA CARRINHO
@@ -24,7 +104,7 @@ export class PurchaseService {
       if ( cart.some(current_item => current_item.id == item.id )) {
 
         const count_item = cart[cart.findIndex((e)=> e.id == item.id)].amount + 1;
-        const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].parcial_price * count_item;
+        const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].product.price * count_item;
 
         cart.splice(cart.findIndex((e)=> e.id == item.id), 1)
 
@@ -46,9 +126,6 @@ export class PurchaseService {
     } else {
       this.addDirectItem(item);
     }
-
-    console.log(JSON.parse(this.cookieService.getItem('cart') as string))
-
 
   }
 

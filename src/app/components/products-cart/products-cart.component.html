@@ -77,13 +77,13 @@
 
                 <td scope="row" >
 
-                  <!-- <div class="d-flex pl-2">
-                    <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
-                      <h5 class="mx-2">0</h5>
-                    <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
-                  </div> -->
+                  <div class="d-flex pl-2" *ngIf="product.amount && product.amount > 0" >
+                    <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
+                      <h5 class="mx-2">{{product.amount}}</h5>
+                    <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
+                  </div>
 
-                  <div class="d-flex w-100 justify-content-center">
+                  <div class="d-flex w-100 justify-content-center" *ngIf="product.amount == 0">
                     <button class="btn d-flex align-items-center">
                       <img style="width: 26px;" src="assets/img/carrinho.svg">
                       <h6 class="_color_green ml-3 mb-0" (click)="initCart(product)">Adicionar ao carrinho</h6>

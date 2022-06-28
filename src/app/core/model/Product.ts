@@ -5,6 +5,7 @@ export class Product {
     public weight: number,
     public price: number,
     public product_type: string,
+    public amount: number,
     public categoria?: string,
   ){}
 }
