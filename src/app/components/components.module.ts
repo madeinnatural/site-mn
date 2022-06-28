@@ -1,3 +1,7 @@
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { FooterComponent } from './footer/footer.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,7 +21,11 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
   ],
   imports: [
     CommonModule,
-    ComponentsRoutingModule
+    ComponentsRoutingModule,
+    MatProgressBarModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   exports: [
     HeaderComponent,

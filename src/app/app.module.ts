@@ -12,6 +12,11 @@ import { LoginService } from './core/account/login.service';
 import { GlobalEventService } from './core/global/global.service';
 import { ServerService } from './core/server/server.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatListModule } from '@angular/material/list'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -23,7 +28,12 @@ import { HttpClientModule } from '@angular/common/http';
     PagesModule,
     ComponentsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressBarModule,
+    BrowserAnimationsModule,
+    MatListModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService],
   bootstrap: [AppComponent]
