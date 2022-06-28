@@ -1,3 +1,4 @@
+import { CookieService } from '@ngx-toolkit/cookie';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { GlobalEventService } from './../../core/global/global.service';
 import { AccountService } from './../../core/account/account.service';
@@ -13,21 +14,30 @@ export class HeaderComponent implements OnInit {
 
   showHeader: boolean = true;
   finalPrice: number = 0;
-  cartLength: number = 0;
+
+  get cartLength () {
+
+    const cart_j = this.cookieService.getItem('cart')
+
+    if (cart_j) {
+      return JSON.parse(cart_j).length
+    }
+
+    return 0
+  }
 
   constructor(
     private nav: Router,
     private accountService: AccountService,
     private globalEventService: GlobalEventService,
     private purchaseService: PurchaseService,
+    private cookieService: CookieService
   ) {
 
 
    }
 
   ngOnInit(): void {
-
-    this.cartLength = this.getLengthPurhase();
 
     this.finalPrice = this.totalPrice();
 
@@ -37,8 +47,6 @@ export class HeaderComponent implements OnInit {
     })
 
     this.globalEventService.addItemCartEmit.subscribe(e => {
-
-      this.cartLength = this.getLengthPurhase();
 
       this.finalPrice = this.totalPrice()
     });
