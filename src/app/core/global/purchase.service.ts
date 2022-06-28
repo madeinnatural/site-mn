@@ -55,7 +55,7 @@ export class PurchaseService {
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if ( cart.some(current_item => current_item.id == item.id )) {
 
-        const count_item = cart[cart.findIndex((e)=> e.id == item.id)].amount - 1;
+        const count_item = cart[cart.findIndex((e)=> e.id == item.id)].product.amount - 1;
         const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].product.price * count_item;
 
         if (count_item == 0) {
@@ -103,7 +103,7 @@ export class PurchaseService {
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if ( cart.some(current_item => current_item.id == item.id )) {
 
-        const count_item = cart[cart.findIndex((e)=> e.id == item.id)].amount + 1;
+        const count_item = cart[cart.findIndex((e)=> e.id == item.id)].product.amount + 1;
         const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].product.price * count_item;
 
         cart.splice(cart.findIndex((e)=> e.id == item.id), 1)
@@ -136,11 +136,21 @@ export class PurchaseService {
     // CASO EXISTA O CARRINHO VASIO DEVO APENAS ADICIONAR MAIS UM ITEM LÁ
     if (current_cart) {
 
-      const _cart = JSON.parse(current_cart);
+      const cart = this.getCartLocalStorage()
 
-      _cart.push(item);
+      const count_item = cart[cart.findIndex((e)=> e.id == item.id)].product.amount + 1;
+      const curret_price = cart[cart.findIndex((e)=> e.id == item.id)].product.price * count_item;
 
-      this.cookieService.setItem('cart', JSON.stringify(_cart));
+      cart.splice(cart.findIndex((e)=> e.id == item.id), 1)
+
+      cart.push({
+        amount: count_item,
+        id: item.id,
+        parcial_price: curret_price,
+        product: item.product
+      });
+
+      this.cookieService.setItem('cart', JSON.stringify(cart));
 
     } else {
 
