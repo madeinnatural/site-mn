@@ -37,6 +37,10 @@ export class GlobalEventService {
     public eventWithoutCompany = new EventEmitter<any>();
     public publicarEvento = new EventEmitter<any>();
 
+
+    addItemCartEmit = new EventEmitter<'removel:cart' | 'add:cart' | 'init:cart'>();
+
+
     public errorPurchase = new EventEmitter<{ showError: boolean, text: string }>();
 
     constructor(private http: HttpClient) { }

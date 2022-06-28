@@ -13,12 +13,33 @@ export class PurchaseService {
 
   constructor( private cookieService:CookieService ) { }
 
-  itemCount() {
+  totalPrice () {
+
     const cart_jason = this.cookieService.getItem('cart');
 
     if (cart_jason) {
       const cart = this.getCartLocalStorage();
-      return cart.length
+
+      console.log(cart);
+
+      let total = 0;
+      for ( let i = 0; i < cart.filter(e => e.parcial_price > 0).length; i++ ){
+        total += cart[i].parcial_price;
+      }
+
+      return total
+    }
+
+    return 0
+  }
+
+  itemCount() {
+
+    const cart_jason = this.cookieService.getItem('cart');
+
+    if (cart_jason) {
+      const cart = this.getCartLocalStorage();
+      return cart.length;
     }
 
     return 0;

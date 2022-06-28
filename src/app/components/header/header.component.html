@@ -41,13 +41,13 @@
         </div>
         <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
           <img style="height: 23px;" src="assets/img/bag.svg">
-          <div class="btn_green tot_itens_pedido">2</div>
+          <div class="btn_green tot_itens_pedido" *ngIf="cartLength > 0">{{cartLength}}</div>
         </button>
       </div>
 
       <div id="menu_fechar_pedido" class="bg-white">
         <div class="p-4 cont_valor">
-          <div class="valor">{{1120.00 | currency:'BRL':true:'1.2-2'}}</div>
+          <div class="valor">{{ finalPrice | currency:'BRL':true:'1.2-2'}}</div>
         </div>
         <div class="p-4 w-100">
           <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido" (click)="goCart()" >Fechar Pedido</button>

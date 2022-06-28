@@ -2,7 +2,7 @@ import { GlobalEventService } from './../../core/global/global.service';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Item, Product } from './../../core/model/Product';
 import { ServerService } from './../../core/server/server.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-products-cart',
@@ -70,9 +70,14 @@ export class ProductsCartComponent implements OnInit {
     };
 
     this.purchaseService.addItemCart(item);
+
+    this.globalEventService.addItemCartEmit.emit('add:cart');
   }
 
   removeItem (product: Product) {
+
+    this.globalEventService.addItemCartEmit.emit('removel:cart');
+
     this.listProduct[this.listProduct.findIndex(e => e.id == product.id)].amount -= 1;
 
     const item: Item = {
