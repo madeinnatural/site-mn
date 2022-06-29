@@ -1,5 +1,6 @@
 export default class User {
   constructor(
+    public id: string,
     public cnpj: string,
     public email: string,
     public phone: string,

@@ -32,5 +32,9 @@ export class HeaderComponent implements OnInit {
     this.nav.navigate(['login']);
   }
 
+  goCart() {
+    this.nav.navigate(['cart']);
+  }
+
 
 }

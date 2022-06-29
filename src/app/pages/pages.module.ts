@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -13,12 +14,16 @@ import { AccountComponent } from './account/account.component';
     HomeComponent,
     AccountComponent,
     AccountComponent,
+    CartComponent
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     ComponentsModule,
     ReactiveFormsModule
+  ],
+  exports: [
+    CartComponent,
   ]
 })
 export class PagesModule { }

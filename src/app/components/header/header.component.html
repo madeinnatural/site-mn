@@ -44,16 +44,24 @@
           <div class="btn_green tot_itens_pedido">2</div>
         </button>
       </div>
+
       <div id="menu_fechar_pedido" class="bg-white">
         <div class="p-4 cont_valor">
-          <div class="valor">= R$ 1,120,00</div>
+          <div class="valor">{{1120.00 | currency:'BRL':true:'1.2-2'}}</div>
         </div>
         <div class="p-4 w-100">
-          <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido">Fechar Pedido</button>
+          <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido" (click)="goCart()" >Fechar Pedido</button>
           <div class="mt-3 text-center text_n_tem_conta">Não possui conta? <a href="" class="_color_green">Cadastre-se</a></div>
         </div>
       </div>
+
+
     </div>
   </div>
 </header>
 <!--=========== fim header ===========-->
+
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/rSlider.js"></script>
+<script src="assets/js/script.js"></script>

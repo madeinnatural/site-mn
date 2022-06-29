@@ -1,3 +1,5 @@
+import { Product } from './../../core/model/Product';
+import { ServerService } from './../../core/server/server.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -7,56 +9,28 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductsCartComponent implements OnInit {
 
-  @Input('listProduct') listProduct: Array<{
-    name: string;
-    price: number;
-    weigth: number;
-    category: string;
-    amount: number;
-  }> = [];
+  @Input('listProduct') listProduct: Array<Product> = [];
 
-  constructor() {
-    this.listProduct = [
-      {
-        name: 'Açúcar Mascavo Orgânico',
-        price: 2.5,
-        weigth: 1.0,
-        category: 'Categoria 1',
-        amount: 0,
-      },
-      {
-        name: 'Açúcar Mascavo Orgânico',
-        price: 2.5,
-        weigth: 1.0,
-        category: 'Categoria 1',
-        amount: 0,
-      },
-    ];
-  }
+  currentPage: number = 1;
 
-  showProductsAll() {
-    const productsListServer = [
-      {
-        name: 'Sabonete',
-        price: 3.5,
-        weigth: 1.0,
-        category: 'Categoria 1',
-        amount: 0,
-      },
-      {
-        name: 'Perfeuma',
-        price: 4.5,
-        weigth: 1.0,
-        category: 'Categoria 1',
-        amount: 0,
-      },
-    ];
+  constructor(
+    private server: ServerService,
+  ) {}
 
-    this.listProduct.push(...productsListServer);
+  async showProductsAll() {
+    this.currentPage += 1;
+    const products = await this.server.getProductListHome(this.currentPage);
+    this.listProduct.push(...products.result);
   }
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
+
+    const produts = await this.server.getProductListHome(this.currentPage);
+
+    console.log(produts)
+
+    this.listProduct = produts.result;
   }
 
 }

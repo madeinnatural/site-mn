@@ -1,3 +1,4 @@
+import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './core/account/account.service';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
@@ -8,6 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './core/account/login.service';
+import { GlobalEventService } from './core/global/global.service';
+import { ServerService } from './core/server/server.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -18,9 +22,10 @@ import { LoginService } from './core/account/login.service';
     AppRoutingModule,
     PagesModule,
     ComponentsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [LoginService, AccountService],
+  providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

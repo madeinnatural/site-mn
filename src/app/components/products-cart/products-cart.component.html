@@ -38,33 +38,29 @@
               <th class="border-0 d-none d-lg-inline-block">Categoria</th>
               <th class="border-0 d-none d-lg-inline-block">Preço</th>
               <th class="border-0 d-none d-lg-inline-block">Peso</th>
-              <th class="border-0 d-none d-lg-inline-block">
-                Adicionar ao carrinho
-              </th>
+              <th class="border-0 d-none d-lg-inline-block">Adicionar ao carrinho</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let product of listProduct; index as i">
               <td>
-                <strong [innerText]="product.name"></strong>
+                <h2 [title]="product.productName"></h2>
                 <div class="d-lg-none">
                   <div class="d-flex justify-content-between mt-2">
-                    <div [innerText]="product.category"></div>
+                    <div [innerText]="product.product_type | titlecase"></div>
                     <div [innerText]="product.price | currency: 'BRL'"></div>
                   </div>
-                  <div [innerText]="product.weigth"></div>
+                  <div [innerText]="product.weight"></div>
                   <br />
                   <div class="d-flex w-100 justify-content-center">
                     <button
                       class="btn btn_remove"
-                      (click)="product.amount = product.amount - 1"
                     >
                       <img style="width: 12px" src="assets/img/minus.svg" />
                     </button>
-                    <h5 class="mx-2" [innerText]="product.amount"></h5>
+                    <h5 class="mx-2">0</h5>
                     <button
                       class="btn btn_remove"
-                      (click)="product.amount = product.amount + 1"
                     >
                       <img style="width: 12px" src="assets/img/add.svg" />
                     </button>
@@ -73,35 +69,32 @@
               </td>
               <td
                 class="d-none d-lg-inline-block"
-                [innerText]="product.category"
+                [innerText]="product.product_type"
               ></td>
               <td
                 class="d-none d-lg-inline-block"
                 [innerText]="product.price | currency: 'BRL'"
               ></td>
               <td class="d-none d-lg-inline-block">1kg</td>
-              <td class="d-none d-lg-inline-block" *ngIf="product.amount > 0">
+              <td class="d-none d-lg-inline-block">
                 <div class="d-flex pl-2">
                   <button
                     class="btn btn_remove"
-                    (click)="product.amount = product.amount - 1"
                   >
                     <img style="width: 12px" src="assets/img/minus.svg" />
                   </button>
-                  <h5 class="mx-2" [innerText]="product.amount"></h5>
+                  <h5 class="mx-2">0</h5>
                   <button
                     class="btn btn_remove"
-                    (click)="product.amount = product.amount + 1"
                   >
                     <img style="width: 12px" src="assets/img/add.svg" />
                   </button>
                 </div>
               </td>
-              <td class="d-none d-lg-inline-block" *ngIf="product.amount == 0">
+              <td class="d-none d-lg-inline-block">
                 <div class="d-flex">
                   <button
                     class="btn d-flex align-items-center"
-                    (click)="product.amount = product.amount + 1"
                   >
                     <img style="width: 26px" src="assets/img/carrinho.svg" />
                     <h6 class="_color_green ml-3 mb-0">
@@ -197,4 +190,9 @@
   </div>
 </section>
 <!--=========== fim categorias ===========-->
+
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/rSlider.js"></script>
+<script src="assets/js/script.js"></script>
 

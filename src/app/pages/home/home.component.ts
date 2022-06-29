@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from '@ngx-toolkit/cookie';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,10 @@ export class HomeComponent implements OnInit {
     amount: number;
   }> = [];
 
-  constructor() {
+  constructor(
+    private cookies: CookieService,
+  ) {
+    cookies.setItem('auth_token', 'sdasasd')
   }
 
 

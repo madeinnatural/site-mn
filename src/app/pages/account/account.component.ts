@@ -48,6 +48,7 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   login() {
+    console.log('this.formLogin.value', this.formLogin)
     this.authService.loginUser(this.formLogin.value)
   }
 
