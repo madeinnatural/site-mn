@@ -7,20 +7,7 @@ import { CookieService } from '@ngx-toolkit/cookie';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  public listProduct: Array<{
-    name: string;
-    price: number;
-    weigth: number;
-    category: string;
-    amount: number;
-  }> = [];
-
-  constructor(
-    private cookies: CookieService,
-  ) {
-    cookies.setItem('auth_token', 'sdasasd')
-  }
-
+  constructor() {}
 
   ngOnInit(): void {}
 }

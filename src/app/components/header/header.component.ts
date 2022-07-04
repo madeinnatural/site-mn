@@ -13,7 +13,16 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
   showHeader: boolean = true;
-  finalPrice: number = 0;
+  _finalPrice: number = 0;
+
+  get finalPrice () {
+    this._finalPrice = this.purchaseService.totalPrice()
+    return this._finalPrice
+  }
+
+  set finalPrice (e) {
+    this._finalPrice = e
+  }
 
   get cartLength () {
 

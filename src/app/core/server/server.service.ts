@@ -28,10 +28,10 @@ export class ServerService {
     }
 
     async login(params: UserLogin) {
-      return this.talkToServer('token', { email: params.email, password: params.password }, {type: 'POST'} );
+      return this.http.post<string>('token', { email: params.email, password: params.password });
     }
 
-    private getToken(): string | null {
+    public getToken(): string | null {
       return this.cookies.getItem(this.global.AUTH_TOKEN_COOKIE);
     }
 

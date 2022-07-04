@@ -106,8 +106,6 @@ export class PurchaseService {
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
-    } else {
-      this.addDirectItem(item);
     }
   }
 
