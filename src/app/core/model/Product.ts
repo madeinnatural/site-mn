@@ -19,3 +19,12 @@ export class Item {
     public parcial_price: number, // QUANTIDADE * PREÇO DO PRODUTO
   ){}
 }
+
+export class CartProduct {
+  constructor(
+      amount: number,
+      id: number,
+      parcial_price: number,
+      product: Product
+  ){}
+}

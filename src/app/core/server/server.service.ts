@@ -23,8 +23,8 @@ export class ServerService {
     ) {}
 
 
-    async getProductListHome(page: number): Promise<{error: boolean, result: Array<Product>}>{
-      return await this.talkToServer('', page);
+    getProductListHome(page: number) {
+      return this.http.get<{error: boolean, result: Product[]}>(environment.apiUrl, {params: {page}});
     }
 
     async login(params: UserLogin) {

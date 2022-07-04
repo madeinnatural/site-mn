@@ -16,6 +16,7 @@ export class AuthQuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
 
     return true
+    
 
     this.router.navigate(['/login']);
 
