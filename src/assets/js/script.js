@@ -30,7 +30,6 @@ $(function() {
         tooltip: true,
         labels: false,
         onChange: function (vals) {
-            console.log(vals);
         }
       });
     }

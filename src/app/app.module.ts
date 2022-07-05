@@ -17,6 +17,7 @@ import { MatListModule } from '@angular/material/list'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { ProductService } from './core/global/product.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatTableModule,
     MatPaginatorModule
   ],
-  providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService],
+  providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

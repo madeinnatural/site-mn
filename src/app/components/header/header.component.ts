@@ -78,5 +78,9 @@ export class HeaderComponent implements OnInit {
     this.nav.navigate(['cart']);
   }
 
+  goHome(){
+    this.nav.navigate(['/']);
+  }
+
 
 }

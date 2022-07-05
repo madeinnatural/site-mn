@@ -42,7 +42,7 @@
                 <th scope="col">Preço</th>
                 <th scope="col">Peso</th>
                 <th scope="col">Adicionar ao carrinho</th>
-              <mat-progress-bar *ngIf="loadingListProducts" mode="indeterminate"></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </tr>
           </thead>
 
@@ -103,7 +103,7 @@
       </div>
     </div>
 
-    <div class="row" *ngIf="listProduct.length <= 10">
+    <div class="row" *ngIf="listProduct">
       <div class="col-12 mt-4">
         <button
           class="btn d-block m-auto btn_outline_green"

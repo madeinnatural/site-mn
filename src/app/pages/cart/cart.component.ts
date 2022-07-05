@@ -1,3 +1,4 @@
+import { ProductService } from './../../core/global/product.service';
 import { Product } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
@@ -39,18 +40,22 @@ export class CartComponent implements OnInit {
 
   constructor(
     public purchaseService: PurchaseService,
-  ) {}
-
-  ngOnInit() {
-
+    public productService: ProductService
+  ) {
   }
+
+  ngOnInit() {}
 
   removeItem(item: Item) {
     this.purchaseService.deleItem(item);
   }
 
-  remove(id: number){}
+  remove(item: Item){
+    this.productService.decreaseItemCart(item);
+  }
 
-  add(id: number){}
+  add(item: Item){
+    this.productService.addCurrentItemCart(item);
+  }
 
 }

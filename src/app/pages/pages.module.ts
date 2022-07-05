@@ -1,5 +1,7 @@
+
+import { DashboardProfileComponent } from './profile/dashboard-profile/dashboard-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ComponentsModule } from './../components/components.module';
+import { ComponentsModule } from '../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +9,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { CartComponent } from './cart/cart.component';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -14,7 +17,9 @@ import { CartComponent } from './cart/cart.component';
     HomeComponent,
     AccountComponent,
     AccountComponent,
-    CartComponent
+    CartComponent,
+    ProfileComponent,
+    DashboardProfileComponent
   ],
   imports: [
     CommonModule,

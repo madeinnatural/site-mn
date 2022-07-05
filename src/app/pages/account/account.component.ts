@@ -43,12 +43,9 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   submit(event?: any) {
-    console.log('promo ', this.promo)
-    console.log(this.formCadastro)
   }
 
   login() {
-    console.log('this.formLogin.value', this.formLogin)
     this.authService.loginUser(this.formLogin.value)
   }
 

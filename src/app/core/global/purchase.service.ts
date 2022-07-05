@@ -19,8 +19,6 @@ export class PurchaseService {
     if (cart_jason) {
       const cart = this.getCartLocalStorage();
 
-      console.log(cart);
-
       let total = 0;
       for (let i = 0; i < cart.filter((e) => e.parcial_price > 0).length; i++) {
         total += cart[i].parcial_price;
@@ -101,10 +99,6 @@ export class PurchaseService {
         });
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
-      } else {
-        cart.push(item);
-
-        this.cookieService.setItem('cart', JSON.stringify(cart));
       }
     }
   }
@@ -145,21 +139,24 @@ export class PurchaseService {
     }
   }
 
-  getProductCart():
-    | {
-        amount: number;
-        id: number;
-        parcial_price: number;
-        product: Product;
-      }[]
-    | null {
+  getProductCart(): Item [] | null {
     const cart = this.cookieService.getItem('cart');
-    if (cart){
-      const cart_current = JSON.parse(cart)
-      if (cart_current.length > 0) return cart_current
-    };
+    if (cart) {
+      const cart_current = JSON.parse(cart);
+      if (cart_current.length > 0) return cart_current;
+    }
 
     return null;
+  }
+
+  setProductCart(cart: Array<Item>) {
+    if (cart) {
+      const _cart = JSON.stringify(cart);
+      if (this.cookieService.hasItem('cart')) {
+        this.cookieService.removeItem('cart');
+        this.cookieService.setItem('cart',_cart);
+      }
+    }
   }
 
   private addDirectItem(item: Item) {
