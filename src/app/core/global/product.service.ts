@@ -124,6 +124,16 @@ export class ProductService {
 
   // PARA PAGINA DE CARRINHO DE COMPRAS
 
+  getCart() {
+    const cart = this.purchaseService.getProductCart();
+
+    if (cart) {
+      return cart;
+    } else {
+      throw new Error('Ainda sem carrinho de compras')
+    }
+  }
+
   addCurrentItemCart(item: Item) {
     const cart = this.purchaseService.getProductCart();
 

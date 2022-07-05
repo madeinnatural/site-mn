@@ -1,3 +1,4 @@
+import { Item } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,9 @@ export class ServerService {
     private http: HttpClient,
     ) {}
 
+    finishPurchase(products: Array<any>){
+      return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
+    }
 
     getProductListHome(page: number) {
       return this.http.get<{error: boolean, result: Product[]}>(environment.apiUrl, {params: {page}});

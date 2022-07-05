@@ -1,3 +1,4 @@
+import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
 import { Product } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
@@ -40,7 +41,8 @@ export class CartComponent implements OnInit {
 
   constructor(
     public purchaseService: PurchaseService,
-    public productService: ProductService
+    public productService: ProductService,
+    public server: ServerService,
   ) {
   }
 
@@ -56,6 +58,25 @@ export class CartComponent implements OnInit {
 
   add(item: Item){
     this.productService.addCurrentItemCart(item);
+  }
+
+  async finalizePurchase(){
+    const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
+      return {
+        product_name: item.product.productName,
+        weight: item.product.weight,
+        category: item.product.categoria,
+        product_type: item.product.product_type,
+        amount: item.product.amount,
+        price: item.product.price
+      }
+    });
+
+    try {
+      await this.server.finishPurchase(cart);
+    } catch (error) {
+      console.log(error)
+    }
   }
 
 }
