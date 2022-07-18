@@ -34,11 +34,7 @@ export class HeaderComponent implements OnInit {
 
 
   get userPresent () {
-    if (this.cookieService.getItem('current_user')) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.cookieService.getItem('current_user');
   }
 
   constructor(

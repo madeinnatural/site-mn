@@ -14,10 +14,13 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: AccountComponent},
   {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
-  {path: 'profile/profile_data', canActivate: [AuthQuard], component: ProfileDataComponent},
-  {path: 'profile/profile_data/pedidos',canActivate: [AuthQuard], component: ProfileRequestsComponent},
-  {path: 'profile/profile_data/cotacao',canActivate: [AuthQuard], component: ProfileCotacaoComponent},
-  {path: 'exit',canActivate: [AuthQuard], component: HomeComponent}
+  {path: 'profile', canActivate: [AuthQuard], children: [
+    { path: '' , component: ProfileComponent, children: [
+      { path: 'pedidos',canActivate: [AuthQuard], component: ProfileRequestsComponent},
+      { path: 'profile_data',canActivate: [AuthQuard], component: ProfileDataComponent},
+      { path: 'cotacao',canActivate: [AuthQuard], component: ProfileCotacaoComponent }
+    ] },
+  ]},
 ];
 
 @NgModule({

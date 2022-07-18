@@ -36,7 +36,7 @@ export class LoginService {
         this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, res.token);
 
         // SALVA O USUÁRIO EM UM SERVIÇO.
-        this.userService.setUserLocalStorage = user;
+        this.userService.setUserLocalStorage(user);
 
         // RETORNA PARA ROTA ANTERIOR.
         this.router.navigate(['/']);

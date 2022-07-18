@@ -4,7 +4,7 @@ import { AccountService } from './../../../core/account/account.service';
 
 import { Router } from '@angular/router';
 import { ServerService } from './../../../core/server/server.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-profile-data',
@@ -13,14 +13,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileDataComponent implements OnInit {
 
-  user?: User
+  @Input('user') user?: User
 
   constructor(
     private serverService:ServerService,
     private userService: UserService,
     public router: Router
   ) {
-    this.user = userService.user;
+    if (this.user) {
+
+    } else {
+      this.user = userService.user;
+    }
   }
 
   ngOnInit() {}
