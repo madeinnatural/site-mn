@@ -19,5 +19,6 @@ Principais tecnologias usadas
 - [Minha conta](https://made-in-natural.web.app/minha_conta.html)
 - [Endereços](https://made-in-natural.web.app/enderecos.html)
 - [Histórico de compras](https://made-in-natural.web.app/historico_compras.html)
+- [Pedidos e cotações](https://made-in-natural.web.app/cotacoes.html)
 
 

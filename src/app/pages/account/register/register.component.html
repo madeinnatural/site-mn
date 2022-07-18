@@ -1,0 +1,63 @@
+<div *ngIf="type == 'registration'">
+
+  <div class="col-12 mb-4">
+    <div class="d-flex justify-content-center">
+      <a class="btn" (click)="type = 'login'">
+        <h3>Login</h3>
+      </a>
+      <a class="btn _color_green" style="text-decoration: underline;">
+        <h3>Cadastro</h3>
+      </a>
+    </div>
+  </div>
+
+  <form [formGroup]="formCadastro" (ngSubmit)="submit()">
+
+    <div class="col-12">
+
+      <input type="text" formControlName="name" name="name" class="form-control rounded-0 border-0 px-0 py-4"
+        placeholder="Nome" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+      <br>
+
+      <input type="text" formControlName="lastname" name="lastname" class="form-control rounded-0 border-0 px-0 py-4"
+        placeholder="Sobrenome" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+      <br>
+
+      <input type="text" maxlength="14" formControlName="cpf_cnpj" name="cnpj"
+        class="form-control rounded-0 border-0 px-0 py-4" placeholder="CNPJ / CPF"
+        style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+      <br>
+
+      <input type="email" formControlName="email" name="email" class="form-control rounded-0 border-0 px-0 py-4"
+        placeholder="Email" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+      <br>
+      <input type="text" formControlName="phone" name="telefone" class="form-control rounded-0 border-0 px-0 py-4"
+        placeholder="Telefone" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+      <br>
+      <input type="password" formControlName="password" name="password" class="form-control rounded-0 border-0 px-0 py-4"
+        placeholder="Senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+    </div>
+
+    <div class="col-12">
+      <br>
+      <label class="d-flex align-items-center">
+        <input formControlName="promo_active" type="checkbox" class="mr-3"> <span style="font-size: 13px;">Sim, eu
+          quero receber comunicações e
+          promocões</span>
+      </label>
+      <div style="color: grey; font-size: 13px;">Gostaríamos que você fosse o primeiro a receber notícias
+        personalizadas, ofertas especiais exclusivas relacionadas à PRIMA, nossos produtos e nossa colaboração
+        com
+        terceiros.</div>
+      <div class="mt-2" style="font-size: 13px;">Sim eu aceito os <a class="text-dark"
+          style="text-decoration: underline;" href="#">Termos de serviço</a> & <a class="text-dark"
+          style="text-decoration: underline;" href="#">Politica de Privacidade</a></div>
+    </div>
+    <div class="col-12">
+      <br>
+      <button type="submit" class="btn btn_green w-100 text-uppercase">Criar conta</button>
+    </div>
+
+  </form>
+
+</div>

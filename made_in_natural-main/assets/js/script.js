@@ -39,4 +39,8 @@ $(function() {
   $('.btn_open_menu_fechar_pedido').on('click', function() {
     $('#menu_fechar_pedido').toggle();
   });
+
+  $('.btn_open_external_links').on('click', function() {
+    $('#cont_external_links').toggle();
+  })
 })

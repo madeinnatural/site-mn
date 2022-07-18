@@ -1,4 +1,4 @@
-import { Item } from './../model/Product';
+import { Item, PurchaseHistory } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../model/Product';
-import { UserLogin } from '../model/User';
+import User, { UserLogin } from '../model/User';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +25,12 @@ export class ServerService {
 
     finishPurchase(products: Array<any>){
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
+    }
+
+
+    async purchaseHistory (): Promise<PurchaseHistory[]>{
+      const { response } = await this.talkToServer('purchase/purchase_history');
+      return response
     }
 
     getProductListHome(page: number) {

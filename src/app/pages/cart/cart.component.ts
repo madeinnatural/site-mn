@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
 import { Product } from './../../core/model/Product';
@@ -43,6 +44,7 @@ export class CartComponent implements OnInit {
     public purchaseService: PurchaseService,
     public productService: ProductService,
     public server: ServerService,
+    public router: Router
   ) {
   }
 
@@ -74,8 +76,8 @@ export class CartComponent implements OnInit {
 
     try {
       await this.server.finishPurchase(cart);
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      if (error.status == 401) this.router.navigate(['login']);
     }
   }
 

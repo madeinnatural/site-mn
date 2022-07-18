@@ -21,59 +21,72 @@
     <!--=========== header ===========-->
     <header class="container">
         <div class="row">
-            <div class="col-12">
+          <div class="col-12">
             <div class="d-flex justify-content-between align-items-center py-3">
-                <button class="btn d-lg-none btn_open_menu">
+              <button class="btn d-lg-none btn_open_menu">
                 <img src="assets/img/menu.svg">
+              </button>
+              <div class="d-flex">
+                <button class="btn d-none d-lg-block btn_open_external_links mr-4">
+                  <img style="width: 40px;" src="assets/img/menu_green.png">
                 </button>
                 <img style="height: 53px;" src="assets/img/logo.webp">
-                
-                <div class="w-100 d-none d-lg-block centro_menu">
+              </div>
+              
+              <div class="w-100 d-none d-lg-block centro_menu">
                 <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex">
-                    <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
+                  <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
                     <div class="input-group">
-                        <div class="input-group-prepend">
+                      <div class="input-group-prepend">
                         <span class="input-group-text bg-white">
-                            <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                          <img style="height: 22px;" src="assets/img/pesquisa.svg">
                         </span>
-                        </div>
-                        <input type="text" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="procure por nome, marca...">
-                        <div class="input-group-append">
+                      </div>
+                      <input type="text" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="procure por nome, marca...">
+                      <div class="input-group-append">
                         <span class="input-group-text p-0 bg-white">
-                            <button class="btn btn-link btn_buscar _color_green">Buscar</button>
+                          <button class="btn btn-link btn_buscar _color_green">Buscar</button>
                         </span>
-                        </div>
+                      </div>
                     </div>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
+                  </div>
+  
+                  <div class="d-flex justify-content-between">
                     <div class="ml-0 ml-lg-3 mr-3">
-                        <strong style="font-weight: bold;font-size: 14px;">Bem vindo!</strong>
-                        <a class="d-block btn_entrar _color_green" href="#">Entre ou cadastre-se</a>
+                      <strong style="font-weight: bold;font-size: 14px;">Bem vindo!</strong>
+                      <a class="d-block btn_entrar _color_green" href="#">Entre ou cadastre-se</a>
                     </div>
-
+  
                     <div class="d-flex">
-                        <button class="btn ml-1 btn_perfil"><img style="height: 23px;" src="assets/img/user.svg"></button>
-                        <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button>
+                      <button class="btn ml-1 btn_perfil"><img style="height: 23px;" src="assets/img/user.svg"></button>
+                      <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button>
                     </div>
-                    </div>
+                  </div>
+  
+                  <div class="bg-white pt-4 p-lg-4" id="cont_external_links">
+                    <a href="#" class="text-dark d-block mr-5 mb-2">Nossos Produtos</a>
+                    <a href="#" class="text-dark d-block mr-5 mb-2">Snacks para empresas</a>
+                    <a href="#" class="text-dark d-block mr-5 mb-2">Seja Revendedor</a>
+                    <a href="#" class="text-dark d-block mr-5 mb-2">Para sua Casa</a>
+                    <a href="#" class="text-dark d-block mr-5">Fale Cosnosco</a>
+                  </div>
                 </div>
-                </div>
-                <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
+              </div>
+              <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
                 <img style="height: 23px;" src="assets/img/bag.svg">
-                <div class="btn_green tot_itens_pedido">2</div>
-                </button>
+                <div class="btn_green tot_itens_pedido d-none">0</div>
+              </button>
             </div>
             <div id="menu_fechar_pedido" class="bg-white">
-                <div class="p-4 cont_valor">
+              <div class="p-4 cont_valor">
                 <div class="valor">= R$ 1,120,00</div>
-                </div>
-                <div class="p-4 w-100">
+              </div>
+              <div class="p-4 w-100">
                 <button class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido">Fechar Pedido</button>
                 <div class="mt-3 text-center text_n_tem_conta">Não possui conta? <a href="" class="_color_green">Cadastre-se</a></div>
-                </div>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
     </header>
     <hr class="m-0">
@@ -105,12 +118,9 @@
                                 <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
                                 <div>* Compra minima por forncedor - R$400.00</div>
                             </div>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center text-danger">
                                 <i class="fa fa-exclamation-circle mr-2"></i>
-                                <h2 class="mb-0">
-                                    R$ 380,00
-                                    <i class="fa fa-angle-right ml-2"></i>
-                                </h2>
+                                <h2 class="mb-0" style="font-weight: bolder;">R$ 380,00</h2>
                             </div>
                         </div>
                         <div class="card-body p-0">
@@ -273,7 +283,8 @@
                                 <h5 style="font-weight: 700;">Total</h5>
                                 <h5 style="font-weight: 700;color: #393939;">R$ 380,00</h5>
                             </div>
-                            <div>* o valor do frete será calculado e cobrado posteriormente, caso a caso.</div>
+                            <p>* faltam R$ xx,xx para atingir o faturamento mínimo</p>
+                            <p>* o valor do frete será avaliado posteriormente, caso a caso.</p>
                             <br>
                             <button class="btn btn_green text-uppercase w-100">Fechar pedito</button>
                             <br>
@@ -289,64 +300,69 @@
 
     <!--=========== footer ===========-->
     <footer style="background: linear-gradient(134.99deg, #45842E 3.35%, #E0E454 99.07%);;">
-      <div class="container pt-5 pb-5">
-        <div class="row">
-          <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <img style="width: 113px;" class="mb-3" src="assets/img/logo_2.svg">
-            <div class="d-flex mb-3">
-              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/location.png"></div>
-              <div class="text-white" style="font-size: 14px;">Rua Fernandes Moraes de Alvim, 271 Vila Andrade - São Paulo / SP</div>
+        <div class="container pt-5 pb-5">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+              <img style="width: 113px;" class="mb-3" src="assets/img/logo_2.svg">
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/location.png"></div>
+                <div class="text-white" style="font-size: 14px;">Rua Acruás, 250 <br> Campo Belo - São Paulo / SP</div>
+              </div>
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/phone.png"></div>
+                <div class="text-white" style="font-size: 14px;">(11) 95285-2681</div>
+              </div>
+              <div class="d-flex mb-3">
+                <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/mail.png"></div>
+                <div class="text-white" style="font-size: 14px;">email-endereço.com</div>
+              </div>
             </div>
-            <div class="d-flex mb-3">
-              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/phone.png"></div>
-              <div class="text-white" style="font-size: 14px;">(11) 99999-9999</div>
+            <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
+              <h6 class="text-white mb-4">Made In Natural</h6>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Nossos Produtos</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Snacks para Empresas</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Compre no Atacado</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Crie uma cotação</a>
+              <a href="#" class="d-block float-left w-100 text-white mb-2">Fale Conosco</a>
             </div>
-            <div class="d-flex mb-3">
-              <div class="mr-2"><img style="width: 24px; filter: invert(1);" src="assets/img/mail.png"></div>
-              <div class="text-white" style="font-size: 14px;">email-endereço.com</div>
-            </div>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 mb-4 mb-lg-0">
-            <h6 class="text-white mb-4">SITEMAP</h6>
-            <a href="#" class="d-block float-left w-100 text-white mb-2">Sobre a prima</a>
-            <a href="#" class="d-block float-left w-100 text-white mb-2">Lojas Parceiros</a>
-            <a href="#" class="d-block float-left w-100 text-white mb-2">Cadastro</a>
-            <a href="#" class="d-block float-left w-100 text-white mb-2">Login</a>
-          </div>
-          <div class="col-12 col-lg-6 d-flex flex-wrap">
-            <div class="w-50">
-              <h6 class="text-white mb-4">HELP</h6>
-              <a href="#" class="d-block text-white mb-2">Duvidas Frequentes</a>
-              <a href="#" class="d-block text-white mb-2">Contato</a>
-            </div>
-            <div class="w-50">
-              <h6 class="text-white mb-4">POLITICA DE PRIVACIDADE</h6>
-              <a href="#" class="d-block text-white mb-2">Termos de Uso</a>
-            </div>
-            <div class="w-100 w-lg-75 mt-4 d-none">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text bg-white" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
-                    <img style="height: 22px;" src="assets/img/pesquisa.svg">
-                  </span>
-                </div>
-                <input type="text" style="height: 55px;" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="Receba nossas promoções">
-                <div class="input-group-append">
-                  <span class="input-group-text p-0 bg-white" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
-                    <button class="btn btn-link btn_buscar _color_green"><strong>SUBSCRIBE</strong></button>
-                  </span>
+            <div class="col-12 col-lg-6 d-flex flex-wrap">
+              <div class="w-50">
+                <h6 class="text-white mb-4">Siga-nos</h6>
+                <a href="#" class="d-block text-white mb-2">Instagram</a>
+                <a href="#" class="d-block text-white mb-2">Facebook</a>
+                <a href="#" class="d-block text-white mb-2">Twitter</a>
+              </div>
+              <div class="w-50">
+                <h6 class="text-white mb-4">Termos de Uso / Ajuda / Contato</h6>
+                <a href="#" class="d-block text-white mb-2">Termos de Uso</a>
+                <a href="#" class="d-block text-white mb-2">Duvidas Frequentes</a>
+                <a href="#" class="d-block text-white mb-2">Contato</a>
+              </div>
+              <div class="w-100 w-lg-75 mt-4">
+                <h6 class="text-white mb-4">Newslatter</h6>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text bg-white" style="border-top-left-radius: 10px;border-bottom-left-radius: 10px;">
+                      <img style="height: 22px;" src="assets/img/pesquisa.svg">
+                    </span>
+                  </div>
+                  <input type="text" style="height: 55px;" class="form-control border-left-0 border-right-0 input_pesquisa" placeholder="Receba nossas promoções">
+                  <div class="input-group-append">
+                    <span class="input-group-text p-0 bg-white" style="border-top-right-radius: 10px;border-bottom-right-radius: 10px;">
+                      <button class="btn btn-link btn_buscar _color_green"><strong>SUBSCRIBE</strong></button>
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12 pt-5 mt-5">
-            <p class="text-white text-center" style="font-size: 14px;">Copyright © 2020. todos os direitos reservados.</p>
+          <div class="row">
+            <div class="col-12 pt-5 mt-5">
+              <p class="text-white text-center" style="font-size: 14px;">Copyright © 2020. todos os direitos reservados.</p>
+            </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
     <!--=========== fim footer ===========-->
 
     <script src="assets/js/jquery-3.4.1.min.js"></script>

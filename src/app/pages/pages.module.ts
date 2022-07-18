@@ -1,5 +1,9 @@
+import { RegisterComponent } from './account/register/register.component';
+import { LoginComponent } from './account/login/login.component';
+import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
+import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
+import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
 
-import { DashboardProfileComponent } from './profile/dashboard-profile/dashboard-profile.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { NgModule } from '@angular/core';
@@ -19,7 +23,11 @@ import { ProfileComponent } from './profile/profile.component';
     AccountComponent,
     CartComponent,
     ProfileComponent,
-    DashboardProfileComponent
+    ProfileDataComponent,
+    ProfileRequestsComponent,
+    ProfileCotacaoComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +37,8 @@ import { ProfileComponent } from './profile/profile.component';
   ],
   exports: [
     CartComponent,
+    ProfileDataComponent,
+    RegisterComponent
   ]
 })
 export class PagesModule { }

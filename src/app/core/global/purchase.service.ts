@@ -1,3 +1,4 @@
+import { ServerService } from './../server/server.service';
 import { Product } from './../model/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -11,8 +12,17 @@ interface Cart {
   providedIn: 'root',
 })
 export class PurchaseService {
-  constructor(private cookieService: CookieService) {}
+  constructor(
+    private cookieService: CookieService,
+    private serverService: ServerService) {}
 
+  // BUSCAS NA API
+
+  historyPurchase() {
+    return this.serverService.purchaseHistory();
+  }
+
+  //  INTERNA AO SITE
   totalPrice() {
     const cart_jason = this.cookieService.getItem('cart');
 

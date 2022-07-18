@@ -1,8 +1,10 @@
+import { UserService } from './../../core/global/user.service';
+import User, { UserLogin, UserRegister } from './../../core/model/User';
+import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
 import { AccountService } from './../../core/account/account.service';
 import { LoginService } from './../../core/account/login.service';
-import { Component, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UserLogin } from 'src/app/core/model/User';
 
 @Component({
   selector: 'app-account',
@@ -11,42 +13,60 @@ import { UserLogin } from 'src/app/core/model/User';
 })
 export class AccountComponent implements OnInit, OnDestroy {
 
-  typeAccount: 'login' | 'cadastro' = 'login';
-  promo = false;
-
-  formCadastro: FormGroup;
-  formLogin: FormGroup;
+  dataLogin?: UserLogin;
+  type: 'registration' | 'login' = 'login';
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: LoginService,
-    private accountService: AccountService
+    private accountService: AccountService,
+    private router: Router,
   ) {
-    this.formCadastro = formBuilder.group({
-      name: [],
-      email: [],
-      cnpj: [],
-      phone: [],
-      senha: [],
-    });
 
-    this.formLogin = formBuilder.group({
-      email: [],
-      password: []
-    });
+    const dataNavigatio = this.router.getCurrentNavigation();
 
-    accountService.loginActiver(true);
+    if (dataNavigatio) {
+
+      const { type } = dataNavigatio.extractedUrl.queryParams;
+
+      if (type) {
+        this.type = type;
+      } else {
+
+        if (this.router.url == 'login') {
+          this.type = 'login';
+        }
+
+      }
+
+    } else {
+      this.type = 'login';
+    }
+
+    accountService.loginActiver(true)
 
   }
 
   ngOnInit(): void {
   }
 
-  submit(event?: any) {
+  register(dataRegister: UserRegister) {
+    this.accountService.reginterUser(dataRegister);
   }
 
-  login() {
-    this.authService.loginUser(this.formLogin.value)
+  login(dataLogin: UserLogin) {
+    this.authService.loginUser({ email: dataLogin.email, password: dataLogin.password});
+  }
+
+  changePage(type: 'login' | 'registration') {
+
+    const extra: NavigationExtras = {
+      fragment: type,
+      replaceUrl: true,
+      queryParamsHandling: 'merge'
+    }
+    this.router.navigate([], extra);
+    this.type = type;
   }
 
   ngOnDestroy() {

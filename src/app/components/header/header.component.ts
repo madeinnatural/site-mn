@@ -3,7 +3,7 @@ import { PurchaseService } from './../../core/global/purchase.service';
 import { GlobalEventService } from './../../core/global/global.service';
 import { AccountService } from './../../core/account/account.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -25,14 +25,20 @@ export class HeaderComponent implements OnInit {
   }
 
   get cartLength () {
-
     const cart_j = this.cookieService.getItem('cart')
-
     if (cart_j) {
       return JSON.parse(cart_j).length
     }
-
     return 0
+  }
+
+
+  get userPresent () {
+    if (this.cookieService.getItem('current_user')) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   constructor(
@@ -44,7 +50,7 @@ export class HeaderComponent implements OnInit {
   ) {
 
 
-   }
+  }
 
   ngOnInit(): void {
 
@@ -74,12 +80,24 @@ export class HeaderComponent implements OnInit {
     this.nav.navigate(['login']);
   }
 
+  goPageRegistration () {
+    const extra: NavigationExtras = {
+      queryParams: {type: 'registration'},
+    };
+
+    this.nav.navigate(['registration'], extra);
+  }
+
   goCart() {
     this.nav.navigate(['cart']);
   }
 
   goHome(){
     this.nav.navigate(['/']);
+  }
+
+  goProfile() {
+    this.nav.navigate(['/profile/profile_data']);
   }
 
 

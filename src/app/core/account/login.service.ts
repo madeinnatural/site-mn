@@ -1,3 +1,4 @@
+import { UserService } from './../global/user.service';
 import { AccountService } from './account.service';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -5,7 +6,7 @@ import { ServerService } from './../server/server.service';
 import { Injectable } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { UserLogin } from '../model/User';
+import User, { UserLogin } from '../model/User';
 
 @Injectable({
   providedIn: 'root',
@@ -17,16 +18,28 @@ export class LoginService {
     public server: ServerService,
     public cookieService: CookieService,
     public globalEventService: GlobalEventService,
-    public accountService: AccountService
+    public accountService: AccountService,
+    public userService: UserService,
   ) {}
 
   async loginUser(userLogin: UserLogin) {
 
     try {
 
-      this.accountService.login({email: userLogin.email, password: userLogin.password}).subscribe( (res: any) => {
+      this.accountService.login(
+        {email: userLogin.email, password: userLogin.password}
+      ).subscribe( (res: any ) => {
+
+        const { token, user } = res;
+
+        // SALTAR O TOKEN DO USUÁRIO NO LOCALSTORAGE.
         this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, res.token);
-        window.history.back();
+
+        // SALVA O USUÁRIO EM UM SERVIÇO.
+        this.userService.setUserLocalStorage = user;
+
+        // RETORNA PARA ROTA ANTERIOR.
+        this.router.navigate(['/']);
       });
 
     } catch (error: any) {

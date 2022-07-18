@@ -10,6 +10,7 @@ import { ComponentsRoutingModule } from './components-routing.module';
 import { HeaderComponent } from './header/header.component';
 import { CarrouselComponent } from './carrousel/carrousel.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
     HeaderComponent,
     CarrouselComponent,
     ProductsCartComponent,
-    FooterComponent
+    FooterComponent,
+    DropdownComponent
   ],
   imports: [
     CommonModule,
@@ -31,7 +33,8 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
     HeaderComponent,
     CarrouselComponent,
     ProductsCartComponent,
-    FooterComponent
+    FooterComponent,
+    DropdownComponent
   ]
 })
 export class ComponentsModule { }
