@@ -38,6 +38,8 @@ export class LoginService {
         // SALVA O USUÁRIO EM UM SERVIÇO.
         this.userService.setUserLocalStorage(user);
 
+        this.userService.user = user;
+
         // RETORNA PARA ROTA ANTERIOR.
         this.router.navigate(['/']);
       });

@@ -15,7 +15,9 @@ import { NavigationExtras, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-  @Input('user') user?: User;
+  user?: User;
+
+  user_name?: string = '';
 
   showHeader: boolean = true;
   _finalPrice: number = 0;
@@ -64,6 +66,12 @@ export class HeaderComponent implements OnInit {
 
       this.finalPrice = this.totalPrice()
     });
+
+   if (this.user){
+    const [user_name] = this.user.name.slice(0, 14).split(' ')
+
+    this.user_name = user_name
+   }
 
   }
 
