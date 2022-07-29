@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginService } from './core/account/login.service';
 import { GlobalEventService } from './core/global/global.service';
 import { ServerService } from './core/server/server.service';
@@ -34,7 +34,8 @@ import { ProductService } from './core/global/product.service';
     BrowserAnimationsModule,
     MatListModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    FormsModule
   ],
   providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
   bootstrap: [AppComponent]

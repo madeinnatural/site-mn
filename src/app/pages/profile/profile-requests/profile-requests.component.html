@@ -20,12 +20,14 @@
           <thead>
             <tr>
               <th style="border-bottom: 0;">Produtos</th>
-              <th class="border-bottom: 0;">Subtotal</th>
+              <th style="border-bottom: 0;">Data</th>
+              <th style="border-bottom: 0;">Subtotal</th>
             </tr>
           </thead>
           <tbody>
             <tr *ngFor="let item of purchase.purchases">
               <td>{{item.product_name}}</td>
+              <td>{{item.created_at  | date:'medium'}}</td>
               <td>{{item.price | currency:'BRL':true:'1.2-2'}}</td>
             </tr>
           </tbody>

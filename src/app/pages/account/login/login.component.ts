@@ -1,6 +1,11 @@
+import { Router } from '@angular/router';
+import { GlobalEventService } from './../../../core/global/global.service';
+import { CookieService } from '@ngx-toolkit/cookie';
+import { AccountService } from './../../../core/account/account.service';
 import { UserLogin } from './../../../core/model/User';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl, FormsModule } from '@angular/forms';
+import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-login',
@@ -14,7 +19,16 @@ export class LoginComponent implements OnInit {
   @Output('changeType') changeType = new EventEmitter<'login' | 'registration'>();
   @Output('login') login = new EventEmitter<UserLogin>();
 
+  msgEmailError: string = '';
+
+  errorsResponseServer: Array<{msg: string, campo: string}> = [];
+
+  loading: boolean = false;
+
   formLogin: FormGroup;
+
+  @ViewChild('email') email?: HTMLInputElement;
+  @ViewChild('password') password?: HTMLInputElement;
 
   get type () {
     return this.current_type;
@@ -25,13 +39,19 @@ export class LoginComponent implements OnInit {
     this.current_type = current_type;
   }
 
+  valid: Array<{error: string, filed: string}> = []
+
   constructor(
-    private formBuilder: FormBuilder
+    public formBuilder: FormBuilder,
+    private accountService:AccountService,
+    private cookieService: CookieService,
+    private globalEventService: GlobalEventService,
+    private router: Router
   ) {
 
-    this.formLogin = formBuilder.group({
-      email: [],
-      password: []
+    this.formLogin = this.formBuilder.group({
+      email: [ '',[ Validators.email]],
+      password: [ '', [Validators.required]]
     });
 
   }
@@ -39,13 +59,63 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   startLogin() {
-    const { password, email } = this.formLogin.value;
 
-    if ( !password || !email ) {
-      throw new Error('Email ou senha não podem ser nulos.')
+    this.loading = true
+
+    const { value, valid } = this.formLogin;
+
+    const { password , email } = value;
+
+    this.errorsResponseServer = [];
+
+    if ( valid ) {
+
+      this.accountService.login({email, password})
+        .subscribe({next: (response: any)=> {
+
+          const { token } =  response
+
+          console.log(response)
+
+          this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, token);
+
+          this.loading = false;
+
+          this.router.navigate(['/']);
+
+
+        }, error: (err) =>{
+
+          const { error, msg } = err.error
+
+          console.log(msg)
+
+          this.errorsResponseServer.push({ msg , campo: 'email'})
+        }
+      })
+
+      this.loading = false;
+
+      return;
+
     } else {
-      this.login.emit({password, email});
+
+      setTimeout(()=>{
+        this.loading = false;
+      }, 2000);
+
+        this.errorsResponseServer.push({msg: 'Email ou senha são obrigatórios', campo: 'email'})
+
+      return;
     }
+
+  }
+
+  recovery_passord() {
+    console.log('RECUPERANDO SENHA.')
   }
 
 }
+
+
+

@@ -1,3 +1,8 @@
+import { FormComponent } from './form/form.component';
+import { LoadingComponent } from './loading/loading.component';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
+import { InputFieldComponent } from './input-field/input-field.component';
+import { MenuProfileComponent } from './menu-profile/menu-profile.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatListModule } from '@angular/material/list';
@@ -11,6 +16,7 @@ import { HeaderComponent } from './header/header.component';
 import { CarrouselComponent } from './carrousel/carrousel.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +25,12 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     CarrouselComponent,
     ProductsCartComponent,
     FooterComponent,
-    DropdownComponent
+    DropdownComponent,
+    MenuProfileComponent,
+    InputFieldComponent,
+    ErrorMsgComponent,
+    LoadingComponent,
+    FormComponent
   ],
   imports: [
     CommonModule,
@@ -28,13 +39,19 @@ import { DropdownComponent } from './dropdown/dropdown.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
+    FormsModule
   ],
   exports: [
     HeaderComponent,
     CarrouselComponent,
     ProductsCartComponent,
     FooterComponent,
-    DropdownComponent
+    DropdownComponent,
+    MenuProfileComponent,
+    InputFieldComponent,
+    ErrorMsgComponent,
+    LoadingComponent,
+    FormComponent
   ]
 })
 export class ComponentsModule { }

@@ -1,8 +1,10 @@
+import { UserService } from './../../core/global/user.service';
+import User from 'src/app/core/model/User';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { GlobalEventService } from './../../core/global/global.service';
 import { AccountService } from './../../core/account/account.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -11,6 +13,9 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+
+
+  @Input('user') user?: User;
 
   showHeader: boolean = true;
   _finalPrice: number = 0;
@@ -42,11 +47,9 @@ export class HeaderComponent implements OnInit {
     private accountService: AccountService,
     private globalEventService: GlobalEventService,
     private purchaseService: PurchaseService,
-    private cookieService: CookieService
-  ) {
-
-
-  }
+    private cookieService: CookieService,
+    private userService: UserService
+  ) { this.user = userService.user }
 
   ngOnInit(): void {
 

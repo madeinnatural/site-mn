@@ -49,24 +49,7 @@ export class AccountService {
       cnpj: this.verifica_cpf_cnpj(data_cpf_cpnj) == 'CNPJ' ? data_cpf_cpnj : null,
     }
 
-    this.http.post(environment.apiUrl + 'api/users/register', data)
-      .subscribe( {
-        next: (res: any) => {
-
-          this.logout();
-
-          const { user, auth_token } = res;
-          const current_user_string = JSON.stringify(user);
-
-          this.cookieService.setItem('current_user', current_user_string);
-          this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, auth_token);
-
-          this.router.navigate(['/']);
-        },
-        error: (rej: any) => {
-
-        },
-      });
+    return this.http.post(environment.apiUrl + 'api/users/register', data)
   }
 
   private verifica_cpf_cnpj ( valor: string ) {

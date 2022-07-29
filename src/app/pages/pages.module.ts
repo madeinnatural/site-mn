@@ -1,10 +1,11 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ComponentsModule } from '../components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -33,7 +34,8 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     PagesRoutingModule,
     ComponentsModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     CartComponent,

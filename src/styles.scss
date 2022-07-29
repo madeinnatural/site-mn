@@ -55,3 +55,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 @import 'assets/css/font-awesome.min.css';
 @import 'assets/css/rSlider.css';
 
+
+.global_form {
+  box-shadow: none;
+  border-bottom: solid 1px #ccc !important;
+}
+
+.has-error {
+  background-color: red;
+}
+
