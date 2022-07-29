@@ -37,6 +37,8 @@ export class GlobalEventService {
     public eventWithoutCompany = new EventEmitter<any>();
     public publicarEvento = new EventEmitter<any>();
 
+    public pullProductList = new EventEmitter<string>();
+
 
     addItemCartEmit = new EventEmitter<'removel:cart' | 'add:cart' | 'init:cart'>();
 

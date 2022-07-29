@@ -87,10 +87,10 @@
                               </tbody>
                           </table>
                       </div>
-                      <div class="card-footer text-right bg-transparent">
+                      <!-- <div class="card-footer text-right bg-transparent">
                           <button class="btn text-uppercase _color_green mb-3 mb-md-0" style="font-weight: 600;">Adicionar mais ofertas</button>
-                          <button (click)="finalizePurchase()" class="btn text-uppercase btn_green">Finalizar pedido</button>
-                      </div>
+                          <button class="btn text-uppercase btn_green">Finalizar pedido</button>
+                      </div> -->
                   </div>
               </div>
               <div class="col-12 col-lg-4 mb-4 cont_subtotal">
@@ -112,10 +112,10 @@
                           </div>
                           <div>* o valor do frete será calculado e cobrado posteriormente, caso a caso.</div>
                           <br>
-                          <button class="btn btn_green text-uppercase w-100">Fechar pedito</button>
+                          <button  (click)="finalizePurchase()" class="btn btn_green text-uppercase w-100">Fechar pedito</button>
                           <br>
                           <br>
-                          <button class="btn text-uppercase _color_green w-100" style="font-weight: 500;">Continuar comprando</button>
+                          <button [routerLink]="['/product_list']" routerLinkActive="router-link-active"  class="btn text-uppercase _color_green w-100" style="font-weight: 500;">Continuar comprando</button>
                       </div>
                   </div>
               </div>

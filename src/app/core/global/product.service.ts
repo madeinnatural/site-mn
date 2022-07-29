@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Item, Product } from './../model/Product';
 import { Injectable, Input, OnInit } from '@angular/core';
 import { ServerService } from '../server/server.service';
@@ -16,6 +17,7 @@ export class ProductService {
     private server: ServerService,
     private purchaseService: PurchaseService,
     private globalEventService: GlobalEventService,
+    private router: Router
   ) {
     this.initialize();
   }
@@ -186,6 +188,13 @@ export class ProductService {
 
   }
 
+
+  // SERVIR LISTA DE PRODUTOS
+
+  // SE NÃO TIVER NA LISTA DE PRODUTOS, CHAME ESSA FUNÇÃO.
+  goProductList(query: string) {
+    this.router.navigate(['product_list'], {queryParams: {query}})
+  }
 
 
 }

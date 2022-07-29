@@ -1,3 +1,4 @@
+import { ProductListComponent } from './product-list/product-list.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
@@ -28,7 +29,8 @@ import { ProfileComponent } from './profile/profile.component';
     ProfileRequestsComponent,
     ProfileCotacaoComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductListComponent
   ],
   imports: [
     CommonModule,
@@ -40,7 +42,8 @@ import { ProfileComponent } from './profile/profile.component';
   exports: [
     CartComponent,
     ProfileDataComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductListComponent
   ]
 })
 export class PagesModule { }

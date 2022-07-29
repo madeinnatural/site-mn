@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { delay, Observable, tap } from 'rxjs';
 import { Product } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
@@ -35,6 +35,14 @@ export class ServerService {
 
     getProductListHome(page: number) {
       return this.http.get<{error: boolean, result: Product[]}>(environment.apiUrl, {params: {page}});
+    }
+
+    getProductListQuery(query: string, current_page: number) {
+      return this.http.get<Product[]>( environment.baseUrl + 'api/products/get_products_query', {params:  {query, current_page}})
+      .pipe(
+      delay(2000),
+       tap(console.log)
+      )
     }
 
     async login(params: UserLogin) {

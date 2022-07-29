@@ -1,3 +1,5 @@
+import { ProductListComponent } from './product-list/product-list.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './account/login/login.component';
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
@@ -21,6 +23,8 @@ const routes: Routes = [
       { path: 'cotacao',canActivate: [AuthQuard], component: ProfileCotacaoComponent }
     ] },
   ]},
+  {path: 'product_detail', component: ProductDetailComponent},
+  {path: 'product_list', component: ProductListComponent}
 ];
 
 @NgModule({

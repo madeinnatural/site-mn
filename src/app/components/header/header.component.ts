@@ -1,3 +1,4 @@
+import { ProductService } from './../../core/global/product.service';
 import { UserService } from './../../core/global/user.service';
 import User from 'src/app/core/model/User';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -19,8 +20,16 @@ export class HeaderComponent implements OnInit {
 
   user_name?: string = '';
 
+  query: string = '';
+
   showHeader: boolean = true;
   _finalPrice: number = 0;
+
+
+
+  change_query(event: any) {
+    if (event.target.value) this.query = event.target.value;
+  }
 
   get finalPrice () {
     this._finalPrice = this.purchaseService.totalPrice()
@@ -39,6 +48,10 @@ export class HeaderComponent implements OnInit {
     return 0
   }
 
+  bucarProduto() {
+    if (this.nav.routerState.snapshot.url == '/home' ){ this.productService.goProductList(this.query); this.globalEventService.pullProductList.emit(this.query); return;}
+    else { this.globalEventService.pullProductList.emit(this.query) }
+  }
 
   get userPresent () {
     return this.cookieService.getItem('current_user');
@@ -50,7 +63,8 @@ export class HeaderComponent implements OnInit {
     private globalEventService: GlobalEventService,
     private purchaseService: PurchaseService,
     private cookieService: CookieService,
-    private userService: UserService
+    private userService: UserService,
+    private productService: ProductService
   ) { this.user = userService.user }
 
   ngOnInit(): void {
