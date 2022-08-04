@@ -48,13 +48,8 @@ export class HeaderComponent implements OnInit {
     return 0
   }
 
-  bucarProduto() {
-    if (this.nav.routerState.snapshot.url == '/home' ){ this.productService.goProductList(this.query); this.globalEventService.pullProductList.emit(this.query); return;}
-    else { this.globalEventService.pullProductList.emit(this.query) }
-  }
-
   get userPresent () {
-    return this.cookieService.getItem('current_user');
+    return this.userService.user
   }
 
   constructor(
@@ -63,11 +58,27 @@ export class HeaderComponent implements OnInit {
     private globalEventService: GlobalEventService,
     private purchaseService: PurchaseService,
     private cookieService: CookieService,
-    private userService: UserService,
+    public userService: UserService,
     private productService: ProductService
-  ) { this.user = userService.user }
+  ) {
+
+  }
 
   ngOnInit(): void {
+
+    const user_json = localStorage.getItem('current_user');
+    if (user_json) this.user = JSON.parse(user_json);
+    else {
+      this.user = {
+        adresses: '',
+        adresses_main: '',
+        cnpj: '',
+        email: '',
+        id: 0,
+        name: '',
+        phone: '',
+      }
+    }
 
     this.finalPrice = this.totalPrice();
 

@@ -17,6 +17,7 @@ import { CarrouselComponent } from './carrousel/carrousel.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
+import { SearchHeaderComponent } from './search-header/search-header.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FormsModule } from '@angular/forms';
     InputFieldComponent,
     ErrorMsgComponent,
     LoadingComponent,
-    FormComponent
+    FormComponent,
+    SearchHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -51,7 +53,8 @@ import { FormsModule } from '@angular/forms';
     InputFieldComponent,
     ErrorMsgComponent,
     LoadingComponent,
-    FormComponent
+    FormComponent,
+    SearchHeaderComponent
   ]
 })
 export class ComponentsModule { }

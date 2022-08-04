@@ -13,17 +13,29 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfileDataComponent implements OnInit {
 
-  @Input('user') user?: User
+  @Input('user') user: User
 
   constructor(
     private serverService:ServerService,
     private userService: UserService,
-    public router: Router
+    public router: Router,
   ) {
-    if (this.user) {
 
+    const user_json = window.localStorage.getItem('current_user');
+    const user = JSON.parse(user_json ? user_json : '');
+
+    if (user) {
+      this.user = user;
     } else {
-      this.user = userService.user;
+      this.user = {
+        adresses: '',
+        adresses_main: '',
+        cnpj: '',
+        email: '',
+        id: 0,
+        name: '',
+        phone: ''
+      }
     }
   }
 

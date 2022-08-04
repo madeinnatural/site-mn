@@ -6,50 +6,34 @@
         <button (click)="goHome()" class="btn d-lg-none btn_open_menu">
           <img src="assets/img/menu.svg">
         </button>
+
         <img (click)="goHome()" style="height: 53px;" src="assets/img/logo.webp">
 
         <div class="w-100 d-none d-lg-block centro_menu">
           <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex">
-            <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text bg-white">
-                    <img style="height: 22px;" src="assets/img/pesquisa.svg">
-                  </span>
-                </div>
-                <input
-                type="text"
-                class="form-control border-left-0 border-right-0 input_pesquisa"
-                placeholder="procure por nome, marca..."
-                #name_produc
-                (change)="change_query($event)"
-                />
-                <div class="input-group-append">
-                  <span class="input-group-text p-0 bg-white" (click)="bucarProduto()">
-                    <button class="btn btn-link btn_buscar _color_green">Buscar</button>
-                  </span>
-                </div>
-              </div>
-            </div>
+
+            <app-search-header ngClass="d-flex justify-content w-100"></app-search-header>
 
             <div class="d-flex justify-content-between">
               <div class="ml-0 ml-lg-3 mr-3 login">
                 <strong>Bem vindo!</strong>
-                <a class="d-block btn_entrar _color_green" *ngIf="!userPresent" (click)="goPageLogin()">Entre ou cadastre-se</a>
-                <h3 *ngIf="user">{{ user_name | titlecase }}</h3>
+                <a class="d-block btn_entrar _color_green" *ngIf="user?.name == ''" (click)="goPageLogin()">Entre ou cadastre-se</a>
+                <a class="d-block _color_green" *ngIf="user?.name != '' ">{{ user?.name | titlecase }}</a>
               </div>
 
-              <div class="d-flex">
+              <div class="d-flex" style="padding-left: 50px;">
                 <button (click)="goProfile()" class="btn ml-1 btn_perfil"><img style="height: 23px;" src="assets/img/user.svg"></button>
                 <!-- <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button> -->
               </div>
             </div>
           </div>
         </div>
+
         <button class="btn btn_open_menu_fechar_pedido ml-1" style="position: relative;">
           <img style="height: 23px;" src="assets/img/bag.svg">
           <div class="btn_green tot_itens_pedido" *ngIf="cartLength > 0">{{cartLength}}</div>
         </button>
+
       </div>
 
       <div id="menu_fechar_pedido" class="bg-white">

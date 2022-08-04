@@ -1,3 +1,4 @@
+import { UserService } from './../../../core/global/user.service';
 import { Router } from '@angular/router';
 import { GlobalEventService } from './../../../core/global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -46,6 +47,7 @@ export class LoginComponent implements OnInit {
     private accountService:AccountService,
     private cookieService: CookieService,
     private globalEventService: GlobalEventService,
+    private userService: UserService,
     private router: Router
   ) {
 
@@ -73,14 +75,16 @@ export class LoginComponent implements OnInit {
       this.accountService.login({email, password})
         .subscribe({next: (response: any)=> {
 
-          const { token } =  response
-
-          console.log(response)
+          const { token, user } =  response
 
           this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, token);
 
+          window.localStorage.setItem('current_user', JSON.stringify(user))
+          this.userService.user = user
+
           this.loading = false;
 
+          window.history.forward()
           this.router.navigate(['/']);
 
 

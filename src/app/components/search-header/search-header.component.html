@@ -1,0 +1,22 @@
+
+<div class="w-100 ml-lg-5 mb-4 mb-lg-0">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-white">
+        <img style="height: 22px;" src="assets/img/pesquisa.svg">
+      </span>
+    </div>
+    <input
+    type="text"
+    class="form-control border-left-0 border-right-0 input_pesquisa"
+    placeholder="procure por nome, marca..."
+    (keypress)="monteQuery($event)"
+    #name_produc
+    />
+    <div class="input-group-append">
+      <span class="input-group-text p-0 bg-white" (click)="bucarProduto()">
+        <button class="btn btn-link btn_buscar _color_green">Buscar</button>
+      </span>
+    </div>
+  </div>
+</div>

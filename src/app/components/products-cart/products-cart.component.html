@@ -13,6 +13,7 @@
             </span>
           </div>
           <input
+            (keypress)="search($event)"
             type="text"
             style="height: auto"
             placeholder="procure por nome, marca..."
@@ -39,43 +40,41 @@
             <tr class="bg-white">
                 <th scope="col">Produto</th>
                 <th scope="col">Categoria</th>
-                <th scope="col">Preço</th>
-                <th scope="col">Peso</th>
+                <th scope="col">Preço/Unidade</th>
+                <th scope="col">Unidade</th>
                 <th scope="col">Adicionar ao carrinho</th>
               <mat-progress-bar mode="indeterminate"></mat-progress-bar>
             </tr>
           </thead>
 
           <tbody>
-            <tr *ngFor="let product of listProduct">
+              <tr *ngFor="let product of listProduct ">
+                  <td scope="row" >
+                    <strong>{{product.productName}}</strong>
+                    <div class="d-lg-none">
 
+                      <div class="d-flex justify-content-between mt-2">
+                        <div>{{product.product_type}}</div>
+                        <div>{{product.weight}}</div>
+                      </div>
 
-                <td scope="row" >
-                  <strong>{{product.productName}}</strong>
-                  <div class="d-lg-none">
-
-                    <div class="d-flex justify-content-between mt-2">
-                      <div>{{product.product_type}}</div>
                       <div>{{product.weight}}</div>
+                      <br>
+                      <div class="d-flex w-100 justify-content-center">
+                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
+                        <h5 class="mx-2">0</h5>
+                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
+                      </div>
+
+
                     </div>
+                  </td>
 
-                    <div>{{product.weight}}</div>
-                    <br>
-                    <div class="d-flex w-100 justify-content-center">
-                      <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
-                      <h5 class="mx-2">0</h5>
-                      <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
-                    </div>
+                  <td scope="row" >{{product.product_type}}</td>
+                  <td scope="row" >{{product.price}}</td>
+                  <td scope="row" >{{product.weight}}</td>
 
-
-                  </div>
-                </td>
-
-                <td scope="row" >{{product.product_type}}</td>
-                <td scope="row" >{{product.price}}</td>
-                <td scope="row" >{{product.weight}}</td>
-
-                <td scope="row" >
+                  <td scope="row" >
 
                   <div class="d-flex pl-2" *ngIf="product.amount && product.amount > 0" >
                     <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
@@ -90,9 +89,14 @@
                     </button>
                   </div>
 
-                </td>
-            </tr>
+                  <app-loading *ngIf="loading"></app-loading>
 
+
+
+
+                </td>
+
+              </tr>
           </tbody>
         </table>
 
@@ -182,3 +186,48 @@
 </section>
 <!--=========== fim categorias ===========-->
 
+
+
+<!--=========== modal filtros ===========-->
+<div class="modal" id="modal_filtro" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px">
+      <div class="modal-header border-0">
+        <h5 class="modal-title"><strong>Filtros</strong></h5>
+        <button
+          type="button"
+          style="opacity: 1"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <img
+            style="width: 20px; color: #000"
+            src="assets/img/close_modal.svg"
+          />
+        </button>
+      </div>
+      <div class="modal-body border-0">
+        <div class="form-group">
+          <label>Categoria</label>
+          <select class="form-control">
+            <option>Selecionar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Unidade</label>
+          <select (change)="selectFilterUnidade($event)" class="form-control">
+            <option *ngFor="let unidade of unidades">{{unidade.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preço/Unidade</label>
+          <div class="slider-container pl-2">
+            <input type="text" id="slider3" class="slider" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--=========== fim modal filtros ===========-->

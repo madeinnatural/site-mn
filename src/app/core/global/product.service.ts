@@ -27,7 +27,7 @@ export class ProductService {
 
     const productCart = this.purchaseService.getProductCart();
 
-    this.server.getProductListHome( productCart && productCart.length > 9 ? -1 : 0).subscribe((produts) => {
+    this.server.getProductListHome( -1 ).subscribe((produts) => {
 
       function current_amount(id: number) {
         let amount = 0;
@@ -51,6 +51,7 @@ export class ProductService {
           amount: current_amount(e.id),
         });
       });
+
     });
   }
 

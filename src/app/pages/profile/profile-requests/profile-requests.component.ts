@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Purchase, PurchaseHistory } from './../../../core/model/Product';
 import { PurchaseService } from './../../../core/global/purchase.service';
 import { Router } from '@angular/router';
@@ -10,21 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileRequestsComponent implements OnInit {
 
-  purchases?: PurchaseHistory[];
+  purchases$:  Observable<PurchaseHistory[]>;
 
   constructor(
     private router: Router,
     private purchaseService: PurchaseService
     ) {
-
-      purchaseService.historyPurchase().then( purchases => {
-        this.purchases = purchases
-
-        console.log(this.purchases)
-      })
-
-
-
+      this.purchases$ = purchaseService.historyPurchase()
     }
 
   ngOnInit() {}
