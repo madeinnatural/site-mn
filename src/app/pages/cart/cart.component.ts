@@ -51,11 +51,11 @@ export class CartComponent implements OnInit {
   ngOnInit() {}
 
   removeItem(item: Item) {
-    this.productService.removeItem(item);
+    this.productService.decreaseItemCart(item);
   }
 
   remove(item: Item){
-    this.products.deleItem(item);
+    this.productService.deleteItemCart(item);
   }
 
   add(item: Item){

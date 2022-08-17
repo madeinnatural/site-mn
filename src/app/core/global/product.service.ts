@@ -33,45 +33,41 @@ export class ProductService {
     private globalEventService: GlobalEventService,
     private router: Router,
     private cookieService: CookieService
-  ) {
+  ) {}
 
-  }
-
-  async pullProductSever () {
-    return new Promise (res => {
+  async pullProductSever() {
+    return new Promise((res) => {
       const productCart = this.getProductCart();
-    this.server.getProductListHome(0)
-    .subscribe((produts) => {
-      function current_amount(id: number) {
-        let amount = 0;
+      this.server.getProductListHome(0).subscribe((produts) => {
+        function current_amount(id: number) {
+          let amount = 0;
 
-        productCart?.forEach((productCart) => {
-          if (id == productCart.id) {
-            amount = productCart.amount;
-          }
+          productCart?.forEach((productCart) => {
+            if (id == productCart.id) {
+              amount = productCart.amount;
+            }
+          });
+
+          return amount;
+        }
+
+        const response = produts.map((e) => {
+          return {
+            id: e.id,
+            product_name: e.product_name,
+            price: e.price ? e.price : 0.0,
+            provider_primary:
+              e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
+            weight: e.weight ? e.weight : 0.0,
+            amount: current_amount(e.id),
+          };
         });
 
-        return amount;
-      }
+        this.listProduct = response;
 
-      const response = produts.map((e) => {
-        return {
-          id: e.id,
-          product_name: e.product_name,
-          price: e.price ? e.price : 0.0,
-          provider_primary:
-            e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
-          weight: e.weight ? e.weight : 0.0,
-          amount: current_amount(e.id),
-        };
+        res(response);
       });
-
-      this.listProduct = response;
-
-      res(response);
-
     });
-    })
   }
 
   private getCartLocalStorage(): Array<Item> | null {
@@ -145,16 +141,14 @@ export class ProductService {
   }
 
   addItemCart(product: ProductList) {
+    const item: Item = {
+      id: product.id,
+      amount: product.amount,
+      parcial_price: product.price,
+      product: product,
+    };
 
-      const item: Item = {
-        id: product.id,
-        amount: product.amount,
-        parcial_price: product.price,
-        product: product,
-      };
-
-      this.addItemLocalStorage(item);
-
+    this.addItemLocalStorage(item);
   }
 
   addItemLocalStorage(item: Item) {
@@ -164,7 +158,9 @@ export class ProductService {
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if (cart && cart.findIndex((e) => e.id == item.id) > -1) {
         const index_current_product = cart.findIndex((e) => e.id == item.id);
-        const index_current_list_product = this.listProduct.findIndex((e) => e.id == item.id);
+        const index_current_list_product = this.listProduct.findIndex(
+          (e) => e.id == item.id
+        );
 
         const current_cart = cart;
         current_cart[index_current_product].product.amount += 1;
@@ -173,22 +169,24 @@ export class ProductService {
         const count_item = cart[index_current_product].product.amount;
         const value_item = cart[index_current_product].product.price;
 
-        current_cart[index_current_product].parcial_price = count_item * value_item;
+        current_cart[index_current_product].parcial_price =
+          count_item * value_item;
 
         this.listProduct[index_current_list_product].amount += 1;
 
         this.cookieService.setItem('cart', JSON.stringify(current_cart));
-
       } else {
-        const index_current_list_product = this.listProduct.findIndex((e) => e.id == item.id);
-          if (index_current_list_product > -1) {
-            this.listProduct[index_current_list_product].amount += 1;
-          }
+        const index_current_list_product = this.listProduct.findIndex(
+          (e) => e.id == item.id
+        );
+        if (index_current_list_product > -1) {
+          this.listProduct[index_current_list_product].amount += 1;
+        }
         cart.push(item);
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
     } else {
-      const new_cart: Array<Item> = []
+      const new_cart: Array<Item> = [];
 
       new_cart.push(item);
 
@@ -196,35 +194,59 @@ export class ProductService {
     }
 
     this.globalEventService.addItemCartEmit.emit('add:cart');
-
   }
 
   removeItemLocalStoragee(item: Item) {
-    const cart = this.getCartLocalStorage();
+    let cart = this.getCartLocalStorage();
     // CASO JÁ EXISTA CARRINHO
-    if (cart && this.cookieService.hasItem('cart')) {
-      // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
-      if (cart.some((current_item) => current_item.id == item.id)) {
-        cart[cart.findIndex((e) => e.id == item.id)].product.amount -= 1;
-        cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
-        cart[cart.findIndex((e) => e.id == item.id)].parcial_price -=
-          cart[cart.findIndex((e) => e.id == item.id)].product.price;
+    // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
+    if (cart && cart.findIndex((e) => e.id == item.id) > -1) {
+      if (item.amount <= 0) {
+        const index_current_product = cart.findIndex((e) => e.id == item.id);
+        const index_current_list_product = this.listProduct.findIndex(
+          (e) => e.id == item.id
+        );
 
-        this.cookieService.setItem('cart', JSON.stringify(cart));
+        const current_cart = cart;
+
+        if (index_current_product > -1) {
+          current_cart.splice(index_current_product, 1);
+
+          this.cookieService.setItem('cart', JSON.stringify(current_cart));
+        }
+
+        if (index_current_list_product > -1) {
+          this.listProduct.splice(index_current_list_product, 1);
+        }
       } else {
-        cart.push(item);
-        this.cookieService.setItem('cart', JSON.stringify(cart));
+        const index_current_product = cart.findIndex((e) => e.id == item.id);
+        const index_current_list_product = this.listProduct.findIndex(
+          (e) => e.id == item.id
+        );
+        if (index_current_product > -1) {
+          const current_cart = cart;
+          current_cart[index_current_product].product.amount -= 1;
+          current_cart[index_current_product].amount -= 1;
+
+          const value_item = cart[index_current_product].product.price;
+
+          current_cart[index_current_product].parcial_price -= value_item;
+
+          this.cookieService.setItem('cart', JSON.stringify(current_cart));
+        }
+
+        if (index_current_list_product > -1) {
+          this.listProduct[index_current_list_product].amount -= 1;
+        }
       }
     } else {
-      if (cart) {
-        cart.push(item);
-        this.cookieService.setItem('cart', JSON.stringify(cart));
+      const index_current_list_product = this.listProduct.findIndex(
+        (e) => e.id == item.id
+      );
+      if (index_current_list_product > -1) {
+        this.listProduct[index_current_list_product].amount -= 1;
       }
     }
-  }
-
-  removeItem(item: Item) {
-    this.decreaseItemCart(item);
 
     this.globalEventService.addItemCartEmit.emit('removel:cart');
   }
@@ -240,50 +262,41 @@ export class ProductService {
     }
   }
 
-  addCurrentItemCart(item: Item) {
-    const cart = this.getProductCart();
-
-    if (cart.length > 0) {
-      this.addItemCart(item.product);
-    }
-    {
-      this.listProduct[
-        (this.listProduct.findIndex((e) => e.id === item.id), 1)
-      ].amount += 1;
-      this.addItemCart(item.product);
+  decreaseItemCart(item: Item) {
+    if (item.amount >= 1) {
+      this.removeItemLocalStoragee(item);
+    } else {
+      this.removeItemLocalStoragee(item);
     }
   }
 
-  // DIMINUTIR NUMERO DE ITENS DO PRODUTO
-  decreaseItemCart(item: Item) {
-    // DIMINUTIR ITEM DO LOCALSTORAGE ==============
+  deleteItemCart(item: Item) {
+    let cart = this.getCartLocalStorage();
 
-    const cart = this.getProductCart();
-
-    const current_amount = cart[cart.findIndex((e) => e.id == item.id)].amount;
-
-    if (current_amount == 0) {
-      cart.splice(
-        cart.findIndex((e) => e.id == item.id),
-        1
-      );
-
-      this.listProduct[
-        (this.listProduct.findIndex((e) => e.id === item.id), 1)
-      ].amount = 0;
-      this.setProductCart(cart);
-
-      return;
-    } else {
-      cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
-      this.setProductCart(cart);
+    if (cart && cart.length == 1) {
+        this.cookieService.removeItem('cart');
+        return;
     }
 
-    // DIMINUIR A QUANTIDADE DE ITEM DO LIST DE PRODUTOS ================
+    if (cart) {
+      const index_current_product = cart.findIndex((e) => e.id == item.id);
+      const index_current_list_product = this.listProduct.findIndex(
+        (e) => e.id == item.id
+      );
 
-    this.listProduct[
-      (this.listProduct.findIndex((e) => e.id === item.id), 1)
-    ].amount -= 1;
+      const current_cart = cart;
+
+      if (index_current_product > -1) {
+        current_cart.splice(index_current_product, 1);
+
+        this.cookieService.setItem('cart', JSON.stringify(current_cart));
+      }
+
+      if (index_current_list_product > -1) {
+        this.listProduct.splice(index_current_list_product, 1);
+      }
+    }
+
   }
 
   setProductCart(cart: Array<Item>) {

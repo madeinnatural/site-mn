@@ -46,7 +46,7 @@
                                   <tr *ngFor="let item of products">
                                       <td>
                                           <div class="d-flex align-items-center">
-                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="removeItem(item)" style="width: 12px;"></button>
+                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="remove(item)" style="width: 12px;"></button>
                                               <div>{{item.product.product_name}}</div>
                                           </div>
                                           <table class="w-100 d-lg-none mb-3">
@@ -72,16 +72,16 @@
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
                                           <div class="td_in">
-                                              <img style="width: 24px;" (click)="remove(item)" src="assets/img/minus_circle_red.svg">
+                                              <img style="width: 24px;" (click)="removeItem(item)" src="assets/img/minus_circle_red.svg">
                                               <h5 class="mx-3 mb-0">{{item.amount}}</h5>
                                               <img style="width: 24px;"(click)="add(item)" src="assets/img/add_circle_red.svg">
                                           </div>
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
-                                          <div class="td_in">{{item.product.price}}</div>
+                                          <div class="td_in">{{item.product.price | currency: 'BRL' }}</div>
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
-                                          <div class="td_in"><strong>{{item.parcial_price}}</strong></div>
+                                          <div class="td_in"><strong>{{item.parcial_price | currency: 'BRL'}}</strong></div>
                                       </td>
                                   </tr>
                               </tbody>

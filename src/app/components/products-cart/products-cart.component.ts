@@ -98,7 +98,7 @@ export class ProductsCartComponent implements OnInit {
 
   removeItem(product: ProductList) {
     const create_item = new Item(product.id,product, product.amount, product.price);
-    this.productService.removeItem(create_item);
+    this.productService.decreaseItemCart(create_item);
   }
 
 
