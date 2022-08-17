@@ -1,8 +1,9 @@
+import { debounceTime, distinctUntilChanged, flatMap, map, Observable, of, Subject, delay } from 'rxjs';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { ProductService } from './../../core/global/product.service';
 import { GlobalEventService } from './../../core/global/global.service';
 import { PurchaseService } from './../../core/global/purchase.service';
-import { Item, Product } from './../../core/model/Product';
+import { Item, ProductList } from './../../core/model/Product';
 import { ServerService } from './../../core/server/server.service';
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 
@@ -13,7 +14,7 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 })
 export class ProductsCartComponent implements OnInit {
 
-  listProduct: Array<Product> = [];
+  listProduct: Array<ProductList> = [];
 
   unidades: Array<{name: string, valor: string}> = [
     {name: '1 kg', valor: '1'},
@@ -29,63 +30,79 @@ export class ProductsCartComponent implements OnInit {
 
   loading = false;
 
+  termo: string = '';
+
   constructor (
     public productService: ProductService,
+    public serverService: ServerService
   ){
-    this.reload()
-    this.listProduct = productService.listProduct;
+    this.loading = true;
+    productService.pullProductSever().then((products)=>{
+      console.log('PRODUCTS', products);
+      this.listProduct = products as ProductList[];
+      this.loading = false;
+    })
+
+
+    this.keyUp.pipe(
+      map((event) => (event as any).target.value),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      flatMap(search => of(search).pipe(delay(500)))
+    ).subscribe(async termo => {
+      console.log(termo)
+      this.termo = termo;
+      await this.search();
+    });
   }
 
   selectFilterUnidade(event: any){
     this.filter_unidade = event?.target.value;
   }
 
-  search(event: any) {
+  public keyUp = new Subject<any>();
+
+  async search() {
 
     this.loading = true;
 
-    const termo = event.target.value
-
-    if (this.listProduct.length == 10) {
-      this.showProductsAll();
-    }
-
-    if (termo == '') {
+    if (this.termo == '') {
+      this.productService.veryfy_product_in_cart(await this.serverService.search('', 0));
       this.listProduct = this.productService.listProduct;
     } else {
-      this.listProduct = this.listProduct.filter(e => {
-        if (
-          e.amount.toString().toLocaleLowerCase().indexOf(termo) > 0 ||
-          e.categoria && e.categoria.toString().toLocaleLowerCase().indexOf(termo) > 0 ||
-          e.price.toString().toLocaleLowerCase().indexOf(termo) > 0 ||
-          e.product_type.indexOf(termo) > 0 ||
-          e.weight.toString().toLocaleLowerCase().indexOf(termo) > 0 ||
-          e.productName.search(termo) > 0 ) {
-          return e
-        } return
-    });
+      this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo));
+      this.listProduct = this.productService.listProduct;
+
+      // this.listProduct = this.listProduct.filter(e => {
+      //   if (
+      //     find_text_like(e.amount.toString().toLocaleLowerCase())||
+      //     e.categoria && find_text_like(e.categoria.toString().toLocaleLowerCase())||
+      //     find_text_like(e.price.toString().toLocaleLowerCase())||
+      //     find_text_like(e.provider_primary.toString().toLocaleLowerCase())||
+      //     find_text_like(e.weight.toString().toLocaleLowerCase())||
+      //     find_text_like(e.product_name) ){
+      //     return e;
+      //   }
+      //   return;
+      // });
+
+      this.loading = false;
     }
 
-    console.log(this.listProduct)
-
-    this.loading = false;
-
   }
 
-  reload() {
-   this.reload;
-  }
 
-  addItemCart(product: Product) {
+  addItemCart(product: ProductList) {
     this.productService.addItemCart(product);
   }
 
-  removeItem(product: Product) {
-    this.productService.removeItem(product);
+  removeItem(product: ProductList) {
+    const create_item = new Item(product.id,product, product.amount, product.price);
+    this.productService.removeItem(create_item);
   }
 
 
-  initCart(product: Product) {
+  initCart(product: ProductList) {
     this.productService.initCart(product);
   }
 

@@ -6,7 +6,7 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { delay, Observable, tap } from 'rxjs';
-import { Product } from '../model/Product';
+import { ProductList } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
 @Injectable({
@@ -27,6 +27,14 @@ export class ServerService {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
+    async search(termo: string, numberPage?: number) {
+
+      let url = `seach?query=${termo}`;
+
+      if (numberPage) url += '&page=' + numberPage
+
+      return this.talkToServer(url);
+    }
 
     purchaseHistory (){
       const get_token = this.getToken()
@@ -35,11 +43,11 @@ export class ServerService {
     }
 
     getProductListHome(page: number) {
-      return this.http.get<{error: boolean, result: Product[]}>(environment.apiUrl, {params: {page}});
+      return this.http.get<ProductList[]>(environment.apiUrl, {params: {page}});
     }
 
     getProductListQuery(query: string, current_page: number) {
-      return this.http.get<Product[]>( environment.baseUrl + 'api/products/get_products_query', {params:  {query, current_page}})
+      return this.http.get<ProductList[]>( environment.baseUrl + 'api/products/get_products_query', {params:  {query, current_page}})
       .pipe(
       delay(2000),
        tap(console.log)

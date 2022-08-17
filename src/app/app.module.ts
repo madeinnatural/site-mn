@@ -1,3 +1,4 @@
+import { PurchaseService } from './core/global/purchase.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './core/account/account.service';
 import { ComponentsModule } from './components/components.module';
@@ -37,7 +38,7 @@ import { ProductService } from './core/global/product.service';
     MatPaginatorModule,
     FormsModule
   ],
-  providers: [LoginService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
+  providers: [LoginService, PurchaseService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,7 +13,7 @@
             </span>
           </div>
           <input
-            (keypress)="search($event)"
+            (keypress)="keyUp.next($event)"
             type="text"
             style="height: auto"
             placeholder="procure por nome, marca..."
@@ -34,8 +34,8 @@
     <div class="row">
       <div class="col-12">
 
+        <mat-progress-bar *ngIf="loading" [color]="'accent'" mode="indeterminate"></mat-progress-bar>
         <table class="table" rowgroup>
-
           <thead >
             <tr class="bg-white">
                 <th scope="col">Produto</th>
@@ -43,18 +43,20 @@
                 <th scope="col">Preço/Unidade</th>
                 <th scope="col">Unidade</th>
                 <th scope="col">Adicionar ao carrinho</th>
-              <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-            </tr>
+              </tr>
           </thead>
 
-          <tbody>
+          <!-- <app-loading class="progress" [type]="'progress'" *ngIf="true"></app-loading> -->
+          <tbody *ngIf="listProduct.length != 0 && !loading">
+
               <tr *ngFor="let product of listProduct ">
-                  <td scope="row" >
-                    <strong>{{product.productName}}</strong>
+
+                  <td scope="row" style="max-width: 200px;">
+                    <strong>{{product.product_name}}</strong>
                     <div class="d-lg-none">
 
                       <div class="d-flex justify-content-between mt-2">
-                        <div>{{product.product_type}}</div>
+                        <div>{{product.provider_primary}}</div>
                         <div>{{product.weight}}</div>
                       </div>
 
@@ -70,11 +72,11 @@
                     </div>
                   </td>
 
-                  <td scope="row" >{{product.product_type}}</td>
-                  <td scope="row" >{{product.price}}</td>
-                  <td scope="row" >{{product.weight}}</td>
+                  <td scope="row" style="max-width: 200px;" >{{product.provider_primary}}</td>
+                  <td scope="row" style="max-width: 200px;" >{{product.price}}</td>
+                  <td scope="row" style="max-width: 200px;" >{{product.weight}}</td>
 
-                  <td scope="row" >
+                  <td scope="row" style="max-width: 200px;" >
 
                   <div class="d-flex pl-2" *ngIf="product.amount && product.amount > 0" >
                     <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
@@ -85,13 +87,9 @@
                   <div class="d-flex w-100 justify-content-center" *ngIf="product.amount == 0">
                     <button class="btn d-flex align-items-center">
                       <img style="width: 26px;" src="assets/img/carrinho.svg">
-                      <h6 class="_color_green ml-3 mb-0" (click)="initCart(product)">Adicionar ao carrinho</h6>
+                      <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
                     </button>
                   </div>
-
-                  <app-loading *ngIf="loading"></app-loading>
-
-
 
 
                 </td>
@@ -231,3 +229,9 @@
   </div>
 </div>
 <!--=========== fim modal filtros ===========-->
+
+
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/rSlider.js"></script>
+<script src="assets/js/script.js"></script>

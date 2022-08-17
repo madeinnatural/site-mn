@@ -5,7 +5,7 @@ import { ServerService } from './../../core/server/server.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/core/model/Product';
+import { ProductList } from 'src/app/core/model/Product';
 
 @Component({
   selector: 'app-product-list',
@@ -16,7 +16,7 @@ export class ProductListComponent implements OnInit {
 
   query: string = '';
 
-  products$: Observable<Product[]>;
+  products$: Observable<ProductList[]>;
 
   current_page: number = 1;
 

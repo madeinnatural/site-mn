@@ -1,3 +1,4 @@
+import { PurchaseService } from './../core/global/purchase.service';
 import { AccountComponent } from './../pages/account/account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -8,6 +9,6 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class ComponentsRoutingModule { }

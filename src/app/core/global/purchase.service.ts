@@ -1,5 +1,7 @@
+import { GlobalEventService } from './global.service';
+import { ProductService } from './product.service';
 import { ServerService } from './../server/server.service';
-import { Product } from './../model/Product';
+import { ProductList } from './../model/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { Item } from '../model/Product';
@@ -13,8 +15,11 @@ interface Cart {
 })
 export class PurchaseService {
   constructor(
-    private cookieService: CookieService,
-    private serverService: ServerService) {}
+    public cookieService: CookieService,
+    public serverService: ServerService,
+    public productService: ProductService,
+    public globalEventService: GlobalEventService
+  ) {}
 
   // BUSCAS NA API
 
@@ -62,10 +67,7 @@ export class PurchaseService {
       const cart = this.getCartLocalStorage();
 
       if (cart.some((e) => e.id == item.id)) {
-        cart.splice(
-          cart.findIndex((e) => e.id == item.id),
-          1
-        );
+        cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
@@ -79,77 +81,81 @@ export class PurchaseService {
 
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if (cart.some((current_item) => current_item.id == item.id)) {
-        const count_item =
-          cart[cart.findIndex((e) => e.id == item.id)].product.amount - 1;
-        const curret_price =
-          cart[cart.findIndex((e) => e.id == item.id)].product.price *
-          count_item;
+        cart[cart.findIndex((e) => e.id == item.id)].product.amount -= 1;
+
+        const count_item = cart[cart.findIndex((e) => e.id == item.id)].product.amount;
+
+        const current_price_item = cart[cart.findIndex((e) => e.id == item.id)].product.price
+
+        cart[cart.findIndex((e) => e.id == item.id)].product.price -= current_price_item;
 
         if (count_item == 0) {
+          cart[cart.findIndex((e) => e.id == item.id)].parcial_price = 0;
+
           cart.splice(
+            cart.findIndex((e) => e.id == item.id),
+            1
+          );
+
+          this.productService.listProduct.splice(
             cart.findIndex((e) => e.id == item.id),
             1
           );
 
           this.cookieService.setItem('cart', JSON.stringify(cart));
 
+          this.globalEventService.addItemCartEmit.emit('removel:cart');
+
           return;
         }
 
-        cart.splice(
-          cart.findIndex((e) => e.id == item.id),
-          1
-        );
+        // cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
+        // cart[cart.findIndex((e) => e.id == item.id)].parcial_price -=
+        //   item.product.price;
 
-        cart.push({
-          amount: count_item,
-          id: item.id,
-          parcial_price: curret_price,
-          product: item.product,
-        });
+        // this.productService.listProduct.splice(
+        //   cart.findIndex((e) => e.id == item.id),
+        //   1
+        // );
 
-        this.cookieService.setItem('cart', JSON.stringify(cart));
+        // cart.push({
+        //   amount: count_item,
+        //   id: item.id,
+        //   parcial_price: curret_price,
+        //   product: item.product,
+        // });
+
+        this.globalEventService.addItemCartEmit.emit('removel:cart');
+
+        this.cookieService.setItem('cart',JSON.stringify(cart));
       }
     }
   }
 
   addItemCart(item: Item) {
+    const cart = this.getCartLocalStorage();
     // CASO JÁ EXISTA CARRINHO
     if (this.cookieService.hasItem('cart')) {
-      const cart = this.getCartLocalStorage();
-
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if (cart.some((current_item) => current_item.id == item.id)) {
+        cart[cart.findIndex((e) => e.id == item.id)].product.amount += 1;
         const count_item =
-          cart[cart.findIndex((e) => e.id == item.id)].product.amount + 1;
-        const curret_price =
-          cart[cart.findIndex((e) => e.id == item.id)].product.price *
+          cart[cart.findIndex((e) => e.id == item.id)].product.amount;
+        cart[cart.findIndex((e) => e.id == item.id)].product.price *=
           count_item;
-
-        cart.splice(
-          cart.findIndex((e) => e.id == item.id),
-          1
-        );
-
-        cart.push({
-          amount: count_item,
-          id: item.id,
-          parcial_price: curret_price,
-          product: item.product,
-        });
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
       } else {
         cart.push(item);
-
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
     } else {
-      this.addDirectItem(item);
+      cart.push(item);
+      this.cookieService.setItem('cart', JSON.stringify(cart));
     }
   }
 
-  getProductCart(): Item [] | null {
+  getProductCart(): Item[] | null {
     const cart = this.cookieService.getItem('cart');
     if (cart) {
       const cart_current = JSON.parse(cart);
@@ -159,56 +165,53 @@ export class PurchaseService {
     return null;
   }
 
-  setProductCart(cart: Array<Item>) {
-    if (cart) {
-      const _cart = JSON.stringify(cart);
-      if (this.cookieService.hasItem('cart')) {
-        this.cookieService.removeItem('cart');
-        this.cookieService.setItem('cart',_cart);
-      }
-    }
-  }
 
-  private addDirectItem(item: Item) {
-    const current_cart = this.cookieService.getItem('cart');
+  // private addDirectItem(item: Item) {
+  //   const current_cart = this.cookieService.getItem('cart');
 
-    // CASO EXISTA O CARRINHO VASIO DEVO APENAS ADICIONAR MAIS UM ITEM LÁ
-    if (current_cart) {
-      const cart = this.getCartLocalStorage();
+  //   // CASO EXISTA O CARRINHO VASIO DEVO APENAS ADICIONAR MAIS UM ITEM LÁ
+  //   if (current_cart) {
+  //     const cart = this.getCartLocalStorage();
 
-      const count_item =
-        cart[cart.findIndex((e) => e.id == item.id)].product.amount + 1;
-      const curret_price =
-        cart[cart.findIndex((e) => e.id == item.id)].product.price * count_item;
+  //     const count_item =
+  //       cart[cart.findIndex((e) => e.id == item.id)].product.amount + 1;
+  //     const curret_price =
+  //       cart[cart.findIndex((e) => e.id == item.id)].product.price * count_item;
 
-      cart.splice(
-        cart.findIndex((e) => e.id == item.id),
-        1
-      );
+  //     cart.splice(
+  //       cart.findIndex((e) => e.id == item.id),
+  //       1
+  //     );
 
-      cart.push({
-        amount: count_item,
-        id: item.id,
-        parcial_price: curret_price,
-        product: item.product,
-      });
+  //     cart.push({
+  //       amount: count_item,
+  //       id: item.id,
+  //       parcial_price: curret_price,
+  //       product: item.product,
+  //     });
 
-      this.cookieService.setItem('cart', JSON.stringify(cart));
-    } else {
-      // CASO O CARRINHO NÃO EXITA CRIE UM.
+  //     this.cookieService.setItem('cart', JSON.stringify(cart));
+  //   } else {
+  //     // CASO O CARRINHO NÃO EXITA CRIE UM.
 
-      const _cart: Array<Item> = [];
+  //     const _cart: Array<Item> = [];
 
-      _cart.push(item);
+  //     _cart.push(item);
 
-      this.cookieService.setItem('cart', JSON.stringify(_cart));
-    }
-  }
+  //     this.cookieService.setItem('cart', JSON.stringify(_cart));
+  //   }
+  // }
 
   private getCartLocalStorage(): Array<Item> {
-    const current_cart_save = JSON.parse(
-      this.cookieService.getItem('cart') as string
-    );
-    return current_cart_save;
+    const data = this.cookieService.getItem('cart')
+    if (data) {
+      const current_cart_save = JSON.parse(
+        data
+      );
+
+      return current_cart_save;
+    }
+
+    return [];
   }
 }

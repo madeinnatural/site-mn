@@ -1,3 +1,4 @@
+import { PurchaseService } from './../core/global/purchase.service';
 import { FormComponent } from './form/form.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';

@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
-import { Product } from './../../core/model/Product';
+import { ProductList } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../app/core/model/Product';
@@ -51,24 +51,24 @@ export class CartComponent implements OnInit {
   ngOnInit() {}
 
   removeItem(item: Item) {
-    this.purchaseService.deleItem(item);
+    this.productService.removeItem(item);
   }
 
   remove(item: Item){
-    this.productService.decreaseItemCart(item);
+    this.products.deleItem(item);
   }
 
   add(item: Item){
-    this.productService.addCurrentItemCart(item);
+    this.productService.addItemCart(item.product);
   }
 
   async finalizePurchase(){
     const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
       return {
-        product_name: item.product.productName,
+        product_name: item.product.product_name,
         weight: item.product.weight,
         category: item.product.categoria,
-        product_type: item.product.product_type,
+        provider_primary: item.product.provider_primary,
         amount: item.product.amount,
         price: item.product.price
       }
