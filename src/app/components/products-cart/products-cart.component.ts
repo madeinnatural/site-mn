@@ -28,6 +28,8 @@ export class ProductsCartComponent implements OnInit {
 
   filter_unidade: string = this.unidades[0].valor;
 
+  noMoreProduct = this.productService.noMoreProduct;
+
   loading = false;
 
   termo: string = '';

@@ -12,6 +12,7 @@ import { GlobalEventService } from './global.service';
 export class ProductService {
   currentPage: number = 1;
   listProduct: Array<ProductList> = [];
+  noMoreProduct: boolean = false;
 
   getProductCart(): Item[] {
     const cart = this.cookieService.getItem('cart');
@@ -107,8 +108,11 @@ export class ProductService {
   }
 
   async showProductsAll() {
-    this.server.getProductListHome(-1).subscribe((products) => {
+    this.server.getProductListHome(this.currentPage == 3 ? -1 : this.currentPage)
+    .subscribe((products) => {
       const productCart = this.getProductCart();
+
+      if (products.length == 0) this.noMoreProduct = true;
 
       function current_amount(id: number) {
         let amount = 0;
@@ -133,6 +137,8 @@ export class ProductService {
           amount: current_amount(e.id),
         });
       });
+
+      this.currentPage += 1;
     });
   }
 
@@ -180,16 +186,16 @@ export class ProductService {
           (e) => e.id == item.id
         );
         if (index_current_list_product > -1) {
-          this.listProduct[index_current_list_product].amount += 1;
+          this.listProduct[index_current_list_product].amount = 1;
         }
+        item.amount = 1
         cart.push(item);
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
     } else {
-      const new_cart: Array<Item> = [];
-
-      new_cart.push(item);
-
+      item.amount = 1;
+      const new_cart: Array<Item> = [item];
+      this.listProduct[this.listProduct.findIndex(e => e.id == item.id)].amount = 1;
       this.cookieService.setItem('cart', JSON.stringify(new_cart));
     }
 
@@ -263,10 +269,10 @@ export class ProductService {
   }
 
   decreaseItemCart(item: Item) {
-    if (item.amount >= 1) {
+    if (item.amount > 1) {
       this.removeItemLocalStoragee(item);
     } else {
-      this.removeItemLocalStoragee(item);
+      this.deleteItemCart(item);
     }
   }
 
