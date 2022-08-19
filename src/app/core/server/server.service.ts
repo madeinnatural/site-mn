@@ -47,7 +47,7 @@ export class ServerService {
     }
 
     getProductListQuery(query: string, current_page: number) {
-      return this.http.get<ProductList[]>( environment.baseUrl + 'api/products/get_products_query', {params:  {query, current_page}})
+      return this.http.get<ProductList[]>( environment.baseUrl + 'products/get_products_query', {params:  {query, current_page}})
       .pipe(
       delay(2000),
        tap(console.log)
