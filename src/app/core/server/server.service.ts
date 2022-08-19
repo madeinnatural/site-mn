@@ -1,3 +1,4 @@
+import { ProductService } from './../global/product.service';
 import { Item, PurchaseHistory } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -5,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { delay, Observable, tap } from 'rxjs';
+import { delay, map, Observable, tap } from 'rxjs';
 import { ProductList } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
@@ -19,6 +20,7 @@ export class ServerService {
   constructor(
     private cookies: CookieService,
     private global: GlobalEventService,
+    private productService: ProductService,
     private router: Router,
     private http: HttpClient,
     ) {}
@@ -46,9 +48,16 @@ export class ServerService {
       return this.http.get<ProductList[]>(environment.baseUrl, {params: {page}});
     }
 
-    getProductListQuery(query: string, current_page: number) {
-      return this.http.get<ProductList[]>( environment.baseUrl + 'products/get_products_query', {params:  {query, current_page}})
-      .pipe(
+    getProductListQuery(query: string, current_page?: number) {
+      let url = `seach?query=${query}`;
+      if (current_page) url += '&page=' + current_page
+      return this.http.get<ProductList[]>( environment.baseUrl + url).pipe(
+        map((products) => {
+
+          const products_vericy = this.productService.veryfy_product_in_cart(products);
+
+          return products_vericy;
+        })
       )
     }
 

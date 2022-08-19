@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/global/global.service';
 import { ProductService } from './../../core/global/product.service';
 import { ServerService } from './../../core/server/server.service';
@@ -14,13 +14,15 @@ import { ProductList } from 'src/app/core/model/Product';
 })
 export class ProductListComponent implements OnInit {
 
-  query: string = '';
+  query: string = '-1';
 
   products$: Observable<ProductList[]>;
 
   current_page: number = 1;
 
   loading: boolean = false;
+
+  paginationData: Array<number> = [];
 
   constructor(
     private router: Router,
@@ -40,11 +42,10 @@ export class ProductListComponent implements OnInit {
       this.query = '';
     }
 
-    this.products$ = this.server.getProductListQuery(this.query, this.current_page);
+    this.products$ = this.query != "" ? this.server.getProductListQuery(this.query, this.current_page) : this.server.getProductListQuery(this.query);
 
-    console.log(this.products$)
-
-    this.globalEventService.pullProductList.subscribe( async (query: string)=> {
+    this.globalEventService.pullProductList
+    .subscribe( async (query: string)=> {
 
       this.current_page = 0;
 
@@ -57,7 +58,24 @@ export class ProductListComponent implements OnInit {
   }
 
   async pullProducts() {
-    this.products$ = this.server.getProductListQuery(this.query, this.current_page);
+    this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(
+      map((products) => {
+        return products.map(e => {
+          return {
+            amount: 8,
+            categoria: e.categoria,
+            id: e.id,
+            product_name: e.product_name,
+            price: e.price,
+            provider: e.provider,
+            provider_primary: e.provider_primary,
+            provider_tertiary: e.provider_tertiary,
+            unit: e.unit,
+            weight: e.weight,
+          }
+        })
+      })
+    )
   }
 
 

@@ -105,6 +105,8 @@ export class ProductService {
         amount: current_amount(e.id),
       };
     });
+
+    return this.listProduct
   }
 
   async showProductsAll() {

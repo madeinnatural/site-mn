@@ -1,3 +1,4 @@
+import { GlobalEventService } from './../../core/global/global.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
@@ -12,7 +13,8 @@ export class SearchHeaderComponent implements OnInit {
   buscar_header = new EventEmitter<string>();
 
   constructor(
-    public router: Router
+    public router: Router,
+    public globalEvents: GlobalEventService,
   ) { }
 
   ngOnInit() {}
@@ -22,7 +24,7 @@ export class SearchHeaderComponent implements OnInit {
   }
 
   bucarProduto() {
-   this.router.navigate(['profile/pedidos'], {queryParams: {query: this.query}})
+    this.router.navigateByUrl('product_list?query=' + this.query);
   }
 
 }
