@@ -39,18 +39,16 @@ export class ServerService {
     purchaseHistory (){
       const get_token = this.getToken()
       const token = get_token ? get_token : ''
-      return this.http.get<PurchaseHistory[]>(environment.apiUrl + 'purchase/purchase_history',{headers: { Authorization: token}});
+      return this.http.get<PurchaseHistory[]>(environment.baseUrl + 'purchase/purchase_history',{headers: { Authorization: token}});
     }
 
     getProductListHome(page: number) {
-      return this.http.get<ProductList[]>(environment.apiUrl, {params: {page}});
+      return this.http.get<ProductList[]>(environment.baseUrl, {params: {page}});
     }
 
     getProductListQuery(query: string, current_page: number) {
       return this.http.get<ProductList[]>( environment.baseUrl + 'products/get_products_query', {params:  {query, current_page}})
       .pipe(
-      delay(2000),
-       tap(console.log)
       )
     }
 
@@ -78,7 +76,7 @@ export class ServerService {
       if (options.endPoint) {
         methodUrl = environment.baseUrl + options.endPoint;
       } else {
-        methodUrl = environment.apiUrl;
+        methodUrl = environment.baseUrl;
       }
       methodUrl += method;
 

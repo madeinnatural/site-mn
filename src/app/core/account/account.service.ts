@@ -28,7 +28,7 @@ export class AccountService {
   }
 
   login(dataUser: UserLogin) {
-    return this.http.post(environment.apiUrl + 'token/login',{email: dataUser.email, password: dataUser.password});
+    return this.http.post(environment.baseUrl + 'token/login',{email: dataUser.email, password: dataUser.password});
   }
 
   logout () {
@@ -49,7 +49,7 @@ export class AccountService {
       cnpj: this.verifica_cpf_cnpj(data_cpf_cpnj) == 'CNPJ' ? data_cpf_cpnj : null,
     }
 
-    return this.http.post(environment.apiUrl + 'api/users/register', data)
+    return this.http.post(environment.baseUrl + 'users/register', data)
   }
 
   private verifica_cpf_cnpj ( valor: string ) {
