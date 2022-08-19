@@ -52,6 +52,12 @@ export class HeaderComponent implements OnInit {
     return this.userService.user
   }
 
+  get username() {
+    const user_name = this.user?.name.split(' ');
+    if (user_name) return user_name[0];
+    return undefined;
+  }
+
   constructor(
     private nav: Router,
     private accountService: AccountService,
