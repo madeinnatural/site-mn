@@ -39,7 +39,7 @@ export class ServerService {
     purchaseHistory (){
       const get_token = this.getToken()
       const token = get_token ? get_token : ''
-      return this.http.get<PurchaseHistory[]>(environment.apiUrl + 'api/purchase/purchase_history',{headers: { Authorization: token}});
+      return this.http.get<PurchaseHistory[]>(environment.apiUrl + 'purchase/purchase_history',{headers: { Authorization: token}});
     }
 
     getProductListHome(page: number) {
