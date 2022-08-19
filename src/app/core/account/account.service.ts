@@ -28,7 +28,7 @@ export class AccountService {
   }
 
   login(dataUser: UserLogin) {
-    return this.http.post(environment.apiUrl + 'api/token/login',{email: dataUser.email, password: dataUser.password});
+    return this.http.post(environment.apiUrl + 'token/login',{email: dataUser.email, password: dataUser.password});
   }
 
   logout () {
