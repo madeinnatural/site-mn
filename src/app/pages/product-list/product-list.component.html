@@ -42,7 +42,7 @@
         </div>
 
         <div class="row">
-          <div class="col-12">
+          <div class="col-12 w-1000">
             <table class="table" *ngIf="products$ | async as products; else loading">
               <thead>
                 <tr class="bg-white">
@@ -78,7 +78,7 @@
                     <td >
                       <div class="d-flex pl-2">
                         <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
-                        <h5 class="mx-2">{{item.amount}}</h5>
+                        <h5 class="mx-2">{{item}}</h5>
                         <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
                       </div>
                     </td>

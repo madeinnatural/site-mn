@@ -61,6 +61,7 @@ export class PurchaseHistory {
   constructor(
     public ano: number,
     public mes: string,
-    public purchases: Array<Purchase>
+    public purchases: Array<Purchase>,
+    public totalPrice?: number,
   ){}
 }

@@ -76,6 +76,8 @@ export class CartComponent implements OnInit {
 
     try {
       await this.server.finishPurchase(cart);
+      this.purchaseService.clearCart();
+      this.router.navigate(['profile/pedidos']);
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);
     }

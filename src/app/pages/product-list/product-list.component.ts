@@ -61,8 +61,9 @@ export class ProductListComponent implements OnInit {
     this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(
       map((products) => {
         return products.map(e => {
+
           return {
-            amount: 8,
+            amount: e.amount,
             categoria: e.categoria,
             id: e.id,
             product_name: e.product_name,
