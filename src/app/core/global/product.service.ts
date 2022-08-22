@@ -1,3 +1,5 @@
+import { environment } from './../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
 import { Item, ProductList } from './../model/Product';
@@ -33,13 +35,14 @@ export class ProductService {
     public purchaseService: PurchaseService,
     private globalEventService: GlobalEventService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
+    public http: HttpClient
   ) {}
 
-  async pullProductSever() {
+  public async pullProductSever() {
     return new Promise((res) => {
       const productCart = this.getProductCart();
-      this.server.getProductListHome(0).subscribe((produts) => {
+      this.http.get<ProductList[]>(environment.baseUrl, {params: {page: 0}}).subscribe((produts) => {
         function current_amount(id: number) {
           let amount = 0;
 

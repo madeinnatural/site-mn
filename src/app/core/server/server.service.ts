@@ -22,7 +22,7 @@ export class ServerService {
     private global: GlobalEventService,
     private productService: ProductService,
     private router: Router,
-    private http: HttpClient,
+    public http: HttpClient,
     ) {}
 
     finishPurchase(products: Array<any>){
