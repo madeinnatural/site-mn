@@ -19,6 +19,7 @@ import { ProductsCartComponent } from './products-cart/products-cart.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
 import { SearchHeaderComponent } from './search-header/search-header.component';
+import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { SearchHeaderComponent } from './search-header/search-header.component';
     ErrorMsgComponent,
     LoadingComponent,
     FormComponent,
-    SearchHeaderComponent
+    SearchHeaderComponent,
+    BreadcrumbsComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +57,8 @@ import { SearchHeaderComponent } from './search-header/search-header.component';
     ErrorMsgComponent,
     LoadingComponent,
     FormComponent,
-    SearchHeaderComponent
+    SearchHeaderComponent,
+    BreadcrumbsComponent
   ]
 })
 export class ComponentsModule { }

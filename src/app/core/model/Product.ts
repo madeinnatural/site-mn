@@ -65,3 +65,40 @@ export class PurchaseHistory {
     public totalPrice?: number,
   ){}
 }
+
+export class Cotacao {
+  constructor(
+    public id: number,
+    public product_name: string,
+    public weight: number,
+    public price: number,
+    public amount: number,
+    public provider?: string,
+    public provider_primary?: string,
+    public provider_tertiary?: string,
+    public categoria?: string,
+    public product_details?: Array<ProductDetail>
+  ){}
+}
+
+export class ProductDetail {
+  constructor(
+    produto: string,
+    kg: number,
+    preco: number,
+    categoria: number,
+    ativo: number,
+    fornecedor: string,
+    unidade: string,
+    nome_exibicao: string,
+    categoria2: string,
+    categoria4: string,
+    ativo_editavel: string,
+    qtdd_gramas: string,
+    quantidade: string,
+    margem_30: string,
+    margem_1k: string,
+    margem_caixa: string,
+  ){}
+}
+

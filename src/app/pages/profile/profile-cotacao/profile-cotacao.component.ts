@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import User from 'src/app/core/model/User';
 import { AccountService } from './../../../core/account/account.service';
 import { Component, Input, OnInit } from '@angular/core';
@@ -9,13 +10,17 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfileCotacaoComponent implements OnInit {
 
-  @Input() user?: User;
-
   constructor(
-    private accountService: AccountService
-  ) {}
+    private accountService: AccountService,
+    private router: Router
+  ) { }
+
+  createCotacao() {
+    this.router.navigate(['product_list']);
+  }
 
   ngOnInit() {
+
   }
 
 }

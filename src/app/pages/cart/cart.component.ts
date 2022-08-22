@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
-import { ProductList } from './../../core/model/Product';
+import { ProductList, Cotacao } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../app/core/model/Product';
@@ -80,6 +80,33 @@ export class CartComponent implements OnInit {
       this.router.navigate(['profile/pedidos']);
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);
+    }
+  }
+
+  creteCotacao() {
+    const productCotacao: Cotacao[] = this.products.map((item: Item) => {
+      return {
+        product_name: item.product.product_name,
+        weight: item.product.weight,
+        category: item.product.categoria,
+        provider_primary: item.product.provider_primary,
+        amount: item.product.amount,
+        price: item.product.price,
+        id: item.product.id,
+      }
+    });
+
+
+    try {
+      this.server.createCotacao(productCotacao).then(data => {
+        console.log(data)
+        this.router.navigate(['profile/cotacoes']);
+      })
+
+    } catch (error) {
+
+      console.log('DEU ERRO NO MOMENTO DE CRIAR A COTAÇÃO', error)
+
     }
   }
 

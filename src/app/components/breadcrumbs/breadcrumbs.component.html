@@ -1,0 +1,11 @@
+
+
+  <div class="col-12 mb-3">
+    <nav *ngFor="let bread of breadcrumbs; last as lasItem" style="white-space: nowrap;">
+      <a  *ngIf="!lasItem" style="text-decoration: none; color: #686868; padding-right: 5px;" [routerLink]="[bread.url]">{{bread.name}}</a>
+      <i *ngIf="lasItem" class="fa fa-angle-right"></i>
+      <strong *ngIf="lasItem" [routerLink]="[bread.url]" style="color: #000; padding-left: 5px;">{{bread.name}}</strong>
+    </nav>
+  </div>
+
+

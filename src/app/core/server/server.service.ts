@@ -1,5 +1,5 @@
 import { ProductService } from './../global/product.service';
-import { Item, PurchaseHistory } from './../model/Product';
+import { Cotacao, Item, PurchaseHistory } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -24,6 +24,10 @@ export class ServerService {
     private router: Router,
     public http: HttpClient,
     ) {}
+
+    async createCotacao(products: Cotacao[]) {
+      return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
+    }
 
     finishPurchase(products: Array<any>){
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
