@@ -16,7 +16,7 @@ import { NavigationExtras, Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
 
 
-  user?: User;
+  user: User;
 
   user_name?: string = '';
 
@@ -49,13 +49,11 @@ export class HeaderComponent implements OnInit {
   }
 
   get userPresent () {
-    return this.userService.user
+    return this.accountService.current_user;
   }
 
   get username() {
-    const user_name = this.user?.name.split(' ');
-    if (user_name) return user_name[0];
-    return undefined;
+    return this.accountService.current_user.name;
   }
 
   constructor(
@@ -67,14 +65,16 @@ export class HeaderComponent implements OnInit {
     public userService: UserService,
     private productService: ProductService
   ) {
+    const current_user  = this.accountService.current_user;
 
-  }
+    this.user = current_user;
 
-  ngOnInit(): void {
+    if (current_user){
+      const [user_name] = this.user.name.slice(0, 14).split(' ')
+      this.user_name = user_name
+    }
 
-    const user_json = localStorage.getItem('current_user');
-    if (user_json) this.user = JSON.parse(user_json);
-    else {
+    this.globalEventService.logoutEvent.subscribe(()=> {
       this.user = {
         adresses: '',
         adresses_main: '',
@@ -82,9 +82,21 @@ export class HeaderComponent implements OnInit {
         email: '',
         id: 0,
         name: '',
-        phone: '',
+        phone: ''
       }
-    }
+    });
+
+    this.globalEventService.loginEvent.subscribe((user)=> {
+
+      this.user = user;
+      const [user_name] = this.user.name.slice(0, 14).split(' ')
+      this.user_name = user_name
+
+    });
+
+  }
+
+  ngOnInit(): void {
 
     this.finalPrice = this.totalPrice();
 
@@ -94,15 +106,10 @@ export class HeaderComponent implements OnInit {
     })
 
     this.globalEventService.addItemCartEmit.subscribe(e => {
-
       this.finalPrice = this.totalPrice()
     });
 
-   if (this.user){
-    const [user_name] = this.user.name.slice(0, 14).split(' ')
 
-    this.user_name = user_name
-   }
 
   }
 

@@ -15,13 +15,32 @@ import User, { UserLogin } from '../model/User';
 export class AccountService {
 
   hidderHeaderFooter = new EventEmitter<boolean>();
+  current_user: User = {
+    id: 0,
+    adresses: '',
+    adresses_main: '',
+    cnpj: '',
+    email: '',
+    name: '',
+    phone: '',
+  };
 
   constructor(
     private http: HttpClient,
     private globalEventService: GlobalEventService,
     private cookieService:CookieService,
     private router: Router
-  ) {}
+  ) {
+    const current_user = localStorage.getItem('current_user');
+
+    if (current_user) {
+      this.current_user = JSON.parse(current_user);
+    }
+
+    this.globalEventService.loginEvent.subscribe(user => {
+      this.current_user = user;
+    })
+  }
 
   loginActiver(active: boolean) {
     this.hidderHeaderFooter.emit(active);
@@ -34,6 +53,19 @@ export class AccountService {
   logout () {
     this.cookieService.removeItem('auth_token');
     this.cookieService.removeItem('current_user');
+    window.localStorage.removeItem('current_user');
+    window.localStorage.removeItem('auth_token');
+    this.current_user =  {
+      id: 0,
+      adresses: '',
+      adresses_main: '',
+      cnpj: '',
+      email: '',
+      name: '',
+      phone: '',
+    };
+
+    this.globalEventService.logoutEvent.emit('logout');
   }
 
   reginterUser(dataReginter: UserRegister) {

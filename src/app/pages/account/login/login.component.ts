@@ -80,11 +80,13 @@ export class LoginComponent implements OnInit {
           this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, token);
 
           window.localStorage.setItem('current_user', JSON.stringify(user))
+
           this.userService.user = user
+
+          this.globalEventService.loginEvent.emit(user);
 
           this.loading = false;
 
-          window.history.forward()
           this.router.navigate(['/']);
 
 

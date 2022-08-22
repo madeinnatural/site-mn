@@ -28,6 +28,7 @@ export class GlobalEventService {
     public logoutEvent = new EventEmitter();
     public goAlert = new EventEmitter<{type: 'danger' | 'success' | 'warning', text: string, duration?: number}>();
     public loading = new EventEmitter<boolean>();
+    public loginEvent = new EventEmitter<any>();
     public loadingOverlay = new EventEmitter<number>();
     public overlayTimeout = new EventEmitter();
     public stateChanged = new EventEmitter<string>();

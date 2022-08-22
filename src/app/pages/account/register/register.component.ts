@@ -102,6 +102,10 @@ export class RegisterComponent implements OnInit {
         this.cookieService.setItem('current_user', current_user_string);
         this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, auth_token);
 
+        window.localStorage.setItem('current_user', current_user_string);
+
+        this.globalEventService.loginEvent.emit(user);
+
         this.router.navigate(['/']);
       },
       error: (rej: any) => {

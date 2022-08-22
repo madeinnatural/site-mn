@@ -17,8 +17,8 @@
             <div class="d-flex justify-content-between">
               <div class="ml-0 ml-lg-3 mr-3 login">
                 <strong>Bem vindo!</strong>
-                <a class="d-block btn_entrar _color_green" *ngIf="user?.name == ''" (click)="goPageLogin()">Entre ou cadastre-se</a>
-                <a class="d-block _color_green" *ngIf="username != '' ">{{ username | titlecase }}</a>
+                <a class="d-block btn_entrar _color_green" *ngIf="user.name == ''" (click)="goPageLogin()">Entre ou cadastre-se</a>
+                <a class="d-block _color_green" *ngIf="user.name != '' "> {{ user_name | titlecase }}</a>
               </div>
 
               <div class="d-flex" style="padding-left: 50px;">

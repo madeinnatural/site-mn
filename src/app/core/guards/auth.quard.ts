@@ -23,6 +23,15 @@ export class AuthQuard implements CanActivate {
 
     const token = this.serverService.getToken();
 
+
+    if (token) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+
     return true
 
     // try {
