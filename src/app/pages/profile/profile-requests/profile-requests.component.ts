@@ -17,7 +17,7 @@ export class ProfileRequestsComponent implements OnInit {
     private router: Router,
     private purchaseService: PurchaseService
     ) {
-      this.purchases$ = purchaseService.historyPurchase()
+      this.purchases$ = purchaseService.historyPurchase();
     }
 
   ngOnInit() {}

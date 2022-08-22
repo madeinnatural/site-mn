@@ -1,15 +1,9 @@
-<div class="row mt-3">
-  <div class="col-md-1"></div>
 
   <div class="menu_profile">
-    <div class="mb-2"><a (click)="replace()" [routerLink]="['profile_data']" [class]="router.url == '/profile/profile_data' ? 'opt_menu_left current_page' : 'opt_menu_left'">Meus dados</a></div>
-    <div class="mb-2"><a (click)="replace()" [routerLink]="['pedidos']" [class]="router.url == '/profile/pedidos' ? 'opt_menu_left current_page' : 'opt_menu_left'">Meus Pedidos</a></div>
-    <div class="mb-2"><a (click)="replace()" [routerLink]="['cotacao']" [class]="router.url == '/profile/cotacao' ? 'opt_menu_left current_page' : 'opt_menu_left'">MinhasContações</a></div>
+    <div class="mb-2"><a (click)="replace('profile_data')" [class]="router.url == '/profile/profile_data' ? 'opt_menu_left _active' : 'opt_menu_left'">Meus dados</a></div>
+    <div class="mb-2"><a (click)="replace('pedidos')" [class]="router.url == '/profile/pedidos' ? 'opt_menu_left _active' : 'opt_menu_left'">Meus Pedidos</a></div>
+    <div class="mb-2"><a (click)="replace('cotacao')" [class]="router.url == '/profile/cotacao' ? 'opt_menu_left _active' : 'opt_menu_left'">Minhas Contações</a></div>
     <div class="mb-2"><a (click)="logOut()" class="opt_menu_left">Sair</a></div>
     <hr class="mt-4 mb-0 d-md-none">
   </div>
 
-  <div class="col-12 col-md-6 col-lg-7">
-    <router-outlet></router-outlet>
-  </div>
-</div>

@@ -21,7 +21,7 @@ export class MenuProfileComponent {
   }
 
   replace(url?: string) {
-    console.log(this.router.url)
+    this.router.navigate(['profile/' + url]);
   }
 
 }

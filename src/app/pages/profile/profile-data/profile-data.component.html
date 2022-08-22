@@ -1,35 +1,68 @@
-  <!--=========== minha conta ===========-->
-  <section class="w-100 section_minha_conta mb-5">
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-12 col-md-6 col-lg-7">
-                <div class="w-100 profileData d-flex" style="flex-direction: column;">
-                    <div>
-                      <h5><strong>Pessoal</strong></h5>
-                      <input [value]="user.name" type="text" name="nome" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Nome completo" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-                      <input [value]="user.cnpj" type="text" name="cnpj" class="form-control rounded-0 border-0 px-0 py-4" placeholder="CNPJ" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-                      <input [value]="user.phone" type="text" name="telefone" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Telefone" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-                      <button class="btn btn_green w-100 text-uppercase">Atualizar</button>
-                    </div>
-
-                    <div style="padding-top: 50px;">
-                      <h5><strong>Informações de login</strong></h5>
-                      <input [value]="user.email" type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Email" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-
-                      <input [value]="" type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Nova senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-
-                      <input [value]="" type="password" name="senha_2" class="form-control rounded-0 border-0 px-0 py-4" placeholder="Confirmar senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-
-                    </div>
-                    <button class="btn btn_green w-100 text-uppercase">Atualizar</button>
-                </div>
-            </div>
+<!--=========== minha conta ===========-->
+<section class="w-100 section_minha_conta mb-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 mb-3">
+        <div style="white-space: nowrap; color: #686868;">
+          Home <i class="fa fa-angle-right"></i>
+          <strong style="color: #000;">Minha conta</strong>
         </div>
+      </div>
+      <div class="col-12">
+        <div class="pt-3 pl-3 mr-4"
+          style="position: relative; background-image: url('assets/img/circles.png'); background-size: 72px 72px; background-repeat: no-repeat;">
+          <h3 class="bg-white pt-2 px-3"><strong>Bem Vindo, {{user.name}}!</strong></h3>
+        </div>
+      </div>
     </div>
+    <div class="row mt-3">
+      <div class="col-md-1"></div>
+
+      <app-menu-profile></app-menu-profile>
+      <!-- <div class="col-12 col-md-4 col-lg-3 mb-4">
+        <div class="mb-2"><a href="minha_conta.html" class="opt_menu_left _active">Minha conta</a></div>
+        <div class="mb-2"><a href="informacoes_pessoais.html" class="opt_menu_left">Informações Pessoais</a></div>
+        <div class="mb-2"><a href="enderecos.html" class="opt_menu_left">Endereços</a></div>
+        <div class="mb-2"><a href="minha_lista.html" class="opt_menu_left">Minha lista</a></div>
+
+        <div class="mb-2 mt-4" style="color: #000; font-weight: 400;">Informações de Compra</div>
+        <div class="mb-2"><a href="historico_compras.html" class="opt_menu_left">Histórico de Compra</a></div>
+        <hr class="mt-4 mb-0 d-md-none">
+      </div> -->
+      <div class="col-12 col-md-6 col-lg-7">
+        <div class="w-100 profileData d-flex" style="flex-direction: column;">
+          <div>
+            <h5><strong>Pessoal</strong></h5>
+            <input [value]="user.name" type="text" name="nome" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="Nome completo" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+            <input [value]="user.cnpj" type="text" name="cnpj" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="CNPJ" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+            <input [value]="user.phone" type="text" name="telefone" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="Telefone" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+            <button class="btn btn_green w-100 text-uppercase">Atualizar</button>
+          </div>
+
+          <div style="padding-top: 50px;">
+            <h5><strong>Informações de login</strong></h5>
+            <input [value]="user.email" type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="Email" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+
+            <input [value]="" type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="Nova senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+
+            <input [value]="" type="password" name="senha_2" class="form-control rounded-0 border-0 px-0 py-4"
+              placeholder="Confirmar senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+
+          </div>
+          <button class="btn btn_green w-100 text-uppercase">Atualizar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <!--=========== fim minha conta ===========-->
