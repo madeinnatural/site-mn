@@ -43,9 +43,11 @@ header .centro_menu {position: absolute;z-index: 9999; left: 0; top: 81px; backg
 #menu_fechar_pedido .text_n_tem_conta {font-size: 12px;color: #757575;font-weight: 500;}
 #menu_fechar_pedido a {text-decoration: underline;}
 header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 12px; font-weight: 400; width: 19px; height: 19px;border-radius: 50%; padding: 0 !important;}
+#cont_external_links {display: block;}
 
 @media (min-width: 992px) {
   header .centro_menu {position: relative; top: 0; border: none;}
+  #cont_external_links {display: none; position: absolute; left: -270px; top: 65px; z-index: 99;}
 }
 /*=============== fim header ===============*/
 
@@ -76,6 +78,9 @@ header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 
 .section_table th {border: none; padding: 16px 30px;}
 .section_table td {border: none; padding: 16px 30px;}
 .section_table tr:nth-child(odd) {background-color: #F1F1F1;}
+.section_table .badge-success {background-color: #FFCFCF; color: #CD2E00; padding: 8px;}
+.section_table .badge-danger {background-color: #C6F0CA; color: #2FB000; padding: 8px;}
+.section_table .badge-warning {background-color: #FFF0C0; color: #D1A000; padding: 8px;}
 /*=============== fim section table ===============*/
 
 /*=============== categorias ===============*/
@@ -92,15 +97,15 @@ header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 
 /*=============== fim categorias ===============*/
 
 /*=============== empresas ===============*/
-.section_empresas {background-color: #000; background-blend-mode: multiply; background-image: url("../img/bg_empresas.png");background-repeat: no-repeat;background-size: cover;}
+.section_empresas .con_img_produto {width: 100%;}
 .section_empresas_2 {background-image: url('../img/bg_empresas_2.png');background-repeat: no-repeat;background-size: cover;}
 .section_empresas h1, 
 .section_empresas_2 h1 {font-family: "TouchToneW01-Medium";font-size: 50px;color: #fff;}
 .section_empresas_2 h1 {font-size: 70px;}
-.section_empresas .img_empresa {filter: invert(1);}
 .section_empresas .cont_img_empresa:nth-child(odd) {padding-right: 1rem;}
 .section_empresas .cont_img_empresa:nth-child(even) {padding-left: 1rem;}
 
+.section_empresas .img_empresa {height: 40px; width: 100%; object-fit: contain; object-position: left;}
 .section_empresas_2 .img_empresa {height: auto; width: 100%; object-fit: contain;}
 .section_empresas_2 .cont_h1 {border-bottom: solid 2px rgba(255, 255, 255, 0.5);}
 
@@ -108,7 +113,6 @@ header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 
   .section_empresas {background-image: none;}
   .section_empresas h1 {color: #45842E;}
   .section_empresas_2 h1 {font-size: 50px;}
-  .section_empresas .img_empresa {filter: invert(0); opacity: 0.5;}
   .section_empresas_2 .img_empresa {height: 40px;}
   .section_empresas_2 .cont_h1 {border-bottom: none; border-right: solid 2px rgba(255, 255, 255, 0.5);}
 }
@@ -125,9 +129,10 @@ header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 
 /*=============== fim empresas ===============*/
 
 /*=============== destaques ===============*/
-.section_destaques h1 {font-family: "TouchToneW01-Medium";font-size: 80px;}
+.section_destaques h1,
+.section_destaques h1 * {font-family: "TouchToneW01-Medium"; font-size: 60px; line-height: 100%;}
 @media (min-width: 768px) {
-  .section_destaques h1 {font-size: 120px;}
+  .section_destaques h1 {font-size: 70px;}
   .w-lg-75 {width: 75% !important;}
 }
 /*=============== fim destaques ===============*/
@@ -196,3 +201,9 @@ header .tot_itens_pedido {position: absolute; bottom: 0; left: 20px; font-size: 
 .section_minha_conta .opt_menu_left {color: #757575; font-size: 14px;}
 .section_minha_conta .opt_menu_left._active {font-weight: bold; color: #45842E;}
 /*=============== fim minha conta ===============*/
+
+/*=============== contato ===============*/
+.section_contato h1,
+.section_contato h1 * {font-family: "TouchToneW01-Medium";font-size: 56px; line-height: 100%;}
+.section_contato input {border: none; border-bottom: solid 1px #999; border-radius: 0; padding: 12px 0;}
+/*=============== fim contato ===============*/

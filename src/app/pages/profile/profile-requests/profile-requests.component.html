@@ -18,15 +18,17 @@
     <div class="row mt-3">
       <div class="col-md-1"></div>
       <div class="col-12 col-md-4 col-lg-3 mb-4">
-          <div class="mb-2"><a class="opt_menu_left" (click)="gotoRouter('profile/profile_data')" >Meus dados</a></div>
+          <!-- <div class="mb-2"><a class="opt_menu_left" (click)="gotoRouter('profile/profile_data')" >Meus dados</a></div>
           <div class="mb-2"><a class="opt_menu_left _active"  (click)="gotoRouter('profile/pedidos')"> Meus pedidos</a></div>
           <div class="mb-2"><a class="opt_menu_left">Minhas cotações</a></div>
-          <div class="mb-2"><a class="opt_menu_left">Sair</a></div>
+          <div class="mb-2"><a class="opt_menu_left">Sair</a></div> -->
 
           <!-- <div class="mb-2 mt-4" style="color: #000; font-weight: 400;">Informações de Compra</div> -->
           <!-- <div class="mb-2"><a href="historico_compras.html" class="opt_menu_left _active">Histórico de Compra</a></div> -->
           <!-- <hr class="mt-4 mb-0 d-md-none"> -->
+          <app-menu-profile></app-menu-profile>
       </div>
+
       <div *ngIf="purchases$ | async as purchases else loading">
         <div class="w-100 compra" *ngFor="let purchase of purchases">
           <h5 class="mb-3"><strong>{{purchase.mes}} {{purchase.ano}}</strong></h5>

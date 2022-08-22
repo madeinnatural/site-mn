@@ -1,116 +1,175 @@
-    <!--=========== section tabela ===========-->
-    <section class="pt-5 pb-5 section_table" style="background-color: transparent;">
-      <div class="container">
-        <div class="row">
-          <div class="col-12 d-flex justify-content-between mb-5">
-            <h1>Cotações (5)</h1>
-            <button class="btn btn_green">CRIAR NOVA COTAÇÃO</button>
-          </div>
-          <div class="col-12">
-            <table class="table">
-              <thead>
-                <tr class="bg-white">
-                  <th class="border-0">Cotação</th>
-                  <th class="border-0">Última Atualização</th>
-                  <th class="border-0">Valor</th>
-                  <th class="border-0">Produtos</th>
-                  <th class="border-0">Mensagens</th>
-                  <th class="border-0">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong>327255</strong></td>
-                  <td>05/06/2022</td>
-                  <td>R$ 510.00</td>
-                  <td>12</td>
-                  <td></td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="w-100">
-                        <div class="badge badge-warning">Aguardando sua aprovação</div>
-                      </div>
-                      <div class="ml-3 d-flex dropdown">
-                        <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                          <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
-                        </div>
-
-                        <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>316668</strong></td>
-                  <td>10/04/2022</td>
-                  <td>10/04/2022</td>
-                  <td>15</td>
-                  <td></td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="w-100">
-                        <div class="badge badge-danger">Cotação Cancelada</div>
-                      </div>
-                      <div class="ml-3 d-flex dropdown">
-                        <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                          <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
-                        </div>
-
-                        <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td><strong>316668</strong></td>
-                  <td>10/04/2022</td>
-                  <td>10/04/2022</td>
-                  <td>15</td>
-                  <td></td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="w-100">
-                        <div class="badge badge-success">Cotação Finalizada</div>
-                      </div>
-                      <div class="ml-3 d-flex dropdown">
-                        <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
-
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
-                          <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
-                          <div class="dropdown-divider"></div>
-                          <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
-                        </div>
-
-                        <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 mt-4">
-            <button class="btn d-block m-auto btn_outline_green">VER LISTA COMPLETA</button>
+<!--=========== carrousel ===========-->
+<section class="w-100">
+  <div id="carouselExampleControls">
+    <div style="background-image: url('assets/img/pedidos.png');">
+      <div class="w-100 h-100 carousel-inner_in pt-5 pb-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <h1 class="mb-0">Pedidos e Cotações</h1>
+            </div>
           </div>
         </div>
       </div>
-    </section>
-    <!--=========== fim section tabela ===========-->
+    </div>
+  </div>
+</section>
+<!--=========== fim carrousel ===========-->
 
-    <script src="assets/js/jquery-3.4.1.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/rSlider.js"></script>
-    <script src="assets/js/script.js"></script>
+<!--=========== section tabela ===========-->
+<section class="pt-5 pb-5 section_table" style="background-color: transparent;">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between mb-5">
+        <h1>Cotações (5)</h1>
+        <button class="btn btn_green">CRIAR NOVA COTAÇÃO</button>
+      </div>
+      <div class="col-12">
+        <table class="table">
+          <thead>
+            <tr class="bg-white">
+              <th class="border-0">Cotação</th>
+              <th class="border-0">Última Atualização</th>
+              <th class="border-0">Valor</th>
+              <th class="border-0">Produtos</th>
+              <th class="border-0">Mensagens</th>
+              <th class="border-0">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>327255</strong></td>
+              <td>05/06/2022</td>
+              <td>R$ 510.00</td>
+              <td>12</td>
+              <td></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="w-100">
+                    <div class="badge badge-warning">Aguardando sua aprovação</div>
+                  </div>
+                  <div class="ml-3 d-flex dropdown">
+                    <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                      <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
+                    </div>
+
+                    <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>316668</strong></td>
+              <td>10/04/2022</td>
+              <td>10/04/2022</td>
+              <td>15</td>
+              <td></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="w-100">
+                    <div class="badge badge-danger">Cotação Cancelada</div>
+                  </div>
+                  <div class="ml-3 d-flex dropdown">
+                    <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                      <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
+                    </div>
+
+                    <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>316668</strong></td>
+              <td>10/04/2022</td>
+              <td>10/04/2022</td>
+              <td>15</td>
+              <td></td>
+              <td>
+                <div class="d-flex align-items-center">
+                  <div class="w-100">
+                    <div class="badge badge-success">Cotação Finalizada</div>
+                  </div>
+                  <div class="ml-3 d-flex dropdown">
+                    <button class="btn _color_green" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true"><i class="fa fa-ellipsis-v"></i></button>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                      <a class="dropdown-item" href="#!"><i class="fa fa-copy"></i> Duplicar</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#!"><i class="fa fa-trash-o"></i> Excluir</a>
+                    </div>
+
+                    <button class="btn _color_green"><i class="fa fa-chevron-right"></i></button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mt-4">
+        <button class="btn d-block m-auto btn_outline_green">VER LISTA COMPLETA</button>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========== fim section tabela ===========-->
+
+<!--=========== modal filtros ===========-->
+<div class="modal" id="modal_filtro" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px;">
+      <div class="modal-header border-0">
+        <h5 class="modal-title"><strong>Filtros</strong></h5>
+        <button type="button" style="opacity: 1;" class="close" data-dismiss="modal" aria-label="Close">
+          <img style="width: 20px; color: #000;" src="assets/img/close_modal.svg">
+        </button>
+      </div>
+      <div class="modal-body border-0">
+        <div class="form-group">
+          <label>Embalagem</label>
+          <select class="form-control">
+            <option>Selecionar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select class="form-control">
+            <option>Selecionar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Tipo</label>
+          <select class="form-control">
+            <option>Selecionar</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Preço</label>
+          <div class="slider-container pl-2">
+            <input type="text" id="slider3" class="slider" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--=========== fim modal filtros ===========-->
+
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/rSlider.js"></script>
+<script src="assets/js/script.js"></script>
