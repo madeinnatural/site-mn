@@ -19,6 +19,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductService } from './core/global/product.service';
+import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,10 @@ import { ProductService } from './core/global/product.service';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    NgbModule,
+    NgbPaginationModule,
+    NgbAlertModule
   ],
   providers: [LoginService, PurchaseService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
   bootstrap: [AppComponent]
