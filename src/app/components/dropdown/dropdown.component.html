@@ -24,32 +24,30 @@
   </div>
 </div>
 
-<div dropdown class="menu_dropdown_fechamento"  *ngIf="type == 'menu_fechamendo'">
+<div dropdown  *ngIf="type == 'menu_fechamendo'" >
   <div class="row">
     <div class="col">
-      <div ngbDropdown class="d-inline-block" (click)="openDropdown()">
+      <div ngbDropdown class="d-inline-block">
 
-        <div class="btn btn_open_menu_fechar_pedido ml-1" target="_blank">
+        <div class="btn_open_menu_fechar_pedido dropdown-header ml-1" type="button" target="_blank" ngbDropdownToggle >
 
           <button #dropdown_closing id="#dropdown_closing" class="btn bg-white" style="position: relative;">
-            <img  ngbDropdownToggle  cless="btn_green tot_itens_pedido" style="height: 23px;" src="assets/img/bag.svg">
-            <div class="btn_green tot_itens_pedido" *ngIf="cartLength > 0">{{cartLength}}</div>
+            <img cless="btn_green tot_itens_pedido" style="height: 23px;" src="assets/img/bag.svg">
+            <div class="btn_green tot_itens_pedido dropdown-header" *ngIf="cartLength > 0">{{cartLength}}</div>
           </button>
 
           <div ngbDropdownMenu>
             <!-- FECHAMANDO DO PEDIDO -->
             <div class="btn bg-white w-200">
-                <div class="btn p-4 cont_valor">
-
-                  <div class="d-flex valor " style="padding-bottom: 50px;"> {{ finalPrice | currency:'BRL':true:'1.2-2'}}</div>
+              <div class="btn p-4 cont_valor">
+                <div class="d-flex valor " style="padding-bottom: 50px;"> {{ finalPrice | currency:'BRL':true:'1.2-2'}}</div>
 
                   <button ngbDropdownItem
-                    *ngIf="goCart" class="p-2 btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido border-white"
-                    (click)="goCart()">
+                    *ngIf="goCart" (click)="goCart()" class="p-2 btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido border-white">
                       <a target="_blank" style="color: white;" rel="noopener noreferrer">Fechar Pedido</a>
                   </button>
 
-                  <button ngbDropdownItem
+                  <button ngbDropdownItem style="background-color: #ffff;  color: #000000;"
                     *ngIf="!userPresent && goPageRegistration"
                     class="mt-3 text-center text_n_tem_conta"
                     >Não possui conta? <a (click)="goPageRegistration()" class="_color_green">Cadastre-se</a>

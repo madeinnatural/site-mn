@@ -61,4 +61,7 @@ export class GlobalEventService {
           };
        }
     }
+
+    URL_ROUTER_SEARCH = '/product_list';
+    URL_ROUTER_COTACAO = 'profile/cotacao/create';
 }

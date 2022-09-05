@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { GlobalEventService } from './../../core/global/global.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CarrouselComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public nav: Router,
+    public globalEventService: GlobalEventService
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  goSearch(){
+    this.nav.navigate([this.globalEventService.URL_ROUTER_SEARCH]);
+  }
+
+  goCotacao(){
+    this.nav.navigate([this.globalEventService.URL_ROUTER_COTACAO]);
   }
 
 }
