@@ -1,19 +1,68 @@
-
-<div dropdown>
+<div dropdown *ngIf="type == 'menu_site'">
   <div class="row">
     <div class="col">
       <div ngbDropdown class="d-inline-block">
-      <img  id="menu" src="assets/img/menu.svg" ngbDropdownToggle>
+        <img id="menu" src="assets/img/menu.svg" ngbDropdownToggle>
 
-      <div ngbDropdownMenu class="border border-white rounded-0 menu_dropdown">
-        <div class="d-md-flex flex-column">
-          <a target="_blank" rel="noopener noreferrer" href="https://site.madeinnatural.com.br" class="p-3 item_menu" ngbDropdownItem> Nossos Produtos</a>
-          <a target="_blank" rel="noopener noreferrer" href="https://company.madeinnatural.com.br" class="p-3 item_menu" ngbDropdownItem> Snacks para empresas</a>
-          <a target="_blank" rel="noopener noreferrer" href="https://jobber.madeinnatural.com.br" class="p-3 item_menu" ngbDropdownItem> Seja Revendedor</a>
-          <a target="_blank" rel="noopener noreferrer" href="https://home.madeinnatural.com.br" class="p-3 item_menu" ngbDropdownItem> Para sua Casa</a>
-          <a target="_blank" rel="noopener noreferrer" href="https://contato.madeinnatural.com.br" class="p-3 item_menu" ngbDropdownItem> Fale Cosnosco</a>
+        <div ngbDropdownMenu class="border border-white rounded-0 menu_dropdown">
+          <div class="d-md-flex flex-column">
+            <a target="_blank" rel="noopener noreferrer" href="https://site.madeinnatural.com.br" class="p-3 item_menu"
+              ngbDropdownItem> Nossos Produtos</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://company.madeinnatural.com.br"
+              class="p-3 item_menu" ngbDropdownItem> Snacks para empresas</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://jobber.madeinnatural.com.br"
+              class="p-3 item_menu" ngbDropdownItem> Seja Revendedor</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://home.madeinnatural.com.br" class="p-3 item_menu"
+              ngbDropdownItem> Para sua Casa</a>
+            <a target="_blank" rel="noopener noreferrer" href="https://contato.madeinnatural.com.br"
+              class="p-3 item_menu" ngbDropdownItem> Fale Cosnosco</a>
+          </div>
         </div>
+
       </div>
+    </div>
+  </div>
+</div>
+
+<div dropdown *ngIf="type == 'menu_fechamendo'">
+  <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+
+        <div ngbDropdownToggle class="btn btn_open_menu_fechar_pedido ml-1" target="_blank">
+
+
+          <div class="btn bg-white" style="position: relative;">
+            <img cless="btn_green tot_itens_pedido" style="height: 23px;" src="assets/img/bag.svg">
+            <div class="btn_green tot_itens_pedido" *ngIf="cartLength > 0">{{cartLength}}</div>
+          </div>
+
+          <div ngbDropdownMenu>
+
+            <!-- FECHAMANDO DO PEDIDO -->
+            <div class="btn bg-white w-200">
+
+                <div class="btn p-4 cont_valor">
+                  <div class="d-flex valor " style="padding-bottom: 50px;"> {{ finalPrice | currency:'BRL':true:'1.2-2'}}</div>
+
+                  <button ngbDropdownItem
+                    *ngIf="goCart" class="p-2 btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido border-white"
+                    (click)="goCart()">
+                      <a target="_blank" style="color: white;" rel="noopener noreferrer">Fechar Pedido</a>
+                  </button>
+
+                  <button ngbDropdownItem
+                    *ngIf="!userPresent && goPageRegistration"
+                    class="mt-3 text-center text_n_tem_conta"
+                    >Não possui conta? <a (click)="goPageRegistration()" class="_color_green">Cadastre-se</a>
+                  </button>
+
+                </div>
+
+            </div>
+          </div>
+
+        </div>
 
       </div>
     </div>
