@@ -4,7 +4,7 @@
       <div ngbDropdown class="d-inline-block">
         <img id="menu" src="assets/img/menu.svg" ngbDropdownToggle>
 
-        <div ngbDropdownMenu class="border border-white rounded-0 menu_dropdown">
+        <div ngbDropdownMenu class="border rounded-0 menu_dropdown">
           <div class="d-md-flex flex-column">
             <a target="_blank" rel="noopener noreferrer" href="https://site.madeinnatural.com.br" class="p-3 item_menu"
               ngbDropdownItem> Nossos Produtos</a>
@@ -24,25 +24,23 @@
   </div>
 </div>
 
-<div dropdown *ngIf="type == 'menu_fechamendo'">
+<div dropdown class="menu_dropdown_fechamento"  *ngIf="type == 'menu_fechamendo'">
   <div class="row">
     <div class="col">
-      <div ngbDropdown class="d-inline-block">
+      <div ngbDropdown class="d-inline-block" (click)="openDropdown()">
 
-        <div ngbDropdownToggle class="btn btn_open_menu_fechar_pedido ml-1" target="_blank">
+        <div class="btn btn_open_menu_fechar_pedido ml-1" target="_blank">
 
-
-          <div class="btn bg-white" style="position: relative;">
-            <img cless="btn_green tot_itens_pedido" style="height: 23px;" src="assets/img/bag.svg">
+          <button #dropdown_closing id="#dropdown_closing" class="btn bg-white" style="position: relative;">
+            <img  ngbDropdownToggle  cless="btn_green tot_itens_pedido" style="height: 23px;" src="assets/img/bag.svg">
             <div class="btn_green tot_itens_pedido" *ngIf="cartLength > 0">{{cartLength}}</div>
-          </div>
+          </button>
 
           <div ngbDropdownMenu>
-
             <!-- FECHAMANDO DO PEDIDO -->
             <div class="btn bg-white w-200">
-
                 <div class="btn p-4 cont_valor">
+
                   <div class="d-flex valor " style="padding-bottom: 50px;"> {{ finalPrice | currency:'BRL':true:'1.2-2'}}</div>
 
                   <button ngbDropdownItem
@@ -58,7 +56,6 @@
                   </button>
 
                 </div>
-
             </div>
           </div>
 
