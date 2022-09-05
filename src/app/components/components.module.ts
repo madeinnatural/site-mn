@@ -1,3 +1,4 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './../core/global/purchase.service';
 import { FormComponent } from './form/form.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -44,7 +45,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   exports: [
     HeaderComponent,
