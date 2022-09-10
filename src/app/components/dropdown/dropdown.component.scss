@@ -1,8 +1,3 @@
-.dropdown {
-  margin-left: 10px;
-  margin-right: 50px;
-  padding: 0;
-}
 
 .item_menu {
   font-weight: 500 !important;
@@ -14,4 +9,8 @@
 
 .mostrar_valor {
   margin-bottom: 50px;
+}
+
+.dropdown-toggle::after{
+  display: none;
 }
