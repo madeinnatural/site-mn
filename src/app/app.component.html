@@ -1,6 +1,6 @@
-<app-header></app-header>
+<app-header *ngIf="!hidderHeader"></app-header>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer *ngIf="!hidderHeader"></app-footer>
 
 <script src="assets/js/jquery-3.4.1.min.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js"></script>
