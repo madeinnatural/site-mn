@@ -21,6 +21,7 @@ import { DropdownComponent } from './dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
+import { ToastComponent } from './toast/toast.component';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     LoadingComponent,
     FormComponent,
     SearchHeaderComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    ToastComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +62,8 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
     LoadingComponent,
     FormComponent,
     SearchHeaderComponent,
-    BreadcrumbsComponent
+    BreadcrumbsComponent,
+    ToastComponent
   ]
 })
 export class ComponentsModule { }

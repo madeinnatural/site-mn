@@ -1,7 +1,8 @@
+import { PurchaseDetail } from './../../core/model/Purchase';
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
-import { ProductList, Cotacao } from './../../core/model/Product';
+import { ProductList, Cotacao, Purchase } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../app/core/model/Product';
@@ -63,21 +64,11 @@ export class CartComponent implements OnInit {
   }
 
   async finalizePurchase(){
-    const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
-      return {
-        product_name: item.product.product_name,
-        weight: item.product.weight,
-        category: item.product.categoria,
-        provider_primary: item.product.provider_primary,
-        amount: item.product.amount,
-        price: item.product.price
-      }
-    });
-
     try {
-      await this.server.finishPurchase(cart);
-      this.purchaseService.clearCart();
-      this.router.navigate(['profile/pedidos']);
+
+      const purchaseId = this.purchaseService.finishPurchase();
+      this.router.navigate(['pruchase_summary', {purchaseId}]);
+
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);
     }
@@ -109,5 +100,6 @@ export class CartComponent implements OnInit {
 
     }
   }
+
 
 }

@@ -1,7 +1,33 @@
-// .ng-invalid.ng-untouched:not(form) {
-//   border: 3px solid rgba(red, 0.5) !important;
-// }
+.example-container .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
 
-// .ng-valid:not(form) {
+.example-right-align {
+  text-align: right;
+}
 
-// }
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+.submit-lente {
+  position:absolute;
+  top:38px; right: 10px;
+  z-index:10;
+  border:none;
+  background:transparent;
+  outline:none;
+}
+
+.submit-line {
+  position: relative;
+}
+
+.submit-line input {
+  width: 100%;
+}

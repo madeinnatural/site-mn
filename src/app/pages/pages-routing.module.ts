@@ -24,7 +24,10 @@ const routes: Routes = [
     ] },
   ]},
   {path: 'product_detail', component: ProductDetailComponent},
-  {path: 'product_list', component: ProductListComponent}
+  {path: 'product_list', component: ProductListComponent},
+
+  // PURCHASE
+  {path: 'purchase_summary', component: ProductListComponent},
 ];
 
 @NgModule({

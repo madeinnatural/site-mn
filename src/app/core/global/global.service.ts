@@ -45,6 +45,8 @@ export class GlobalEventService {
 
 
     public errorPurchase = new EventEmitter<{ showError: boolean, text: string }>();
+    public errorLogin = new EventEmitter<{ showError: boolean, text: string }>();
+
 
     constructor(private http: HttpClient) { }
 

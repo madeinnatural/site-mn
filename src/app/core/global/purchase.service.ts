@@ -18,11 +18,33 @@ export class PurchaseService {
     public cookieService: CookieService,
     public serverService: ServerService,
     public productService: ProductService,
-    public globalEventService: GlobalEventService
+    public globalEventService: GlobalEventService,
+    private server: ServerService
   ) {}
 
-  // BUSCAS NA API
+  async finishPurchase() {
+    try {
+      const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
+        return {
+          product_name: item.product.product_name,
+          weight: item.product.weight,
+          category: item.product.categoria,
+          provider_primary: item.product.provider_primary,
+          amount: item.product.amount,
+          price: item.product.price
+        }
+      });
 
+      const { id } = await this.server.finishPurchase(cart);
+      this.clearCart();
+      return id;
+    } catch (error) {
+      const errorMsg = (error as any).message;
+      this.globalEventService.errorPurchase.emit(errorMsg);
+    }
+  }
+
+  // BUSCAS NA API
   historyPurchase() {
     return this.serverService.purchaseHistory();
   }

@@ -21,11 +21,14 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { ProductService } from './core/global/product.service';
 import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    phoneMaskBrDirective
+    phoneMaskBrDirective,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +45,19 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
     FormsModule,
     NgbModule,
     NgbPaginationModule,
-    NgbAlertModule
+    NgbAlertModule,
+    MatFormFieldModule
   ],
-  providers: [LoginService, PurchaseService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
+  providers: [
+    LoginService,
+    PurchaseService,
+    AccountService,
+    GlobalEventService,
+    ServerService,
+    CookieService,
+    ProductService,
+    {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
