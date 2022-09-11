@@ -7,7 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
-  @Input('type') type: "spinner" | "progress" = 'spinner';
+  @Input('type') type: "spinner" |'success'|'danger'| "progress" = 'spinner';
 
   constructor() { }
 

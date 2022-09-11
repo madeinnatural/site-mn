@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { delay, map, Observable, tap } from 'rxjs';
+import { delay, from, map, Observable, tap } from 'rxjs';
 import { ProductList } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
@@ -199,5 +199,9 @@ export class ServerService {
           }
         );
       });
+    }
+
+    updateUser(user: User) {
+      return from(this.talkToServer('users/', user, {type: 'PUT'}));
     }
 }
