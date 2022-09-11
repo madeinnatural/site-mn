@@ -1,9 +1,10 @@
+import { phoneMaskBrDirective } from './directives/phone-mask-br.directive';
 import { PurchaseService } from './core/global/purchase.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './core/account/account.service';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
-import { NgModule } from '@angular/core';
+import { NgModule, Directive } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +25,7 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
 @NgModule({
   declarations: [
     AppComponent,
+    phoneMaskBrDirective
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,6 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
     NgbAlertModule
   ],
   providers: [LoginService, PurchaseService, AccountService, GlobalEventService, ServerService, CookieService, ProductService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

@@ -37,7 +37,7 @@
       </div> -->
       <div class="col-12 col-md-6 col-lg-7">
         <div class="w-100 profileData d-flex" style="flex-direction: column;">
-          <form [formGroup]="dataUser">
+          <form class="form" [formGroup]="dataUser" (submit)="updateDataPesonal()">
             <h5><strong>Pessoal</strong></h5>
             <input formControlName="name"
               type="text"
@@ -45,6 +45,9 @@
               class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="Nome completo"
               style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+              <div class="invalid-feedback"*ngIf="dataUser.get('name')?.errors?.['required'] && dataUser.get('name')?.touched">
+                Nome obrigatório
+              </div>
 
             <input formControlName="cnpj"
               type="text"
@@ -52,35 +55,47 @@
               class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="CNPJ"
               style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+              <div class="invalid-feedback"*ngIf="dataUser.get('cnpj')?.errors?.['required'] && dataUser.get('cnpj')?.touched">
+                CNPJ obrigatório
+              </div>
 
             <input formControlName="phone"
               type="text"
-              name="telefone"
+              name="phone"
               class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="Telefone"
-              mask="(00) 0000-0000"
-              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+              style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
+              >
+              <div class="invalid-feedback"*ngIf="dataUser.get('phone')?.errors?.['required'] && dataUser.get('phone')?.touched">
+                Telefone obrigatorio
+              </div>
 
-            <button class="btn btn_green w-100 text-uppercase" *ngIf="!loading" (click)="updateDataPesonal()">Atualizar</button>
+            <button class="btn btn_green w-100 text-uppercase" *ngIf="!loading">Atualizar</button>
             <button *ngIf="loading" class="btn btn_green w-100 text-uppercase" ><app-loading [type]="statusUpdate"></app-loading></button>
 
           </form>
 
-          <div style="padding-top: 50px;">
+          <form [formGroup]="dataAccess" style="padding-top: 50px;" (submit)="updateDataLogin()">
             <h5><strong>Informações de login</strong></h5>
-            <input [value]="user.email" type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4"
+            <input formControlName="email" type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="Email" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
 
 
-            <input [value]="" type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4"
+            <input formControlName="password" type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="Nova senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
 
 
-            <input [value]="" type="password" name="senha_2" class="form-control rounded-0 border-0 px-0 py-4"
+            <input formControlName="password_confirmation" type="password" name="senha_2" class="form-control rounded-0 border-0 px-0 py-4"
               placeholder="Confirmar senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+              <div class="invalid-feedback"
+              *ngIf="passwordMatchValidator(dataAccess)">
+                Senha não confere
+              </div>
 
-          </div>
-          <button class="btn btn_green w-100 text-uppercase" (click)="updateDataLogin()">Atualizar</button>
+              <button [disabled]="passwordMatchValidator(dataAccess)" class="btn btn_green w-100 text-uppercase" *ngIf="!loadingAccess">Atualizar</button>
+              <button *ngIf="loadingAccess" class="btn btn_green w-100 text-uppercase" ><app-loading [type]="statusUpdate"></app-loading></button>
+          </form>
+
         </div>
       </div>
     </div>

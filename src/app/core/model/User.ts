@@ -7,6 +7,7 @@ export default class User {
     public name: string,
     public adresses_main: string,
     public adresses: string,
+    public password?: string,
   ) {}
 }
 
