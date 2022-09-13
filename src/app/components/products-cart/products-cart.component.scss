@@ -1,0 +1,33 @@
+@media screen and (max-width:993px){
+  .classe-nova{
+     display:none;
+   }
+}
+
+.example-label {
+  display: table-cell;
+  font-size: 14px;
+  margin-left: 8px;
+  min-width: 120px;
+}
+
+.example-button-row {
+  display: table-cell;
+  width: 400px;
+}
+
+.example-button-row .mat-button-base {
+  margin-right: -18px;
+}
+
+.example-flex-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.example-button-container {
+  display: flex;
+  justify-content: center;
+  width: 120px;
+}

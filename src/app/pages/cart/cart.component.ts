@@ -1,3 +1,4 @@
+import { GlobalAlertService } from './../../core/global-alert.service';
 import { PurchaseDetail } from './../../core/model/Purchase';
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
@@ -67,7 +68,7 @@ export class CartComponent implements OnInit {
     try {
 
       const purchaseId = this.purchaseService.finishPurchase();
-      this.router.navigate(['pruchase_summary', {purchaseId}]);
+      this.router.navigate(['purchase_summary'], { queryParams: { id: purchaseId } });
 
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);

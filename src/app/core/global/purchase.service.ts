@@ -36,11 +36,12 @@ export class PurchaseService {
       });
 
       const { id } = await this.server.finishPurchase(cart);
+
       this.clearCart();
       return id;
     } catch (error) {
       const errorMsg = (error as any).message;
-      this.globalEventService.errorPurchase.emit(errorMsg);
+      this.globalEventService.errorPurchase.emit({text: errorMsg, showError: true});
     }
   }
 

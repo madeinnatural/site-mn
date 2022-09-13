@@ -1,3 +1,4 @@
+import { GlobalAlertService } from './../global-alert.service';
 import { GlobalEventService } from './global.service';
 import { Injectable } from '@angular/core';
 
@@ -7,10 +8,7 @@ import { Injectable } from '@angular/core';
 export class GlobalErrorService {
 
   constructor(
-    public globalEventService: GlobalEventService
-  ) {
-    this.globalEventService.errorPurchase.subscribe( (error) => {
-      console.log(error)
-    })
-  }
+    public globalEventService: GlobalEventService,
+    public globalAlertService: GlobalAlertService
+  ) {}
 }
