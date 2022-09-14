@@ -39,10 +39,10 @@ export class ProductService {
     public http: HttpClient
   ) {}
 
-  public async pullProductSever() {
+  public async pullProductSever(page: number = 0) {
     return new Promise((res) => {
       const productCart = this.getProductCart();
-      this.http.get<ProductList[]>(environment.baseUrl, {params: {page: 0}}).subscribe((produts) => {
+      this.http.get<ProductList[]>(environment.baseUrl, {params: {page}}).subscribe((produts) => {
         function current_amount(id: number) {
           let amount = 0;
 

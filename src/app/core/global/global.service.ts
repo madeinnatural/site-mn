@@ -68,4 +68,5 @@ export class GlobalEventService {
     URL_ROUTER_COTACAO = 'profile/cotacao/create';
 
     finishPurchaseEmitter = new EventEmitter<number>();
+    search = new EventEmitter<string>();
 }

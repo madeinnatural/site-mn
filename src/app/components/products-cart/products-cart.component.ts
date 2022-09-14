@@ -39,12 +39,7 @@ export class ProductsCartComponent implements OnInit {
     public serverService: ServerService
   ){
     this.loading = true;
-    productService.pullProductSever().then((products)=>{
-      console.log('PRODUCTS', products);
-      this.listProduct = products as ProductList[];
-      this.loading = false;
-    })
-
+    this.pullProducts();
 
     this.keyUp.pipe(
       map((event) => (event as any).target.value),
@@ -58,6 +53,13 @@ export class ProductsCartComponent implements OnInit {
     });
   }
 
+  pullProducts(page: number = 0) {
+    this.productService.pullProductSever(page).then((products)=>{
+      this.listProduct = products as ProductList[];
+      this.loading = false;
+    });
+  }
+
   selectFilterUnidade(event: any){
     this.filter_unidade = event?.target.value;
   }
@@ -65,32 +67,15 @@ export class ProductsCartComponent implements OnInit {
   public keyUp = new Subject<any>();
 
   async search() {
-
     this.loading = true;
-
     if (this.termo == '') {
       this.productService.veryfy_product_in_cart(await this.serverService.search('', 0));
       this.listProduct = this.productService.listProduct;
     } else {
       this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo));
       this.listProduct = this.productService.listProduct;
-
-      // this.listProduct = this.listProduct.filter(e => {
-      //   if (
-      //     find_text_like(e.amount.toString().toLocaleLowerCase())||
-      //     e.categoria && find_text_like(e.categoria.toString().toLocaleLowerCase())||
-      //     find_text_like(e.price.toString().toLocaleLowerCase())||
-      //     find_text_like(e.provider_primary.toString().toLocaleLowerCase())||
-      //     find_text_like(e.weight.toString().toLocaleLowerCase())||
-      //     find_text_like(e.product_name) ){
-      //     return e;
-      //   }
-      //   return;
-      // });
-
       this.loading = false;
     }
-
   }
 
 
@@ -103,13 +88,12 @@ export class ProductsCartComponent implements OnInit {
     this.productService.decreaseItemCart(create_item);
   }
 
-
   initCart(product: ProductList) {
     this.productService.initCart(product);
   }
 
-  async showProductsAll() {
-    this.productService.showProductsAll();
+  showProductsAll() {
+    this.pullProducts(-1);
   }
 
   ngOnInit(){

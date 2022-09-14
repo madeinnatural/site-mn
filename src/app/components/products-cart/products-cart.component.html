@@ -23,7 +23,6 @@
 
     <div class="row">
       <div class="col-12">
-
         <mat-progress-bar *ngIf="loading" [color]="'accent'" mode="indeterminate"></mat-progress-bar>
         <table class="table" rowgroup>
           <thead>
@@ -94,11 +93,10 @@
         <h6 style="font-size: 14px">
           * Compra minima por forncedor - R$400.00
         </h6>
-
       </div>
     </div>
 
-    <div class="row" *ngIf="listProduct">
+    <div class="row" *ngIf="listProduct.length == 9">
       <div class="col-12 mt-4">
         <button class="btn d-block m-auto btn_outline_green" (click)="showProductsAll()">
           VER LISTA COMPLETA

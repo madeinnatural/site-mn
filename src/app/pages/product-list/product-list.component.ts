@@ -1,3 +1,4 @@
+import { Item } from './../../core/model/Product';
 import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/global/global.service';
 import { ProductService } from './../../core/global/product.service';
@@ -46,22 +47,26 @@ export class ProductListComponent implements OnInit {
 
     this.globalEventService.pullProductList
     .subscribe( async (query: string)=> {
-
       this.current_page = 0;
-
       this.query = query;
-
       this.pullProducts();
+    })
 
+    this.globalEventService.search
+    .subscribe(() => {
+      const data = this.router.getCurrentNavigation()?.extras.queryParams;
+      this.query = (data as any).query
+      this.pullProducts();
     })
 
   }
+
+  hidderPagination: boolean = false;
 
   async pullProducts() {
     this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(
       map((products) => {
         return products.map(e => {
-
           return {
             amount: e.amount,
             categoria: e.categoria,
@@ -76,17 +81,31 @@ export class ProductListComponent implements OnInit {
           }
         })
       })
-    )
+    ).pipe(products => {
+      products.subscribe((e) => {
+        if (e.length > 0) {
+          this.hidderPagination = true;
+        } else {
+          this.hidderPagination = false;
+        }
+      })
+      return products;
+    })
+  }
+
+  addItemCart(product: ProductList) {
+    this.productService.addItemCart(product);
+  }
+
+  removeItem(product: ProductList) {
+    const create_item = new Item(product.id,product, product.amount, product.price);
+    this.productService.decreaseItemCart(create_item);
+  }
+
+  initCart(product: ProductList) {
+    this.productService.initCart(product);
   }
 
 
-
-  ngOnInit() {
-
-  }
-
-  ngOnDestroy() {
-    this.globalEventService.pullProductList.unsubscribe();
-  }
-
+  ngOnInit() {}
 }

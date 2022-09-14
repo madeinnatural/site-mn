@@ -1,4 +1,5 @@
-<section class="w-100" style="background-image: url('assets/img/bg_produtos.png');background-size: cover;background-repeat: no-repeat;">
+<section class="w-100"
+  style="background-image: url('assets/img/bg_produtos.png');background-size: cover;background-repeat: no-repeat;">
   <div class="container py-4">
     <div class="row py-5">
       <div class="col-12">
@@ -8,115 +9,148 @@
   </div>
 </section>
 
-
-    <!--=========== section tabela ===========-->
-    <section class="pt-5 pb-5 section_table">
-      <div class="container">
-        <div class="row mb-3">
-          <div class="col-12 d-block d-md-flex justify-content-between">
-            <div class="w-100 d-block d-xl-flex align-items-center">
-              <div class="input-group mb-3 mb-md-0 w-100" style="height: 50px; max-width: 676px;">
-                <div class="input-group-prepend">
-                  <span class="input-group-text bg-white">
-                    <img style="height: 22px;" src="assets/img/pesquisa.svg">
-                  </span>
-                </div>
-                <input type="text" style="height: auto;" placeholder="procure por nome, marca..." class="form-control border-left-0">
-              </div>
-              <div class="d-block d-xl-flex mt-3 mb-3 mt-xl-0 mb-lg-0">
-                <!-- <label class="d-flex align-items-center ml-3" style="color: #243044; white-space: nowrap;">
+<!--=========== section tabela ===========-->
+<section class="pt-5 pb-5 section_table">
+  <div class="container">
+    <div class="row mb-3">
+      <div class="col-12 d-block d-md-flex justify-content-between">
+        <div class="w-100 d-block d-xl-flex align-items-center">
+          <div class="input-group mb-3 mb-md-0 w-100" style="height: 50px; max-width: 676px;">
+            <div class="input-group-prepend">
+              <span class="input-group-text bg-white">
+                <img style="height: 22px;" src="assets/img/pesquisa.svg">
+              </span>
+            </div>
+            <input type="text" style="height: auto;" placeholder="procure por nome, marca..."
+              class="form-control border-left-0">
+          </div>
+          <div class="d-block d-xl-flex mt-3 mb-3 mt-xl-0 mb-lg-0">
+            <!-- <label class="d-flex align-items-center ml-3" style="color: #243044; white-space: nowrap;">
                   <input type="checkbox" class="mr-2"> Participa do Simples Nacional
                 </label>
                 <label class="d-flex align-items-center ml-3" style="color: #243044; white-space: nowrap;">
                   <input type="checkbox" class="mr-2"> Compra dentro do estado de São Paulo
                 </label> -->
-              </div>
-            </div>
-            <div>
-              <button id="btn_open_filtro" class="btn mb-4 ml-md-3 mb-md-0 w-100 d-flex align-items-center justify-content-center text-uppercase btn_green" style="max-width: 320px; white-space: nowrap;">
-                <img style="width: 32px;" src="assets/img/filtro.webp">
-                <div class="ml-3 text-white">Filtro Avançado</div>
-              </button>
-            </div>
           </div>
         </div>
-
-        <div class="row">
-          <div class="col-12 w-1000">
-            <table class="table" *ngIf="products$ | async as products; else loading">
-              <thead>
-                <tr class="bg-white">
-                  <th class="border-0">Produto</th>
-                  <th class="border-0">Categoria</th>
-                  <th class="border-0">Preço</th>
-                  <th class="border-0">Peso</th>
-                  <th class="border-0">Adicionar ao carrinho</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                  <tr *ngFor="let item of products">
-                    <td>
-                      <strong>{{item.product_name}}</strong>
-                      <div class="d-lg-none">
-                        <div class="d-flex justify-content-between mt-2">
-                          <div>Naturais</div>
-                          <div>R$ 10.00 - 20.00</div>
-                        </div>
-                        <div>1kg, 2kg, 5kg</div>
-                        <br>
-                        <div class="d-flex w-100 justify-content-center">
-                          <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
-                          <h5 class="mx-2">0</h5>
-                          <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
-                        </div>
-                      </div>
-                    </td>
-                    <td >Naturais</td>
-                    <td >{{item.price}}</td>
-                    <td >{{item.weight}}</td>
-                    <td >
-                      <div class="d-flex pl-2">
-                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/minus.svg"></button>
-                        <h5 class="mx-2">{{item}}</h5>
-                        <button class="btn btn_remove"><img style="width: 12px;" src="assets/img/add.svg"></button>
-                      </div>
-                    </td>
-                  </tr>
-              </tbody>
-
-
-            </table>
-
-            <ng-template #loading>
-              <app-loading></app-loading>
-            </ng-template>
-
-
-            <h6 style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 mt-4 d-flex justify-content-center">
-            <nav>
-              <ul class="pagination">
-                <li class="page-item">
-                  <a class="page-link text-danger" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
-                <li class="page-item active"><a class="page-link _color_green">1</a></li>
-                <li class="page-item"><a class="page-link _color_green">2</a></li>
-                <li class="page-item"><a class="page-link _color_green">3</a></li>
-                <li class="page-item">
-                  <a class="page-link text-danger" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
+        <div>
+          <button id="btn_open_filtro"
+            class="btn mb-4 ml-md-3 mb-md-0 w-100 d-flex align-items-center justify-content-center text-uppercase btn_green"
+            style="max-width: 320px; white-space: nowrap;">
+            <img style="width: 32px;" src="assets/img/filtro.webp">
+            <div class="ml-3 text-white">Filtro Avançado</div>
+          </button>
         </div>
       </div>
-    </section>
-    <!--=========== fim section tabela ===========-->
+    </div>
+
+    <div class="row">
+      <div class="col-12 w-1000">
+
+        <table class="table" *ngIf="products$ | async as products; else loading">
+
+            <thead  *ngIf="products.length > 0">
+              <tr class="bg-white">
+                <th scope="col">Produto</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Preço/Unidade</th>
+                <th scope="col" class="classe-nova">Unidade</th>
+                <th scope="col" class="classe-nova">Adicionar ao carrinho</th>
+              </tr>
+            </thead>
+
+            <tbody *ngIf="products$ | async as listProduct">
+              <tr *ngFor="let product of listProduct ">
+                <td scope="row" style="max-width: 200px;">
+                  <h5>{{product.product_name}}</h5>
+
+                  <div class="d-lg-none" style="margin-top: 10px;">
+                    <span>
+                      <h6> Unidade de: {{product.weight}} kg</h6>
+                    </span>
+                    <div class="d-flex pl-2" *ngIf="product.amount && product.amount > 0">
+                      <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
+                          src="assets/img/minus.svg"></button>
+                      <h5 class="mx-2">{{product.amount}}</h5>
+                      <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
+                          src="assets/img/add.svg"></button>
+                    </div>
+
+                    <div class="example-button-row d-flex" *ngIf="product.amount == 0">
+                      <mat-card style="padding-top: -50px !important;">
+                        <mat-card-actions align="end">
+                          <img style="height: 26px;" src="assets/img/carrinho.svg">
+                          <button mat-button>
+                            <h6 class="_color_green" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                          </button>
+                        </mat-card-actions>
+                      </mat-card>
+                    </div>
+
+
+                  </div>
+                </td>
+
+                <td scope="row" style="max-width: 200px;">{{product.provider_primary}}</td>
+                <td scope="row" style="max-width: 200px;">{{product.price}}</td>
+                <td scope="row" class="classe-nova" style="max-width: 200px;">{{product.weight}}</td>
+
+                <td scope="row" class="classe-nova align-items-center">
+                  <div class="d-flex pl-2" *ngIf="product.amount && product.amount > 0">
+                    <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
+                        src="assets/img/minus.svg"></button>
+                    <h5 class="mx-2">{{product.amount}}</h5>
+                    <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
+                        src="assets/img/add.svg"></button>
+                  </div>
+
+                  <div *ngIf="product.amount == 0">
+                    <button class="btn d-flex align-items-center">
+                      <img style="width: 26px;" src="assets/img/carrinho.svg">
+                      <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                    </button>
+                  </div>
+
+                </td>
+
+              </tr>
+            </tbody>
+
+
+            <div *ngIf="products.length == 0" >
+              <!-- Mat nenhum produto encontrago  -->
+              <h3><strong>{{query | titlecase }}</strong> ainda não estar disponivel :( </h3>
+            </div>
+
+        </table>
+        <h6 *ngIf="hidderPagination" style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
+
+        <ng-template #loading>
+          <app-loading></app-loading>
+        </ng-template>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="hidderPagination">
+      <div class="col-12 mt-4 d-flex justify-content-center">
+        <nav>
+          <ul class="pagination">
+            <li class="page-item">
+              <a class="page-link text-danger" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="page-item active"><a class="page-link _color_green">1</a></li>
+            <li class="page-item"><a class="page-link _color_green">2</a></li>
+            <li class="page-item">
+              <a class="page-link text-danger" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</section>
+<!--=========== fim section tabela ===========-->
