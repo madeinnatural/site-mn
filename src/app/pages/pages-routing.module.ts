@@ -1,3 +1,4 @@
+import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { LoginComponent } from './account/login/login.component';
@@ -25,9 +26,7 @@ const routes: Routes = [
   ]},
   {path: 'product_detail', component: ProductDetailComponent},
   {path: 'product_list', component: ProductListComponent},
-
-  // PURCHASE
-  {path: 'purchase_summary', component: ProductListComponent},
+  {path: 'purchase_summary', component: PurchaseSummaryComponent}
 ];
 
 @NgModule({

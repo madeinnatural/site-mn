@@ -1,7 +1,7 @@
 import { GlobalEventService } from './global.service';
 import { ProductService } from './product.service';
 import { ServerService } from './../server/server.service';
-import { ProductList } from './../model/Product';
+import { ProductList, Purchase } from './../model/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { Item } from '../model/Product';
@@ -22,6 +22,10 @@ export class PurchaseService {
     private server: ServerService
   ) {}
 
+  async getPurchase(id: number) {
+    return this.server.getPurchase(id);
+  }
+
   async finishPurchase() {
     try {
       const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
@@ -35,10 +39,8 @@ export class PurchaseService {
         }
       });
 
-      const { id } = await this.server.finishPurchase(cart);
+      return await this.server.finishPurchase(cart);
 
-      this.clearCart();
-      return id;
     } catch (error) {
       const errorMsg = (error as any).message;
       this.globalEventService.errorPurchase.emit({text: errorMsg, showError: true});

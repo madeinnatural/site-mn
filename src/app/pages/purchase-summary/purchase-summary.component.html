@@ -1,3 +1,178 @@
-<p>
-  purchase-summary works!
-</p>
+  <!--=============== Status de compras ===============-->
+  <section class="w-100 pt-5 section_carrinho_de_compras">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <div style="white-space: nowrap; color: #686868;">
+                    Carrinho de Compras <i class="fa fa-angle-right"></i>
+                    Detalhes do pedido <i class="fa fa-angle-right"></i>
+                    <strong style="color: #000;"> Checkout</strong>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h2 style="font-weight: 700;" class="mb-5">Detalhes do pedido</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 cont_produtos">
+                <div class="card mb-5" style="border-radius: 0;">
+                    <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
+                        <div class="mb-3 mb-lg-0">
+                            <div>Vendido e entrege por</div>
+                            <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                            <div *ngIf="address">Endereço de entrega:{{address}}</div>
+                          </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fa mr-2"></i>
+                            <h2 class="mb-0" style="font-weight: bolder;">{{total | currency}}</h2>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <table class="table mb-0">
+                            <thead>
+                                <tr>
+                                    <th style="border-bottom: 0;">Produtos</th>
+                                    <th class="d-none d-lg-table-cell" style="border-bottom: 0;">Quantidade</th>
+                                    <th class="d-none d-lg-table-cell" style="border-bottom: 0;">Preço Unitário</th>
+                                    <th class="d-none d-lg-table-cell" style="border-bottom: 0;">Subtotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let product of products">
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div>{{product.product_name}}</div>
+                                        </div>
+                                        <table class="w-100 d-lg-none mb-3">
+                                            <thead>
+                                                <th class="border-0">Quantidade</th>
+                                                <th class="border-0">Preço Unitário</th>
+                                                <th class="border-0">Subtotal</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="py-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <h5 class="mx-3 mb-0">{{product.amount}}</h5>
+                                                        </div>
+                                                    </td>
+                                                    <td class="py-0">{{product.price | currency}}</td>
+                                                    <td class="py-0">{{product.price * product.amount | currency}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in d-flex justify-content-between">
+                                            <h5 class="mx-3 mb-0">{{product.amount}}</h5>
+                                        </div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in">{{product.price | currency}}</div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in"><strong>{{product.price * product.amount | currency}}</strong></div>
+                                    </td>
+                                </tr>
+                                <!-- <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-link"><img src="assets/img/close.svg" style="width: 12px;"></button>
+                                            <div>Açúcar Mascavo Orgânico 2</div>
+                                        </div>
+                                        <table class="w-100 d-lg-none mb-3">
+                                            <thead>
+                                                <th class="border-0">Quantidade</th>
+                                                <th class="border-0">Preço Unitário</th>
+                                                <th class="border-0">Subtotal</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="py-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <img style="width: 24px;" src="assets/img/minus_circle_green.svg">
+                                                            <h5 class="mx-3 mb-0">2</h5>
+                                                            <img style="width: 24px;" src="assets/img/add_circle_green.svg">
+                                                        </div>
+                                                    </td>
+                                                    <td class="py-0">R$ 60.00</td>
+                                                    <td class="py-0">R$ 120.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in">
+                                            <img style="width: 24px;" src="assets/img/minus_circle_green.svg">
+                                            <h5 class="mx-3 mb-0">2</h5>
+                                            <img style="width: 24px;" src="assets/img/add_circle_green.svg">
+                                        </div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in">R$ 60.00</div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in"><strong>R$ 120.00</strong></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <button class="btn btn-link"><img src="assets/img/close.svg" style="width: 12px;"></button>
+                                            <div>Açúcar Mascavo Orgânico 2</div>
+                                        </div>
+                                        <table class="w-100 d-lg-none mb-3">
+                                            <thead>
+                                                <th class="border-0">Quantidade</th>
+                                                <th class="border-0">Preço Unitário</th>
+                                                <th class="border-0">Subtotal</th>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="py-0">
+                                                        <div class="d-flex align-items-center">
+                                                            <img style="width: 24px;" src="assets/img/minus_circle_green.svg">
+                                                            <h5 class="mx-3 mb-0">2</h5>
+                                                            <img style="width: 24px;" src="assets/img/add_circle_red.svg">
+                                                        </div>
+                                                    </td>
+                                                    <td class="py-0">R$ 60.00</td>
+                                                    <td class="py-0">R$ 120.00</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in">
+                                            <img style="width: 24px;" src="assets/img/minus_circle_green.svg">
+                                            <h5 class="mx-3 mb-0">2</h5>
+                                            <img style="width: 24px;" src="assets/img/add_circle_red.svg">
+                                        </div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in">R$ 60.00</div>
+                                    </td>
+                                    <td class="py-0 d-none d-lg-table-cell">
+                                        <div class="td_in"><strong>R$ 120.00</strong></div>
+                                    </td>
+                                </tr> -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer text-right bg-transparent row d-flex justify-content-between">
+                      <span style="font-size: 15px;">
+                        Detalhes enviado também para o email: {{user.email}}
+                      </span>
+                      <button class="btn text-uppercase btn_green" style="color: white;">Fazer novos pedidos</button>
+                    </div>
+                  </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--=============== Status de compras ===============-->

@@ -66,10 +66,12 @@ export class CartComponent implements OnInit {
 
   async finalizePurchase(){
     try {
+      const response = await this.purchaseService.finishPurchase();
+      const purchase: Purchase = response.purchase;
+      const {id} = purchase;
 
-      const purchaseId = this.purchaseService.finishPurchase();
-      this.router.navigate(['purchase_summary'], { queryParams: { id: purchaseId } });
-
+      this.router.navigate([`purchase_summary`], {queryParams: {id}});
+      this.purchaseService.clearCart();
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);
     }

@@ -25,20 +25,21 @@ export class ServerService {
     public http: HttpClient,
     ) {}
 
+    async getPurchase(id: number) {
+      return await this.talkToServer('purchase/detail', {id});
+    }
+
     async createCotacao(products: Cotacao[]) {
       return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
     }
 
-    finishPurchase(products: Array<any>){
+    async finishPurchase(products: Array<any>){
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
     async search(termo: string, numberPage?: number) {
-
       let url = `seach?query=${termo}`;
-
       if (numberPage) url += '&page=' + numberPage
-
       return this.talkToServer(url);
     }
 

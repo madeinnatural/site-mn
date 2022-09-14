@@ -44,7 +44,7 @@ export class CartProduct {
 
 export class Purchase {
   constructor(
-    public  id: 1,
+    public id: number,
     public product_name: string,
     public weight: number,
     public category: string,

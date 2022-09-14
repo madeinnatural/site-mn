@@ -22,6 +22,20 @@ export class UserService {
 
   }
 
+  getCurrentUserLocalStorage() {
+    const userJson = localStorage.getItem('current_user');
+    if (userJson) return JSON.parse(userJson);
+    return {
+      name: '',
+      email: '',
+      cnpj: '',
+      phone: '',
+      adresses: '',
+      adresses_main: '',
+      id: 0,
+    };
+  }
+
   setUserLocalStorage(user: User){
     this.cookieService.setItem('current_user', JSON.stringify(user));
   }
