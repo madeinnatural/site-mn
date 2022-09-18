@@ -76,7 +76,7 @@ export class ProfileDataComponent implements OnInit {
     this.statusUpdate = 'success';
     this.user.name = this.dataUser.value.name;
     this.user.cnpj = this.dataUser.value.cnpj;
-    this.user.phone = this.dataUser.value.phone;
+    this.user.phone = this.dataUser.value.phone.toString();
 
     this.dataUserResponse = this.userService.updateUser(this.user)
     this.dataUserResponse.subscribe({

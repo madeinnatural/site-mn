@@ -1,0 +1,43 @@
+.profileDate {
+  max-width: 460px;
+}
+
+.col_table{
+  text-align: center;
+}
+
+.row_table {
+  text-align: center;
+}
+
+.row_table_final {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+@media screen and (max-width:993px){
+  .hidder{
+    display:none;
+  }
+
+  .response_format{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.col_table_final {
+  display: none;
+}
+
+@media screen and (min-width: 993px)  {
+  .show {
+    display: none;
+  }
+}

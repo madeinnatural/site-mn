@@ -41,7 +41,7 @@ export class PurchaseSummaryComponent implements OnInit {
       this.purchaseService.getPurchase(id).then(purchaseDetail => {
         const {products} = purchaseDetail;
           products.forEach((product: ProductList) => {
-            const subTotal = Math.abs(product.price) * Math.abs(product.amount)
+            const subTotal = Math.abs(product.price) * Math.abs(product.quantity)
             this.total += subTotal;
           });
         this.products = products;

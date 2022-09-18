@@ -68,7 +68,7 @@ export class ProductListComponent implements OnInit {
       map((products) => {
         return products.map(e => {
           return {
-            amount: e.amount,
+            quantity: e.quantity,
             categoria: e.categoria,
             id: e.id,
             product_name: e.product_name,
@@ -98,7 +98,7 @@ export class ProductListComponent implements OnInit {
   }
 
   removeItem(product: ProductList) {
-    const create_item = new Item(product.id,product, product.amount, product.price);
+    const create_item = new Item(product.id,product, product.quantity, product.price);
     this.productService.decreaseItemCart(create_item);
   }
 

@@ -66,12 +66,16 @@ export class CartComponent implements OnInit {
 
   async finalizePurchase(){
     try {
-      const response = await this.purchaseService.finishPurchase();
-      const purchase: Purchase = response.purchase;
-      const {id} = purchase;
-
-      this.router.navigate([`purchase_summary`], {queryParams: {id}});
-      this.purchaseService.clearCart();
+      this.purchaseService.finishPurchase()
+      .then(purchase => {
+        if(purchase) {
+          const {id} = purchase;
+          this.router.navigate([`purchase_summary`], {queryParams: {id}});
+          this.purchaseService.clearCart();
+        }
+      }, error => {
+        this.router.navigate(['login']);
+      });
     } catch (error: any) {
       if (error.status == 401) this.router.navigate(['login']);
     }
@@ -84,7 +88,7 @@ export class CartComponent implements OnInit {
         weight: item.product.weight,
         category: item.product.categoria,
         provider_primary: item.product.provider_primary,
-        amount: item.product.amount,
+        quantity: item.product.quantity,
         price: item.product.price,
         id: item.product.id,
       }

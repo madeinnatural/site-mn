@@ -1,3 +1,4 @@
+<!--=========== minha conta ===========-->
 <section class="w-100 section_minha_conta mb-5">
   <div class="container">
     <div class="row">
@@ -18,66 +19,67 @@
     <div class="row mt-3">
       <div class="col-md-1"></div>
       <div class="col-12 col-md-4 col-lg-3 mb-4">
-          <!-- <div class="mb-2"><a class="opt_menu_left" (click)="gotoRouter('profile/profile_data')" >Meus dados</a></div>
-          <div class="mb-2"><a class="opt_menu_left _active"  (click)="gotoRouter('profile/pedidos')"> Meus pedidos</a></div>
-          <div class="mb-2"><a class="opt_menu_left">Minhas cotações</a></div>
-          <div class="mb-2"><a class="opt_menu_left">Sair</a></div> -->
+        <div class="mb-2"><a style="color: #000; font-weight: 400;" href="minha_conta.html">Minha conta</a></div>
+        <div class="mb-2"><a href="informacoes_pessoais.html" class="opt_menu_left">Informações Pessoais</a></div>
+        <div class="mb-2"><a href="enderecos.html" class="opt_menu_left">Endereços</a></div>
+        <div class="mb-2"><a href="minha_lista.html" class="opt_menu_left">Minha lista</a></div>
 
-          <!-- <div class="mb-2 mt-4" style="color: #000; font-weight: 400;">Informações de Compra</div> -->
-          <!-- <div class="mb-2"><a href="historico_compras.html" class="opt_menu_left _active">Histórico de Compra</a></div> -->
-          <!-- <hr class="mt-4 mb-0 d-md-none"> -->
-          <app-menu-profile></app-menu-profile>
+        <div class="mb-2 mt-4" style="color: #000; font-weight: 400;">Informações de Compra</div>
+        <div class="mb-2"><a href="historico_compras.html" class="opt_menu_left _active">Histórico de Compra</a></div>
+        <hr class="mt-4 mb-0 d-md-none">
       </div>
+      <div class="col-12 col-md-6 col-lg-7">
+        <div class="w-100 compra" *ngIf="purchaseHistory$ | async as purchaseHistory else loading">
+          <ng-container style="display: none;" *ngFor="let purchaseYear of purchaseHistory">
+            <ng-container style="display: none;" *ngFor="let purchasesByMont of purchaseYear.purchasesByMonth">
+              <h5 class="mb-3"><strong>{{purchasesByMont.month}} {{purchaseYear.year}}</strong></h5>
+              <div class="card mb-5" style="border-radius: 0;">
+                <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
+                  <div class="mb-3 mb-lg-0">
+                    <div>Vendido e entrege por</div>
+                    <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                  </div>
+                  <div class="d-flex align-items-center">
+                    <i class="fa fa-exclamation-circle mr-2"></i>
+                    <h2 class="mb-0">
+                      {{purchasesByMont.final_price | currency:'BRL':true:'1.2-2' }}
+                      <i class="fa fa-angle-right ml-2"></i>
+                    </h2>
+                  </div>
+                </div>
 
-      <div *ngIf="purchases$ | async as purchases else loading">
-        <div class="w-100 compra" *ngFor="let purchase of purchases">
-          <h5 class="mb-3"><strong>{{purchase.mes}} {{purchase.ano}}</strong></h5>
-
-          <div class="card mb-5" style="border-radius: 0;">
-
-            <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
-              <div class="mb-3 mb-lg-0">
-                <div>Vendido e entrege por</div>
-                <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                <div class="card-body p-0">
+                  <table class="table mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="col_table">Data</th>
+                        <th scope="col" class="col_table">Quantidade</th>
+                        <th scope="col" class="col_table response_format" colspan="2" >Valor final</th>
+                        <th scope="col" class="col_table_final hidder"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr  *ngFor="let purchase of purchasesByMont.purchases">
+                        <td class="row_table" scope="row"> {{ purchase.created_at | date: 'dd/MM/yyyy hh:mm:ss'}}</td>
+                        <td class="row_table" scope="row"> {{ purchase.products?.length }}</td>
+                        <td class="row_table response_format" scope="row"> {{ purchase.final_price | currency:'BRL':true:'1.2-2' }} <a class="btn btn-sm btn-outline-primary show">Detalhes</a></td>
+                        <td class="row_table hidder" scope="row"><a class="btn btn-sm btn-outline-primary">Detalhes</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="card-footer text-right bg-transparent">
+                  <button class="btn text-uppercase btn_green">Repetir pedido</button>
+                </div>
               </div>
-              <div class="d-flex align-items-center">
-                <i class="fa fa-exclamation-circle mr-2"></i>
-                <h2 class="mb-0">
-                  {{purchase.totalPrice | currency:'BRL':true:'1.2-2' }}
-                  <i class="fa fa-angle-right ml-2"></i>
-                </h2>
-              </div>
-            </div>
-
-            <div class="card-body p-0">
-              <table class="table mb-0">
-                <thead>
-                  <tr>
-                    <th style="border-bottom: 1;">Produtos</th>
-                    <th style="border-bottom: 1;">Data</th>
-                    <th style="border-bottom: 1;">Subtotal</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let item of purchase.purchases">
-                    <td>{{item.product_name}}</td>
-                    <td>{{item.created_at | date:'dd/MM/yy'}}</td>
-                    <td>{{item.price | currency:'BRL':true:'1.2-2'}}</td>
-                  </tr>
-                </tbody>
-              </table>
-
-            </div>
-            <div class="card-footer text-right bg-transparent">
-              <button class="btn text-uppercase btn_green">Repetir pedido</button>
-            </div>
-          </div>
-
+            </ng-container>
+          </ng-container>
         </div>
+        <ng-template #loading>
+          <app-loading></app-loading>
+        </ng-template>
       </div>
-      <ng-template #loading>
-        <app-loading></app-loading>
-      </ng-template>
     </div>
   </div>
 </section>
+<!--=========== fim minha conta ===========-->

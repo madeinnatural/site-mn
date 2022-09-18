@@ -4,12 +4,13 @@ export class ProductList {
     public product_name: string,
     public weight: number,
     public price: number,
-    public amount: number,
+    public quantity: number,
     public provider?: string,
     public provider_primary?: string,
     public provider_tertiary?: string,
     public categoria?: string,
-    public unit?: string
+    public unit?: string,
+    public created_at?: Date
   ){}
 }
 
@@ -19,7 +20,7 @@ export class Product {
     public productName: string,
     public weight: number,
     public price: number,
-    public amount: number,
+    public quantity: number,
     public categoria?: string,
   ){}
 }
@@ -28,14 +29,14 @@ export class Item {
   constructor(
     public id: number,
     public product: ProductList,
-    public amount: number,
+    public quantity: number,
     public parcial_price: number, // QUANTIDADE * PREÇO DO PRODUTO
   ){}
 }
 
 export class CartProduct {
   constructor(
-      amount: number,
+      quantity: number,
       id: number,
       parcial_price: number,
       product: ProductList
@@ -49,20 +50,19 @@ export class Purchase {
     public weight: number,
     public category: string,
     public provider_primary: string,
-    public amount: number,
+    public quantity: number,
     public price: number,
-    public purchase_id: number,
+    public final_price: number,
+    public updated_at: Date,
     public created_at: Date,
-    public updated_at: Date
+    public products?: ProductList[],
   ){}
 }
 
 export class PurchaseHistory {
   constructor(
-    public ano: number,
-    public mes: string,
-    public purchases: Array<Purchase>,
-    public totalPrice?: number,
+    public year: number,
+    public purchasesByMonth: Array<{month: string, purchases: Purchase[], final_price: number}>,
   ){}
 }
 
@@ -72,7 +72,7 @@ export class Cotacao {
     public product_name: string,
     public weight: number,
     public price: number,
-    public amount: number,
+    public quantity: number,
     public provider?: string,
     public provider_primary?: string,
     public provider_tertiary?: string,

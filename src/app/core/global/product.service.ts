@@ -44,15 +44,15 @@ export class ProductService {
       const productCart = this.getProductCart();
       this.http.get<ProductList[]>(environment.baseUrl, {params: {page}}).subscribe((produts) => {
         function current_amount(id: number) {
-          let amount = 0;
+          let quantity = 0;
 
           productCart?.forEach((productCart) => {
             if (id == productCart.id) {
-              amount = productCart.amount;
+              quantity = productCart.quantity;
             }
           });
 
-          return amount;
+          return quantity;
         }
 
         const response = produts.map((e) => {
@@ -63,7 +63,7 @@ export class ProductService {
             provider_primary:
               e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
             weight: e.weight ? e.weight : 0.0,
-            amount: current_amount(e.id),
+            quantity: current_amount(e.id),
           };
         });
 
@@ -86,15 +86,15 @@ export class ProductService {
     const productCart = this.getProductCart();
 
     function current_amount(id: number) {
-      let amount = 0;
+      let quantity = 0;
 
       productCart?.forEach((productCart) => {
         if (id == productCart.id) {
-          amount = productCart.amount;
+          quantity = productCart.quantity;
         }
       });
 
-      return amount;
+      return quantity;
     }
 
     this.listProduct = products.map((e) => {
@@ -105,7 +105,7 @@ export class ProductService {
         provider_primary:
           e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
         weight: e.weight ? e.weight : 0.0,
-        amount: current_amount(e.id),
+        quantity: current_amount(e.id),
       };
     });
 
@@ -120,15 +120,15 @@ export class ProductService {
       if (products.length == 0) this.noMoreProduct = true;
 
       function current_amount(id: number) {
-        let amount = 0;
+        let quantity = 0;
 
         productCart?.forEach((productCart) => {
           if (id == productCart.id) {
-            amount = productCart.amount;
+            quantity = productCart.quantity;
           }
         });
 
-        return amount;
+        return quantity;
       }
 
       products.map((e) => {
@@ -139,7 +139,7 @@ export class ProductService {
           provider_primary:
             e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
           weight: e.weight ? e.weight : 0.0,
-          amount: current_amount(e.id),
+          quantity: current_amount(e.id),
         });
       });
 
@@ -154,7 +154,7 @@ export class ProductService {
   addItemCart(product: ProductList) {
     const item: Item = {
       id: product.id,
-      amount: product.amount,
+      quantity: product.quantity,
       parcial_price: product.price,
       product: product,
     };
@@ -174,16 +174,16 @@ export class ProductService {
         );
 
         const current_cart = cart;
-        current_cart[index_current_product].product.amount += 1;
-        current_cart[index_current_product].amount += 1;
+        current_cart[index_current_product].product.quantity += 1;
+        current_cart[index_current_product].quantity += 1;
 
-        const count_item = cart[index_current_product].product.amount;
+        const count_item = cart[index_current_product].product.quantity;
         const value_item = cart[index_current_product].product.price;
 
         current_cart[index_current_product].parcial_price =
           count_item * value_item;
 
-        this.listProduct[index_current_list_product].amount += 1;
+        this.listProduct[index_current_list_product].quantity += 1;
 
         this.cookieService.setItem('cart', JSON.stringify(current_cart));
       } else {
@@ -191,16 +191,16 @@ export class ProductService {
           (e) => e.id == item.id
         );
         if (index_current_list_product > -1) {
-          this.listProduct[index_current_list_product].amount = 1;
+          this.listProduct[index_current_list_product].quantity = 1;
         }
-        item.amount = 1
+        item.quantity = 1
         cart.push(item);
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
     } else {
-      item.amount = 1;
+      item.quantity = 1;
       const new_cart: Array<Item> = [item];
-      this.listProduct[this.listProduct.findIndex(e => e.id == item.id)].amount = 1;
+      this.listProduct[this.listProduct.findIndex(e => e.id == item.id)].quantity = 1;
       this.cookieService.setItem('cart', JSON.stringify(new_cart));
     }
 
@@ -212,7 +212,7 @@ export class ProductService {
     // CASO JÁ EXISTA CARRINHO
     // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
     if (cart && cart.findIndex((e) => e.id == item.id) > -1) {
-      if (item.amount <= 0) {
+      if (item.quantity <= 0) {
         const index_current_product = cart.findIndex((e) => e.id == item.id);
         const index_current_list_product = this.listProduct.findIndex(
           (e) => e.id == item.id
@@ -236,8 +236,8 @@ export class ProductService {
         );
         if (index_current_product > -1) {
           const current_cart = cart;
-          current_cart[index_current_product].product.amount -= 1;
-          current_cart[index_current_product].amount -= 1;
+          current_cart[index_current_product].product.quantity -= 1;
+          current_cart[index_current_product].quantity -= 1;
 
           const value_item = cart[index_current_product].product.price;
 
@@ -247,7 +247,7 @@ export class ProductService {
         }
 
         if (index_current_list_product > -1) {
-          this.listProduct[index_current_list_product].amount -= 1;
+          this.listProduct[index_current_list_product].quantity -= 1;
         }
       }
     } else {
@@ -255,7 +255,7 @@ export class ProductService {
         (e) => e.id == item.id
       );
       if (index_current_list_product > -1) {
-        this.listProduct[index_current_list_product].amount -= 1;
+        this.listProduct[index_current_list_product].quantity -= 1;
       }
     }
 
@@ -274,7 +274,7 @@ export class ProductService {
   }
 
   decreaseItemCart(item: Item) {
-    if (item.amount > 1) {
+    if (item.quantity > 1) {
       this.removeItemLocalStoragee(item);
     } else {
       this.deleteItemCart(item);

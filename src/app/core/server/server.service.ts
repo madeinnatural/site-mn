@@ -1,5 +1,5 @@
 import { ProductService } from './../global/product.service';
-import { Cotacao, Item, PurchaseHistory } from './../model/Product';
+import { Cotacao, Item, Purchase, PurchaseHistory } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -33,7 +33,7 @@ export class ServerService {
       return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
     }
 
-    async finishPurchase(products: Array<any>){
+    async finishPurchase(products: Array<ProductList>): Promise<Purchase> {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
@@ -46,36 +46,7 @@ export class ServerService {
     purchaseHistory (){
       const get_token = this.getToken()
       const token = get_token ? get_token : ''
-      return this.http.get<PurchaseHistory[]>(environment.baseUrl + 'purchase/purchase_history',{headers: { Authorization: token}}).pipe(
-        map(productHistory => {
-          return productHistory.map(productH => {
-            const product = productH.purchases.sort((a, b) => {
-              const dataA =  new Date(a.created_at);
-              const dataB =  new Date(b.created_at);
-              return dataB.getTime() - dataA.getTime();
-            });
-
-            return {
-              ano: productH.ano,
-              mes: productH.mes,
-              purchases: product
-            }
-          })
-        }),
-        map(productHistory => {
-          return productHistory.map(productH => {
-
-            const totalPrice: number = productH.purchases.map(purchase => purchase.price).reduce((a, b) => a + b, 0);
-
-            return {
-              ano: productH.ano,
-              mes: productH.mes,
-              purchases: productH.purchases,
-              totalPrice
-            }
-          })
-        })
-      )
+      return this.http.get<PurchaseHistory[]>(environment.baseUrl + 'purchase/purchase_history',{headers: { Authorization: token}});
     }
 
     getProductListHome(page: number) {

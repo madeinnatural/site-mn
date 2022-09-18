@@ -26,15 +26,17 @@ export class PurchaseService {
     return this.server.getPurchase(id);
   }
 
-  async finishPurchase() {
+  async finishPurchase(): Promise<Purchase | void> {
     try {
-      const cart = this.productService.getCart().filter( item => item.product.amount > 0 ).map(item => {
+      const cart: any = this.productService.getCart()
+      .filter( item => item.product.quantity > 0 )
+      .map(item => {
         return {
           product_name: item.product.product_name,
           weight: item.product.weight,
           category: item.product.categoria,
           provider_primary: item.product.provider_primary,
-          amount: item.product.amount,
+          quantity: item.product.quantity,
           price: item.product.price
         }
       });
@@ -44,6 +46,7 @@ export class PurchaseService {
     } catch (error) {
       const errorMsg = (error as any).message;
       this.globalEventService.errorPurchase.emit({text: errorMsg, showError: true});
+      return
     }
   }
 
@@ -92,7 +95,7 @@ export class PurchaseService {
       const cart = this.getCartLocalStorage();
 
       if (cart.some((e) => e.id == item.id)) {
-        cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
+        cart[cart.findIndex((e) => e.id == item.id)].quantity -= 1;
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
       }
@@ -106,9 +109,9 @@ export class PurchaseService {
 
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if (cart.some((current_item) => current_item.id == item.id)) {
-        cart[cart.findIndex((e) => e.id == item.id)].product.amount -= 1;
+        cart[cart.findIndex((e) => e.id == item.id)].product.quantity -= 1;
 
-        const count_item = cart[cart.findIndex((e) => e.id == item.id)].product.amount;
+        const count_item = cart[cart.findIndex((e) => e.id == item.id)].product.quantity;
 
         const current_price_item = cart[cart.findIndex((e) => e.id == item.id)].product.price
 
@@ -134,7 +137,7 @@ export class PurchaseService {
           return;
         }
 
-        // cart[cart.findIndex((e) => e.id == item.id)].amount -= 1;
+        // cart[cart.findIndex((e) => e.id == item.id)].quantity -= 1;
         // cart[cart.findIndex((e) => e.id == item.id)].parcial_price -=
         //   item.product.price;
 
@@ -144,7 +147,7 @@ export class PurchaseService {
         // );
 
         // cart.push({
-        //   amount: count_item,
+        //   quantity: count_item,
         //   id: item.id,
         //   parcial_price: curret_price,
         //   product: item.product,
@@ -163,9 +166,9 @@ export class PurchaseService {
     if (this.cookieService.hasItem('cart')) {
       // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
       if (cart.some((current_item) => current_item.id == item.id)) {
-        cart[cart.findIndex((e) => e.id == item.id)].product.amount += 1;
+        cart[cart.findIndex((e) => e.id == item.id)].product.quantity += 1;
         const count_item =
-          cart[cart.findIndex((e) => e.id == item.id)].product.amount;
+          cart[cart.findIndex((e) => e.id == item.id)].product.quantity;
         cart[cart.findIndex((e) => e.id == item.id)].product.price *=
           count_item;
 
@@ -199,7 +202,7 @@ export class PurchaseService {
   //     const cart = this.getCartLocalStorage();
 
   //     const count_item =
-  //       cart[cart.findIndex((e) => e.id == item.id)].product.amount + 1;
+  //       cart[cart.findIndex((e) => e.id == item.id)].product.quantity + 1;
   //     const curret_price =
   //       cart[cart.findIndex((e) => e.id == item.id)].product.price * count_item;
 
@@ -209,7 +212,7 @@ export class PurchaseService {
   //     );
 
   //     cart.push({
-  //       amount: count_item,
+  //       quantity: count_item,
   //       id: item.id,
   //       parcial_price: curret_price,
   //       product: item.product,

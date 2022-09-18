@@ -11,13 +11,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileRequestsComponent implements OnInit {
 
-  purchases$:  Observable<PurchaseHistory[]>;
+  purchaseHistory$:  Observable<PurchaseHistory[]>;
 
   constructor(
     private router: Router,
     private purchaseService: PurchaseService
     ) {
-      this.purchases$ = purchaseService.historyPurchase();
+      this.purchaseHistory$ = purchaseService.historyPurchase();
     }
 
   ngOnInit() {}
