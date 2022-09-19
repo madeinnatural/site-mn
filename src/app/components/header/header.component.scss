@@ -6,3 +6,13 @@
   font-size: medium;
   padding-left: 100px;
 }
+
+@media screen and (max-width: 350px) {
+  .hidder-350{
+    display:none;
+  }
+
+  .show-350{
+    display: block;
+  }
+}

@@ -53,6 +53,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormComponent,
     SearchHeaderComponent,
     BreadcrumbsComponent,
-    ToastComponent
+    ToastComponent,
+    ModalComponent
   ],
   imports: [
     CommonModule,
@@ -124,7 +126,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     FormComponent,
     SearchHeaderComponent,
     BreadcrumbsComponent,
-    ToastComponent
+    ToastComponent,
+    ModalComponent
   ]
 })
 export class ComponentsModule { }

@@ -43,19 +43,15 @@ $SITE-MADE-IN-NATURAL-theme: mat.define-light-theme((
 // @import '../node_modules/font-awesome/scss/font-awesome';
 
 
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 @import 'assets/css/style.css';
 // @import 'assets/css/bootstrap.min.css';
-@import 'assets/css/calendario.css';
-@import 'assets/css/font-awesome.css';
-@import 'assets/css/font-awesome.min.css';
-@import 'assets/css/rSlider.css';
+// @import 'assets/css/calendario.css';
+// @import 'assets/css/font-awesome.css';
+// @import 'assets/css/font-awesome.min.css';
+// @import 'assets/css/rSlider.css';
 
 
 .global_form {
@@ -84,3 +80,39 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: white !important;
   color: #000 !important;
 }
+
+@media screen and (max-width: 350px) {
+  .hidder-350{
+    display:none;
+  }
+
+  .show-350{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 993) {
+  .hidder-993{
+    display:none;
+  }
+
+  .show-993{
+    display: block;
+  }
+
+}
+
+// butoões
+
+.btn_detial {
+  border: 2px solid #9467F4 !important;
+  color: #9461F7 !important;
+  border-radius: 5px !important;
+  text-align: center !important;
+  letter-spacing: 0.7px !important;
+  text-transform: uppercase !important;
+  text-decoration: none !important;
+  font-size: 8px;
+}
+
+

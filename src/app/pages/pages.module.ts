@@ -110,15 +110,13 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTooltipModule,
     MatTreeModule,
 
-
-
   ],
   exports: [
     CartComponent,
     ProfileDataComponent,
     RegisterComponent,
     ProductListComponent,
-    PurchaseSummaryComponent
+    PurchaseSummaryComponent,
   ]
 })
 export class PagesModule { }

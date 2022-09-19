@@ -1,8 +1,12 @@
-import { Observable } from 'rxjs';
-import { Purchase, PurchaseHistory } from './../../../core/model/Product';
+import { ModalComponent } from './../../../components/modal/modal.component';
+import { ProductList } from 'src/app/core/model/Product';
+import { Observable, map } from 'rxjs';
+import { PurchaseHistory } from './../../../core/model/Product';
 import { PurchaseService } from './../../../core/global/purchase.service';
 import { Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-profile-requests',
@@ -12,10 +16,14 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileRequestsComponent implements OnInit {
 
   purchaseHistory$:  Observable<PurchaseHistory[]>;
+  dataProductDetail?: ProductList[];
+  displayStyle = "none";
 
   constructor(
     private router: Router,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    private modal: NgbModal,
+    public dialog: MatDialog,
     ) {
       this.purchaseHistory$ = purchaseService.historyPurchase();
     }
@@ -26,4 +34,21 @@ export class ProfileRequestsComponent implements OnInit {
     this.router.navigateByUrl(url)
   }
 
+  async openDetail(product?: ProductList[]) {
+
+    const dialogRef = this.dialog.open(ModalComponent , {
+      width: '100%',
+      data: { product: product }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+
+
+}
+
+export class Modal {
+  product: ProductList[] = [];
 }

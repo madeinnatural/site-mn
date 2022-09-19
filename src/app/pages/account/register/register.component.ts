@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
       name: [null, [Validators.required]],
       lastname: [null],
       email: [null, [Validators.required, Validators.email]],
-      cpf_cnpj: [null,[Validators.required]],
+      cpf_cnpj: ['',[Validators.required]],
       phone: [null, [Validators.required]],
       password: [null, [Validators.required]],
       promo_active: [false]

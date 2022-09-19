@@ -89,6 +89,7 @@ export class CartComponent implements OnInit {
         category: item.product.categoria,
         provider_primary: item.product.provider_primary,
         quantity: item.product.quantity,
+        total: item.product.price * item.product.quantity,
         price: item.product.price,
         id: item.product.id,
       }

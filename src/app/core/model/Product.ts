@@ -5,6 +5,7 @@ export class ProductList {
     public weight: number,
     public price: number,
     public quantity: number,
+    public total?: number,
     public provider?: string,
     public provider_primary?: string,
     public provider_tertiary?: string,
