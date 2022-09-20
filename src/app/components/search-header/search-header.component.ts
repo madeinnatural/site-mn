@@ -24,6 +24,7 @@ export class SearchHeaderComponent implements OnInit {
   }
 
   bucarProduto() {
+    if (this.query == '')  this.query = " ";
     this.router.navigateByUrl('product_list?query=' + this.query);
     this.router.navigate(['product_list'], {queryParams: {query: this.query}});
     this.globalEvents.search.emit();

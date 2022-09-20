@@ -46,6 +46,9 @@ export class ProfileRequestsComponent implements OnInit {
     });
   }
 
+  goToProductList() {
+    this.router.navigateByUrl('/product_list?query=%20%20');
+  }
 
 }
 

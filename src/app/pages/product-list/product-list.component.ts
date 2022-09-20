@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
     if (query) {
       this.query = query;
     } else {
-      this.query = '';
+      this.query = ' ';
     }
 
     this.products$ = this.query != "" ? this.server.getProductListQuery(this.query, this.current_page) : this.server.getProductListQuery(this.query);
