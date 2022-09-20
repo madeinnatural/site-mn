@@ -6,7 +6,7 @@
 
           <app-dropdown class="btn_open_menu hidder-350"></app-dropdown>
 
-          <img (click)="goHome()" style="height: 53px;" src="assets/img/logo.webp">
+          <img (click)="goHome()" style="padding-left: 5%; height: 53px;" src="assets/img/logo.webp">
 
           <div class="w-100 d-none d-lg-block centro_menu">
             <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex border-white">
@@ -45,6 +45,7 @@
           </div>
 
           <app-dropdown
+          style="margin-right: 5%;"
           type="menu_fechamendo"
           [cartLength]="cartLength"
           [finalPrice]="finalPrice"
