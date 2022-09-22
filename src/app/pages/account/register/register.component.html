@@ -23,93 +23,27 @@
     </div>
   </div>
 
-  <form [formGroup]="formCadastro"  [ngClass]="errorStyle('nome')" (ngSubmit)="submit()">
+  <mn-form #form [submitable]="submit" buttonName="Cadastrar conta" [showToastForm]="true">
 
-    <div class="col-12">
+    <mn-input [(value)]="name" size="sm" archetype="name" placeholder="Nome e sobrenome" required>
+    </mn-input>
 
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-       type="text"
-        formControlName="name"
-        name="name"
-        class="form-control global_form rounded-0 border-0 px-0 py-4"
-        placeholder="Nome"
-        #name
-        required
-        >
-      <br>
+    <mn-input [(value)]="email" size="sm" archetype="email" placeholder="E-mail" required>
+    </mn-input>
 
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-       type="text"
-        formControlName="lastname"
-        name="lastname"
-        class="form-control global_form rounded-0 border-0 px-0 py-4"
-        placeholder="Sobrenome">
-      <br>
+    <mn-input [(value)]="cpf_cnpj" size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
+    </mn-input>
 
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-        type="text"
-        maxlength="14"
-        formControlName="cpf_cnpj" name="cnpj"
-        #cnpj
-        class="form-control global_form rounded-0 border-0 px-0 py-4" placeholder="CNPJ / CPF"
-        required
-      >
-      <br>
+    <mn-input [(value)]="phone" size="sm" archetype="phone" placeholder="Telefone" required>
+    </mn-input>
 
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
+    <mn-input [(value)]="password" size="sm" archetype="password" placeholder="Senha" required>
+    </mn-input>
 
-        type="email"
-        formControlName="email"
-        name="email"
-        #email
-        class="form-control global_form rounded-0 border-0 px-0 py-4"
-        placeholder="Email"
-        required>
+    <mn-input [(value)]="password_confirmat" size="sm" archetype="password" placeholder="Confirmar a senha" required>
+    </mn-input>
 
-      <br>
 
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-        type="text"
-        formControlName="phone"
-        name="telefone"
-        #phone
-        class="form-control global_form rounded-0 border-0 px-0 py-4"
-        placeholder="Telefone"
-        required>
-      <br>
-
-      <input style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-       type="password"
-        formControlName="password"
-        name="password"
-        #password
-        class="form-control global_form rounded-0 border-0 px-0 py-4"
-        placeholder="Senha"
-        required>
-
-    </div>
-
-    <!-- <div class="col-12">
-      <br>
-      <label class="d-flex align-items-center">
-        <input formControlName="promo_active" type="checkbox" class="mr-3"> <span style="font-size: 13px;">Sim, eu
-          quero receber comunicações e
-          promocões</span>
-      </label>
-      <div style="color: grey; font-size: 13px;">Gostaríamos que você fosse o primeiro a receber notícias
-        personalizadas, ofertas especiais exclusivas relacionadas à PRIMA, nossos produtos e nossa colaboração
-        com
-        terceiros.</div>
-      <div class="mt-2" style="font-size: 13px;">Sim eu aceito os <a class="text-dark"
-          style="text-decoration: underline;" href="#">Termos de serviço</a> & <a class="text-dark"
-          style="text-decoration: underline;" href="#">Politica de Privacidade</a></div>
-    </div> -->
-
-    <div class="col-12">
-      <br>
-      <button type="submit" class="btn btn_green w-100 text-uppercase">Criar conta</button>
-    </div>
-
-  </form>
+  </mn-form>
 
 </div>

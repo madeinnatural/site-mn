@@ -4,42 +4,57 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './../../../core/account/account.service';
 import { UserRegister } from './../../../core/model/User';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, Input, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Output,
+  EventEmitter,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-
   promo = false;
 
-  errorsResponseServer: Array<{campo: string, msg: string}> = [];
+  errorsResponseServer: Array<{ campo: string; msg: string }> = [];
 
   @Input('type') current_type: 'login' | 'registration' = 'login';
 
-  @Output('changeType') changeType = new EventEmitter<'login' | 'registration'>();
+  @Output('changeType') changeType = new EventEmitter<
+    'login' | 'registration'
+  >();
   @Output('register') register = new EventEmitter<UserRegister>();
 
 
-  @ViewChild('name') name?: ElementRef;
-  @ViewChild('cnpj') cnpj?: ElementRef;
-  @ViewChild('email') email?: ElementRef;
-  @ViewChild('phone') phone?: ElementRef;
-  @ViewChild('password') password?: ElementRef;
-
-
-  get type () {
+  get type() {
     return this.current_type;
   }
 
-  set type (current_type: 'login' | 'registration') {
+  set type(current_type: 'login' | 'registration') {
     this.changeType.emit(current_type);
     this.current_type = current_type;
   }
 
   formCadastro: FormGroup;
+
+  @ViewChild('form') form: any;
+
+  name = '';
+  email = '';
+  cpf_cnpj = '';
+  phone = '';
+  password = '';
+  password_confirmat = '';
+
+
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,82 +62,101 @@ export class RegisterComponent implements OnInit {
     private cookieService: CookieService,
     private globalEventService: GlobalEventService,
     private router: Router
- ) {
+  ) {
     this.formCadastro = formBuilder.group({
       name: [null, [Validators.required]],
       lastname: [null],
       email: [null, [Validators.required, Validators.email]],
-      cpf_cnpj: ['',[Validators.required]],
+      cpf_cnpj: ['', [Validators.required]],
       phone: [null, [Validators.required]],
       password: [null, [Validators.required]],
-      promo_active: [false]
+      promo_active: [false],
     });
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   verifyValid(campo: any) {
-    return !this.formCadastro.get(campo)?.valid && this.formCadastro.get(campo)?.touched
+    return (
+      !this.formCadastro.get(campo)?.valid &&
+      this.formCadastro.get(campo)?.touched
+    );
   }
 
-  errorStyle(campo: any){
+  errorStyle(campo: any) {
     return {
       'has-error': this.verifyValid(campo),
-      'has-feedback': this.verifyValid(campo)
-    }
+      'has-feedback': this.verifyValid(campo),
+    };
   }
 
-  submit() {
+  submit: Submitable = {
+    submit: async () => {
+      return new Promise((ok) => {
+        {
+          this.errorsResponseServer = [];
 
-    this.errorsResponseServer = [];
+          console.log(this.name);
 
-    console.log(this.name)
-
-    if(!this.name?.nativeElement.validity.valid) {this.errorsResponseServer.push({msg: 'Nome invlido', campo: 'name'})}
-    if(!this.cnpj?.nativeElement.validity.valid) {this.errorsResponseServer.push({msg: 'CNPJ invalido', campo: 'cnpj'})}
-    if(!this.email?.nativeElement.validity.valid) {this.errorsResponseServer.push({msg: 'Email invalido', campo: 'email'})}
-    if(!this.phone?.nativeElement.validity.valid) {this.errorsResponseServer.push({msg: 'Telefone invalido', campo: 'phone'})}
-    if(!this.password?.nativeElement.validity.valid) {this.errorsResponseServer.push({msg: 'Password invalido', campo: 'password'})}
-
-    if (this.errorsResponseServer.length > 0 ) return false;
+          if (this.errorsResponseServer.length > 0) return false;
 
 
-    const { name , lastname , email , cpf_cnpj , phone , password , promo_active } = this.formCadastro.value;
 
-    this.accountService.reginterUser({ name , email , cpf_cnpj , phone , password , promo_active , lastname })
-    .subscribe( {
-      next: (res: any) => {
+          this.accountService
+            .reginterUser({
+              name: this.name,
+              email: this.email,
+              cpf_cnpj: this.cpf_cnpj,
+              phone: this.phone,
+              password: this.password,
+              promo_active: true,
+              lastname: this.name,
+            })
+            .subscribe({
+              next: (res: any) => {
+                this.accountService.logout();
 
-        this.accountService.logout();
+                const { user, auth_token } = res;
+                const current_user_string = JSON.stringify(user);
 
-        const { user, auth_token } = res;
-        const current_user_string = JSON.stringify(user);
+                this.cookieService.setItem('current_user', current_user_string);
+                this.cookieService.setItem(
+                  this.globalEventService.AUTH_TOKEN_COOKIE,
+                  auth_token
+                );
 
-        this.cookieService.setItem('current_user', current_user_string);
-        this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, auth_token);
+                window.localStorage.setItem(
+                  'current_user',
+                  current_user_string
+                );
 
-        window.localStorage.setItem('current_user', current_user_string);
+                this.globalEventService.loginEvent.emit(user);
 
-        this.globalEventService.loginEvent.emit(user);
+                this.router.navigate(['/']);
+              },
+              error: (rej: any) => {
+                const error = rej.error;
 
-        this.router.navigate(['/']);
-      },
-      error: (rej: any) => {
+                const { msg, field } = error;
 
-        const error = rej.error;
+                error.forEach((element: any) => {
+                  this.errorsResponseServer.push({
+                    msg: element.msg,
+                    campo: 'email',
+                  });
+                });
 
-        const { msg, field} = error;
+                return false;
+              },
+            });
 
-        error.forEach((element: any) => {
-          this.errorsResponseServer.push({msg: element.msg, campo: 'email'})
-        });
-
-        return false;
-      },
-    });
-
-    return true
-  }
-
+          return true;
+        }
+      });
+    },
+    cancel: () => {
+      return new Promise(() => { });
+    },
+  };
 }
+

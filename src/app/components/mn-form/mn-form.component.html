@@ -1,0 +1,18 @@
+<form #form (ngSubmit)="submitable ? button.click() : submit()" [class]="innerClass">
+  <ng-content></ng-content>
+
+  <div [hidden]="hideButtons" class="form-btns">
+    <div class="form-row">
+      <mn-button #cancel *ngIf="submitable && submitable.cancel && cancelName" class="col-6" color="light"
+        (click)="submitable.cancel()" size="lg">
+        {{cancelName}}
+      </mn-button>
+      <mn-button #button [hidden]="!submitable" [class.col-12]="!cancelName" [class.col-6]="cancelName"
+        [submitable]="this" size="lg" [type]="'button'">
+        {{buttonName}}
+      </mn-button>
+    </div>
+  </div>
+
+  <input type="submit" value="enviar" style="position:absolute;top:-9999px;">
+</form>

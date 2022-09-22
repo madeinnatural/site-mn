@@ -18,6 +18,7 @@ import { FormsModule } from '@angular/forms';
 import { SearchHeaderComponent } from './search-header/search-header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ToastComponent } from './toast/toast.component';
+import { TextMaskModule } from '@myndmanagement/text-mask';
 
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -54,6 +55,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ModalComponent } from './modal/modal.component';
+import { MnInputComponent } from './input/input.component';
+import { MnButtonComponent } from './mn-button/mn-button.component';
+import { MnFormComponent } from './mn-form/mn-form.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,10 @@ import { ModalComponent } from './modal/modal.component';
     SearchHeaderComponent,
     BreadcrumbsComponent,
     ToastComponent,
-    ModalComponent
+    ModalComponent,
+    MnInputComponent,
+    MnButtonComponent,
+    MnFormComponent,
   ],
   imports: [
     CommonModule,
@@ -111,7 +118,8 @@ import { ModalComponent } from './modal/modal.component';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
-    MatTreeModule
+    MatTreeModule,
+    TextMaskModule,
   ],
   exports: [
     HeaderComponent,
@@ -127,7 +135,10 @@ import { ModalComponent } from './modal/modal.component';
     SearchHeaderComponent,
     BreadcrumbsComponent,
     ToastComponent,
-    ModalComponent
-  ]
+    ModalComponent,
+    MnInputComponent,
+    MnButtonComponent,
+    MnFormComponent,
+  ],
 })
-export class ComponentsModule { }
+export class ComponentsModule {}
