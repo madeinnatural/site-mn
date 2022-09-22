@@ -19,7 +19,7 @@ export interface Submitable {
   templateUrl: './mn-form.component.html',
   styleUrls: ['./mn-form.component.scss'],
 })
-export class MnFormComponent implements OnInit {
+export class MnFormComponent {
   @Input() buttonName = 'Enviar';
   @Input() cancelName?: string;
 
@@ -42,9 +42,8 @@ export class MnFormComponent implements OnInit {
   inputs2?: QueryList<MnInputComponent>;
 
   constructor(private global: GlobalEventService) { }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+ 
+
 
   ngAfterContentInit() {
     this.inputs = this.inputs2?.toArray() || [];
@@ -137,8 +136,8 @@ export class MnFormComponent implements OnInit {
 
         const showTime = (campos: Array<string>) => {
           let localMsg: string = `<h3>Você não preencheu ${campos.length > 1
-              ? ' campos obrigatórios.'
-              : ` o campo ${campos[0]}.`
+            ? ' campos obrigatórios.'
+            : ` o campo ${campos[0]}.`
             } </h3>`;
 
           localMsg = localMsg.replace(/.$/, '').replace(/(\r\n|\n|\r)/gm, '');

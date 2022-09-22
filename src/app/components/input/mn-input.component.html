@@ -17,23 +17,36 @@
       [attr.autofocus]="autofocus ? null : ''" [maxlength]="maxCounter ? maxCounter : maxLength"></textarea>
   </ng-container>
 
-
-
   <div class="relative">
-    <i *ngIf="type=='password'" (click)="toggleType()" class="form-iconInput"
-      [class.icon-eye]="getActualType()=='password'" [class.icon-eye-block]="!(getActualType()=='password')"></i>
+    <i *ngIf="type=='password'" class="form-iconInput" [class.icon-eye]="getActualType()=='password'"
+      [class.icon-eye-block]="!(getActualType()=='password')"></i>
     <a *ngIf="type=='password' && hasForgetLink" class="form-forgotLink" routerLink="/esqueci_minha_senha">Esqueci</a>
 
     <mat-form-field style="width: 100%;" appearance="legacy">
 
       <mat-label>{{placeholder}}</mat-label>
 
-      <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea')" #input [class.is-invalid]="invalid"
-        matInput placeholder="{{placeholder}}" class="form-control-{{size}}" [type]="actualType" tabindex="1"
-        [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()" [textMask]="tmask" [disabled]="disabled"
-        [readonly]="readonly" [ngClass]="['text-input', innerClass]" attr.id="{{name}}"
+      <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType != 'password'" #input
+        [class.is-invalid]="invalid" matInput placeholder="{{placeholder}}" class="form-control-{{size}}"
+        [type]="actualType" tabindex="1" [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()" [textMask]="tmask"
+        [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]" attr.id="{{name}}"
         [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"
         (keydown)="handleBackspace($event)" attr.data-checkout="{{dataCheckout || 'false'}}" />
+
+
+      <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType == 'password'" #input
+        [class.is-invalid]="invalid" matInput placeholder="{{placeholder}}" class="form-control-{{size}}"
+        [type]="!hide ? 'text' : 'password'" tabindex="1" [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()"
+        [textMask]="tmask" [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]"
+        attr.id="{{name}}" [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"
+        (keydown)="handleBackspace($event)" attr.data-checkout="{{dataCheckout || 'false'}}" />
+
+
+
+      <button *ngIf="actualType == 'password'" mat-icon-button matSuffix (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
 
       <mat-hint *ngIf="invalid">
         <a class="invalid-feedback required">{{message}}</a>

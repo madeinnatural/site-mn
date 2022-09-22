@@ -19,9 +19,9 @@ import {
 
 type Mask = {
   mask:
-    | false
-    | (string | RegExp)[]
-    | ((rawValue: string) => (string | RegExp)[]);
+  | false
+  | (string | RegExp)[]
+  | ((rawValue: string) => (string | RegExp)[]);
   showMask?: boolean;
   guide?: boolean;
 };
@@ -211,7 +211,7 @@ const bankAccountMask: Mask = {
 };
 
 export class MnOption {
-  constructor(public name: string, public value: string) {}
+  constructor(public name: string, public value: string) { }
 }
 
 export class MnInputArchetype {
@@ -219,11 +219,11 @@ export class MnInputArchetype {
     public readonly validators:
       | ValidatorEnum
       | Array<
-          | ValidatorEnum
-          | Array<ValidatorEnum | string | any>
-          | Validator
-          | MnValidator
-        >,
+        | ValidatorEnum
+        | Array<ValidatorEnum | string | any>
+        | Validator
+        | MnValidator
+      >,
     public readonly mask: Mask,
     public readonly type:
       | 'text'
@@ -232,7 +232,7 @@ export class MnInputArchetype {
       | 'password'
       | 'select'
       | 'search'
-  ) {}
+  ) { }
 
   static get(type: string, options?: string): MnInputArchetype | undefined {
     switch (type) {
@@ -445,6 +445,7 @@ export class MnInputArchetype {
 @Component({
   selector: 'mn-input',
   templateUrl: './mn-input.component.html',
+  styleUrls: ['./input.component.scss']
 })
 export class MnInputComponent implements OnChanges {
   // SELECT TYPE
@@ -603,9 +604,11 @@ export class MnInputComponent implements OnChanges {
   dirty = false;
   touch = false;
   showPassword = false;
-  actualType = 'text';
+  actualType = '';
   tmask: any = blankMask; // textMask puro
   counterNumber: number = 0;
+  hide = true;
+
   blankMask = blankMask;
   allowMessage: boolean = true;
 
@@ -673,11 +676,11 @@ export class MnInputComponent implements OnChanges {
     validators:
       | ValidatorEnum
       | Array<
-          | ValidatorEnum
-          | Array<ValidatorEnum | string | any>
-          | Validator
-          | MnValidator
-        >
+        | ValidatorEnum
+        | Array<ValidatorEnum | string | any>
+        | Validator
+        | MnValidator
+      >
   ) {
     if (!(validators instanceof Array)) {
       validators = [validators];

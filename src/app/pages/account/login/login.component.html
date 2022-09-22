@@ -21,64 +21,12 @@
 
 
 
-  <form #f="ngForm" [formGroup]="formLogin" (ngSubmit)="startLogin()" class="col-12">
-
-    <mat-label>Email</mat-label>
-    <input
-    type="email"
-    #email
-    formControlName="email"
-    style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-    name="email"
-    class="form-control global_form rounded-0 border-0 px-0 py-4 padding-20"/>
-
-      <div *ngIf="this.formLogin.get('email')?.errors && this.formLogin.get('email')?.touched">
-        <mat-hint class="invalid-feedback">Email invalido</mat-hint>
-      </div>
-
-    <br>
-
-
-    <div class="submit-line">
-
-      <mat-label>Senha</mat-label>
-      <input
-      type="password"
-      formControlName="password"
-      #password
-      name="password"
-      class="form-control global_form rounded-0 border-0 px-0 py-4 padding-20"
-      style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-      matInput [type]="hide ? 'password' : 'text'"
-      >
-
-      <mat-icon
-      class="submit-lente"
-      matSuffix (click)="hide = !hide"
-      [attr.aria-label]="'Hide password'"
-      [attr.aria-pressed]="hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-
-
-      <mat-hint
-      *ngIf="valPassword"
-
-      class="invalid-feedback" >{{fildMsgError}}</mat-hint>
-
-    </div>
-
-    <div class="col-12" style="margin-bottom: 10px;">
-      <br>
-
-      <div *ngIf="loading"class="d-flex justify-content-center text-success">
-        <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      </div>
-
-      <label *ngIf="!loading" for="login" class="btn btn_green w-100 text-uppercase">Entrar</label>
-      <input *ngIf="!loading" type="submit" id="login" hidden="true" />
-    </div>
-  </form>
+  <mn-form #form [submitable]="submit" buttonName="Entrar" [showToastForm]="true">
+    <mn-input archetype="email" placeholder="E-mail">
+    </mn-input>
+    <mn-input archetype="password" placeholder="Senha">
+    </mn-input>
+  </mn-form>
 
   <div class="col-12">
     <br>
