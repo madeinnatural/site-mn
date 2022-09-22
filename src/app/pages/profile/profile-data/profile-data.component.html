@@ -3,7 +3,7 @@
   <div class="container">
 
     <!-- CAMINHO DE PÃO -->
-   <div class="row">
+    <div class="row">
       <div class="col-12 mb-3">
         <div style="white-space: nowrap; color: #686868;">
           Home <i class="fa fa-angle-right"></i>
@@ -27,64 +27,35 @@
 
       <div class="col-12 col-md-6 col-lg-7">
         <div class="w-100 profileData d-flex" style="flex-direction: column;">
-          <form class="form" [formGroup]="dataUser" (submit)="updateDataPesonal()">
-            <h5><strong>Pessoal</strong></h5>
-            <input formControlName="name"
-              type="text"
-              name="nome"
-              class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="Nome completo"
-              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-              <div class="invalid-feedback"*ngIf="dataUser.get('name')?.errors?.['required'] && dataUser.get('name')?.touched">
-                Nome obrigatório
-              </div>
 
-            <input formControlName="cnpj"
-              type="text"
-              name="cnpj"
-              class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="CNPJ"
-              style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-              <div class="invalid-feedback"*ngIf="dataUser.get('cnpj')?.errors?.['required'] && dataUser.get('cnpj')?.touched">
-                CNPJ obrigatório
-              </div>
+          <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Atualizar">
+            <strong>Pessoal</strong>
 
-            <input formControlName="phone"
-              type="text"
-              name="phone"
-              class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="Telefone"
-              style="box-shadow: none; border-bottom: solid 1px #ccc !important;"
-              >
-              <div class="invalid-feedback"*ngIf="dataUser.get('phone')?.errors?.['required'] && dataUser.get('phone')?.touched">
-                Telefone obrigatorio
-              </div>
+            <mn-input archetype="nome" placeholder="Nome e sobrenome" [(value)]="this.user.name" size="sm" requery>
+            </mn-input>
 
-            <button class="btn btn_green w-100 text-uppercase" *ngIf="!loading">Atualizar</button>
-            <button *ngIf="loading" class="btn btn_green w-100 text-uppercase" ><app-loading [type]="statusUpdate"></app-loading></button>
+            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [(value)]="this.user.cnpj" size="sm" requery>
+            </mn-input>
 
-          </form>
+            <mn-input archetype="phone" placeholder="Telefone" [(value)]="this.user.phone" size="sm" requery>
+            </mn-input>
 
-          <form [formGroup]="dataAccess" style="padding-top: 50px;" (submit)="updateDataLogin()">
-            <h5><strong>Informações de login</strong></h5>
-            <input formControlName="email" type="email" name="email" class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="Email" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
+          </mn-form>
 
 
-            <input formControlName="password" type="password" name="senha" class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="Nova senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
 
+          <mn-form class="form" style="padding-top: 50px !important;" buttonName="Atualizar"
+            [submitable]="updateDataLogin">
+            <strong>Informações de login</strong>
 
-            <input formControlName="password_confirmation" type="password" name="senha_2" class="form-control rounded-0 border-0 px-0 py-4"
-              placeholder="Confirmar senha" style="box-shadow: none; border-bottom: solid 1px #ccc !important;">
-              <div class="invalid-feedback"
-              *ngIf="passwordMatchValidator(dataAccess)">
-                Senha não confere
-              </div>
-
-              <button [disabled]="passwordMatchValidator(dataAccess)" class="btn btn_green w-100 text-uppercase" *ngIf="!loadingAccess">Atualizar</button>
-              <button *ngIf="loadingAccess" class="btn btn_green w-100 text-uppercase" ><app-loading [type]="statusUpdate"></app-loading></button>
-          </form>
+            <mn-input archetype="name" placeholder="Nome e sobrenome" [(value)]="this.user.email" size="sm" requery>
+            </mn-input>
+            <mn-input archetype="password" placeholder="Senha" [(value)]="password" size="sm" requery>
+            </mn-input>
+            <mn-input archetype="password" placeholder="Confirme Senha" [(value)]="password_confirmation" size="sm"
+              requery>
+            </mn-input>
+          </mn-form>
 
         </div>
       </div>

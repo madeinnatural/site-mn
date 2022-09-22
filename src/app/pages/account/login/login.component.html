@@ -19,17 +19,17 @@
   </div>
 
 
-
-
   <mn-form #form [submitable]="submit" buttonName="Entrar" [showToastForm]="true">
-    <mn-input archetype="email" placeholder="E-mail">
+
+    <mn-input archetype="email" placeholder="E-mail" [(value)]="email" requery>
     </mn-input>
-    <mn-input archetype="password" placeholder="Senha">
+
+    <mn-input archetype="password" placeholder="Senha" [(value)]="password" requery>
     </mn-input>
+
   </mn-form>
 
   <div class="col-12">
-    <br>
     <div class="d-flex align-items-center justify-content-between">
       <label class="d-flex align-items-center">
         <input #lembrar type="checkbox" class="mr-3"> <strong>Lembrar-me</strong>
@@ -39,6 +39,5 @@
       </button>
     </div>
   </div>
-
 
 </div>

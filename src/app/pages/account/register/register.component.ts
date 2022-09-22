@@ -92,7 +92,7 @@ export class RegisterComponent implements OnInit {
 
   submit: Submitable = {
     submit: async () => {
-      return new Promise((ok) => {
+      return new Promise((ok, reject) => {
         {
           this.errorsResponseServer = [];
 
@@ -132,6 +132,8 @@ export class RegisterComponent implements OnInit {
 
                 this.globalEventService.loginEvent.emit(user);
 
+                ok(true);
+
                 this.router.navigate(['/']);
               },
               error: (rej: any) => {
@@ -146,7 +148,7 @@ export class RegisterComponent implements OnInit {
                   });
                 });
 
-                return false;
+                reject(false);
               },
             });
 

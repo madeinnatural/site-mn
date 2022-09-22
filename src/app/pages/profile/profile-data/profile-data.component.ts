@@ -7,6 +7,7 @@ import { AccountService } from './../../../core/account/account.service';
 import { Router } from '@angular/router';
 import { ServerService } from './../../../core/server/server.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 
 @Component({
   selector: 'app-profile-data',
@@ -15,19 +16,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProfileDataComponent implements OnInit {
 
-  dataUser: FormGroup;
-  dataAccess: FormGroup;
-
   dataUserResponse?: Observable<User>;
 
   loading = false;
   loadingAccess = false;
-  statusUpdate: 'success'|'danger' = 'success';
+  statusUpdate: 'success' | 'danger' = 'success';
 
   user: User
 
   constructor(
-    private serverService:ServerService,
+    private serverService: ServerService,
     private userService: UserService,
     public router: Router,
     private formBuilder: FormBuilder
@@ -50,72 +48,74 @@ export class ProfileDataComponent implements OnInit {
       }
     }
 
-    this.dataUser = formBuilder.group({
-      name: [this.user.name, [Validators.required, Validators.minLength(3)]],
-      cnpj: [this.user.cnpj, [Validators.required]],
-      email: [this.user.email, [Validators.required, Validators.email]],
-      phone: [this.user.phone, [Validators.required]],
-      password: [''],
-    });
-
-    this.dataAccess = formBuilder.group({
-      email: [this.user.email, [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      password_confirmation: ['', [Validators.required, this.passwordMatchValidator]],
-    });
   }
 
-  passwordMatchValidator(g: FormGroup) {
-    if (g) return g.get('password')?.value === g.get('password_confirmation')?.value ? null : {'mismatch': true};
-    return false
+  password = '';
+  password_confirmation = '';
+
+  passwordMatchValidator() {
+    return this.password == this.password_confirmation;
   }
 
-  updateDataPesonal() {
-    console.log(this.user)
-    this.loading = true;
-    this.statusUpdate = 'success';
-    this.user.name = this.dataUser.value.name;
-    this.user.cnpj = this.dataUser.value.cnpj;
-    this.user.phone = this.dataUser.value.phone.toString();
+  updateDataPesonal: Submitable = {
+    submit: async () => {
+      return new Promise((ok, rejec) => {
+        this.loading = true;
+        this.statusUpdate = 'success';
+        this.dataUserResponse = this.userService.updateUser(this.user)
+        this.dataUserResponse.subscribe({
+          next: async (res) => {
+            this.userService.updateUserLocal(res);
+            this.router.navigate(['profile/profile_data']);
+            this.loading = false;
+            ok(true);
+          },
+          error: (err) => {
+            this.statusUpdate = 'danger';
+            this.loading = false;
+            rejec(false);
+          }
+        })
+      })
+    }
 
-    this.dataUserResponse = this.userService.updateUser(this.user)
-    this.dataUserResponse.subscribe({
-      next: (res) => {
-        this.user = res;
-        this.userService.updateUserLocal(this.user);
-        this.router.navigate(['profile/profile_data']);
-        this.loading = false;
-      },
-      error: (err) => {
-        this.statusUpdate = 'danger';
-        this.loading = false;
-      }
-    })
-  }
-
-  updateDataLogin() {
-    this.loadingAccess = true;
-    this.statusUpdate = 'success';
-    this.user.email = this.dataAccess.value.email;
-    this.user.password = this.dataAccess.value.password;
-
-    this.dataUserResponse = this.userService.updateUser(this.user)
-    this.dataUserResponse.subscribe({
-      next: (res) => {
-        this.user = res;
-        this.userService.updateUserLocal(this.user);
-        this.router.navigate(['profile/profile_data']);
-        this.loadingAccess = false;
-      },
-      error: (err) => {
-        this.statusUpdate = 'danger';
-        this.loadingAccess = false;
-      }
-    })
   }
 
 
-  ngOnInit() {}
+
+  updateDataLogin: Submitable = {
+    submit: async () => {
+      return new Promise((ok, reject) => {
+        this.loadingAccess = true;
+        this.statusUpdate = 'success';
+        if (!this.passwordMatchValidator) throw new Error('Senha não confere');
+        this.user.password = this.password;
+
+        this.dataUserResponse = this.userService.updateUser(this.user)
+        this.dataUserResponse.subscribe({
+          next: (res) => {
+            this.user = res;
+            this.userService.updateUserLocal(this.user);
+            this.router.navigate(['profile/profile_data']);
+            this.loadingAccess = false;
+            ok(true);
+          },
+          error: (err) => {
+            this.statusUpdate = 'danger';
+            this.loadingAccess = false;
+            reject(true);
+          }
+        })
+      })
+
+
+    }
+  }
+
+
+
+
+  ngOnInit() { }
 
 
 }

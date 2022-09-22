@@ -35,21 +35,14 @@ export class LoginComponent implements OnInit {
   @Output('changeType') changeType = new EventEmitter<'login' | 'registration'>();
   @Output('login') login = new EventEmitter<UserLogin>();
 
-  msgEmailError: string = '';
-  fildMsgError: string = '';
-
   emailErrorMsg: string = '';
-
-  hide: boolean = true;
 
   errorsResponseServer: Array<{ msg: string, campo: string }> = [];
 
   loading: boolean = false;
 
-  formLogin: FormGroup;
-
-  @ViewChild('email') email?: HTMLInputElement;
-  @ViewChild('password') password?: HTMLInputElement;
+  email = '';
+  password = '';
 
   get type() {
     return this.current_type;
@@ -70,10 +63,6 @@ export class LoginComponent implements OnInit {
     private _snackBar: MatSnackBar
   ) {
 
-    this.formLogin = this.formBuilder.group({
-      email: ['', [Validators.email, Validators.required]],
-      password: ['', [Validators.required]]
-    });
 
   }
 
@@ -81,15 +70,14 @@ export class LoginComponent implements OnInit {
 
   submit: Submitable = {
     submit: async () => {
-      this.loading = true
+      return await new Promise((ok, reject) => {
 
-      const { value, valid } = this.formLogin;
+        this.loading = true
 
-      const { password, email } = value;
+        const password = this.password;
+        const email = this.email;
 
-      this.errorsResponseServer = [];
-
-      if (valid) {
+        this.errorsResponseServer = [];
 
         this.accountService.login({ email, password })
           .subscribe({
@@ -107,27 +95,27 @@ export class LoginComponent implements OnInit {
 
               this.loading = false;
 
+              ok(true);
+
               this.router.navigate(['/']);
 
 
-            }, error: (err) => {
+            },
+            error: (err) => {
 
-              const { error, msg } = err.error
+              const { msg } = err.error
 
               this.openSnackBar(msg);
 
               this.errorsResponseServer.push({ msg, campo: 'email' })
+              reject(false);
             }
           })
-        this.loading = false;
-        return;
 
-      } else {
-        this.openSnackBar('Email ou senha são obrigatórios')
-        this.errorsResponseServer.push({ msg: 'Email ou senha são obrigatórios', campo: 'email' })
         this.loading = false;
-        return;
-      }
+
+      });
+
     }
   }
 

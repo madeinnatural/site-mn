@@ -110,3 +110,140 @@ $SITE-MADE-IN-NATURAL-theme: mat.define-light-theme((color: (primary: $SITE-MADE
   text-decoration: none !important;
   font-size: 8px;
 }
+
+
+.loading {
+
+  &-xs {
+    width: 14px;
+    height: 14px;
+    border-width: 3px;
+  }
+
+  &-sm {
+    width: 20px;
+    height: 20px;
+    border-width: 4px;
+  }
+
+  &-lg {
+    width: 40px;
+    height: 40px;
+    border-width: 6px;
+  }
+
+  &-xl {
+    width: 50px;
+    height: 50px;
+    border-width: 6px;
+  }
+
+  &-red {
+    border: 5px solid #E71935 !important;
+    border-top-color: transparent !important;
+  }
+}
+
+.btn .loading {
+  border: 3px solid #fff;
+  border-top-color: transparent;
+  width: 15px;
+  height: 15px;
+  vertical-align: -3px !important;
+}
+
+.btn-lg .loading {
+  border-width: 4px;
+  width: 20px;
+  height: 20px;
+  vertical-align: -4px !important;
+}
+
+.btn-sm .loading {
+  width: 13px;
+  height: 13px;
+  vertical-align: -2px !important;
+}
+
+.btn.disabled .loading {
+  border-color: var(--neutral-darkest);
+  border-top-color: transparent;
+}
+
+.btn-default .loading {
+  border-color: var(--primary);
+  border-right-color: transparent;
+}
+
+.loading.loading-navbottom {
+  margin-top: 8px;
+  border-color: rgba(250, 250, 250, 0.2);
+  border-right-color: white;
+}
+
+.loadingInput {
+  display: none;
+  position: absolute;
+  right: 10px;
+  top: 11px;
+}
+
+.loadingInput.active {
+  display: block;
+}
+
+
+// Notebook /////////////////////////////////////////////////////
+@media (max-width: 1200px) {}
+
+// Mobile landscape //////////////////////////////////////////////
+@media (max-width: 1000px) {}
+
+// Mobile //////////////////////////////////////////////
+@media (max-width: 767px) {
+
+  .btn .loading,
+  button .loading {
+    vertical-align: -2px !important;
+  }
+
+  .btn-sm .loading {
+    width: 12px;
+    height: 12px;
+  }
+
+  .btn-lg .loading {
+    vertical-align: -5px !important;
+  }
+
+  .loading {
+    width: 20px;
+    height: 20px;
+    border: 4px solid var(--primary);
+    border-right-color: transparent;
+
+    &-xs {
+      width: 10px;
+      height: 10px;
+      border-width: 2px;
+    }
+
+    &-sm {
+      width: 14px;
+      height: 14px;
+      border-width: 3px;
+    }
+
+    &-lg {
+      width: 30px;
+      height: 30px;
+      border-width: 5px;
+    }
+
+    &-xl {
+      width: 40px;
+      height: 40px;
+      border-width: 6px;
+    }
+  }
+}

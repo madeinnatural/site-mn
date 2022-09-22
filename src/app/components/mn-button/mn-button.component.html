@@ -1,6 +1,6 @@
 <button class="btn btn_green w-100 text-uppercase" [class.disabled]="waiting || disabled" [attr.type]="type"
   [disabled]="waiting || disabled" class="btn btn-{{color}} {{innerClass}} btn-{{size}}" (click)="click(); press()"
   [id]="innerId" name="button">
-  <i *ngIf="waiting" class="loading loading-xs"></i>
+  <i *ngIf="waiting" class="loading loading-xs"> </i>
   <ng-content *ngIf="!waiting"></ng-content>
 </button>
