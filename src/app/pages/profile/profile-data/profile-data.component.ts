@@ -22,7 +22,15 @@ export class ProfileDataComponent implements OnInit {
   loadingAccess = false;
   statusUpdate: 'success' | 'danger' = 'success';
 
-  user: User
+  user: User = {
+    adresses: '',
+    adresses_main: '',
+    cnpj: '',
+    email: '',
+    id: 0,
+    name: '',
+    phone: ''
+  }
 
   constructor(
     private serverService: ServerService,
@@ -36,16 +44,6 @@ export class ProfileDataComponent implements OnInit {
 
     if (user) {
       this.user = user;
-    } else {
-      this.user = {
-        adresses: '',
-        adresses_main: '',
-        cnpj: '',
-        email: '',
-        id: 0,
-        name: '',
-        phone: ''
-      }
     }
 
   }

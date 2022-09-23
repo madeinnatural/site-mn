@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
 
   emailErrorMsg: string = '';
 
+  status_loading: 'success' | 'warning' | 'danger' = 'success'
+
   errorsResponseServer: Array<{ msg: string, campo: string }> = [];
 
   loading: boolean = false;
@@ -73,6 +75,7 @@ export class LoginComponent implements OnInit {
       return await new Promise((ok, reject) => {
 
         this.loading = true
+        this.status_loading = 'success';
 
         const password = this.password;
         const email = this.email;
@@ -99,9 +102,10 @@ export class LoginComponent implements OnInit {
 
               this.router.navigate(['/']);
 
-
             },
             error: (err) => {
+
+              this.status_loading = 'danger';
 
               const { msg } = err.error
 

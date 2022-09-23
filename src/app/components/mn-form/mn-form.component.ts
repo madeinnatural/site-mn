@@ -37,12 +37,13 @@ export class MnFormComponent {
   @Output() onSubmit = new EventEmitter();
 
   @Input() showToastForm: boolean = false;
+  @Input() status_loading: 'success' | 'warning' | 'danger' = 'success';
 
   @ContentChildren(MnInputComponent, { descendants: true })
   inputs2?: QueryList<MnInputComponent>;
 
   constructor(private global: GlobalEventService) { }
- 
+
 
 
   ngAfterContentInit() {

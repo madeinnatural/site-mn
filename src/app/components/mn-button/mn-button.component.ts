@@ -11,40 +11,41 @@ export class MnButtonComponent implements OnInit {
   @Input() type: 'button' | 'submit' = 'button';
   @Input() color: 'primary' | 'light' | 'link' = 'primary';
   @Input() innerClass: string = "";
-  @Input() size = "";  
+  @Input() size = "";
   @Input() innerId = '';
   @Input() disabled = false;
+  @Input() status_loading: 'success' | 'warning' | 'danger' = 'success';
   @Output() goClick = new EventEmitter<any>();
 
-  
+
   public waiting = false;
-  
+
   constructor() { }
   ngOnInit(): void {
   }
 
   press() {
-     this.goClick.emit();
+    this.goClick.emit();
   }
-  
+
   public click() {
-     if (!this.waiting) {
-        this.waiting = true;
-        
-        if (this.submitable) {
-           this.submitable.submit().then(
-              (ok: any) => {
-                 if(ok){
-                    this.waiting = false;
-                 }
-              }).catch(() => {
-                 this.waiting = false;
-              }
-           );
-        } else {
-           this.waiting = false;
-        }
-     }
+    if (!this.waiting) {
+      this.waiting = true;
+
+      if (this.submitable) {
+        this.submitable.submit().then(
+          (ok: any) => {
+            if (ok) {
+              this.waiting = false;
+            }
+          }).catch(() => {
+            this.waiting = false;
+          }
+          );
+      } else {
+        this.waiting = false;
+      }
+    }
   }
 
 }

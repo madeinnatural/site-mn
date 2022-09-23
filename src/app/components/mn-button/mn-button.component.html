@@ -1,6 +1,13 @@
-<button class="btn btn_green w-100 text-uppercase" [class.disabled]="waiting || disabled" [attr.type]="type"
-  [disabled]="waiting || disabled" class="btn btn-{{color}} {{innerClass}} btn-{{size}}" (click)="click(); press()"
+<button *ngIf="!waiting" [class.disabled]="waiting || disabled" [attr.type]="type" [disabled]="waiting || disabled"
+  class="btn btn_green w-100 text-uppercase btn-{{color}} {{innerClass}} btn-{{size}}" (click)="click(); press()"
   [id]="innerId" name="button">
-  <i *ngIf="waiting" class="loading loading-xs"> </i>
-  <ng-content *ngIf="!waiting"></ng-content>
+
+  <div class="d-flex justify-content-center">
+    <ng-content></ng-content>
+  </div>
 </button>
+
+<div *ngIf="waiting" class="d-flex justify-content-center" style="padding-right: 20px !important; ">
+  <div class="spinner-border text-{{status_loading}}" role="status">
+  </div>
+</div>

@@ -42,8 +42,6 @@ export class RegisterComponent implements OnInit {
     this.current_type = current_type;
   }
 
-  formCadastro: FormGroup;
-
   @ViewChild('form') form: any;
 
   name = '';
@@ -63,32 +61,9 @@ export class RegisterComponent implements OnInit {
     private globalEventService: GlobalEventService,
     private router: Router
   ) {
-    this.formCadastro = formBuilder.group({
-      name: [null, [Validators.required]],
-      lastname: [null],
-      email: [null, [Validators.required, Validators.email]],
-      cpf_cnpj: ['', [Validators.required]],
-      phone: [null, [Validators.required]],
-      password: [null, [Validators.required]],
-      promo_active: [false],
-    });
   }
 
   ngOnInit() { }
-
-  verifyValid(campo: any) {
-    return (
-      !this.formCadastro.get(campo)?.valid &&
-      this.formCadastro.get(campo)?.touched
-    );
-  }
-
-  errorStyle(campo: any) {
-    return {
-      'has-error': this.verifyValid(campo),
-      'has-feedback': this.verifyValid(campo),
-    };
-  }
 
   submit: Submitable = {
     submit: async () => {
@@ -132,9 +107,9 @@ export class RegisterComponent implements OnInit {
 
                 this.globalEventService.loginEvent.emit(user);
 
-                ok(true);
 
                 this.router.navigate(['/']);
+                ok(true);
               },
               error: (rej: any) => {
                 const error = rej.error;
@@ -148,7 +123,7 @@ export class RegisterComponent implements OnInit {
                   });
                 });
 
-                reject(false);
+                reject(true);
               },
             });
 
