@@ -1,10 +1,8 @@
 <div class="form-group-{{size}}" [class.form-group]="type != 'search'">
 
-
   <label for="{{name}}" #thelabel [hidden]="thelabel.childNodes.length == 0">
     <ng-content></ng-content>
   </label>
-
 
 
   <small class="form-group-counter" [class.text-danger]="counterNumber < 0" *ngIf="maxCounter">{{
@@ -17,7 +15,7 @@
       [attr.autofocus]="autofocus ? null : ''" [maxlength]="maxCounter ? maxCounter : maxLength"></textarea>
   </ng-container>
 
-  <div class="relative">
+  <div class="relative" style="max-width: 419px;">
     <i *ngIf="type=='password'" class="form-iconInput" [class.icon-eye]="getActualType()=='password'"
       [class.icon-eye-block]="!(getActualType()=='password')"></i>
     <a *ngIf="type=='password' && hasForgetLink" class="form-forgotLink" routerLink="/esqueci_minha_senha">Esqueci</a>
@@ -40,7 +38,6 @@
         [textMask]="tmask" [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]"
         attr.id="{{name}}" [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"
         (keydown)="handleBackspace($event)" attr.data-checkout="{{dataCheckout || 'false'}}" />
-
 
 
       <button *ngIf="actualType == 'password'" mat-icon-button matSuffix (click)="hide = !hide"

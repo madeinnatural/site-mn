@@ -1,8 +1,8 @@
-<form #form (ngSubmit)="submitable ? button.click() : submit()" [class]="innerClass">
+<form #form (ngSubmit)="submitable ? button.click() : submit()" [class]="innerClass" style="max-width: 419px;" >
   <ng-content></ng-content>
 
   <div [hidden]="hideButtons" class="form-btns">
-    <div class="form-row">
+    <div class="form-row d-flex justify-content-center align-items-center" >
       <mn-button [status_loading]="status_loading" #cancel *ngIf="submitable && submitable.cancel && cancelName"
         class="col-6" color="light" (click)="submitable.cancel()" size="sm">
         {{cancelName}}

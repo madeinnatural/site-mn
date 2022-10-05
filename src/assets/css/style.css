@@ -45,9 +45,11 @@ html {
 .btn_green {
   background: linear-gradient(134.99deg, #45842E 3.35%, #E0E454 99.07%);
   border: none;
-  padding: 16px 54px !important;
+  border-radius: 5px;
   color: #fff;
   font-weight: 700;
+  height: 40px;
+  width: 419px;
 }
 
 .btn_outline_white {
@@ -217,7 +219,9 @@ header .tot_itens_pedido {
 
 .btn_buscar_produto,
 .btn_criar_cotacao {
-  width: 100%;
+  height: 60px;
+  width: 224px !important;
+  border-radius: 5px;
 }
 
 @media (min-width: 768px) {
