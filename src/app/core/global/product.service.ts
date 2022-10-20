@@ -31,7 +31,7 @@ export class ProductService {
   }
 
   constructor(
-    private server: ServerService,
+    public server: ServerService,
     public purchaseService: PurchaseService,
     private globalEventService: GlobalEventService,
     private router: Router,

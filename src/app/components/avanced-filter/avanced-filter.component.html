@@ -1,0 +1,41 @@
+<!--=========== modal filtros ===========-->
+<div class="border-0">
+  <h5 mat-card-titl class="modal-title">
+    <strong>Filtro avançado</strong>
+    <button (click)="onNoClick()" type="button" style="opacity: 1" class="close" data-dismiss="modal" aria-label="Close">
+      <img style="width: 20px; color: #000" src="assets/img/close_modal.svg" />
+    </button>
+  </h5>
+
+  <div class="modal-body border-0">
+
+    <div class="form-group">
+      <label> <strong> Categoria </strong></label>
+      <select class="form-control" [(ngModel)]="data.category">
+        <option *ngFor="let category of categories; index as i" value="{{category.id}}"> {{category.title}} </option>
+      </select>
+    </div>
+
+    <!-- <div class="form-group">
+      <label> <strong> Unidade </strong> </label>
+      <select [(ngModel)]="data.filter_unidade" class="form-control">
+        <option *ngFor="let unidade of unidades">{{unidade}}</option>
+      </select>
+    </div> -->
+
+    <div class="form-group d-flex flex-column">
+      <label> <strong>Preço/Unidade R$</strong> </label>
+        <mat-slider
+          thumbLabel
+          [(ngModel)]="data.price"
+          [displayWith]="formatLabel" tickInterval="1" step="1" min="0" max="1000"
+          aria-label="units">
+        </mat-slider>
+    </div>
+
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+  </div>
+
+</div>
+
+<!--=========== fim modal filtros ===========-->

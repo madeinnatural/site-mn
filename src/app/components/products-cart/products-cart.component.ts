@@ -1,11 +1,10 @@
+import { AvancedFilterComponent } from './../avanced-filter/avanced-filter.component';
+import { ModalService } from './../../core/global/modal.service';
 import { debounceTime, distinctUntilChanged, flatMap, map, Observable, of, Subject, delay } from 'rxjs';
-import { CookieService } from '@ngx-toolkit/cookie';
 import { ProductService } from './../../core/global/product.service';
-import { GlobalEventService } from './../../core/global/global.service';
-import { PurchaseService } from './../../core/global/purchase.service';
-import { Item, ProductList } from './../../core/model/Product';
+import { Item, ProductList, AvancedFilter } from './../../core/model/Product';
 import { ServerService } from './../../core/server/server.service';
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-products-cart',
@@ -14,29 +13,32 @@ import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 })
 export class ProductsCartComponent implements OnInit {
 
+
+  keyUp = new Subject<any>();
   listProduct: Array<ProductList> = [];
-
-  unidades: Array<{name: string, valor: string}> = [
-    {name: '1 kg', valor: '1'},
-    {name: '5 kg', valor: '2'},
-    {name: '10 kg', valor: '3'},
-    {name: '15 kg', valor: '4'},
-    {name: '20 kg', valor: '5'},
-    {name: 'Unidade', valor: '6'},
-    {name: 'Caixa', valor: '7'},
-  ]
-
-  filter_unidade: string = this.unidades[0].valor;
-
   noMoreProduct = this.productService.noMoreProduct;
-
   loading = false;
 
-  termo: string = '';
+  _termo = '';
+  get termo ():string {
+
+    return this._termo
+  }
+  set termo (valor: string) {
+    this.keyUp.next(valor)
+    this._termo = valor;
+  }
+
+  filter: AvancedFilter = {
+    price: 0,
+    category: '',
+  }
 
   constructor (
     public productService: ProductService,
-    public serverService: ServerService
+    public serverService: ServerService,
+    public modalService: ModalService,
+    public server: ServerService,
   ){
     this.loading = true;
     this.pullProducts();
@@ -51,6 +53,7 @@ export class ProductsCartComponent implements OnInit {
       this.termo = termo;
       await this.search();
     });
+
   }
 
   pullProducts(page: number = 0) {
@@ -60,22 +63,19 @@ export class ProductsCartComponent implements OnInit {
     });
   }
 
-  selectFilterUnidade(event: any){
-    this.filter_unidade = event?.target.value;
-  }
-
-  public keyUp = new Subject<any>();
 
   async search() {
     this.loading = true;
-    if (this.termo == '') {
-      this.productService.veryfy_product_in_cart(await this.serverService.search('', 0));
-      this.listProduct = this.productService.listProduct;
-    } else {
-      this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo));
+    if ( this.filter ) {
+      this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo,this.filter));
       this.listProduct = this.productService.listProduct;
       this.loading = false;
+      return;
     }
+    this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo,undefined,0));
+    this.listProduct = this.productService.listProduct;
+    this.loading = false;
+    return;
   }
 
 
@@ -94,6 +94,20 @@ export class ProductsCartComponent implements OnInit {
 
   showProductsAll() {
     this.pullProducts(-1);
+  }
+
+  openFiltro() {
+    this.modalService.openModal(AvancedFilterComponent, {
+      price: this.filter.price,
+      category: this.filter.category,
+     }).afterClosed().subscribe( async (result) => {
+        if (result) {
+          const {category, price} = result;
+          this.filter.category = category;
+          this.filter.price = price;
+          this.search();
+        }
+    });
   }
 
   ngOnInit(){

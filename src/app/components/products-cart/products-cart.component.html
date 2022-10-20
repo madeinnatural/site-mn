@@ -9,15 +9,15 @@
               <img style="height: 22px" src="assets/img/pesquisa.svg" />
             </span>
           </div>
-          <input (keypress)="keyUp.next($event)" type="text" style="height: auto"
+          <input [(ngModel)]="termo" type="text" style="height: auto"
             placeholder="procure por nome, marca..." class="form-control border-left-0" />
         </div>
-        <!-- <button id="btn_open_filtro"
-          class="btn mb-4 ml-md-3 mb-md-0 w-100 d-flex align-items-center justify-content-center text-uppercase btn_green"
-          style="max-width: 320px">
+        <button (click)="openFiltro()"
+          class="btn mb-4 ml-md-3 mb-md-0 d-flex align-items-center justify-content-center text-uppercase btn_green"
+          style="height: 50px; max-width: 400px;">
           <img style="width: 32px" src="assets/img/filtro.webp" />
           <div class="ml-3 text-white">Filtro Avançado</div>
-        </button> -->
+        </button>
       </div>
     </div>
 
@@ -106,45 +106,3 @@
   </div>
 </section>
 <!--=========== fim section tabela ===========-->
-
-
-<!--=========== modal filtros ===========-->
-<div class="modal" id="modal_filtro" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px">
-      <div class="modal-header border-0">
-        <h5 class="modal-title"><strong>Filtros</strong></h5>
-        <button type="button" style="opacity: 1" class="close" data-dismiss="modal" aria-label="Close">
-          <img style="width: 20px; color: #000" src="assets/img/close_modal.svg" />
-        </button>
-      </div>
-      <div class="modal-body border-0">
-        <div class="form-group">
-          <label>Categoria</label>
-          <select class="form-control">
-            <option>Selecionar</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Unidade</label>
-          <select (change)="selectFilterUnidade($event)" class="form-control">
-            <option *ngFor="let unidade of unidades">{{unidade.name}}</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Preço/Unidade</label>
-          <div class="slider-container pl-2">
-            <input type="text" id="slider3" class="slider" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--=========== fim modal filtros ===========-->
-
-
-<script src="assets/js/jquery-3.4.1.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/rSlider.js"></script>
-<script src="assets/js/script.js"></script>

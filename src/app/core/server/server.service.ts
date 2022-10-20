@@ -1,5 +1,5 @@
 import { ProductService } from './../global/product.service';
-import { Cotacao, Item, Purchase, PurchaseHistory } from './../model/Product';
+import { Cotacao, Item, Purchase, PurchaseHistory, AvancedFilter } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -37,9 +37,10 @@ export class ServerService {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
-    async search(termo: string, numberPage?: number) {
+    async search(termo: string, filter?: AvancedFilter, numberPage?: number) {
       let url = `seach?query=${termo}`;
       if (numberPage) url += '&page=' + numberPage
+      if (filter) url += '&category=' + filter.category + '&price=' + filter.price
       return this.talkToServer(url);
     }
 
@@ -173,7 +174,15 @@ export class ServerService {
       });
     }
 
+    async getCategorias() {
+      return await this.talkToServer('seach/get_categories');
+    }
+
     updateUser(user: User) {
       return from(this.talkToServer('users/', user, {type: 'PUT'}));
+    }
+
+    async getProductFilter(params = {}) {
+      return this.talkToServer('seach/filter', params);
     }
 }

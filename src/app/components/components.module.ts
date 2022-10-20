@@ -1,3 +1,4 @@
+import { AvancedFilterComponent } from './avanced-filter/avanced-filter.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './../core/global/purchase.service';
 import { FormComponent } from './form/form.component';
@@ -78,6 +79,7 @@ import { MnFormComponent } from './mn-form/mn-form.component';
     MnInputComponent,
     MnButtonComponent,
     MnFormComponent,
+    AvancedFilterComponent
   ],
   imports: [
     CommonModule,
@@ -139,6 +141,7 @@ import { MnFormComponent } from './mn-form/mn-form.component';
     MnInputComponent,
     MnButtonComponent,
     MnFormComponent,
+    AvancedFilterComponent
   ],
 })
 export class ComponentsModule {}

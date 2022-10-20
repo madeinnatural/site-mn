@@ -103,3 +103,8 @@ export class ProductDetail {
   ){}
 }
 
+export interface AvancedFilter {
+  price: number;
+  category: string;
+}
+
