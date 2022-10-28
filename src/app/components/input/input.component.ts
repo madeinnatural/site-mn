@@ -472,6 +472,8 @@ export class MnInputComponent implements OnChanges {
   @Input() forbiddenCharacters: string = '';
   @Input('skip-validate') skipValidate = false;
 
+  inputBlur = '';
+
   @Output() change = new EventEmitter();
   @Output() valueChange = new EventEmitter<string>();
   @Output() blur = new EventEmitter<string>();

@@ -1,17 +1,5 @@
 <div class="section_register" *ngIf="type == 'registration'">
 
-  <div *ngIf="errorsResponseServer.length > 0" class="alert alert-warning alert-dismissible fade show" role="alert">
-    <strong>Algo deu errado: </strong>
-    <ul>
-      <li *ngFor="let error of errorsResponseServer">
-        {{error.msg}}
-      </li>
-    </ul>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-
   <div class="col-12 mb-4">
     <div class="d-flex justify-content-center">
       <a class="btn" (click)="type = 'login'">
@@ -25,24 +13,20 @@
 
   <mn-form #form [submitable]="submit" buttonName="Cadastrar conta" [showToastForm]="true">
 
-    <mn-input [(value)]="name" size="sm" archetype="name" placeholder="Nome e sobrenome" required>
+    <mn-input [(value)]="formRegister.name" size="sm" archetype="name" placeholder="Nome e sobrenome" required>
     </mn-input>
 
-    <mn-input [(value)]="email" size="sm" archetype="email" placeholder="E-mail" required>
+    <mn-input [(value)]="formRegister.email" #email size="sm" archetype="email" placeholder="E-mail" required>
     </mn-input>
 
-    <mn-input [(value)]="cpf_cnpj" size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
+    <mn-input [(value)]="formRegister.cpf_cnpj" size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
     </mn-input>
 
-    <mn-input [(value)]="phone" size="sm" archetype="phone" placeholder="Telefone" required>
+    <mn-input [(value)]="formRegister.phone" size="sm" archetype="phone" placeholder="Telefone" required>
     </mn-input>
 
-    <mn-input [(value)]="password" size="sm" archetype="password" placeholder="Senha" required>
+    <mn-input [(value)]="formRegister.password" #pass size="sm" archetype="password" placeholder="Senha" required>
     </mn-input>
-
-    <mn-input [(value)]="password_confirmat" size="sm" archetype="password" placeholder="Confirmar a senha" required>
-    </mn-input>
-
 
   </mn-form>
 

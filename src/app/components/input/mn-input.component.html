@@ -25,7 +25,7 @@
       <mat-label>{{placeholder}}</mat-label>
 
       <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType != 'password'" #input
-        [class.is-invalid]="invalid" matInput placeholder="{{placeholder}}" class="form-control-{{size}}"
+        [class.is-invalid]="invalid" matInput placeholder="{{inputBlur}}" class="form-control-{{size}}"
         [type]="actualType" tabindex="1" [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()" [textMask]="tmask"
         [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]" attr.id="{{name}}"
         [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"
@@ -33,7 +33,7 @@
 
 
       <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType == 'password'" #input
-        [class.is-invalid]="invalid" matInput placeholder="{{placeholder}}" class="form-control-{{size}}"
+        [class.is-invalid]="invalid" matInput placeholder="{{inputBlur}}" class="form-control-{{size}}"
         [type]="!hide ? 'text' : 'password'" tabindex="1" [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()"
         [textMask]="tmask" [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]"
         attr.id="{{name}}" [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"

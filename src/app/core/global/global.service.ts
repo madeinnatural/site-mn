@@ -1,3 +1,5 @@
+import { UserRegister } from './../model/User';
+import { CookieService } from '@ngx-toolkit/cookie';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 
@@ -21,6 +23,7 @@ export class GlobalEventService {
     public readonly SAVED_STATE_COOKIE = "user_state";
     public readonly SAVED_USER_COOKIE = "user";
     public readonly AUTH_TOKEN_COOKIE = "auth_token";
+    public readonly CURRENT_USER_COOKIE = "current_user";
 
     // Eventos Públicos
     public disableHeaderEvent = new EventEmitter<boolean>();
@@ -48,7 +51,10 @@ export class GlobalEventService {
     public errorLogin = new EventEmitter<{ showError: boolean, text: string }>();
 
 
-    constructor(private http: HttpClient) { }
+    constructor(
+      private http: HttpClient,
+      private cookieService: CookieService
+    ) { }
 
     async getAddressByIP() {
        try {
@@ -69,4 +75,20 @@ export class GlobalEventService {
 
     finishPurchaseEmitter = new EventEmitter<number>();
     search = new EventEmitter<string>();
+
+
+
+    setDataUser(res: { user: UserRegister; auth_token: string }) {
+      const {user, auth_token} = res;
+      const localAuthToken = this.AUTH_TOKEN_COOKIE;
+      const localCurrentUser = this.CURRENT_USER_COOKIE;
+      const current_user = JSON.stringify(user);
+
+      this.cookieService.setItem(localCurrentUser, current_user);
+      this.cookieService.setItem(localAuthToken, auth_token);
+
+      window.localStorage.setItem(localCurrentUser,current_user);
+
+      this.loginEvent.emit(user);
+    }
 }

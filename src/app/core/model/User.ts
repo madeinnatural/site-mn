@@ -12,16 +12,21 @@ export default class User {
 }
 
 export interface UserLogin {
-    email: string,
-    password: string,
+  email: string,
+  password: string,
 }
 
 export interface UserRegister {
-   email: string,
-   name: string ,
-   lastname: string,
-   cpf_cnpj: string,
-   phone: string,
-   password: string,
-   promo_active: boolean
+  email: string,
+  name: string ,
+  cpf_cnpj: string,
+  phone: string,
+  password: string,
+  password_confirmat: string
+  promo_active?: boolean
+}
+
+export interface RegisterResponse {
+  user: User,
+  auth_token: string
 }

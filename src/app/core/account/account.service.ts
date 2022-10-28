@@ -69,44 +69,25 @@ export class AccountService {
   }
 
   reginterUser(dataReginter: UserRegister) {
+    return this.http.post<{user: User, auth_token: string}>(environment.baseUrl + 'users/register', this.formateData(dataReginter));
+  }
 
-    const data_cpf_cpnj = dataReginter.cpf_cnpj;
+  formateData( dataReginter: UserRegister ) {
 
     const data = {
       name: dataReginter.name,
       password: dataReginter.password,
-      lastname: dataReginter.lastname,
       email: dataReginter.email,
-      cpf: this.verifica_cpf_cnpj(data_cpf_cpnj) == 'CPF' ? data_cpf_cpnj : null,
-      cnpj: this.verifica_cpf_cnpj(data_cpf_cpnj) == 'CNPJ' ? data_cpf_cpnj : null,
+      phone: dataReginter.phone,
+      cpf: '',
+      cnpj: ''
     }
-
-    return this.http.post(environment.baseUrl + 'users/register', data)
-  }
-
-  private verifica_cpf_cnpj ( valor: string ) {
-
-    // Garante que o valor é uma string
-    valor = valor.toString();
-
-    // Remove caracteres inválidos do valor
-    valor = valor.replace(/[^0-9]/g, '');
 
     // Verifica CPF
-    if ( valor.length === 11 ) {
-        return 'CPF';
-    }
+    if ( data.cnpj.length === 14 ) data.cnpj = dataReginter.cpf_cnpj;
+    if ( data.cpf.length === 11 ) data.cpf = dataReginter.cpf_cnpj;
 
-    // Verifica CNPJ
-    else if ( valor.length === 14 ) {
-        return 'CNPJ';
-    }
-
-    // Não retorna nada
-    else {
-        return false;
-    }
-
+    return data
 
   }
 
