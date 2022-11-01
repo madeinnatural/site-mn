@@ -8,6 +8,7 @@ export default class User {
     public adresses_main: string,
     public adresses: string,
     public password?: string,
+    public cpf?: string,
   ) {}
 }
 

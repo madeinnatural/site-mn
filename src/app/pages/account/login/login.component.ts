@@ -1,3 +1,4 @@
+import { MnInputComponent } from './../../../components/input/input.component';
 import { ToastComponent } from './../../../components/toast/toast.component';
 import { UserService } from './../../../core/global/user.service';
 import { Router } from '@angular/router';
@@ -46,6 +47,9 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
 
+  @ViewChild('emailInput') emailInput?: MnInputComponent;
+  @ViewChild('passwordInput') passwordInput?: MnInputComponent;
+
   get type() {
     return this.current_type;
   }
@@ -75,49 +79,27 @@ export class LoginComponent implements OnInit {
       return await new Promise((ok, reject) => {
 
         this.loading = true
-        this.status_loading = 'success';
-
-        const password = this.password;
-        const email = this.email;
-
-        this.errorsResponseServer = [];
-
-        this.accountService.login({ email, password })
+        this.accountService.login({ email: this.email, password: this.password })
           .subscribe({
             next: (response: any) => {
-
               const { token, user } = response
-
+              console.log('TOKEN', token)
+              this.accountService.logout();
               this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, token);
-
               window.localStorage.setItem('current_user', JSON.stringify(user))
-
+              window.localStorage.setItem('auth_token', JSON.stringify(token));
               this.userService.user = user
-
               this.globalEventService.loginEvent.emit(user);
-
               this.loading = false;
-
-              ok(true);
-
               this.router.navigate(['/']);
-
+              ok(true);
             },
             error: (err) => {
-
-              this.status_loading = 'danger';
-
-              const { msg } = err.error
-
-              this.openSnackBar(msg);
-
-              this.errorsResponseServer.push({ msg, campo: 'email' })
-              reject(false);
+              this.resolverErrorServer(err.error);
+              this.loading = false;
+              reject(true);
             }
           })
-
-        this.loading = false;
-
       });
 
     }
@@ -127,6 +109,10 @@ export class LoginComponent implements OnInit {
     console.log('RECUPERANDO SENHA.')
   }
 
+  resolverErrorServer(error: {path: string, message: string}) {
+    if(error.path == 'email') { this.emailInput?.postInvalidade(error.message) }
+    if(error.path == 'password') { this.passwordInput?.postInvalidade(error.message) }
+  }
 
 
 }

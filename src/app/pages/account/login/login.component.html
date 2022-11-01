@@ -14,10 +14,10 @@
 
   <mn-form #form [status_loading]="status_loading" [submitable]="submit" buttonName="Entrar" [showToastForm]="true">
 
-    <mn-input archetype="email" placeholder="E-mail" [(value)]="email" requery>
+    <mn-input archetype="email" #emailInput placeholder="E-mail" [(value)]="email" requery>
     </mn-input>
 
-    <mn-input archetype="password" placeholder="Senha" [(value)]="password" requery>
+    <mn-input archetype="password" #passwordInput placeholder="Senha" [(value)]="password" requery>
     </mn-input>
 
   </mn-form>

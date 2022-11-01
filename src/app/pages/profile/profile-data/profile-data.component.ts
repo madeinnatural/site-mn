@@ -16,36 +16,24 @@ import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 })
 export class ProfileDataComponent implements OnInit {
 
-  dataUserResponse?: Observable<User>;
+  dataUserResponse?: any;
 
   loading = false;
   loadingAccess = false;
   statusUpdate: 'success' | 'danger' = 'success';
 
-  user: User = {
-    adresses: '',
-    adresses_main: '',
-    cnpj: '',
-    email: '',
-    id: 0,
-    name: '',
-    phone: ''
-  }
+  user: User;
+  cpf_cnpj: string = '';
 
   constructor(
-    private serverService: ServerService,
     private userService: UserService,
+    public server: ServerService,
     public router: Router,
-    private formBuilder: FormBuilder
   ) {
-
-    const user_json = window.localStorage.getItem('current_user');
-    const user = JSON.parse(user_json ? user_json : '');
-
-    if (user) {
-      this.user = user;
-    }
-
+    const user: User = this.userService.getCurrentUserLocalStorage();
+    if(user.cnpj)this.cpf_cnpj = user.cnpj;
+    if(user.cpf)this.cpf_cnpj = user.cpf;
+    this.user = user;
   }
 
   password = '';
@@ -57,63 +45,53 @@ export class ProfileDataComponent implements OnInit {
 
   updateDataPesonal: Submitable = {
     submit: async () => {
-      return new Promise((ok, rejec) => {
-        this.loading = true;
-        this.statusUpdate = 'success';
-        this.dataUserResponse = this.userService.updateUser(this.user)
-        this.dataUserResponse.subscribe({
-          next: async (res) => {
-            this.userService.updateUserLocal(res);
-            this.router.navigate(['profile/profile_data']);
-            this.loading = false;
-            ok(true);
-          },
-          error: (err) => {
-            this.statusUpdate = 'danger';
-            this.loading = false;
-            rejec(false);
-          }
-        })
-      })
+      this.loading = true;
+      this.statusUpdate = 'success';
+      this.cpf_cnpj = this.cpf_cnpj.replace(/\D/g, '');
+      if (this.cpf_cnpj.length == 14) {
+        this.user.cnpj = this.cpf_cnpj;
+        this.user.cpf = '';
+      } else {
+        this.user.cpf = this.cpf_cnpj;
+        this.user.cnpj = '';
+      }
+
+      return new Promise(async (ok, rejec) => {
+        try {
+          const res = await this.server.updateUser(this.user);
+          this.userService.updateUserLocal(res);
+          this.router.navigate(['profile/profile_data']);
+          this.loading = false;
+          ok(true);
+        } catch(err) {
+          this.statusUpdate = 'danger';
+          this.loading = false;
+          rejec(true);
+        }
+      });
     }
-
   }
-
-
 
   updateDataLogin: Submitable = {
     submit: async () => {
-      return new Promise((ok, reject) => {
-        this.loadingAccess = true;
-        this.statusUpdate = 'success';
-        if (!this.passwordMatchValidator) throw new Error('Senha não confere');
-        this.user.password = this.password;
-
-        this.dataUserResponse = this.userService.updateUser(this.user)
-        this.dataUserResponse.subscribe({
-          next: (res) => {
-            this.user = res;
-            this.userService.updateUserLocal(this.user);
-            this.router.navigate(['profile/profile_data']);
-            this.loadingAccess = false;
-            ok(true);
-          },
-          error: (err) => {
-            this.statusUpdate = 'danger';
-            this.loadingAccess = false;
-            reject(true);
-          }
-        })
-      })
-
-
+      this.loadingAccess = true;
+      this.statusUpdate = 'success';
+      if (!this.passwordMatchValidator) throw new Error('Senha não confere');
+      this.user.password = this.password;
+      return new Promise(async (ok, rejec) => {
+        const res = await this.server.updateUser(this.user)
+        this.userService.updateUserLocal(res);
+        this.router.navigate(['profile/profile_data']);
+        this.loading = false;
+        ok(true);
+      }).catch((err) => {
+        this.statusUpdate = 'danger';
+        this.loading = false;
+        err(true);
+      });
     }
   }
 
-
-
-
   ngOnInit() { }
-
 
 }

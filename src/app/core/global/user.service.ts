@@ -23,8 +23,21 @@ export class UserService {
   }
 
   getCurrentUserLocalStorage() {
-    const userJson = localStorage.getItem('current_user');
-    if (userJson) return JSON.parse(userJson);
+    const userJson = this.cookieService.getItem('current_user');
+    if (userJson) {
+      const user: User = {
+        id: JSON.parse(userJson).id,
+        name: JSON.parse(userJson).name,
+        email: JSON.parse(userJson).email,
+        password: JSON.parse(userJson).password,
+        phone: JSON.parse(userJson).phone,
+        adresses: JSON.parse(userJson).address,
+        adresses_main: JSON.parse(userJson).address_main,
+        cpf: JSON.parse(userJson).cpf,
+        cnpj: JSON.parse(userJson).cnpj,
+      }
+      return user
+    }
     return {
       name: '',
       email: '',
@@ -41,10 +54,6 @@ export class UserService {
   }
   setUserService(user: User) {
     this.user = user;
-  }
-
-  updateUser(user: User) {
-    return this.server.updateUser(user);
   }
 
   updateUserLocal(user: User) {

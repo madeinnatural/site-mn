@@ -31,11 +31,10 @@
           <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Update">
             <strong>Informações Pessoais</strong>
 
-
             <mn-input archetype="nome" placeholder="Nome Completo" [(value)]="this.user.name" size="sm" requery>
             </mn-input>
 
-            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [(value)]="this.user.cnpj" size="sm" requery>
+            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [(value)]="this.cpf_cnpj" size="sm" requery>
             </mn-input>
 
             <mn-input archetype="phone" placeholder="Telefone" [(value)]="this.user.phone" size="sm" requery>
@@ -46,8 +45,6 @@
           <mn-form class="form" style="padding-top: 50px !important;" buttonName="Update"
           [submitable]="updateDataLogin">
           <strong>Informações de Login</strong>
-
-
             <mn-input archetype="email" placeholder="Email" [(value)]="this.user.email" size="sm" requery>
             </mn-input>
             <mn-input archetype="password" placeholder="Nova senha" [(value)]="password" size="sm" requery>

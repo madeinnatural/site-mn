@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { UserRegister } from './../model/User';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { HttpClient } from '@angular/common/http';
@@ -12,48 +13,46 @@ export class GlobalEventService {
    /**
     * Tempo máximo, em segundos, que o overlay de compra passa na tela.
     */
-    public overlayTime = 40; // 40s
+    overlayTime = 40; // 40s
 
     /**
      * Duração do intervalo, em milissegundos, entre requisições ao servidor
      * para receber o resultado de uma compra.
      */
-    public purchaseRequestInterval = 5000; // 5000ms
+    purchaseRequestInterval = 5000; // 5000ms
 
-    public readonly SAVED_STATE_COOKIE = "user_state";
-    public readonly SAVED_USER_COOKIE = "user";
-    public readonly AUTH_TOKEN_COOKIE = "auth_token";
-    public readonly CURRENT_USER_COOKIE = "current_user";
+    readonly SAVED_STATE_COOKIE = "user_state";
+    readonly SAVED_USER_COOKIE = "user";
+    readonly AUTH_TOKEN_COOKIE = "auth_token";
+    readonly CURRENT_USER_COOKIE = "current_user";
 
     // Eventos Públicos
-    public disableHeaderEvent = new EventEmitter<boolean>();
-    public triggerLogout = new EventEmitter();
-    public logoutEvent = new EventEmitter();
-    public goAlert = new EventEmitter<{type: 'danger' | 'success' | 'warning', text: string, duration?: number}>();
-    public loading = new EventEmitter<boolean>();
-    public loginEvent = new EventEmitter<any>();
-    public loadingOverlay = new EventEmitter<number>();
-    public overlayTimeout = new EventEmitter();
-    public stateChanged = new EventEmitter<string>();
-    public showFooter = new EventEmitter<boolean>();
-    public mainClean = new EventEmitter<boolean>();
-    public showModal = new EventEmitter<boolean>();
-    public eventWithoutCompany = new EventEmitter<any>();
-    public publicarEvento = new EventEmitter<any>();
-
-    public pullProductList = new EventEmitter<string>();
+    disableHeaderEvent = new EventEmitter<boolean>();
+    triggerLogout = new EventEmitter();
+    logoutEvent = new EventEmitter();
+    goAlert = new EventEmitter<{type: 'danger' | 'success' | 'warning', text: string, duration?: number}>();
+    loading = new EventEmitter<boolean>();
+    loginEvent = new EventEmitter<any>();
+    loadingOverlay = new EventEmitter<number>();
+    overlayTimeout = new EventEmitter();
+    stateChanged = new EventEmitter<string>();
+    showFooter = new EventEmitter<boolean>();
+    mainClean = new EventEmitter<boolean>();
+    showModal = new EventEmitter<boolean>();
+    eventWithoutCompany = new EventEmitter<any>();
+    rEvento = new EventEmitter<any>();
+    pullProductList = new EventEmitter<string>();
+    errorPurchase = new EventEmitter<{ showError: boolean, text: string }>();
+    errorLogin = new EventEmitter<{ showError: boolean, text: string }>();
 
 
     addItemCartEmit = new EventEmitter<'removel:cart' | 'add:cart' | 'init:cart'>();
 
 
-    public errorPurchase = new EventEmitter<{ showError: boolean, text: string }>();
-    public errorLogin = new EventEmitter<{ showError: boolean, text: string }>();
-
-
     constructor(
-      private http: HttpClient,
-      private cookieService: CookieService
+      public http: HttpClient,
+      public cookieService: CookieService,
+      public userService: UserService
     ) { }
 
     async getAddressByIP() {
@@ -86,6 +85,7 @@ export class GlobalEventService {
 
       this.cookieService.setItem(localCurrentUser, current_user);
       this.cookieService.setItem(localAuthToken, auth_token);
+
 
       window.localStorage.setItem(localCurrentUser,current_user);
 

@@ -1,3 +1,5 @@
+import { ServerService } from './../core/server/server.service';
+import { PurchaseService } from './../core/global/purchase.service';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -112,11 +114,22 @@ import { MatTreeModule } from '@angular/material/tree';
 
   ],
   exports: [
+    HomeComponent,
+    AccountComponent,
+    AccountComponent,
     CartComponent,
+    ProfileComponent,
     ProfileDataComponent,
+    ProfileRequestsComponent,
+    ProfileCotacaoComponent,
+    LoginComponent,
     RegisterComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
+  ],
+  providers: [
+    PurchaseService,
+    ServerService
   ]
 })
 export class PagesModule { }

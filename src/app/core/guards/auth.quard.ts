@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { CookieService } from '@ngx-toolkit/cookie';
 import { GlobalEventService } from './../global/global.service';
 import { AccountService } from './../account/account.service';
 import { ServerService } from './../server/server.service';
@@ -5,51 +7,40 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree, RouterModule } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginService } from '../account/login.service';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthQuard implements CanActivate {
 
+  token: string | null = null;
+
   constructor(
-    private serverService: ServerService,
-    private login: LoginService,
+    public serverService: ServerService,
     private router: Router,
     private account: AccountService,
-    private globalEventService: GlobalEventService
-  ) { }
+    private cookieService: CookieService,
+    private globalEventService: GlobalEventService,
+    private httpClient: HttpClient
+  ) {this.token = cookieService.getItem(globalEventService.AUTH_TOKEN_COOKIE)}
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
+    return new Promise(async (resolve, reject) => {
+      this.verify().subscribe({
+        next: (response) => {
+          resolve(true);
+        },
+        error: (error) => {
+          reject(this.router.navigate(['/login']));
+        },
+      });
+    });
+  }
 
-    const token = this.serverService.getToken();
-
-
-    if (token) {
-      return true;
-    } else {
-      this.router.navigate(['/login']);
-      return false;
-    }
-
-
-    return true
-
-    // try {
-    //   if (token) {
-    //     const result: any = await this.account.verifyToken(token)
-    //     if (true) {
-    //       return true
-    //     } else {
-    //       return await this.router.navigate(['home'])
-    //     }
-
-    //   }
-    // } catch (error) {
-    //   return await this.router.navigate(['login']);
-    // }
-
-    // return await this.router.navigate(['login']);
-
+  private verify = () => {
+    if (!this.token) throw new Error('Usuário não autenticado');
+    return this.httpClient.get(environment.baseUrl + 'token/verify', {headers: { Authorization: this.token }});
   }
 
 }

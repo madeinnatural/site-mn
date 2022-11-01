@@ -1,18 +1,16 @@
 import { ProductService } from './../global/product.service';
-import { Cotacao, Item, Purchase, PurchaseHistory, AvancedFilter } from './../model/Product';
+import { Cotacao, Purchase, PurchaseHistory, AvancedFilter } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { delay, from, map, Observable, tap } from 'rxjs';
+import { from, map, Observable } from 'rxjs';
 import { ProductList } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({providedIn: 'root'})
 export class ServerService {
 
   private shouldReportErrors = true;
@@ -23,11 +21,10 @@ export class ServerService {
     private productService: ProductService,
     private router: Router,
     public http: HttpClient,
-    ) {}
+  ) {}
 
-    async getPurchase(id: number) {
-      return await this.talkToServer('purchase/detail', {id});
-    }
+    async verifyToken(token: string) {return this.talkToServer('token/verify', {token})}
+    async getPurchase(id: number) {return await this.talkToServer('purchase/detail', {id})}
 
     async createCotacao(products: Cotacao[]) {
       return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
@@ -72,7 +69,10 @@ export class ServerService {
     }
 
     public getToken(): string | null {
-      return this.cookies.getItem(this.global.AUTH_TOKEN_COOKIE);
+      const token = this.cookies.getItem(this.global.AUTH_TOKEN_COOKIE);
+      console.log('token', token)
+      if (token) return token;
+      return null;
     }
 
     private async talkToServer(
@@ -96,6 +96,7 @@ export class ServerService {
       methodUrl += method;
 
       const token = this.getToken();
+      console.log('TOKEN GETTOKEN', token);
       let httpOptions: any;
 
       if (token) {
@@ -153,8 +154,7 @@ export class ServerService {
       return await new Promise((resolve, reject) => {
         obs.subscribe(
           (response) => {
-            this.shouldReportErrors =
-              response.headers.get('Allow-Error-Report') == 'true';
+            this.shouldReportErrors = response.headers.get('Allow-Error-Report') == 'true';
             resolve(response.body);
           },
           (error) => {
@@ -178,8 +178,8 @@ export class ServerService {
       return await this.talkToServer('seach/get_categories');
     }
 
-    updateUser(user: User) {
-      return from(this.talkToServer('users/', user, {type: 'PUT'}));
+    async updateUser(user: User) {
+      return this.talkToServer('users/', user, {type: 'PUT'});
     }
 
     async getProductFilter(params = {}) {
