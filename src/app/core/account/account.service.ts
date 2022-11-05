@@ -1,3 +1,4 @@
+import { UserService } from './../global/user.service';
 import { Router } from '@angular/router';
 import { CookieOptions, CookieService } from '@ngx-toolkit/cookie';
 import { UserRegister } from './../model/User';
@@ -29,17 +30,9 @@ export class AccountService {
     private http: HttpClient,
     private globalEventService: GlobalEventService,
     private cookieService:CookieService,
-    private router: Router
+    private userService: UserService
   ) {
-    const current_user = localStorage.getItem('current_user');
-
-    if (current_user) {
-      this.current_user = JSON.parse(current_user);
-    }
-
-    this.globalEventService.loginEvent.subscribe(user => {
-      this.current_user = user;
-    })
+    // CHAMAR NO SEVIDOR
   }
 
   loginActiver(active: boolean) {
@@ -51,11 +44,8 @@ export class AccountService {
   }
 
   logout () {
-    this.cookieService.removeItem('auth_token');
-    this.cookieService.removeItem('current_user');
-    window.localStorage.removeItem('current_user');
-    window.localStorage.removeItem('auth_token');
-    this.current_user =  {
+    this.cookieService.clear();
+    this.userService.user = {
       id: 0,
       adresses: '',
       adresses_main: '',
@@ -64,31 +54,11 @@ export class AccountService {
       name: '',
       phone: '',
     };
-
     this.globalEventService.logoutEvent.emit('logout');
   }
 
   reginterUser(dataReginter: UserRegister) {
-    return this.http.post<{user: User, auth_token: string}>(environment.baseUrl + 'users/register', this.formateData(dataReginter));
-  }
-
-  formateData( dataReginter: UserRegister ) {
-
-    const data = {
-      name: dataReginter.name,
-      password: dataReginter.password,
-      email: dataReginter.email,
-      phone: dataReginter.phone,
-      cpf: '',
-      cnpj: ''
-    }
-
-    // Verifica CPF
-    if ( data.cnpj.length === 14 ) data.cnpj = dataReginter.cpf_cnpj;
-    if ( data.cpf.length === 11 ) data.cpf = dataReginter.cpf_cnpj;
-
-    return data
-
+    return this.http.post<{user: User, auth_token: string}>(environment.baseUrl + 'users/register', dataReginter);
   }
 
 }

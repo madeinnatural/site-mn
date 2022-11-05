@@ -262,8 +262,6 @@ export class ProductService {
     this.globalEventService.addItemCartEmit.emit('removel:cart');
   }
 
-  // PARA PAGINA DE CARRINHO DE COMPRAS
-
   getCart() {
     const cart = this.getProductCart();
     if (cart) {
@@ -320,9 +318,6 @@ export class ProductService {
     }
   }
 
-  // SERVIR LISTA DE PRODUTOS
-
-  // SE NÃO TIVER NA LISTA DE PRODUTOS, CHAME ESSA FUNÇÃO.
   goProductList(query: string) {
     this.router.navigate(['product_list'], { queryParams: { query } });
   }

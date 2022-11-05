@@ -6,10 +6,6 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { Item } from '../model/Product';
 
-interface Cart {
-  puchase: Array<Item>;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -50,12 +46,10 @@ export class PurchaseService {
     }
   }
 
-  // BUSCAS NA API
   historyPurchase() {
     return this.serverService.purchaseHistory();
   }
 
-  //  INTERNA AO SITE
   totalPrice() {
     const cart_jason = this.cookieService.getItem('cart');
 
@@ -192,43 +186,6 @@ export class PurchaseService {
 
     return null;
   }
-
-
-  // private addDirectItem(item: Item) {
-  //   const current_cart = this.cookieService.getItem('cart');
-
-  //   // CASO EXISTA O CARRINHO VASIO DEVO APENAS ADICIONAR MAIS UM ITEM LÁ
-  //   if (current_cart) {
-  //     const cart = this.getCartLocalStorage();
-
-  //     const count_item =
-  //       cart[cart.findIndex((e) => e.id == item.id)].product.quantity + 1;
-  //     const curret_price =
-  //       cart[cart.findIndex((e) => e.id == item.id)].product.price * count_item;
-
-  //     cart.splice(
-  //       cart.findIndex((e) => e.id == item.id),
-  //       1
-  //     );
-
-  //     cart.push({
-  //       quantity: count_item,
-  //       id: item.id,
-  //       parcial_price: curret_price,
-  //       product: item.product,
-  //     });
-
-  //     this.cookieService.setItem('cart', JSON.stringify(cart));
-  //   } else {
-  //     // CASO O CARRINHO NÃO EXITA CRIE UM.
-
-  //     const _cart: Array<Item> = [];
-
-  //     _cart.push(item);
-
-  //     this.cookieService.setItem('cart', JSON.stringify(_cart));
-  //   }
-  // }
 
   private getCartLocalStorage(): Array<Item> {
     const data = this.cookieService.getItem('cart')

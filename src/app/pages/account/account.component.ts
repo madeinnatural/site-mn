@@ -1,10 +1,8 @@
-import { UserService } from './../../core/global/user.service';
-import User, { UserLogin, UserRegister } from './../../core/model/User';
-import { ActivatedRoute, NavigationExtras, Params, Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
+import { UserLogin, UserRegister } from './../../core/model/User';
 import { AccountService } from './../../core/account/account.service';
-import { LoginService } from './../../core/account/login.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -18,7 +16,6 @@ export class AccountComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: LoginService,
     private accountService: AccountService,
     private router: Router,
   ) {
@@ -48,14 +45,6 @@ export class AccountComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-  }
-
-  register(dataRegister: UserRegister) {
-    this.accountService.reginterUser(dataRegister);
-  }
-
-  login(dataLogin: UserLogin) {
-    this.authService.loginUser({ email: dataLogin.email, password: dataLogin.password});
   }
 
   changePage(type: 'login' | 'registration') {

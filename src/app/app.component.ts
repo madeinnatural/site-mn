@@ -1,8 +1,6 @@
 import { GlobalEventService } from './core/global/global.service';
-import { GlobalErrorService } from './core/global/global-error.service';
 import { GlobalAlertService } from './core/global-alert.service';
 import { AccountService } from './core/account/account.service';
-import { LoginService } from './core/account/login.service';
 import { Component } from '@angular/core';
 
 @Component({

@@ -15,7 +15,6 @@ export type LoginResponse = {
   birthdate: string;
   purchase_tax: number;
   has_notification: boolean;
-  is_outgo?: boolean;
   know: number;
 }
 

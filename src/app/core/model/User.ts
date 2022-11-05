@@ -18,12 +18,12 @@ export interface UserLogin {
 }
 
 export interface UserRegister {
+  cpf: string,
+  cnpj: string,
   email: string,
-  name: string ,
-  cpf_cnpj: string,
+  name: string,
   phone: string,
   password: string,
-  password_confirmat: string
   promo_active?: boolean
 }
 

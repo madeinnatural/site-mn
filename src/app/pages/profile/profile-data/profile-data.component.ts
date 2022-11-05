@@ -22,7 +22,15 @@ export class ProfileDataComponent implements OnInit {
   loadingAccess = false;
   statusUpdate: 'success' | 'danger' = 'success';
 
-  user: User;
+  user: User = {
+    name: '',
+    email: '',
+    cnpj: '',
+    phone: '',
+    adresses: '',
+    adresses_main: '',
+    id: 0,
+  }
   cpf_cnpj: string = '';
 
   constructor(
@@ -30,10 +38,14 @@ export class ProfileDataComponent implements OnInit {
     public server: ServerService,
     public router: Router,
   ) {
-    const user: User = this.userService.getCurrentUserLocalStorage();
-    if(user.cnpj)this.cpf_cnpj = user.cnpj;
-    if(user.cpf)this.cpf_cnpj = user.cpf;
-    this.user = user;
+    this.server.getUserData().subscribe({
+      next: (data: User) => {
+        this.user = data;
+        if (this.user.cnpj) this.cpf_cnpj = this.user.cnpj;
+        else if (this.user.cpf) this.cpf_cnpj = this.user.cpf;
+      },
+      error: (err: any) => {console.log('ALGO DE ERRADO NÃO ESTÁ CERTO ¬¬')}
+    });
   }
 
   password = '';

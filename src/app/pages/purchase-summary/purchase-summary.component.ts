@@ -33,7 +33,7 @@ export class PurchaseSummaryComponent implements OnInit {
     private purchaseService: PurchaseService
   ) {
 
-    this.user = this.userService.getCurrentUserLocalStorage()
+    this.user = this.userService.user;
     const data = this.router.getCurrentNavigation()?.extractedUrl.queryParams;
     const { id } = data as any;
 

@@ -2,20 +2,8 @@
   <div class="container">
     <div class="row pt-4">
       <div class="d-block m-auto w-100" style="max-width: 460px;">
-
-        <app-login
-        [type]="type"
-        (changeType)="changePage($event)"
-        (login)="login($event)">
-        </app-login>
-
-        <app-register
-        [type]="type"
-        (changeType)="changePage($event)"
-        (register)="register($event)"
-        >
-        </app-register>
-
+        <app-login [type]="type" (changeType)="changePage($event)"></app-login>
+        <app-register [type]="type" (changeType)="changePage($event)"></app-register>
       </div>
     </div>
   </div>

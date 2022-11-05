@@ -41,7 +41,7 @@ export class ProfileRequestsComponent implements OnInit {
       data: { product: product }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });
   }

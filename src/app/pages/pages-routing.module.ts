@@ -17,13 +17,13 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'login', component: AccountComponent},
   {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
-  {path: 'profile', canActivate: [AuthQuard], children: [
-    { path: '' , component: ProfileComponent, children: [
+  {path: 'profile', canActivate: [AuthQuard],
+    children: [
       { path: 'pedidos',canActivate: [AuthQuard], component: ProfileRequestsComponent},
       { path: 'profile_data',canActivate: [AuthQuard], component: ProfileDataComponent},
       { path: 'cotacao',canActivate: [AuthQuard], component: ProfileCotacaoComponent }
-    ] },
-  ]},
+    ]
+  },
   {path: 'product_detail', component: ProductDetailComponent},
   {path: 'product_list', component: ProductListComponent},
   {path: 'purchase_summary', component: PurchaseSummaryComponent}

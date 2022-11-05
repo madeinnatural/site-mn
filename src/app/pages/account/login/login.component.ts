@@ -17,14 +17,14 @@ import { Submitable } from 'src/app/components/mn-form/mn-form.component';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
   durationInSeconds = 5;
 
   openSnackBar(msg: string) {
     const config = new MatSnackBarConfig();
     config.duration = this.durationInSeconds * 1000,
-      config.panelClass = ['error-snackbar']
+    config.panelClass = ['error-snackbar']
     config.horizontalPosition = 'end';
     config.verticalPosition = 'top';
     config.data = msg;
@@ -67,12 +67,7 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private _snackBar: MatSnackBar
-  ) {
-
-
-  }
-
-  ngOnInit() { }
+  ) {}
 
   submit: Submitable = {
     submit: async () => {
@@ -82,19 +77,15 @@ export class LoginComponent implements OnInit {
         this.accountService.login({ email: this.email, password: this.password })
           .subscribe({
             next: (response: any) => {
-              const { token, user } = response
-              console.log('TOKEN', token)
-              this.accountService.logout();
+              const { token, user } = response;
               this.cookieService.setItem(this.globalEventService.AUTH_TOKEN_COOKIE, token);
-              window.localStorage.setItem('current_user', JSON.stringify(user))
-              window.localStorage.setItem('auth_token', JSON.stringify(token));
-              this.userService.user = user
+              this.userService.updateUserLocal(user);
               this.globalEventService.loginEvent.emit(user);
               this.loading = false;
               this.router.navigate(['/']);
               ok(true);
             },
-            error: (err) => {
+            error: (err: any) => {
               this.resolverErrorServer(err.error);
               this.loading = false;
               reject(true);
@@ -109,9 +100,10 @@ export class LoginComponent implements OnInit {
     console.log('RECUPERANDO SENHA.')
   }
 
-  resolverErrorServer(error: {path: string, message: string}) {
+  resolverErrorServer(error: any) {
+    if (error.msg == 'Senha incorreta') { this.passwordInput?.postInvalidade('Senha incorreta')}
     if(error.path == 'email') { this.emailInput?.postInvalidade(error.message) }
-    if(error.path == 'password') { this.passwordInput?.postInvalidade(error.message) }
+    if(error.path == 'password' || error.msg == 'Usuário não exite') { this.emailInput?.postInvalidade('Usuário não exite') }
   }
 
 

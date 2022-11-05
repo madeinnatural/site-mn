@@ -1,3 +1,4 @@
+import User from 'src/app/core/model/User';
 import { MnInputComponent } from './../../../components/input/input.component';
 import { Router } from '@angular/router';
 import { GlobalEventService } from './../../../core/global/global.service';
@@ -27,13 +28,15 @@ export class RegisterComponent {
   @ViewChild('form') form: any;
   @ViewChild('email') email?: MnInputComponent;
 
+  cpf_cnpj = '';
+
   formRegister: UserRegister = {
     name:'',
     email:'',
-    cpf_cnpj: '',
+    password: '',
     phone:'',
-    password:'',
-    password_confirmat:''
+    cpf: '',
+    cnpj: '',
   }
 
   constructor(
@@ -45,6 +48,10 @@ export class RegisterComponent {
   submit: Submitable = {
     submit: async () => {
       return new Promise((ok, reject) => {
+
+          if (this.cpf_cnpj.length >= 14) this.formRegister.cnpj = this.cpf_cnpj;
+          else this.formRegister.cpf = this.cpf_cnpj;
+
           this.accountService.reginterUser(this.formRegister)
             .subscribe({
               next: (res: any) => {
