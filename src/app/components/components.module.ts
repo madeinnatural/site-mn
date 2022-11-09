@@ -59,6 +59,7 @@ import { ModalComponent } from './modal/modal.component';
 import { MnInputComponent } from './input/input.component';
 import { MnButtonComponent } from './mn-button/mn-button.component';
 import { MnFormComponent } from './mn-form/mn-form.component';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { MnFormComponent } from './mn-form/mn-form.component';
     MnInputComponent,
     MnButtonComponent,
     MnFormComponent,
-    AvancedFilterComponent
+    AvancedFilterComponent,
+    PaginatorComponent
   ],
   imports: [
     CommonModule,
@@ -141,7 +143,8 @@ import { MnFormComponent } from './mn-form/mn-form.component';
     MnInputComponent,
     MnButtonComponent,
     MnFormComponent,
-    AvancedFilterComponent
+    AvancedFilterComponent,
+    PaginatorComponent
   ],
 })
 export class ComponentsModule {}

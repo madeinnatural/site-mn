@@ -108,3 +108,7 @@ export interface AvancedFilter {
   category: string;
 }
 
+export interface DataSearch {
+  data: ProductList[],
+  more_product: boolean,
+}

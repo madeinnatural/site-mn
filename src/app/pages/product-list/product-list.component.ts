@@ -1,4 +1,4 @@
-import { Item } from './../../core/model/Product';
+import { Item, DataSearch } from './../../core/model/Product';
 import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/global/global.service';
 import { ProductService } from './../../core/global/product.service';
@@ -17,9 +17,9 @@ export class ProductListComponent implements OnInit {
 
   query: string = '-1';
 
-  products$: Observable<ProductList[]>;
+  products$: Observable<ProductList[]> = new Observable();
 
-  current_page: number = 1;
+  current_page: number = 0;
 
   loading: boolean = false;
 
@@ -32,65 +32,26 @@ export class ProductListComponent implements OnInit {
     public productService: ProductService,
     public globalEventService: GlobalEventService
   ) {
-
-    const data = router.getCurrentNavigation()?.extractedUrl.queryParams;
-
-    const { query } = data as any;
-
-    if (query) {
-      this.query = query;
-    } else {
-      this.query = ' ';
-    }
-
-    this.products$ = this.query != "" ? this.server.getProductListQuery(this.query, this.current_page) : this.server.getProductListQuery(this.query);
-
-    this.globalEventService.pullProductList
-    .subscribe( async (query: string)=> {
-      this.current_page = 0;
-      this.query = query;
-      this.pullProducts();
-    })
-
-    this.globalEventService.search
-    .subscribe(() => {
-      const data = this.router.getCurrentNavigation()?.extras.queryParams;
-      this.query = (data as any).query
-      this.pullProducts();
-    })
-
+    this.query = this.getQueryParams();
+    this.pullProducts()
   }
 
   hidderPagination: boolean = false;
+  moreProduct = false;
 
-  async pullProducts() {
-    this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(
-      map((products) => {
-        return products.map(e => {
-          return {
-            quantity: e.quantity,
-            categoria: e.categoria,
-            id: e.id,
-            product_name: e.product_name,
-            price: e.price,
-            provider: e.provider,
-            provider_primary: e.provider_primary,
-            provider_tertiary: e.provider_tertiary,
-            unit: e.unit,
-            weight: e.weight,
-          }
-        })
-      })
-    ).pipe(products => {
-      products.subscribe((e) => {
-        if (e.length > 0) {
-          this.hidderPagination = true;
-        } else {
-          this.hidderPagination = false;
-        }
-      })
-      return products;
-    })
+  getQueryParams () {
+    const { query } = (this.router.getCurrentNavigation()?.extractedUrl.queryParams as any);
+    return query;
+  }
+
+  async pullProducts(page?: number) {
+    if(page || page == 0) this.current_page = page;
+    this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(map(products => this.init(products)));
+  }
+
+  init(products: DataSearch) {
+    this.moreProduct = products.more_product;
+    return this.productService.veryfy_product_in_cart(products.data);
   }
 
   addItemCart(product: ProductList) {
@@ -106,6 +67,10 @@ export class ProductListComponent implements OnInit {
     this.productService.initCart(product);
   }
 
-
-  ngOnInit() {}
+  ngOnInit() {
+    this.globalEventService.search.subscribe(() => {
+      this.query = this.getQueryParams();
+      this.pullProducts();
+    })
+  }
 }

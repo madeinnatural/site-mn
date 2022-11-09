@@ -1,0 +1,27 @@
+<div class="row" *ngIf="hidderPagination">
+  <div class="col-12 mt-4 d-flex justify-content-center">
+    <nav>
+      <ul class="pagination">
+
+        <li class="page-item" (click)="previewPage()">
+          <a class="page-link text-danger" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+
+        <li *ngFor="let value of arrayPages; index as i"
+          class="page-item {{ current_page == i ? 'active' : ''}}">
+          <a (click)="changePage(i)" class="page-link _color_green">{{value}}</a>
+        </li>
+        <!-- <li class="page-item"><a class="page-link _color_green">{{current_page + 1}}</a></li> -->
+
+        <li *ngIf="moreProduct" (click)="nextPage()" class="page-item">
+          <a class="page-link text-danger" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</div>

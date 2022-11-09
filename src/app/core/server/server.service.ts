@@ -1,5 +1,5 @@
 import { ProductService } from './../global/product.service';
-import { Cotacao, Purchase, PurchaseHistory, AvancedFilter } from './../model/Product';
+import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -35,10 +35,9 @@ export class ServerService {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
-    async search(termo: string, filter?: AvancedFilter, numberPage?: number) {
+    async search(termo: string, numberPage = 0): Promise<DataSearch> {
       let url = `seach?query=${termo}`;
       if (numberPage) url += '&page=' + numberPage
-      if (filter) url += '&category=' + filter.category + '&price=' + filter.price
       return this.talkToServer(url);
     }
 
@@ -52,17 +51,9 @@ export class ServerService {
       return this.http.get<ProductList[]>(environment.baseUrl, {params: {page}});
     }
 
-    getProductListQuery(query: string, current_page?: number) {
-      let url = `seach?query=${query}`;
-      if (current_page) url += '&page=' + current_page
-      return this.http.get<ProductList[]>( environment.baseUrl + url).pipe(
-        map((products) => {
-
-          const products_vericy = this.productService.veryfy_product_in_cart(products);
-
-          return products_vericy;
-        })
-      )
+    getProductListQuery(query: string, current_page?: number): Observable<DataSearch> {
+      let url = `seach?query=${query}` + '&page=' + current_page;
+      return this.http.get<DataSearch>( environment.baseUrl + url);
     }
 
     async login(params: UserLogin) {

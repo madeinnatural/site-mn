@@ -49,7 +49,6 @@ export class ProductsCartComponent implements OnInit {
       distinctUntilChanged(),
       flatMap(search => of(search).pipe(delay(500)))
     ).subscribe(async termo => {
-      console.log(termo)
       this.termo = termo;
       await this.search();
     });
@@ -63,19 +62,21 @@ export class ProductsCartComponent implements OnInit {
     });
   }
 
+  page = 0;
 
   async search() {
     this.loading = true;
-    if ( this.filter ) {
-      this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo,this.filter));
+    try {
+      const { data, more_product } = await this.serverService.search(this.termo, this.page);
+      this.listProduct = data;
+      this.productService.veryfy_product_in_cart(data);
       this.listProduct = this.productService.listProduct;
       this.loading = false;
       return;
+    } catch (error) {
+      console.log('NOSSA',error);
+      this.loading = false;
     }
-    this.productService.veryfy_product_in_cart(await this.serverService.search(this.termo,undefined,0));
-    this.listProduct = this.productService.listProduct;
-    this.loading = false;
-    return;
   }
 
 

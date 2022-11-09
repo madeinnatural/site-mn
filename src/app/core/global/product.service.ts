@@ -39,7 +39,7 @@ export class ProductService {
     public http: HttpClient
   ) {}
 
-  public async pullProductSever(page: number = 0) {
+  async pullProductSever(page: number = 0) {
     return new Promise((res) => {
       const productCart = this.getProductCart();
       this.http.get<ProductList[]>(environment.baseUrl, {params: {page}}).subscribe((produts) => {
@@ -89,9 +89,7 @@ export class ProductService {
       let quantity = 0;
 
       productCart?.forEach((productCart) => {
-        if (id == productCart.id) {
-          quantity = productCart.quantity;
-        }
+        if (id == productCart.id) quantity = productCart.quantity;
       });
 
       return quantity;
@@ -102,14 +100,13 @@ export class ProductService {
         id: e.id,
         product_name: e.product_name,
         price: e.price ? e.price : 0.0,
-        provider_primary:
-          e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
+        provider_primary: e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
         weight: e.weight ? e.weight : 0.0,
         quantity: current_amount(e.id),
       };
     });
 
-    return this.listProduct
+    return this.listProduct;
   }
 
   async showProductsAll() {
