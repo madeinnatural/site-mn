@@ -1,3 +1,4 @@
+import { AlertoInterface } from './../model/Alert';
 import { UserService } from './user.service';
 import { UserRegister } from './../model/User';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -19,7 +20,7 @@ export class GlobalEventService {
   disableHeaderEvent = new EventEmitter<boolean>();
   triggerLogout = new EventEmitter();
   logoutEvent = new EventEmitter();
-  goAlert = new EventEmitter<{type: 'danger' | 'success' | 'warning', text: string, duration?: number}>();
+  goAlert = new EventEmitter<AlertoInterface>();
   loading = new EventEmitter<boolean>();
   loginEvent = new EventEmitter<any>();
   loadingOverlay = new EventEmitter<number>();

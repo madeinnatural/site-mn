@@ -136,13 +136,13 @@ export class MnFormComponent {
         }
 
         const showTime = (campos: Array<string>) => {
-          let localMsg: string = `<h3>Você não preencheu ${campos.length > 1
+          let localMsg: string = `Você não preencheu ${campos.length > 1
             ? ' campos obrigatórios.'
             : ` o campo ${campos[0]}.`
-            } </h3>`;
+            } `;
 
           localMsg = localMsg.replace(/.$/, '').replace(/(\r\n|\n|\r)/gm, '');
-          this.global.goAlert.emit({ type: 'warning', text: localMsg });
+          this.global.goAlert.emit({ type: 'warning', text: localMsg, duration: 3000});
         };
 
         showTime(noValid);

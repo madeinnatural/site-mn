@@ -1,5 +1,5 @@
 import { AuthInterceptor } from './core/security/auth.interceptor';
-import { phoneMaskBrDirective } from './directives/phone-mask-br.directive';
+import { phoneMaskBrDirective } from './core/directives/phone-mask-br.directive';
 import { ComponentsModule } from './components/components.module';
 import { PagesModule } from './pages/pages.module';
 import { NgModule } from '@angular/core';

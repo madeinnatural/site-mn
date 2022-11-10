@@ -1,3 +1,4 @@
+import { GlobalAlertComponent } from './global-alert/global-alert.component';
 import { AvancedFilterComponent } from './avanced-filter/avanced-filter.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './../core/global/purchase.service';
@@ -81,7 +82,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     MnButtonComponent,
     MnFormComponent,
     AvancedFilterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    GlobalAlertComponent
   ],
   imports: [
     CommonModule,
@@ -144,7 +146,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     MnButtonComponent,
     MnFormComponent,
     AvancedFilterComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    GlobalAlertComponent
   ],
 })
 export class ComponentsModule {}

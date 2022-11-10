@@ -1,3 +1,4 @@
+import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from './../core/server/server.service';
 import { PurchaseService } from './../core/global/purchase.service';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
@@ -69,6 +70,7 @@ import { MatTreeModule } from '@angular/material/tree';
     RegisterComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
+    PasswordRecoveryComponent
   ],
   imports: [
     CommonModule,
