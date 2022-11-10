@@ -43,16 +43,24 @@ export class ProductsCartComponent implements OnInit {
     this.loading = true;
     this.pullProducts();
 
-    this.keyUp.pipe(
-      map((event) => (event as any).target.value),
-      debounceTime(1000),
-      distinctUntilChanged(),
-      flatMap(search => of(search).pipe(delay(500)))
-    ).subscribe(async termo => {
-      this.termo = termo;
-      await this.search();
-    });
+    // this.keyUp.pipe(
+    //   map((event) => (event as any).target.value),
+    //   debounceTime(1000),
+    //   distinctUntilChanged(),
+    //   flatMap(search => of(search).pipe(delay(500)))
+    // ).subscribe(async termo => {
+    //   this.termo = termo;
+    //   await this.search();
+    // });
 
+  }
+
+  keyPress(event: KeyboardEvent) {
+    if (this.termo.length > 3) {
+      setTimeout(() => {
+        this.search();
+      },500);
+    }
   }
 
   pullProducts(page: number = 0) {

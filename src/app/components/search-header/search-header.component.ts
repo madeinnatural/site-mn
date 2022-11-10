@@ -19,8 +19,12 @@ export class SearchHeaderComponent implements OnInit {
 
   ngOnInit() {}
 
-  monteQuery(event: {target: any}){
-    this.query = event.target.value;
+  monteQuery(event: KeyboardEvent){
+    if (this.query.length > 3 || event.key == 'Enter') {
+      setTimeout(() => {
+        this.bucarProduto();
+      },500);
+    }
   }
 
   bucarProduto() {

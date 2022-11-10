@@ -67,6 +67,14 @@ export class ProductListComponent implements OnInit {
     this.productService.initCart(product);
   }
 
+  keyPress(event: KeyboardEvent) {
+    if (this.query.length > 3) {
+      setTimeout(() => {
+        this.pullProducts();
+      },500);
+    }
+  }
+
   ngOnInit() {
     this.globalEventService.search.subscribe(() => {
       this.query = this.getQueryParams();

@@ -10,7 +10,7 @@
     type="text"
     class="form-control border-left-0 border-right-0 input_pesquisa"
     placeholder="Procure por nome, marca..."
-    (keypress)="monteQuery($event)"
+    [(ngModel)]="query" (keypress)="monteQuery($event)"
     #name_produc
     />
     <div class="input-group-append">

@@ -23,7 +23,7 @@
                 <img style="height: 22px;" src="assets/img/pesquisa.svg">
               </span>
             </div>
-            <input type="text" style="height: auto;" placeholder="procure por nome, marca..."
+            <input [(ngModel)]="query" (keypress)="keyPress($event)" type="text" style="height: auto;" placeholder="procure por nome, marca..."
               class="form-control border-left-0">
           </div>
           <div class="d-block d-xl-flex mt-3 mb-3 mt-xl-0 mb-lg-0">
@@ -118,12 +118,17 @@
               </tr>
             </tbody>
 
-
-            <div *ngIf="products.length == 0" >
-              <h3><strong>{{query | titlecase }}</strong> ainda não estar disponivel :( </h3>
-            </div>
+            <tbody *ngIf="products.length == 0">
+              <tr>
+                <td colspan="5" class="text-center">
+                  <h5>Nenhum produto encontrado</h5>
+                </td>
+              </tr>
+            </tbody>
 
         </table>
+
+
         <h6 *ngIf="hidderPagination" style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
 
         <ng-template #loading>

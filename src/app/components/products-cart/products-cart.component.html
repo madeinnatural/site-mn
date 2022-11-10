@@ -9,15 +9,15 @@
               <img style="height: 22px" src="assets/img/pesquisa.svg" />
             </span>
           </div>
-          <input [(ngModel)]="termo" type="text" style="height: auto"
+          <input [(ngModel)]="termo" (keypress)="keyPress($event)"  type="text" style="height: auto"
             placeholder="procure por nome, marca..." class="form-control border-left-0" />
         </div>
-        <button (click)="openFiltro()"
+        <!-- <button (click)="openFiltro()"
           class="btn mb-4 ml-md-3 mb-md-0 d-flex align-items-center justify-content-center text-uppercase btn_green"
           style="height: 50px; max-width: 400px;">
           <img style="width: 32px" src="assets/img/filtro.webp" />
           <div class="ml-3 text-white">Filtro Avançado</div>
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -86,6 +86,14 @@
 
               </td>
 
+            </tr>
+          </tbody>
+
+          <tbody *ngIf="listProduct.length == 0 && !loading">
+            <tr>
+              <td colspan="5" class="text-center">
+                <h5>Nenhum produto encontrado</h5>
+              </td>
             </tr>
           </tbody>
         </table>

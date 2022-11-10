@@ -53,7 +53,10 @@ export class ServerService {
 
     getProductListQuery(query: string, current_page?: number): Observable<DataSearch> {
       let url = `seach?query=${query}` + '&page=' + current_page;
-      return this.http.get<DataSearch>( environment.baseUrl + url);
+      return this.http.get<DataSearch>( environment.baseUrl + url).pipe(map(e => {
+        e.data = e.data.filter(e => e.product_name != 'produto');
+        return e;
+      }));
     }
 
     async login(params: UserLogin) {
