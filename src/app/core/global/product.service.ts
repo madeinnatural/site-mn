@@ -60,12 +60,11 @@ export class ProductService {
             id: e.id,
             product_name: e.product_name,
             price: e.price ? e.price : 0.0,
-            provider_primary:
-              e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
+            provider_primary: e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
             weight: e.weight ? e.weight : 0.0,
             quantity: current_amount(e.id),
           };
-        });
+        }).filter((e) => e.product_name != 'produto');
 
         this.listProduct = response;
 
