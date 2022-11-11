@@ -15,6 +15,8 @@ import { Navigation, Router } from '@angular/router';
 export class PasswordRecoveryComponent {
   @ViewChild('form') form?: MnFormComponent;
 
+  success = false;
+
   constructor(
     public router: Router,
     public global: GlobalEventService,
@@ -26,7 +28,8 @@ export class PasswordRecoveryComponent {
       return new Promise( async (resolve, reject) => {
         try {
           const email = this.form?.inputs[0].value;
-          await this.router.navigate(['/password-recovery/send'], { queryParams: { email } });
+          this.success = true;
+          // await this.router.navigate(['/password-recovery/send'], { queryParams: { email } });
           resolve(true);
         } catch (error) {
 

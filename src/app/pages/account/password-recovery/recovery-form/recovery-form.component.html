@@ -1,0 +1,19 @@
+<div class="row sectio-password">
+  <div class="col-md-12">
+    <div class="d-flex flex-column">
+      <div class="p-2 item text-center">
+        <h3>Recuperação de Senha</h3>
+          <p>
+             Digite a nova senha para o usuário {{user?.email}}.
+          </p>
+      </div>
+      <div class="form-recovery">
+        <mn-form #form [submitable]="onSubmit" buttonName="Confirmar" [showToastForm]="true">
+          <mn-input name="password" archetype="password"  placeholder="Senha" requery></mn-input>
+
+          <mn-input name="passowrd" archetype="password" placeholder="Confirmar senha" requery ></mn-input>
+        </mn-form>
+      </div>
+    </div>
+  </div>
+</div>

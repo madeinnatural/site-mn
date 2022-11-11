@@ -1,3 +1,4 @@
+import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
@@ -29,6 +30,7 @@ const routes: Routes = [
   {path: 'product_list', component: ProductListComponent},
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
+  {path: 'password-recovery/page', component: RecoveryFormComponent},
 ];
 
 @NgModule({

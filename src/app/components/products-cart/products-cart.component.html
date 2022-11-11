@@ -51,10 +51,10 @@
 
                   <div class="example-button-row d-flex" *ngIf="product.quantity == 0">
                     <mat-card style="padding-top: -50px !important;">
-                      <mat-card-actions align="end">
+                      <mat-card-actions align="end" class="pt-0 align-items-center">
                         <img style="height: 26px;" src="assets/img/carrinho.svg">
                         <button mat-button>
-                          <h6 class="_color_green" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                          <h6 class="_color_green align-items-center" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
                         </button>
                       </mat-card-actions>
                     </mat-card>

@@ -1,3 +1,4 @@
+import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from './../core/server/server.service';
 import { PurchaseService } from './../core/global/purchase.service';
@@ -70,7 +71,8 @@ import { MatTreeModule } from '@angular/material/tree';
     RegisterComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
-    PasswordRecoveryComponent
+    PasswordRecoveryComponent,
+    RecoveryFormComponent
   ],
   imports: [
     CommonModule,
@@ -128,6 +130,7 @@ import { MatTreeModule } from '@angular/material/tree';
     RegisterComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
+    RecoveryFormComponent
   ],
   providers: [
     PurchaseService,
