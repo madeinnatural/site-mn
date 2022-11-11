@@ -12,7 +12,7 @@ export class GlobalAlertComponent {
   @Input() data?: AlertoInterface;
 
   danger = 'assets/img/error.svg';
-  success = 'assets/img/sucess.svg';
+  success = 'assets/img/sucess.png';
   warning = 'assets/img/warning.svg';
 
   icon = '';

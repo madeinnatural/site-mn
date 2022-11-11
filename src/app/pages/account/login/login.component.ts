@@ -97,7 +97,7 @@ export class LoginComponent {
   }
 
   recovery_passord() {
-    console.log('RECUPERANDO SENHA.')
+    this.router.navigate(['password-recovery']);
   }
 
   resolverErrorServer(error: any) {

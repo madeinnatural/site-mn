@@ -23,6 +23,10 @@ export class ServerService {
     public http: HttpClient,
   ) {}
 
+    async recoveryPassword(email: string) {
+      return await this.talkToServer('users/recovery_password', {email}, {type: 'POST'});
+    }
+
     getUserData(): Observable<User> {return from( this.talkToServer('users/get_data_user'))}
     async verifyToken(token: string) {return this.talkToServer('token/verify', {token})}
     async getPurchase(id: number) {return await this.talkToServer('purchase/detail', {id})}

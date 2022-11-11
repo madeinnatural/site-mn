@@ -20,6 +20,7 @@ export class PasswordRecoveryComponent {
   constructor(
     public router: Router,
     public global: GlobalEventService,
+    public server: ServerService
   ) { }
 
 
@@ -28,14 +29,20 @@ export class PasswordRecoveryComponent {
       return new Promise( async (resolve, reject) => {
         try {
           const email = this.form?.inputs[0].value;
+
+          if (!email) throw new Error('Email não informado');
+
+          await this.server.recoveryPassword(email);
+
           this.success = true;
-          // await this.router.navigate(['/password-recovery/send'], { queryParams: { email } });
+
           resolve(true);
         } catch (error) {
-
+          let message = 'Erro ao enviar email de recuperação de senha';
+          if ((error as any).message) message = (error as any).message;
           const msg: AlertoInterface = {
-              type: 'danger',
-              text: 'Erro ao enviar email de recuperação de senha',
+              type:  'success',
+              text: message,
               duration: 5000
           }
 
