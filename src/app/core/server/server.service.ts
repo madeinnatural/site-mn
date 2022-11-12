@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { from, map, Observable } from 'rxjs';
+import { from, map, Observable, of } from 'rxjs';
 import { ProductList } from '../model/Product';
 import User, { UserLogin } from '../model/User';
 
@@ -39,10 +39,10 @@ export class ServerService {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
-    async search(termo: string, numberPage = 0): Promise<DataSearch> {
+    search(termo: string, numberPage = 0) {
       let url = `seach?query=${termo}`;
       if (numberPage) url += '&page=' + numberPage
-      return this.talkToServer(url);
+      return this.http.get<DataSearch>(environment.baseUrl + url);
     }
 
     purchaseHistory (){

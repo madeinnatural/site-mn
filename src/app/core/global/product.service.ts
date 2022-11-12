@@ -7,6 +7,7 @@ import { Injectable, Input, OnInit } from '@angular/core';
 import { ServerService } from '../server/server.service';
 import { PurchaseService } from './purchase.service';
 import { GlobalEventService } from './global.service';
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -39,45 +40,31 @@ export class ProductService {
     public http: HttpClient
   ) {}
 
+  calculeQuantidade(id: number, productCart: ProductList[]): number {
+    return productCart
+    .filter((product) => product.id == id)
+    .map((product) => product.quantity)
+    .reduce((previousValue, currentValue) => previousValue + currentValue,0)
+  }
+
   async pullProductSever(page: number = 0) {
-    return new Promise((res) => {
-      const productCart = this.getProductCart();
-      this.http.get<ProductList[]>(environment.baseUrl, {params: {page}}).subscribe((produts) => {
-        function current_amount(id: number) {
-          let quantity = 0;
-
-          productCart?.forEach((productCart) => {
-            if (id == productCart.id) {
-              quantity = productCart.quantity;
-            }
-          });
-
-          return quantity;
-        }
-
-        const response = produts.map((e) => {
-          return {
-            id: e.id,
-            product_name: e.product_name,
-            price: e.price ? e.price : 0.0,
-            provider_primary: e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
-            weight: e.weight ? e.weight : 0.0,
-            quantity: current_amount(e.id),
-          };
-        }).filter((e) => e.product_name != 'produto');
-
-        this.listProduct = response;
-
-        res(response);
-      });
-    });
+    const listItem = this.getProductCart();
+    const productsCart = listItem.map((item) => item['product']);
+    return this.http.get<ProductList[]>(environment.baseUrl, {params: {page}})
+    .pipe(map((products) => {
+      return products.map((product) => {
+          product['price'] = product['price'] ? product['price'] : 0.0;
+          product['provider_primary'] = product['provider_primary'] != '' ? product['provider_primary'] : 'INDEFINIDO';
+          product['quantity'] = this.calculeQuantidade(product.id, productsCart);
+          return product;
+        }).filter((product) => product['product_name'] != 'produto');
+      }
+    )).pipe(map((products) => { this.listProduct = products; return products; }));
   }
 
   private getCartLocalStorage(): Array<Item> | null {
     const data = this.cookieService.getItem('cart');
-    if (data) {
-      return JSON.parse(data);
-    }
+    if (data) return JSON.parse(data);
     return null;
   }
 
@@ -93,6 +80,8 @@ export class ProductService {
 
       return quantity;
     }
+
+    console.log(products);
 
     this.listProduct = products.map((e) => {
       return {
