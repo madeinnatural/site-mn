@@ -47,29 +47,58 @@
     </div>
 
     <div class="row">
-      <div class="col-12 w-1000">
+      <div class="col-12">
 
-        <table class="table" *ngIf="products$ | async as products; else loading">
+        <table class="table " rowgroup *ngIf="products$ | async as products; else loading ">
+          <ng-container  *ngIf="products$ | async as products; else loading">
 
-            <thead  *ngIf="products.length > 0">
-              <tr class="bg-white">
-                <th scope="col">Produto</th>
-                <th scope="col">Categoria</th>
-                <th scope="col">Preço/Unidade</th>
-                <th scope="col" class="classe-nova">Unidade</th>
-                <th scope="col" class="classe-nova">Adicionar ao carrinho</th>
-              </tr>
-            </thead>
+              <thead>
+                <tr class="bg-white">
+                  <th scope="col">Produto</th>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Preço/Unidade</th>
+                  <th scope="col" class="classe-nova">Unidade</th>
+                  <th scope="col" class="classe-nova">Adicionar ao carrinho</th>
+                </tr>
+              </thead>
 
-            <tbody *ngIf="products$ | async as listProduct">
-              <tr *ngFor="let product of listProduct ">
-                <td scope="row" style="max-width: 200px;">
-                  <h5>{{product.product_name}}</h5>
+              <tbody>
+                <tr *ngFor="let product of products">
+                  <td scope="row" style="max-width: 200px;">
+                    <h5>{{product.product_name}}</h5>
 
-                  <div class="d-lg-none" style="margin-top: 10px;">
-                    <span>
-                      <h6> Unidade de: {{product.weight}} kg</h6>
-                    </span>
+                    <div class="d-lg-none" style="margin-top: 10px;">
+                      <span>
+                        <h6> Unidade de: {{product.weight}} kg</h6>
+                      </span>
+                      <div class="d-flex pl-2" *ngIf="product.quantity && product.quantity > 0">
+                        <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
+                            src="assets/img/minus.svg"></button>
+                        <h5 class="mx-2">{{product.quantity}}</h5>
+                        <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
+                            src="assets/img/add.svg"></button>
+                      </div>
+
+                      <div class="example-button-row d-flex" *ngIf="product.quantity == 0">
+                        <mat-card style="padding-top: -50px !important;">
+                          <mat-card-actions align="end">
+                            <img style="height: 26px;" src="assets/img/carrinho.svg">
+                            <button mat-button>
+                              <h6 class="_color_green" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                            </button>
+                          </mat-card-actions>
+                        </mat-card>
+                      </div>
+
+
+                    </div>
+                  </td>
+
+                  <td scope="row" style="max-width: 200px;">{{product.provider_primary}}</td>
+                  <td scope="row" style="max-width: 200px;">{{product.price}}</td>
+                  <td scope="row" class="classe-nova" style="max-width: 200px;">{{product.weight}}</td>
+
+                  <td scope="row" class="classe-nova align-items-center">
                     <div class="d-flex pl-2" *ngIf="product.quantity && product.quantity > 0">
                       <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
                           src="assets/img/minus.svg"></button>
@@ -78,66 +107,59 @@
                           src="assets/img/add.svg"></button>
                     </div>
 
-                    <div class="example-button-row d-flex" *ngIf="product.quantity == 0">
-                      <mat-card style="padding-top: -50px !important;">
-                        <mat-card-actions align="end">
-                          <img style="height: 26px;" src="assets/img/carrinho.svg">
-                          <button mat-button>
-                            <h6 class="_color_green" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
-                          </button>
-                        </mat-card-actions>
-                      </mat-card>
+                    <div *ngIf="product.quantity == 0">
+                      <button class="btn d-flex align-items-center">
+                        <img style="width: 26px;" src="assets/img/carrinho.svg">
+                        <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                      </button>
                     </div>
 
+                  </td>
 
-                  </div>
-                </td>
+                </tr>
+              </tbody>
 
-                <td scope="row" style="max-width: 200px;">{{product.provider_primary}}</td>
-                <td scope="row" style="max-width: 200px;">{{product.price}}</td>
-                <td scope="row" class="classe-nova" style="max-width: 200px;">{{product.weight}}</td>
+              <tbody *ngIf="products.length == 0">
+                <tr>
+                  <td colspan="5" class="text-center">
+                    <h5>Nenhum produto encontrado</h5>
+                  </td>
+                </tr>
+              </tbody>
 
-                <td scope="row" class="classe-nova align-items-center">
-                  <div class="d-flex pl-2" *ngIf="product.quantity && product.quantity > 0">
-                    <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
-                        src="assets/img/minus.svg"></button>
-                    <h5 class="mx-2">{{product.quantity}}</h5>
-                    <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
-                        src="assets/img/add.svg"></button>
-                  </div>
-
-                  <div *ngIf="product.quantity == 0">
-                    <button class="btn d-flex align-items-center">
-                      <img style="width: 26px;" src="assets/img/carrinho.svg">
-                      <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
-                    </button>
-                  </div>
-
-                </td>
-
-              </tr>
-            </tbody>
-
-            <tbody *ngIf="products.length == 0">
-              <tr>
-                <td colspan="5" class="text-center">
-                  <h5>Nenhum produto encontrado</h5>
-                </td>
-              </tr>
-            </tbody>
-
-        </table>
+              <h6 *ngIf="hidderPagination" style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
+            </ng-container>
+          </table>
 
 
-        <h6 *ngIf="hidderPagination" style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
-
-        <ng-template #loading>
-          <app-loading></app-loading>
-        </ng-template>
       </div>
     </div>
 
+
+  <ng-template #loading>
+    <!-- LOADING EM TODA DIV-->
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+          <div >
+            <app-loading></app-loading>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <!--=========== fim section tabela ===========-->
+
+  <ng-template #productNull>
+      <tr>
+        <td colspan="5" class="text-center">
+          <h5>Nenhum produto encontrado</h5>
+        </td>
+      </tr>
+  </ng-template>
+
     <app-paginator [current_page]="current_page" [hidderPagination]="true" [moreProduct]="moreProduct" (page)="pullProducts($event)" ></app-paginator>
   </div>
+
 </section>
 <!--=========== fim section tabela ===========-->

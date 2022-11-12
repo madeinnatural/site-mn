@@ -1,3 +1,4 @@
+import { PaginatorComponent } from './../../components/paginator/paginator.component';
 import { Item, DataSearch } from './../../core/model/Product';
 import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/global/global.service';
