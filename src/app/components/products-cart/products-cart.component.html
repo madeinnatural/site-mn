@@ -32,7 +32,7 @@
               <tr class="bg-white">
                 <th scope="col">Produto</th>
                 <th scope="col" class="classe-nova text-center">Valo parcial</th>
-                <th scope="col" class="classe-nova pl-4"></th>
+                <th scope="col" class="classe-nova pl-4">Adicionar ao carrinho</th>
               </tr>
             </thead>
 
@@ -114,14 +114,16 @@
                   <!-- sub total -->
                 </td>
 
-                <td scope="row" class="classe-nova pull-right d-flex align-items-center" style="max-width: 300px; height: 105px;">
+                <td scope="row" class="classe-nova pull-right">
 
-                  <span (click)="addItemCart(product);" *ngIf="!product.quantity; else cartNotNull">
-                    <button class="btn d-flex align-items-center jus">
-                      <img style="width: 26px;" src="assets/img/carrinho.svg">
-                      <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
-                    </button>
-                  </span>
+                  <div  style="max-width: 460px; height: 72px" class="d-flex align-items-center">
+                    <span (click)="addItemCart(product);" *ngIf="!product.quantity; else cartNotNull">
+                      <button class="btn d-flex align-items-center">
+                        <img style="width: 26px;" src="assets/img/carrinho.svg">
+                        <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
+                      </button>
+                    </span>
+                  </div>
 
                 </td>
               </tr>
