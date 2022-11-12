@@ -17,7 +17,7 @@ export class ProductsCartComponent implements OnInit {
 
   listProduct: Observable<ProductList[]> = new Observable();
   filter: AvancedFilter = { price: 0, category: '' };
-  loading = false;
+  loadingPage = false;
   termo = '';
   page = 0;
 
@@ -39,28 +39,29 @@ export class ProductsCartComponent implements OnInit {
     }
   }
 
-  async pullProducts(page: number = 0) {
-    this.listProduct = await this.productService.pullProductSever(page);
+  pullProducts(page: number = 0) {
+    this.loadingPage = true;
+    this.listProduct = this.productService.pullProductSever(page);
+    this.loadingPage = false;
   }
 
   search() {
-      return this.serverService.search(this.termo, this.page)
-      .pipe(tap((products) => { products.data = this.productService.veryfy_product_in_cart(products.data); return products; }))
-      .pipe(map(element => this.listProduct = of(element.data)))
-      .subscribe({
-        next: (products) => {
+    return this.serverService.search(this.termo, this.page)
+    .pipe(tap((products) => { products.data = this.productService.veryfy_product_in_cart(products.data); return products; }))
+    .pipe(map(element => this.listProduct = of(element.data)))
+    .subscribe({
+      next: (products) => {
 
-        },
-        error: (error) => {
-          this.global.goAlert.emit({
-            text: (error as Error).message,
-            type: 'warning',
-            duration: 5000,
-          });
-          throw new Error('Algo deu errado');
-        }
-      })
-
+      },
+      error: (error) => {
+        this.global.goAlert.emit({
+          text: (error as Error).message,
+          type: 'warning',
+          duration: 5000,
+        });
+        throw new Error('Algo deu errado');
+      }
+    })
   }
 
 

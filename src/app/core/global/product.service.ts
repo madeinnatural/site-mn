@@ -47,7 +47,7 @@ export class ProductService {
     .reduce((previousValue, currentValue) => previousValue + currentValue,0)
   }
 
-  async pullProductSever(page: number = 0) {
+  pullProductSever(page: number = 0) {
     const listItem = this.getProductCart();
     const productsCart = listItem.map((item) => item['product']);
     return this.http.get<ProductList[]>(environment.baseUrl, {params: {page}})

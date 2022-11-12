@@ -24,8 +24,11 @@
     <div class="row">
       <div class="col-12">
 
-        <table #table class="table " rowgroup *ngIf="listProduct | async as products; else loading">
-          <thead>
+        <table class="table " rowgroup *ngIf="listProduct | async as products; else loading ">
+
+          <ng-container *ngIf="listProduct | async as products; else loading">
+
+          <thead *ngIf="products.length;">
             <tr class="bg-white">
               <th scope="col">Produto</th>
               <th scope="col" class="esconder-2">Categoria</th>
@@ -35,9 +38,7 @@
             </tr>
           </thead>
 
-          <ng-container *ngIf="listProduct | async as products;">
-            <tbody *ngIf="products.length">
-
+            <tbody *ngIf="products.length; else productNull">
 
               <tr *ngFor="let product of products">
                 <td scope="row" style="max-width: 100px;">
@@ -68,11 +69,9 @@
 
                   </div>
                 </td>
-
                 <td scope="row" class="esconder-2 "><p>{{ product.provider_primary }}</p></td>
                 <td scope="row" >{{ product.price | currency: 'R$ '}}</td>
                 <td scope="row" class="classe-nova">{{ product.weight }} kg</td>
-
                 <td scope="row" class="classe-nova">
                   <div class="d-flex pl-4" *ngIf="product.quantity && product.quantity > 0">
                     <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
@@ -90,23 +89,16 @@
                   </div>
 
                 </td>
-
               </tr>
 
             </tbody>
 
-            <div class="row" *ngIf="products.length == 9">
-              <div class="col-12 mt-4">
-                <button class="btn d-block m-auto btn_outline_green" (click)="showProductsAll()">
-                  VER LISTA COMPLETA
-                </button>
-              </div>
-            </div>
-
-            <tbody *ngIf="products.length == 0">
-              <tr>
-                <td colspan="5" class="text-center">
-                  <h5>Nenhum produto encontrado</h5>
+            <tbody>
+              <tr *ngIf="products.length < 100">
+                <td colspan="5" class="text-center bg-white">
+                  <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
+                    VER LISTA COMPLETA
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -136,3 +128,11 @@
   </div>
 </ng-template>
 <!--=========== fim section tabela ===========-->
+
+<ng-template #productNull>
+  <tr>
+    <td colspan="5" class="text-center">
+      <h5>Nenhum produto encontrado</h5>
+    </td>
+  </tr>
+</ng-template>
