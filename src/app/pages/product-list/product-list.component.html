@@ -52,53 +52,25 @@
         <table class="table " rowgroup *ngIf="products$ | async as products; else loading ">
           <ng-container  *ngIf="products$ | async as products; else loading">
 
-              <thead>
-                <tr class="bg-white">
-                  <th scope="col">Produto</th>
-                  <th scope="col">Categoria</th>
-                  <th scope="col">Preço/Unidade</th>
-                  <th scope="col" class="classe-nova">Unidade</th>
-                  <th scope="col" class="classe-nova">Adicionar ao carrinho</th>
-                </tr>
-              </thead>
+            <thead *ngIf="products.length;">
+              <tr class="bg-white">
+                <th scope="col">Produto</th>
+                <th scope="col" class="esconder-2">Categoria</th>
+                <th scope="col">Preço/Unidade</th>
+                <th scope="col" class="classe-nova">Unidade</th>
+                <th scope="col" class="classe-nova">Adicionar ao carrinho</th>
+              </tr>
+            </thead>
 
-              <tbody>
-                <tr *ngFor="let product of products">
-                  <td scope="row" style="max-width: 200px;">
-                    <h5>{{product.product_name}}</h5>
+            <tbody *ngIf="products.length; else productNull">
 
-                    <div class="d-lg-none" style="margin-top: 10px;">
-                      <span>
-                        <h6> Unidade de: {{product.weight}} kg</h6>
-                      </span>
-                      <div class="d-flex pl-2" *ngIf="product.quantity && product.quantity > 0">
-                        <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
-                            src="assets/img/minus.svg"></button>
-                        <h5 class="mx-2">{{product.quantity}}</h5>
-                        <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
-                            src="assets/img/add.svg"></button>
-                      </div>
-
-                      <div class="example-button-row d-flex" *ngIf="product.quantity == 0">
-                        <mat-card style="padding-top: -50px !important;">
-                          <mat-card-actions align="end">
-                            <img style="height: 26px;" src="assets/img/carrinho.svg">
-                            <button mat-button>
-                              <h6 class="_color_green" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
-                            </button>
-                          </mat-card-actions>
-                        </mat-card>
-                      </div>
-
-
-                    </div>
-                  </td>
-
-                  <td scope="row" style="max-width: 200px;">{{product.provider_primary}}</td>
-                  <td scope="row" style="max-width: 200px;">{{product.price}}</td>
-                  <td scope="row" class="classe-nova" style="max-width: 200px;">{{product.weight}}</td>
-
-                  <td scope="row" class="classe-nova align-items-center">
+              <tr *ngFor="let product of products">
+                <td scope="row" style="max-width: 100px;">
+                  <h5>{{product.product_name}}</h5>
+                  <div class="d-lg-none" style="margin-top: 10px;">
+                    <span>
+                      <h6> Unidade de: {{product.weight}} kg</h6>
+                    </span>
                     <div class="d-flex pl-2" *ngIf="product.quantity && product.quantity > 0">
                       <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
                           src="assets/img/minus.svg"></button>
@@ -107,25 +79,48 @@
                           src="assets/img/add.svg"></button>
                     </div>
 
-                    <div *ngIf="product.quantity == 0">
-                      <button class="btn d-flex align-items-center">
-                        <img style="width: 26px;" src="assets/img/carrinho.svg">
-                        <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
-                      </button>
+                    <div class="example-button-row d-flex" *ngIf="product.quantity == 0">
+
+                      <mat-card class="d-flex">
+                        <mat-card-actions align="end" class="pt-0 align-items-center">
+                          <img style="height: 16px;" src="assets/img/carrinho.svg">
+                          <button mat-button>
+                            <h6 class="_color_green align-items-center" style="font-size: 12px;"
+                              (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                          </button>
+                        </mat-card-actions>
+                      </mat-card>
+
                     </div>
 
-                  </td>
 
-                </tr>
-              </tbody>
+                  </div>
+                </td>
+                <td scope="row" class="esconder-2 ">
+                  <p>{{ product.provider_primary }}</p>
+                </td>
+                <td scope="row">{{ product.price | currency: 'R$ '}}</td>
+                <td scope="row" class="classe-nova">{{ product.weight }} kg</td>
+                <td scope="row" class="classe-nova">
+                  <div class="d-flex pl-4" *ngIf="product.quantity && product.quantity > 0">
+                    <button (click)="removeItem(product)" class="btn btn_remove"><img style="width: 12px;"
+                        src="assets/img/minus.svg"></button>
+                    <h5 class="mx-2">{{product.quantity}}</h5>
+                    <button (click)="addItemCart(product)" class="btn btn_remove"><img style="width: 12px;"
+                        src="assets/img/add.svg"></button>
+                  </div>
 
-              <tbody *ngIf="products.length == 0">
-                <tr>
-                  <td colspan="5" class="text-center">
-                    <h5>Nenhum produto encontrado</h5>
-                  </td>
-                </tr>
-              </tbody>
+                  <div *ngIf="product.quantity == 0">
+                    <button class="btn d-flex align-items-center">
+                      <img style="width: 26px;" src="assets/img/carrinho.svg">
+                      <h6 class="_color_green ml-3 mb-0" (click)="addItemCart(product)">Adicionar ao carrinho</h6>
+                    </button>
+                  </div>
+
+                </td>
+              </tr>
+
+            </tbody>
 
               <h6 *ngIf="hidderPagination" style="font-size: 14px;">* Compra minima por forncedor - R$400.00</h6>
             </ng-container>

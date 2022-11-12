@@ -36,3 +36,12 @@
   justify-content: center;
   width: 120px;
 }
+
+// LINHA TEXTO DA COLUNA QUANDO FOR RESOLUÇÃO CELULAR
+@media screen and (max-width: 431px) {
+  .example-label {
+    display: block;
+    margin-left: 0;
+    min-width: 0;
+  }
+}
