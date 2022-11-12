@@ -1,9 +1,11 @@
+import { AlertoInterface } from './../../core/model/Alert';
+import { GlobalEventService } from './../../core/global/global.service';
 import { GlobalAlertService } from './../../core/global-alert.service';
 import { PurchaseDetail } from './../../core/model/Purchase';
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
-import { ProductList, Cotacao, Purchase } from './../../core/model/Product';
+import { ProductList, Cotacao, Purchase, Quotation, QuotationRequest } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../../../app/core/model/Product';
@@ -46,7 +48,8 @@ export class CartComponent implements OnInit {
     public purchaseService: PurchaseService,
     public productService: ProductService,
     public server: ServerService,
-    public router: Router
+    public router: Router,
+    public global: GlobalEventService
   ) {
   }
 
@@ -81,8 +84,8 @@ export class CartComponent implements OnInit {
     }
   }
 
-  creteCotacao() {
-    const productCotacao: Cotacao[] = this.products.map((item: Item) => {
+  async creteCotacao() {
+    const productCotacao: QuotationRequest[] = this.products.map((item: Item) => {
       return {
         product_name: item.product.product_name,
         weight: item.product.weight,
@@ -91,21 +94,22 @@ export class CartComponent implements OnInit {
         quantity: item.product.quantity,
         total: item.product.price * item.product.quantity,
         price: item.product.price,
-        id: item.product.id,
       }
     });
 
-
     try {
-      this.server.createCotacao(productCotacao).then(data => {
-        console.log(data)
-        this.router.navigate(['profile/cotacoes']);
-      })
+
+      await this.server.createCotacao(productCotacao)
+      this.router.navigate(['profile/cotacoes']);
 
     } catch (error) {
-
-      console.log('DEU ERRO NO MOMENTO DE CRIAR A COTAÇÃO', error)
-
+      const msg: AlertoInterface = {
+        text: 'Erro ao criar cotação',
+        type: 'danger',
+        duration: 5000
+      }
+      this.global.goAlert.emit(msg);
+      throw new Error((error as Error).message);
     }
   }
 

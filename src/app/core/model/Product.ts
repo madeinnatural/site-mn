@@ -112,3 +112,22 @@ export interface DataSearch {
   data: ProductList[],
   more_product: boolean,
 }
+
+export interface Quotation {
+  id: number;
+  update_at: Date,
+  status: 'badge-danger' | 'badge-warning' | 'badge-success',
+  msg: string,
+  valor: number,
+  quantity: number,
+}
+
+export interface QuotationRequest {
+  product_name: string,
+  weight: number,
+  category: string,
+  provider_primary: string,
+  quantity: number,
+  total: number,
+  price: number,
+}

@@ -1,3 +1,4 @@
+import { Quotation } from './../model/Product';
 import { UserService } from './../global/user.service';
 import { Router } from '@angular/router';
 import { CookieOptions, CookieService } from '@ngx-toolkit/cookie';
@@ -59,6 +60,10 @@ export class AccountService {
 
   reginterUser(dataReginter: UserRegister) {
     return this.http.post<{user: User, auth_token: string}>(environment.baseUrl + 'users/register', dataReginter);
+  }
+
+  getQuotes() {
+    return this.http.get<Quotation[]>(environment.baseUrl + 'quotes');
   }
 
 }

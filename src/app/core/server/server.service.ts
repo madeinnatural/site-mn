@@ -1,5 +1,5 @@
 import { ProductService } from './../global/product.service';
-import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from './../model/Product';
+import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch, QuotationRequest } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -31,8 +31,8 @@ export class ServerService {
     async verifyToken(token: string) {return this.talkToServer('token/verify', {token})}
     async getPurchase(id: number) {return await this.talkToServer('purchase/detail', {id})}
 
-    async createCotacao(products: Cotacao[]) {
-      return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
+    async createCotacao(products: QuotationRequest[]) {
+      return await this.talkToServer('products/quotation/create', {products}, {type: 'POST'});
     }
 
     async finishPurchase(products: Array<ProductList>): Promise<Purchase> {
