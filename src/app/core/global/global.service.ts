@@ -16,6 +16,7 @@ export class GlobalEventService {
   readonly CURRENT_USER_COOKIE = "current_user";
   readonly URL_ROUTER_SEARCH = '/product_list';
   readonly URL_ROUTER_COTACAO = 'profile/cotacao/create';
+  readonly CART_PATH = 'cart';
 
   disableHeaderEvent = new EventEmitter<boolean>();
   triggerLogout = new EventEmitter();

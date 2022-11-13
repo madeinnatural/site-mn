@@ -35,8 +35,6 @@ export class AppComponent {
     this.globalEventService.goAlert.subscribe( (alert: AlertoInterface ) => {
       this.alertData = alert;
 
-      console.log('alertData', this.alertData);
-
       const openSnackBar = () => {
         this.snackBar.openFromComponent(GlobalAlertComponent, {
           duration: alert.duration,

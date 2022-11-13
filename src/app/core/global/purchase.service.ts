@@ -22,7 +22,7 @@ export class PurchaseService {
     return this.server.getPurchase(id);
   }
 
-  async finishPurchase(): Promise<Purchase | void> {
+  async finishPurchase() {
     try {
       const cart: any = this.productService.getCart()
       .filter( item => item.product.quantity > 0 )
@@ -37,12 +37,10 @@ export class PurchaseService {
         }
       });
 
-      return await this.server.finishPurchase(cart);
+      return this.server.finishPurchase(cart);
 
     } catch (error) {
-      const errorMsg = (error as any).message;
-      this.globalEventService.errorPurchase.emit({text: errorMsg, showError: true});
-      return
+      throw new Error((error as Error).message);
     }
   }
 

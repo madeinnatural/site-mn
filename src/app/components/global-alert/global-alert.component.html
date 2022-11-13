@@ -1,6 +1,6 @@
-<div *ngIf="data">
-  <img [src]="icon" height="20px"> {{ data.text }}
-</div>
+<span *ngIf="data && data.text" class="d-flex align-items-center">
+  <p style="text-align: -webkit-center !important;"><img [src]="icon" class="mr-2" height="16px">{{ data.text }}</p>
+</span>
 
 
 

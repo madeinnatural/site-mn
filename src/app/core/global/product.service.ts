@@ -212,7 +212,7 @@ export class ProductService {
         }
 
         if (index_current_list_product > -1) {
-          this.listProduct.splice(index_current_list_product, 1);
+          // this.listProduct.splice(index_current_list_product, 1);
         }
       } else {
         const index_current_product = cart.findIndex((e) => e.id == item.id);
@@ -257,10 +257,12 @@ export class ProductService {
   }
 
   decreaseItemCart(item: Item) {
-    if (item.quantity > 1) {
+    if (item.quantity >= 1) {
+      if (item.quantity == 1) {
+        item.quantity = 0;
+        this.removeItemLocalStoragee(item);
+      }
       this.removeItemLocalStoragee(item);
-    } else {
-      this.deleteItemCart(item);
     }
   }
 

@@ -35,7 +35,7 @@ export class ServerService {
       return this.talkToServer('cotacao/create', {products}, {type: 'POST'});
     }
 
-    async finishPurchase(products: Array<ProductList>): Promise<Purchase> {
+    finishPurchase(products: Array<ProductList>): Promise<Purchase> {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
