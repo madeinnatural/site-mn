@@ -1,20 +1,19 @@
- <div class="navBottom border-top border-success" [class.active]="true">
+ <div class="navBottom border-top border-success" [class.active]="data_card.total > 0">
 
     <div class="hidder">
       <div class="d-flex justify-content-around">
         <div class="d-flex border btn align-items-center border-radius border-success">
-          <h6 class="_color_green mb-0">Quantidade de itens: {{4}}</h6>
+          <h6 class="_color_green mb-0">Quantidade de itens: {{data_card.quantidade}}</h6>
         </div>
         <div class="d-flex border btn border-radius border-success">
           <label class="_color_green pb-0 mb-0">Total:
-            {{ 4 | currency:undefined:"R$"}}
+            {{  data_card.total | currency:undefined:"R$"}}
           </label>
         </div>
 
-          <button class="border border-success btn d-flex align-items-center">
-            <img style="width: 26px;" src="assets/img/carrinho.svg">
-            <h6 class=" _color_green ml-3 mb-0">Finalizar compra</h6>
-          </button>
+        <div *ngIf="innerWidth >= 390 && innerWidth >= 780">
+          <ng-template [ngTemplateOutlet]="button"></ng-template>
+        </div>
 
       </div>
     </div>
@@ -24,8 +23,8 @@
 
         <div class=" card-body">
           <h4 class="card-title">Resumo da compra</h4>
-          <h5>Quantidade de itens: {{4}}</h5>
-          <h6 class="card-subtitle text-muted">Total:{{ 4 | currency:undefined:"R$"}}</h6>
+          <h5>Quantidade de itens: {{data_card.quantidade}}</h5>
+          <h6 class="card-subtitle text-muted">Total:{{ data_card.total | currency:undefined:"R$"}}</h6>
         </div>
 
         <div *ngIf="innerWidth >= 390 && innerWidth < 780">
@@ -39,8 +38,8 @@
       <div class="d-flex justify-content-around">
 
           <div class="card-body">
-            <h5>Quantidade de itens: {{4}}</h5>
-            <h6 class="card-subtitle text-muted">Total:{{ 4 | currency:undefined:"R$"}}</h6>
+            <h5>Quantidade de itens: {{data_card.quantidade}}</h5>
+            <h6 class="card-subtitle text-muted">Total:{{  data_card.total | currency:undefined:"R$"}}</h6>
           </div>
 
           <div *ngIf="innerWidth < 390">

@@ -40,6 +40,14 @@ export class ProductService {
     public http: HttpClient
   ) {}
 
+  getQuantidade(){
+    return this.listProduct.map((product) => product.quantity).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+  }
+
+  getTotal(){
+    return this.listProduct.reduce((previousValue, currentValue) => previousValue + currentValue.price, 0);
+  }
+
   calculeQuantidade(id: number, productCart: ProductList[]): number {
     return productCart
     .filter((product) => product.id == id)

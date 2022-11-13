@@ -6,7 +6,7 @@ import { debounceTime, distinctUntilChanged, flatMap, map, Observable, of, Subje
 import { ProductService } from './../../core/global/product.service';
 import { Item, ProductList, AvancedFilter } from './../../core/model/Product';
 import { ServerService } from './../../core/server/server.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-products-cart',
@@ -20,6 +20,14 @@ export class ProductsCartComponent implements OnInit {
   loadingPage = false;
   termo = '';
   page = 0;
+
+  total = 1;
+  quantidade = 1;
+
+  @Output() data_card = new EventEmitter< {
+    total: number,
+    quantidade: number,
+  }>()
 
   constructor (
     public productService: ProductService,
@@ -65,17 +73,31 @@ export class ProductsCartComponent implements OnInit {
   }
 
 
+  changeCartData () {
+
+    const quantidade = this.productService.getQuantidade();
+    const total = this.productService.getTotal();
+
+    this.data_card.emit({
+      quantidade,
+      total
+    })
+  }
+
   addItemCart(product: ProductList) {
     this.productService.addItemCart(product);
+    this.changeCartData();
   }
 
   removeItem(product: ProductList) {
     const create_item = new Item(product.id,product, product.quantity, product.price);
     this.productService.decreaseItemCart(create_item);
+    this.changeCartData();
   }
 
   initCart(product: ProductList) {
     this.productService.initCart(product);
+    this.changeCartData();
   }
 
   showProductsAll() {

@@ -68,7 +68,7 @@
   </div>
 </section>
 
-<app-products-cart></app-products-cart>
+<app-products-cart (data_card)="changeDataCard($event)" ></app-products-cart>
 
   <!--=========== destaques ===========-->
   <section class="section_destaques my-5" style="background-color: #F8F9FA;">
@@ -309,4 +309,4 @@
     </div>
   </section>
 
-  <app-resumo-compra></app-resumo-compra>
+  <app-resumo-compra [data_card]="data_card"></app-resumo-compra>
