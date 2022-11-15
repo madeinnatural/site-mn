@@ -78,10 +78,7 @@ export class ProductsCartComponent implements OnInit {
     const quantidade = this.productService.getQuantidade();
     const total = this.productService.getTotal();
 
-    this.data_card.emit({
-      quantidade,
-      total
-    })
+    this.data_card.emit({quantidade,total})
   }
 
   addItemCart(product: ProductList) {

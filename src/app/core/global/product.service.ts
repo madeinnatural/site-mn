@@ -40,12 +40,41 @@ export class ProductService {
     public http: HttpClient
   ) {}
 
+  total = 0;
+
+  totalPrice() {
+    const cart_jason = this.cookieService.getItem('cart');
+
+    if (cart_jason) {
+      const cart = this.getCartLocalStorage();
+
+      if (!cart) return 0
+
+      let total = 0;
+      for (let i = 0; i < cart.filter((e) => e.parcial_price > 0).length; i++) {
+        total += cart[i].parcial_price;
+      }
+
+      return total;
+    }
+
+    return 0;
+  }
+
+  cartLength () {
+    const cart_j = this.cookieService.getItem('cart')
+    if (cart_j) {
+      return JSON.parse(cart_j).length
+    }
+    return 0
+  }
+
   getQuantidade(){
-    return this.listProduct.map((product) => product.quantity).reduce((previousValue, currentValue) => previousValue + currentValue, 0);
+    return this.cartLength();
   }
 
   getTotal(){
-    return this.listProduct.reduce((previousValue, currentValue) => previousValue + currentValue.price, 0);
+    return this.totalPrice();
   }
 
   calculeQuantidade(id: number, productCart: ProductList[]): number {
@@ -105,7 +134,7 @@ export class ProductService {
     return this.listProduct;
   }
 
-  async showProductsAll() {
+  showProductsAll() {
     this.server.getProductListHome(this.currentPage == 3 ? -1 : this.currentPage)
     .subscribe((products) => {
       const productCart = this.getProductCart();
@@ -156,48 +185,100 @@ export class ProductService {
   }
 
   addItemLocalStorage(item: Item) {
-    let cart = this.getCartLocalStorage();
-    // CASO JÁ EXISTA CARRINHO
-    if (cart) {
-      // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
-      if (cart && cart.findIndex((e) => e.id == item.id) > -1) {
-        const index_current_product = cart.findIndex((e) => e.id == item.id);
-        const index_current_list_product = this.listProduct.findIndex(
-          (e) => e.id == item.id
-        );
 
-        const current_cart = cart;
-        current_cart[index_current_product].product.quantity += 1;
-        current_cart[index_current_product].quantity += 1;
-
-        const count_item = cart[index_current_product].product.quantity;
-        const value_item = cart[index_current_product].product.price;
-
-        current_cart[index_current_product].parcial_price =
-          count_item * value_item;
-
-        this.listProduct[index_current_list_product].quantity += 1;
-
-        this.cookieService.setItem('cart', JSON.stringify(current_cart));
-      } else {
-        const index_current_list_product = this.listProduct.findIndex(
-          (e) => e.id == item.id
-        );
-        if (index_current_list_product > -1) {
-          this.listProduct[index_current_list_product].quantity = 1;
-        }
-        item.quantity = 1
-        cart.push(item);
-        this.cookieService.setItem('cart', JSON.stringify(cart));
-      }
-    } else {
-      item.quantity = 1;
-      const new_cart: Array<Item> = [item];
-      this.listProduct[this.listProduct.findIndex(e => e.id == item.id)].quantity = 1;
-      this.cookieService.setItem('cart', JSON.stringify(new_cart));
-    }
+    this.adicionar_item_no_product_list(item.id);
+    this.adicionar_item_no_carrinho(item.id);
 
     this.globalEventService.addItemCartEmit.emit('add:cart');
+  }
+
+  private adicionar_item_no_product_list(productId: number) {
+
+    const product = this.listProduct.find((product) => product.id == productId);
+
+    if (product) {
+
+      const index_current_list_product = this.listProduct.findIndex((e) => e.id == product.id);
+      const exist_item_no_product_list = index_current_list_product != -1;
+
+      if ( exist_item_no_product_list ) {
+        this.listProduct[index_current_list_product].quantity += 1;
+        this.listProduct[index_current_list_product].total = this.listProduct[index_current_list_product].price * this.listProduct[index_current_list_product].quantity;
+      } else {
+        product.quantity = 1;
+        product.total = product.price * product.quantity;
+        this.listProduct.push(product);
+      }
+
+    } else {
+      throw new Error('Produto não encontrado: Adicionar a lista de produto =>' + productId);
+    }
+
+  }
+
+  private adicionar_item_no_carrinho (productId: number) {
+    let cart = this.getCartLocalStorage();
+    if (cart) {
+      const item = cart.find((product_cart) => product_cart.id == productId);
+
+      if (item) {
+        const index_do_item_no_carrinho = cart.findIndex((e) => e.id == item.id);
+        const existe_item_no_carrinho = index_do_item_no_carrinho != -1;
+
+        if (existe_item_no_carrinho) {
+          cart[index_do_item_no_carrinho].quantity += 1;
+          cart[index_do_item_no_carrinho].parcial_price = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity;
+          cart[index_do_item_no_carrinho].product.total = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity;
+          cart[index_do_item_no_carrinho].product.quantity = cart[index_do_item_no_carrinho].quantity;
+        } else {
+          item.quantity = 1;
+          item.parcial_price = item.product.price * item.quantity;
+          item.product.total = item.product.price * item.quantity;
+          item.product.quantity = item.quantity;
+          cart.push(item);
+        }
+        this.cookieService.setItem(this.globalEventService.CART_PATH, JSON.stringify(cart));
+
+      } else {
+
+        const product = this.listProduct.find((product) => product.id == productId);
+
+        if (product) {
+          const item: Item = {
+            id: product.id,
+            quantity: product.quantity,
+            parcial_price: product.price,
+            product: product,
+          }
+
+          cart.push(item);
+
+          this.adicionarCartLocalStorage(cart);
+
+        } else {
+          throw new Error('Produto não encontrado: (1) Adicionar ao carrinho => ' + productId);
+        }
+      }
+
+    } else {
+
+      const product = this.listProduct.find((product) => product.id == productId);
+      if (product) {
+        const item: Item = {
+          id: product.id,
+          quantity: product.quantity,
+          parcial_price: product.price,
+          product: product,
+        }
+        this.adicionarCartLocalStorage([item]);
+      } else {
+        throw new Error('Produto não encontrado: (2) Adicionar ao carrinho => ' + productId);
+      }
+    }
+  }
+
+  protected adicionarCartLocalStorage(item: Item[]) {
+    this.cookieService.setItem(this.globalEventService.CART_PATH, JSON.stringify(item));
   }
 
   removeItemLocalStoragee(item: Item) {
@@ -269,6 +350,7 @@ export class ProductService {
       if (item.quantity == 1) {
         item.quantity = 0;
         this.removeItemLocalStoragee(item);
+        return;
       }
       this.removeItemLocalStoragee(item);
     }
