@@ -15,7 +15,7 @@ import { GlobalEventService } from 'src/app/core/global/global.service';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
 
   total = 0;
 
@@ -45,39 +45,6 @@ export class CartComponent implements OnInit {
     this.total = this.purchaseService.totalPrice();
   }
 
-  ngOnInit() {}
-
-  removeItem(item: Item) {
-    if (item.quantity >= 1) {
-      if (item.quantity == 1) {
-        item.quantity = 0;
-        this.productService.removeItemLocalStoragee(item);
-      }
-      this.productService.removeItemLocalStoragee(item);
-    }
-
-    const index_item_product = this.products.findIndex((item_product: Item) => item_product.product.id == item.product.id)
-    if (this.products[index_item_product].quantity > 0) this.products[index_item_product].quantity -= 1;
-    else this.products.splice(index_item_product, 1);
-
-    this.total -= item.product.price * item.product.quantity;
-  }
-
-  remove(item: Item){
-    this.productService.deleteItemCart(item);
-  }
-
-  add(item: Item){
-    // const index_item_product = this.products.findIndex((item_product: Item) => item_product.product.id == item.product.id)
-    // if (this.products[index_item_product].quantity > 0) this.products[index_item_product].quantity += 1;
-    // this.productService.addItemCart(item.product);
-    console.log(item)
-    // console.log(this.products.map(e => {
-    //   if(e.product.quantity) {
-    //     return e.product.quantity * e.product.price
-    //   } return 0
-    // }).reduce((total, item) => (total + item), 0))
-  }
 
   async finalizePurchase(){
     try {
@@ -122,5 +89,67 @@ export class CartComponent implements OnInit {
     }
   }
 
+// MANIPULAÇÃO DE PRODUTOS
+  removeItem(itemId: number) {
+    this.productService.decreseItem(itemId);
+    this.descremetarItemCartLocal(itemId);
+  }
+
+  remove(itemId: number){
+    this.productService.deleteItemCart(itemId);
+    this.removeItemCartLocal(itemId);
+  }
+
+  add(itemId: number){
+    console.log(this.productService.listProduct)
+    this.productService.addItem(itemId);
+    this.addItemCartLocal(itemId);
+  }
+
+  private addItemCartLocal (itemId: number) {
+    const index_current_product = this.products.findIndex((item: Item) => item.product.id === itemId);
+    const produto_existe = index_current_product !== -1;
+    if (produto_existe) {
+      this.products[index_current_product].product.quantity += 1;
+      this.products[index_current_product].product.total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
+      this.products[index_current_product].quantity += 1;
+      this.total = this.purchaseService.totalPrice();
+    } else {
+      throw new Error('Produto não existe no carrinho');
+    }
+  }
+
+
+  private removeItemCartLocal (itemId: number) {
+    const index_current_product = this.products.findIndex((item: Item) => item.product.id === itemId);
+    const produto_existe = index_current_product !== -1;
+    if (produto_existe) {
+      this.products.splice(index_current_product, 1);
+    } else {
+      throw new Error('Produto não existe no carrinho');
+    }
+  }
+
+  private descremetarItemCartLocal (itemId: number) {
+    const index_current_product = this.products.findIndex((item: Item) => item.product.id === itemId);
+    const produto_existe = index_current_product != -1;
+
+    if (produto_existe) {
+      const quantidade_do_produto = this.products[index_current_product].product.quantity;
+      if (quantidade_do_produto == 1) {
+        this.total -= this.products[index_current_product].parcial_price;
+        this.products.splice(index_current_product, 1);
+        this.removeItemCartLocal(itemId);
+      } else {
+        this.products[index_current_product].product.quantity -= 1;
+        this.products[index_current_product].product.total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
+        this.products[index_current_product].parcial_price = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
+        this.products[index_current_product].quantity = this.products[index_current_product].product.quantity;
+        this.total = this.purchaseService.totalPrice();
+      }
+    } else {
+      throw new Error('Produto não existe no carrinho');
+    }
+  }
 
 }

@@ -56,16 +56,15 @@ export class ProductListComponent implements OnInit {
   }
 
   addItemCart(product: ProductList) {
-    this.productService.addItemCart(product);
+    this.productService.addItem(product.id);
   }
 
   removeItem(product: ProductList) {
-    const create_item = new Item(product.id,product, product.quantity, product.price);
-    this.productService.decreaseItemCart(create_item);
+    this.productService.decreseItem(product.id);
   }
 
   initCart(product: ProductList) {
-    this.productService.initCart(product);
+    this.productService.initCart(product.id);
   }
 
   keyPress(event: KeyboardEvent) {

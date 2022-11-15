@@ -1,3 +1,4 @@
+import { IconComponent } from './icon/icon.component';
 import { ResumoCompraComponent } from './resumo-compra/resumo-compra.component';
 import { GlobalAlertComponent } from './global-alert/global-alert.component';
 import { AvancedFilterComponent } from './avanced-filter/avanced-filter.component';
@@ -85,7 +86,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     AvancedFilterComponent,
     PaginatorComponent,
     GlobalAlertComponent,
-    ResumoCompraComponent
+    ResumoCompraComponent,
+    IconComponent
   ],
   imports: [
     CommonModule,
@@ -150,7 +152,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     AvancedFilterComponent,
     PaginatorComponent,
     GlobalAlertComponent,
-    ResumoCompraComponent
+    ResumoCompraComponent,
+    IconComponent
   ],
 })
 export class ComponentsModule {}

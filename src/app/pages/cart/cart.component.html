@@ -57,7 +57,7 @@
                                   <tr *ngFor="let item of products">
                                       <td>
                                           <div class="d-flex align-items-center">
-                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="remove(item)" style="width: 12px;"></button>
+                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="remove(item.id)" style="width: 12px;"></button>
                                               <div>{{item.product.product_name}}</div>
                                           </div>
                                           <table class="w-100 d-lg-none mb-3">
@@ -70,9 +70,9 @@
                                                   <tr>
                                                       <td class="py-0">
                                                           <div class="d-flex align-items-center">
-                                                              <img style="width: 24px;" src="assets/img/minus_circle_red.svg">
-                                                              <h5 class="mx-3 mb-0">2</h5>
-                                                              <img style="width: 24px;" src="assets/img/add_circle_red.svg">
+                                                              <img  (click)="removeItem(item.id)" style="width: 24px;" src="assets/img/minus_circle_red.svg">
+                                                              <h5 class="mx-3 mb-0">{{item.quantity}}</h5>
+                                                              <img  (click)="add(item.id)" style="width: 24px;" src="assets/img/add_circle_red.svg">
                                                           </div>
                                                       </td>
                                                       <td class="py-0">{{item.product.price | currency:'BRL':true:'1.2-2'}}</td>
@@ -83,9 +83,9 @@
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
                                           <div class="td_in">
-                                              <img style="width: 24px;" (click)="removeItem(item)" src="assets/img/minus_circle_red.svg">
+                                              <img style="width: 24px;" (click)="removeItem(item.id)" src="assets/img/minus_circle_red.svg">
                                               <h5 class="mx-3 mb-0">{{item.quantity}}</h5>
-                                              <img style="width: 24px;"(click)="add(item)" src="assets/img/add_circle_red.svg">
+                                              <img style="width: 24px;"(click)="add(item.id)" src="assets/img/add_circle_red.svg">
                                           </div>
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">

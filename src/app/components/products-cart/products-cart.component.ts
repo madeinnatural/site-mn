@@ -82,18 +82,17 @@ export class ProductsCartComponent implements OnInit {
   }
 
   addItemCart(product: ProductList) {
-    this.productService.addItemCart(product);
+    this.productService.addItem(product.id);
     this.changeCartData();
   }
 
   removeItem(product: ProductList) {
-    const create_item = new Item(product.id,product, product.quantity, product.price);
-    this.productService.decreaseItemCart(create_item);
+    this.productService.decreseItem(product.id);
     this.changeCartData();
   }
 
   initCart(product: ProductList) {
-    this.productService.initCart(product);
+    this.productService.initCart(product.id);
     this.changeCartData();
   }
 
