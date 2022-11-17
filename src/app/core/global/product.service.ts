@@ -329,6 +329,8 @@ export class ProductService {
 
       const product = this.listProduct.find((product) => product.id == productId);
       if (product) {
+        product.quantity = 1;
+        product.total = product.price * product.quantity;
         const item: Item = {
           id: product.id,
           quantity: product.quantity,

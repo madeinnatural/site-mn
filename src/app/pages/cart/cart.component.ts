@@ -48,12 +48,13 @@ export class CartComponent {
 
   async finalizePurchase(){
     try {
+      if (this.total < 700) throw new Error('Valor mínimo para finalizar a compra é de R$ 700,00');
       const {id} = await this.purchaseService.finishPurchase()
       this.router.navigate([`purchase_summary`], {queryParams: {id}});
       this.purchaseService.clearCart();
     } catch (error: any) {
       const msg: AlertoInterface = {
-        text: 'Erro ao finalizar a compra',
+        text: error.message,
         type: 'danger',
         duration: 5000
       }

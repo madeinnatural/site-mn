@@ -1,3 +1,4 @@
+import { ButtonCartComponent } from './button-cart/button-cart.component';
 import { IconComponent } from './icon/icon.component';
 import { ResumoCompraComponent } from './resumo-compra/resumo-compra.component';
 import { GlobalAlertComponent } from './global-alert/global-alert.component';
@@ -87,7 +88,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     PaginatorComponent,
     GlobalAlertComponent,
     ResumoCompraComponent,
-    IconComponent
+    IconComponent,
+    ButtonCartComponent
   ],
   imports: [
     CommonModule,
@@ -153,7 +155,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     PaginatorComponent,
     GlobalAlertComponent,
     ResumoCompraComponent,
-    IconComponent
+    IconComponent,
+    ButtonCartComponent
   ],
 })
 export class ComponentsModule {}

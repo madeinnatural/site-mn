@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -12,7 +13,16 @@ export class ResumoCompraComponent implements OnInit {
     quantidade: 0,
   }
 
-  constructor() { }
+  constructor(
+    public route: Router,
+  ) { }
+
+  goCart() {
+    const url = '/cart';
+    console.log('indo para:', url);
+    this.route.navigate([url]);
+    window.scrollTo(0, 0);
+  }
 
   changeDataCard(data: any) {
     this.data_card = data;

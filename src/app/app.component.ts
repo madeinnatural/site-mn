@@ -16,6 +16,7 @@ export class AppComponent {
   hidderHeader = false;
   alert = false;
   alertData?: AlertoInterface;
+  loading = false;
 
   constructor(
     private accountService: AccountService,
@@ -31,6 +32,12 @@ export class AppComponent {
       const { text, showError } = error;
       this.globalAlertService.alertError(text);
     })
+
+    //adiciona evento do loading
+    this.globalEventService.loading.subscribe((loading:boolean) => {
+      console.log('loading', loading);
+      this.loading = loading;
+    });
 
     this.globalEventService.goAlert.subscribe( (alert: AlertoInterface ) => {
       this.alertData = alert;

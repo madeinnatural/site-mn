@@ -48,9 +48,23 @@ export class ProductsCartComponent implements OnInit {
   }
 
   pullProducts(page: number = 0) {
-    this.loadingPage = true;
-    this.listProduct = this.productService.pullProductSever(page);
-    this.loadingPage = false;
+    this.global.loading.emit(true);
+    this.productService.pullProductSever(page).pipe((e) => {
+      this.listProduct = e;
+      return e;
+    }).subscribe({
+      next: (products) => {
+      },
+      error: (error) => {
+        this.global.goAlert.emit({
+          text: (error as Error).message,
+          type: 'warning',
+          duration: 5000,
+        });
+        throw new Error('Algo deu errado');
+      }
+    })
+    this.global.loading.emit(false);
   }
 
   search() {
@@ -98,6 +112,8 @@ export class ProductsCartComponent implements OnInit {
 
   showProductsAll() {
     this.pullProducts(-1);
+    window.scrollY
+    window.scrollTo(500, 1000);
   }
 
   openFiltro() {

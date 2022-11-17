@@ -1,3 +1,18 @@
-<app-header *ngIf="!hidderHeader"></app-header>
-<router-outlet></router-outlet>
-<app-footer *ngIf="!hidderHeader"></app-footer>
+<div *ngIf="!loading; else loagindPage">
+  <app-header *ngIf="!hidderHeader"></app-header>
+  <router-outlet></router-outlet>
+  <app-footer *ngIf="!hidderHeader"></app-footer>
+</div>
+
+
+<ng-template #loagindPage>
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div>
+          <app-loading></app-loading>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
