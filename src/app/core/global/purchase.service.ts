@@ -22,28 +22,6 @@ export class PurchaseService {
     return this.server.getPurchase(id);
   }
 
-  async finishPurchase() {
-    try {
-      const cart: any = this.productService.getCart()
-      .filter( item => item.product.quantity > 0 )
-      .map(item => {
-        return {
-          product_name: item.product.product_name,
-          weight: item.product.weight,
-          category: item.product.categoria,
-          provider_primary: item.product.provider_primary,
-          quantity: item.product.quantity,
-          price: item.product.price
-        }
-      });
-
-      return this.server.finishPurchase(cart);
-
-    } catch (error) {
-      throw new Error((error as Error).message);
-    }
-  }
-
   historyPurchase() {
     return this.serverService.purchaseHistory();
   }
@@ -56,7 +34,7 @@ export class PurchaseService {
 
       let total = 0;
       for (let i = 0; i < cart.filter((e) => e.parcial_price > 0).length; i++) {
-        total += cart[i].parcial_price;
+        total += cart[i].product.price * cart[i].product.quantity * cart[i].product.weight;
       }
 
       return total;

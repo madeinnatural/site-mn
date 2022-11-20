@@ -45,11 +45,33 @@ export class CartComponent {
     this.total = this.purchaseService.totalPrice();
   }
 
+  async finishPurchase() {
+    try {
+      const cart: any = this.productService.getCart()
+      .filter( item => item.product.quantity > 0 )
+      .map(item => {
+        return {
+          product_name: item.product.product_name,
+          weight: item.product.weight,
+          category: item.product.categoria,
+          provider_primary: item.product.provider_primary,
+          quantity: item.product.quantity,
+          price: item.product.price
+        }
+      });
+
+      return this.server.finishPurchase(cart);
+
+    } catch (error) {
+      throw new Error((error as Error).message);
+    }
+  }
+
 
   async finalizePurchase(){
     try {
-      if (this.total < 700) throw new Error('Valor mínimo para finalizar a compra é de R$ 700,00');
-      const {id} = await this.purchaseService.finishPurchase()
+      // if (this.total < 700) throw new Error('Valor mínimo para finalizar a compra é de R$ 700,00');
+      const {id} = await this.finishPurchase()
       this.router.navigate([`purchase_summary`], {queryParams: {id}});
       this.purchaseService.clearCart();
     } catch (error: any) {
@@ -112,7 +134,9 @@ export class CartComponent {
     const produto_existe = index_current_product !== -1;
     if (produto_existe) {
       this.products[index_current_product].product.quantity += 1;
-      this.products[index_current_product].product.total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
+      const total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity * this.products[index_current_product].product.weight;
+      this.products[index_current_product].product.total = total;
+      this.products[index_current_product].parcial_price = total;
       this.products[index_current_product].quantity += 1;
       this.total = this.purchaseService.totalPrice();
     } else {
@@ -143,8 +167,9 @@ export class CartComponent {
         this.removeItemCartLocal(itemId);
       } else {
         this.products[index_current_product].product.quantity -= 1;
-        this.products[index_current_product].product.total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
-        this.products[index_current_product].parcial_price = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity;
+        const total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity * this.products[index_current_product].product.weight;
+        this.products[index_current_product].product.total = total
+        this.products[index_current_product].parcial_price = total
         this.products[index_current_product].quantity = this.products[index_current_product].product.quantity;
         this.total = this.purchaseService.totalPrice();
       }

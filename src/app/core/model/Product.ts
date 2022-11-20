@@ -112,3 +112,13 @@ export interface DataSearch {
   data: ProductList[],
   more_product: boolean,
 }
+
+export interface ProductListRequest {
+  product_name: string,
+  weight: number,
+  price: number,
+  quantity: number,
+  provider_primary: string,
+  total: number,
+  categoria?: string,
+}

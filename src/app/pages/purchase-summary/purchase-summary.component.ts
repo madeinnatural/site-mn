@@ -1,3 +1,4 @@
+import { ServerService } from './../../core/server/server.service';
 import { ProductList } from 'src/app/core/model/Product';
 import { Purchase } from './../../core/model/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
@@ -12,6 +13,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./purchase-summary.component.scss']
 })
 export class PurchaseSummaryComponent implements OnInit {
+
   user: User = {
     name: '',
     email: '',
@@ -26,31 +28,47 @@ export class PurchaseSummaryComponent implements OnInit {
   total: number = 0;
   address = '';
 
+  data: any
+
   constructor(
-    private router: Router,
+    public router: Router,
     private parent :ActivatedRoute,
     private userService: UserService,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    public server: ServerService,
   ) {
 
-    this.user = this.userService.user;
-    const data = this.router.getCurrentNavigation()?.extractedUrl.queryParams;
-    const { id } = data as any;
-
-    if (id) {
-      this.purchaseService.getPurchase(id).then(purchaseDetail => {
-        const {products} = purchaseDetail;
-          products.forEach((product: ProductList) => {
-            const subTotal = Math.abs(product.price) * Math.abs(product.quantity)
-            this.total += subTotal;
-          });
-        this.products = products;
-      });
-    }
-
+    this.data = parent.snapshot.queryParams
+    this.server.getUserData().subscribe({
+      next: (data: User) => {
+        this.user = data;
+      },
+      error: (err: any) => {console.log('ALGO DE ERRADO NÃO ESTÁ CERTO ¬¬')}
+    });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+
+
+    console.log('Query Params', this.data);
+    const id = (this.data as any).id
+
+
+    if (id) {
+
+      const { products } = await this.purchaseService.getPurchase(id)
+
+      console.log('AQUI =>', products)
+
+      products.forEach((product: ProductList) => {
+          const subTotal = Math.abs(product.price) * Math.abs(product.quantity)
+          this.total += subTotal;
+      });
+
+      this.products = products;
+
+    }
+
   }
 
 }

@@ -25,19 +25,15 @@ export class AuthQuard implements CanActivate {
 
   async canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
     return new Promise(async (resolve, reject) => {
-      this.globalEventService.loading.emit(true);
       this.verify().subscribe({
         next: (response: any) => {
-          this.globalEventService.loading.emit(false);
           resolve(true)
         },
         error: (error: any) => {
-          this.globalEventService.loading.emit(false);
           this.globalEventService.goAlert.emit({type: 'danger', text: 'Você não tem permissão para acessar essa página!', duration: 5000});
           reject(this.router.navigate(['/login']))
           },
       });
-      resolve(true)
     });
   }
 
