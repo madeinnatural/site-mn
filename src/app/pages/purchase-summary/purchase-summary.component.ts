@@ -61,7 +61,7 @@ export class PurchaseSummaryComponent implements OnInit {
       console.log('AQUI =>', products)
 
       products.forEach((product: ProductList) => {
-          const subTotal = Math.abs(product.price) * Math.abs(product.quantity)
+          const subTotal = Math.abs((product as any).total);
           this.total += subTotal;
       });
 

@@ -269,10 +269,10 @@ export class ProductService {
 
       if ( exist_item_no_product_list ) {
         this.listProduct[index_current_list_product].quantity += 1;
-        this.listProduct[index_current_list_product].total = this.listProduct[index_current_list_product].price * this.listProduct[index_current_list_product].quantity;
+        this.listProduct[index_current_list_product].total = this.listProduct[index_current_list_product].price * this.listProduct[index_current_list_product].quantity * this.listProduct[index_current_list_product].weight;
       } else {
         product.quantity = 1;
-        product.total = product.price * product.quantity;
+        product.total = product.price * product.quantity * product.weight;
         this.listProduct.push(product);
       }
 
@@ -292,13 +292,13 @@ export class ProductService {
 
         if (existe_item_no_carrinho) {
           cart[index_do_item_no_carrinho].quantity += 1;
-          cart[index_do_item_no_carrinho].parcial_price = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity;
-          cart[index_do_item_no_carrinho].product.total = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity;
+          cart[index_do_item_no_carrinho].parcial_price = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity * cart[index_do_item_no_carrinho].product.weight;
+          cart[index_do_item_no_carrinho].product.total = cart[index_do_item_no_carrinho].product.price * cart[index_do_item_no_carrinho].quantity * cart[index_do_item_no_carrinho].product.weight;
           cart[index_do_item_no_carrinho].product.quantity = cart[index_do_item_no_carrinho].quantity;
         } else {
           item.quantity = 1;
-          item.parcial_price = item.product.price * item.quantity;
-          item.product.total = item.product.price * item.quantity;
+          item.parcial_price = item.product.price * item.quantity * item.product.weight;
+          item.product.total = item.product.price * item.quantity * item.product.weight;
           item.product.quantity = item.quantity;
           cart.push(item);
         }
@@ -312,7 +312,7 @@ export class ProductService {
           const item: Item = {
             id: product.id,
             quantity: product.quantity,
-            parcial_price: product.price,
+            parcial_price: product.price * product.quantity * product.weight,
             product: product,
           }
 
@@ -367,7 +367,7 @@ export class ProductService {
           product.quantity -= 1;
         }
 
-        product.total = product.quantity * product.price;
+        product.total = product.quantity * product.price * product.weight;
         this.listProduct[index_elemento_product_list] = product;
       } else {
         throw new Error('Produto não encontrado na lista de produtos');
@@ -393,8 +393,8 @@ export class ProductService {
           product.quantity -= 1;
           product.product.quantity -= 1;
 
-          product.parcial_price = product.product.price * product.quantity;
-          product.product.total = product.product.price * product.product.quantity;
+          product.parcial_price = product.product.price * product.quantity * product.product.weight;
+          product.product.total = product.product.price * product.product.quantity * product.product.weight;
 
           cart[index_do_product_no_carrinho] = product;
         }

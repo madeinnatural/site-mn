@@ -60,7 +60,7 @@
                                                         </div>
                                                     </td>
                                                     <td class="py-0">{{product.price | currency}}</td>
-                                                    <td class="py-0">{{product.price * product.quantity | currency}}</td>
+                                                    <td class="py-0">{{product.total | currency}}</td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -74,7 +74,7 @@
                                         <div class="td_in">{{product.price | currency}}</div>
                                     </td>
                                     <td class="py-0 d-none d-lg-table-cell">
-                                        <div class="td_in"><strong>{{product.price * product.quantity | currency}}</strong></div>
+                                        <div class="td_in"><strong>{{product.total| currency}}</strong></div>
                                     </td>
                                 </tr>
                                 <!-- <tr>

@@ -64,7 +64,7 @@
                           <div *ngIf="product.quantity">
                             <span class="text-muted"> Unidade de: {{product.weight}} kg</span>
                             <div class="ml-3 text-white"></div>
-                            <span>Parcial: {{product.quantity * product.price | currency: 'R$' }}</span>
+                            <span>Parcial: {{product.quantity * product.price * product.weight | currency: 'R$' }}</span>
                           </div>
                         </div>
 
@@ -108,7 +108,7 @@
                   <!-- card de preço -->
                   <div class="card">
                     <div class=" card-body align-items-center d-flex justify-content-center col-sm">
-                      <h5>{{ product.quantity * product.price | currency: 'R$' }}</h5>
+                      <h5>{{ product.quantity * product.price * product.weight| currency: 'R$' }}</h5>
                     </div>
                   </div>
                   <!-- sub total -->
