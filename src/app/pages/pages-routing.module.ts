@@ -30,7 +30,7 @@ const routes: Routes = [
   {path: 'product_list', component: ProductListComponent},
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
-  {path: 'password-recovery/page', component: RecoveryFormComponent},
+  {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
 ];
 
 @NgModule({
