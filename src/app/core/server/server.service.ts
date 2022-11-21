@@ -24,6 +24,10 @@ export class ServerService {
     public http: HttpClient,
   ) {}
 
+    async updatePassword (password: string) {
+      return this.talkToServer('users/update_password', {password}, {type: 'PUT'});
+    }
+
     async recoveryPassword(email: string) {
       return await this.talkToServer('users/recovery_password', {email}, {type: 'POST'});
     }
