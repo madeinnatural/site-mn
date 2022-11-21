@@ -1,3 +1,4 @@
+import { ServerService } from './../../../core/server/server.service';
 import { ModalComponent } from './../../../components/modal/modal.component';
 import { ProductList } from 'src/app/core/model/Product';
 import { Observable, map } from 'rxjs';
@@ -24,8 +25,13 @@ export class ProfileRequestsComponent implements OnInit {
     public purchaseService: PurchaseService,
     private modal: NgbModal,
     public dialog: MatDialog,
+    public server: ServerService
   ) {
-    this.purchaseHistory$ = purchaseService.historyPurchase();
+    this.purchaseHistory$ = this.historyPurchase();
+  }
+
+  historyPurchase() {
+    return this.server.purchaseHistory();
   }
 
   ngOnInit() {}

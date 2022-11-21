@@ -71,7 +71,7 @@
                                                   <tr>
                                                       <td class="py-0">
                                                           <div class="d-flex align-items-center">
-                                                              <img  (click)="removeItem(item.id)" style="width: 24px;" src="assets/img/minus_circle_red.svg">
+                                                              <img  (click)="removeItem(item.id); $event.stopPropagation()" style="width: 24px;" src="assets/img/minus_circle_red.svg">
                                                               <h5 class="mx-3 mb-0">{{item.quantity}}</h5>
                                                               <img  (click)="add(item.id)" style="width: 24px;" src="assets/img/add_circle_red.svg">
                                                           </div>
@@ -123,6 +123,14 @@
                               <h5 style="font-weight: 700;color: #393939;">{{ total_bruto | currency:'BRL':true:'1.2-2'}}</h5>
                           </div>
                           <div>* o valor do frete será calculado e cobrado posteriormente, caso a caso.</div>
+                          <br>
+                          <div *ngIf="errorMsg.length != 0" class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <button (click)="errorMsg = ''" type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                              <span class="sr-only">Close</span>
+                            </button>
+                            <strong>Algo deu errado!</strong> {{errorMsg}}.
+                          </div>
                           <br>
                           <button  [disabled]="products.length == 0" (click)="finalizePurchase()" class="btn btn_green text-uppercase w-100">Fechar pedido</button>
                           <br>

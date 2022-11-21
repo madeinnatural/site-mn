@@ -67,12 +67,32 @@ export class CartComponent {
     }
   }
 
+  errorMsg: string = '';
+  error: boolean = false;
 
   async finalizePurchase(){
     try {
-      // if (this.total < 700) throw new Error('Valor mínimo para finalizar a compra é de R$ 700,00');
+      if (this.total < 700) {
+        const msg = 'Valor mínimo para finalizar a compra é de R$ 700,00'
+        this.errorMsg = msg;
+        throw new Error(msg);
+      }
+
       const {id} = await this.finishPurchase()
-      this.router.navigate([`purchase_summary`], {queryParams: {id}});
+
+      const text = `Recebemos o seu pedido com sucesso! Agora é só aguardar nosso time
+      entrar em contato, se preferir ligue para a gente: (11) 95285-2681. Muito obrigado :)`;
+
+      const msg: AlertoInterface = {
+        text,
+        type: 'success',
+        duration: 20000
+      }
+
+      this.global.goAlert.emit(msg);
+
+      this.router.navigate([`profile/pedidos`], { queryParams: {id}});
+
       this.purchaseService.clearCart();
     } catch (error: any) {
       const msg: AlertoInterface = {
@@ -140,7 +160,7 @@ export class CartComponent {
       this.products[index_current_product].quantity += 1;
       this.total = this.purchaseService.totalPrice();
     } else {
-      throw new Error('Produto não existe no carrinho');
+      throw new Error('Produto não existe no carrinho ³');
     }
   }
 
@@ -151,7 +171,7 @@ export class CartComponent {
     if (produto_existe) {
       this.products.splice(index_current_product, 1);
     } else {
-      throw new Error('Produto não existe no carrinho');
+      throw new Error('Produto não existe no carrinho ¹');
     }
   }
 
@@ -174,7 +194,7 @@ export class CartComponent {
         this.total = this.purchaseService.totalPrice();
       }
     } else {
-      throw new Error('Produto não existe no carrinho');
+      throw new Error('Produto não existe no carrinho ²');
     }
   }
 

@@ -276,8 +276,10 @@ export class ProductService {
         this.listProduct.push(product);
       }
 
-    } else {
+    } else if (this.listProduct.length == 0) {
       return;
+    } else {
+      throw new Error('Não existe produto na lista com esse id');
     }
 
   }
@@ -373,6 +375,8 @@ export class ProductService {
         throw new Error('Produto não encontrado na lista de produtos');
       }
 
+    } else if (this.listProduct.length == 0) {
+      return;
     } else {
       throw new Error('Não é possível remover item: Produto não encontrado');
     }

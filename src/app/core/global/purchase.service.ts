@@ -22,10 +22,6 @@ export class PurchaseService {
     return this.server.getPurchase(id);
   }
 
-  historyPurchase() {
-    return this.serverService.purchaseHistory();
-  }
-
   totalPrice() {
     const cart_jason = this.cookieService.getItem('cart');
 
