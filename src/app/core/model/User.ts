@@ -6,10 +6,18 @@ export default class User {
     public phone: string,
     public name: string,
     public adresses_main: string,
-    public adresses: string,
+    public adresses?: Address,
     public password?: string,
     public cpf?: string,
   ) {}
+}
+
+export interface Address {
+  number: string,
+  street: string,
+  city: string,
+  cep: string,
+  state: string,
 }
 
 export interface UserLogin {

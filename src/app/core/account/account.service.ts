@@ -18,7 +18,13 @@ export class AccountService {
   hidderHeaderFooter = new EventEmitter<boolean>();
   current_user: User = {
     id: 0,
-    adresses: '',
+    adresses: {
+      street: '',
+      number: '',
+      city: '',
+      state: '',
+      cep: '',
+    },
     adresses_main: '',
     cnpj: '',
     email: '',

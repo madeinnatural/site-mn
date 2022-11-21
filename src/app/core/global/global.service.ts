@@ -59,4 +59,5 @@ export class GlobalEventService {
 
     this.loginEvent.emit(user);
   }
+
 }

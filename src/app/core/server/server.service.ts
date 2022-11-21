@@ -1,3 +1,4 @@
+import { Address } from './../model/User';
 import { ProductService } from './../global/product.service';
 import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from './../model/Product';
 import { GlobalEventService } from './../global/global.service';
@@ -183,5 +184,9 @@ export class ServerService {
 
     async getProductFilter(params = {}) {
       return this.talkToServer('seach/filter', params);
+    }
+
+    async updateAddress (address: Address) {
+      return this.talkToServer('users/update_address', {address}, {type: 'PUT'});
     }
 }

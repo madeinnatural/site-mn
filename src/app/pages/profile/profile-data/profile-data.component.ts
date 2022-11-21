@@ -1,3 +1,5 @@
+import { Address } from './../../../core/model/User';
+import { GlobalEventService } from './../../../core/global/global.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../../../core/global/user.service';
@@ -27,20 +29,51 @@ export class ProfileDataComponent implements OnInit {
     email: '',
     cnpj: '',
     phone: '',
-    adresses: '',
+    adresses: {
+      cep: '',
+      street: '',
+      number: '',
+      city: '',
+      state: '',
+    },
     adresses_main: '',
     id: 0,
   }
+
   cpf_cnpj: string = '';
+
+  address = {
+    cep: '',
+    street: '',
+    number: '',
+    city: '',
+    state: '',
+  }
 
   constructor(
     private userService: UserService,
     public server: ServerService,
     public router: Router,
+    public global: GlobalEventService
   ) {
     this.server.getUserData().subscribe({
       next: (data: User) => {
         this.user = data;
+        const [ street, number, city, state, cep ]: Array<string> = (data as any).adresses.split(', ');
+        this.user.adresses = {
+          city,
+          state,
+          cep,
+          number,
+          street,
+        }
+        this.address = {
+          city,
+          state,
+          cep,
+          number,
+          street,
+        }
         if (this.user.cnpj) this.cpf_cnpj = this.user.cnpj;
         else if (this.user.cpf) this.cpf_cnpj = this.user.cpf;
       },
@@ -53,6 +86,66 @@ export class ProfileDataComponent implements OnInit {
 
   passwordMatchValidator() {
     return this.password == this.password_confirmation;
+  }
+
+  updateDataAddress: Submitable = {
+    submit: () => {
+      return new Promise(async (resolve, reject) => {
+        this.loading = true;
+
+        if (!this.address) throw new Error('Endereço não encontrado');
+
+        try {
+          const { response } = await this.updateUser(this.address);
+          console.log('RESPOSTAR: ',response.adresses);
+
+          const [ street, number, city, state, cep ] = response.adresses.split(', ');
+
+          console.log({
+            city,
+            state,
+            cep,
+            number,
+            street,
+          })
+
+          this.user.adresses = {
+            city,
+            state,
+            cep,
+            number,
+            street,
+          };
+
+          this.address = {
+            city,
+            state,
+            cep,
+            number,
+            street,
+          };
+
+          this.loading = false;
+          resolve(true);
+        } catch (err) {
+          this.global.goAlert.emit({
+            text: 'Erro ao atualizar endereço',
+            type: 'danger',
+            duration: 5000
+          })
+          this.loading = false;
+          reject(true);
+        }
+      });
+    }
+  }
+
+  async updateUser(address: Address): Promise<{
+    response: {
+      adresses: string;
+    }
+  }> {
+    return await this.server.updateAddress(address);
   }
 
   updateDataPesonal: Submitable = {

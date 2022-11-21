@@ -76,7 +76,13 @@ export class HeaderComponent implements OnInit {
 
     this.globalEventService.logoutEvent.subscribe(()=> {
       this.user = {
-        adresses: '',
+        adresses: {
+          cep: '',
+          city: '',
+          street: '',
+          number: '',
+          state: ''
+        },
         adresses_main: '',
         cnpj: '',
         email: '',

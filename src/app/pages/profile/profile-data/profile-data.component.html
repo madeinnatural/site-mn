@@ -1,4 +1,5 @@
 <app-header></app-header>
+
 <!--=========== minha conta ===========-->
 <section class="w-100 section_minha_conta mb-5">
   <div class="container">
@@ -29,10 +30,10 @@
       <div class="col-12 col-md-6 col-lg-7">
         <div class="w-100 profileData d-flex justify-content-between flex-column">
 
-          <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Update">
-            <span><h4>Informações Pessoais</h4></span>
+          <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Atualizar">
 
             <mn-input archetype="nome" placeholder="Nome Completo" [(value)]="this.user.name" size="sm" requery>
+              <h6>Informações Pessoais</h6>
             </mn-input>
 
             <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [(value)]="this.cpf_cnpj" size="sm" requery>
@@ -43,17 +44,36 @@
 
           </mn-form>
 
-          <mn-form class="form pt-4" buttonName="Update"
-          [submitable]="updateDataLogin">
-          <span><h4>Informações de Login</h4></span>
+          <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
 
             <mn-input archetype="email" placeholder="Email" [(value)]="this.user.email" size="sm" requery>
+              <h6>Informações de Login</h6>
             </mn-input>
             <mn-input archetype="password" placeholder="Nova senha" [(value)]="password" size="sm" requery>
             </mn-input>
             <mn-input archetype="password" placeholder="Confirmar Senha" [(value)]="password_confirmation" size="sm"
               requery>
             </mn-input>
+          </mn-form>
+
+          <mn-form class="form pt-4" [submitable]="updateDataAddress">
+
+            <mn-input archetype="address" placeholder="Rua" [(value)]="address.street" size="sm" requery>
+              <h6>Endereço</h6>
+            </mn-input>
+
+            <mn-input archetype="text" placeholder="Número" [(value)]="address.number" size="sm" requery>
+            </mn-input>
+
+            <mn-input archetype="text" placeholder="Cidade" [(value)]="address.city" size="sm" requery>
+            </mn-input>
+
+            <mn-input archetype="select" placeholder="Estado" [(value)]="address.state" size="sm" requery>
+            </mn-input>
+
+            <mn-input archetype="cep" placeholder="CEP" [(value)]="address.cep" size="sm" requery>
+            </mn-input>
+
           </mn-form>
 
         </div>

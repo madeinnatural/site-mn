@@ -19,7 +19,13 @@ export class PurchaseSummaryComponent implements OnInit {
     email: '',
     phone: '',
     cnpj: '',
-    adresses: '',
+    adresses: {
+      cep: '',
+      street: '',
+      number: '',
+      city: '',
+      state: '',
+    },
     adresses_main: '',
     id: 0,
   };

@@ -1,3 +1,6 @@
+import { Address } from './../model/User';
+import { environment } from './../../../environments/environment';
+import { HttpClient } from '@angular/common/http';
 import { GlobalEventService } from 'src/app/core/global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -8,7 +11,13 @@ let user: User = {
   email: '',
   cnpj: '',
   phone: '',
-  adresses: '',
+  adresses: {
+    number: '',
+    street: '',
+    city: '',
+    cep: '',
+    state: '',
+  },
   adresses_main: '',
   id: 0,
 };
@@ -27,7 +36,8 @@ export class UserService {
 
   constructor(
     private cookieService:CookieService,
-    private global: GlobalEventService
+    private global: GlobalEventService,
+    public http: HttpClient,
   ) {
     this.path_token_json = this.global.CURRENT_USER_COOKIE;
   }

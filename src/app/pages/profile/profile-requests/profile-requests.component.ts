@@ -21,12 +21,12 @@ export class ProfileRequestsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private purchaseService: PurchaseService,
+    public purchaseService: PurchaseService,
     private modal: NgbModal,
     public dialog: MatDialog,
-    ) {
-      this.purchaseHistory$ = purchaseService.historyPurchase();
-    }
+  ) {
+    this.purchaseHistory$ = purchaseService.historyPurchase();
+  }
 
   ngOnInit() {}
 
