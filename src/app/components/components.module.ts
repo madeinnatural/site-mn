@@ -1,3 +1,4 @@
+import { PublicidadeHomeComponent } from './publicidade-home/publicidade-home.component';
 import { ButtonCartComponent } from './button-cart/button-cart.component';
 import { IconComponent } from './icon/icon.component';
 import { ResumoCompraComponent } from './resumo-compra/resumo-compra.component';
@@ -89,7 +90,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     GlobalAlertComponent,
     ResumoCompraComponent,
     IconComponent,
-    ButtonCartComponent
+    ButtonCartComponent,
+    PublicidadeHomeComponent
   ],
   imports: [
     CommonModule,
@@ -156,7 +158,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     GlobalAlertComponent,
     ResumoCompraComponent,
     IconComponent,
-    ButtonCartComponent
+    ButtonCartComponent,
+    PublicidadeHomeComponent
   ],
 })
 export class ComponentsModule {}
