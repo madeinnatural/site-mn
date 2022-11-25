@@ -1,3 +1,4 @@
+import { CardCompanyLinksComponent } from './header/card-company-links/card-company-links.component';
 import { PublicidadeHomeComponent } from './publicidade-home/publicidade-home.component';
 import { ButtonCartComponent } from './button-cart/button-cart.component';
 import { IconComponent } from './icon/icon.component';
@@ -21,7 +22,7 @@ import { CarrouselComponent } from './carrousel/carrousel.component';
 import { ProductsCartComponent } from './products-cart/products-cart.component';
 import { DropdownComponent } from './dropdown/dropdown.component';
 import { FormsModule } from '@angular/forms';
-import { SearchHeaderComponent } from './search-header/search-header.component';
+import { SearchHeaderComponent } from './header/search-header/search-header.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ToastComponent } from './toast/toast.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
@@ -65,6 +66,7 @@ import { MnInputComponent } from './input/input.component';
 import { MnButtonComponent } from './mn-button/mn-button.component';
 import { MnFormComponent } from './mn-form/mn-form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { CartHeaderComponent } from './header/cart-header/cart-header.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { PaginatorComponent } from './paginator/paginator.component';
     ResumoCompraComponent,
     IconComponent,
     ButtonCartComponent,
-    PublicidadeHomeComponent
+    PublicidadeHomeComponent,
+    CardCompanyLinksComponent,
+    CartHeaderComponent
   ],
   imports: [
     CommonModule,
@@ -159,7 +163,8 @@ import { PaginatorComponent } from './paginator/paginator.component';
     ResumoCompraComponent,
     IconComponent,
     ButtonCartComponent,
-    PublicidadeHomeComponent
+    PublicidadeHomeComponent,
+    CartHeaderComponent
   ],
 })
 export class ComponentsModule {}

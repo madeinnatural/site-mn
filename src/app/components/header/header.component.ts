@@ -139,17 +139,8 @@ export class HeaderComponent implements OnInit {
     this.nav.navigate(['registration'], extra);
   }
 
-  goCart() {
-    this.nav.navigate(['cart']);
-  }
-
   goHome(){
     this.nav.navigate(['/']);
   }
-
-  goProfile() {
-    this.nav.navigate(['/profile/profile_data']);
-  }
-
 
 }

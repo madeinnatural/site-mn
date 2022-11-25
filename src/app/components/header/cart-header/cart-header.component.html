@@ -1,0 +1,11 @@
+<div class="d-flex">
+  <div class="d-flex align-items-center">
+    <button class="btn btn_perfil">
+      <img style="height: 23px;" (click)="goProfile()"src="assets/img/user.svg">
+    </button>
+    <!-- <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button> -->
+    <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice"
+      [userPresent]="!user?.name" [goCart]="goCart" [goPageRegistration]="goPageRegistration">
+    </app-dropdown>
+  </div>
+</div>

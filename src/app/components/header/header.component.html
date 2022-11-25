@@ -1,67 +1,32 @@
-   <!--=========== header ===========-->
-   <header class="container">
-    <div class="row">
-      <div class="col-12" >
-        <div class="d-flex justify-content-between align-items-center py-3" >
+<div class="container" style="padding-bottom: 81px;">
 
-          <app-dropdown class="btn_open_menu hidder-350"></app-dropdown>
+  <header>
 
-          <img (click)="goHome()" style="padding-left: 5%; height: 53px;" src="assets/img/logo.webp">
+    <app-dropdown class="w-5"></app-dropdown>
 
-          <div class="w-100 d-none d-lg-block centro_menu">
-            <div class="w-100 border-top border-lg-none p-5 p-lg-0 d-block d-lg-flex border-white">
-              <div class="w-100 ml-lg-5 mb-4 mb-lg-0">
-                <app-search-header></app-search-header>
-              </div>
+    <ng-template [ngTemplateOutlet]="logo"></ng-template>
 
-              <div class="d-flex justify-content-between" style="margin-left: 100px;">
-                <div class="ml-0 ml-lg-3 mr-3">
-                  <strong style="font-weight: bold;font-size: 14px;"></strong>
-                  <a class="d-block btn_entrar _color_green"></a>
-                </div>
+    <app-search-header style="width: 60%;"></app-search-header>
 
-                <div class="d-flex">
-                  <button class="btn ml-1 btn_perfil"><img style="height: 23px;" (click)="goProfile()" src="assets/img/user.svg"></button>
-                  <button class="btn ml-1 btn_favoritos"><img style="height: 23px;" src="assets/img/coracao.svg"></button>
-                </div>
-              </div>
+    <app-cart-header
+      [goPageRegistration]="goPageRegistration"
+      [cartLength]="cartLength"
+      [finalPrice]="finalPrice"
+      [user]="user"
+      >
+    </app-cart-header>
 
-              <div class="bg-white pt-4 p-lg-4" id="cont_external_links">
-                <ng-template [ngTemplateOutlet]="cardEmpresa" ></ng-template>
-              </div>
-
-            </div>
-          </div>
-
-          <app-dropdown
-          style="margin-right: 5%;"
-          type="menu_fechamendo"
-          [cartLength]="cartLength"
-          [finalPrice]="finalPrice"
-          [userPresent]="!user.name"
-          [goCart]="goCart"
-          [goPageRegistration]="goPageRegistration"
-          >
-          </app-dropdown>
-
-        </div>
-      </div>
-    </div>
   </header>
-  <!--=========== fim header ===========-->
+
+</div>
 
 
-  <ng-template #cardEmpresa>
-    <div class="d-md-flex flex-column menu_dropdown">
-      <!-- <a target="_blank" rel="noopener noreferrer" href="https://site.madeinnatural.com.br" class="p-3 item_menu"
-        ngbDropdownItem> Nossos Produtos</a> -->
-      <a target="_blank" rel="noopener noreferrer" href="https://madeinnatural.com.br/para-escritorios"
-        class="p-3 item_menu" ngbDropdownItem> Snacks para empresas</a>
-      <a target="_blank" rel="noopener noreferrer" href="https://madeinnatural.com.br/seja-revendedor"
-        class="p-3 item_menu" ngbDropdownItem> Seja Revendedor</a>
-      <a target="_blank" rel="noopener noreferrer" href="https://www.loja.madeinnatural.com.br/" class="p-3 item_menu"
-        ngbDropdownItem> Para sua Casa</a>
-      <a target="_blank" rel="noopener noreferrer" href="https://contato.madeinnatural.com.br"
-        class="p-3 item_menu" ngbDropdownItem> Fale Cosnosco</a>
+<ng-template #logo>
+  <div (click)="goHome()" class="d-none d-md-block">
+    <div class="logo d-flex align-items-center ">
+      <a href="https://side.madeinnatural.com.br">
+        <img style="height: 53px;" alt="Logo Made in Natural" src="assets/img/logo.webp" class="img-fluid" />
+      </a>
     </div>
-  </ng-template>
+  </div>
+</ng-template>

@@ -1,4 +1,4 @@
-import { GlobalEventService } from './../../core/global/global.service';
+import { GlobalEventService } from '../../../core/global/global.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, EventEmitter } from '@angular/core';
 
@@ -23,7 +23,7 @@ export class SearchHeaderComponent implements OnInit {
     if (this.query.length > 3 || event.key == 'Enter') {
       setTimeout(() => {
         this.bucarProduto();
-      },500);
+      },1000);
     }
   }
 

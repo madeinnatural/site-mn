@@ -1,18 +1,25 @@
-.login {
-  width: 100px;
+// header fixado no top estilo carrinha de compra
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
-.login h3 {
-  font-size: medium;
-  padding-left: 100px;
-}
-
-@media screen and (max-width: 350px) {
-  .hidder-350{
+@media screen and (max-width: 780px) {
+  .hidder-780{
     display:none;
   }
 
-  .show-350{
+  .show-780{
     display: block;
   }
 }
