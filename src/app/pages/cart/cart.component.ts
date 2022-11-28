@@ -1,13 +1,13 @@
-import { AlertoInterface } from './../../core/model/Alert';
+import { AlertoInterface } from './../../core/model/interfaces/Alert';
 import { GlobalAlertService } from './../../core/global-alert.service';
-import { PurchaseDetail } from './../../core/model/Purchase';
+import { PurchaseDetail } from './../../core/model/interfaces/Purchase';
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { ProductService } from './../../core/global/product.service';
-import { ProductList, Cotacao, Purchase } from './../../core/model/Product';
+import { ProductList, Cotacao, Purchase } from '../../core/model/interfaces/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../../../app/core/model/Product';
+import { Item } from '../../core/model/interfaces/Product';
 import { GlobalEventService } from 'src/app/core/global/global.service';
 
 @Component({

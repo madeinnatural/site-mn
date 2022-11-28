@@ -1,10 +1,10 @@
-import { AlertoInterface } from './../../core/model/Alert';
+import { AlertoInterface } from './../../core/model/interfaces/Alert';
 import { GlobalEventService } from './../../core/global/global.service';
 import { AvancedFilterComponent } from './../avanced-filter/avanced-filter.component';
 import { ModalService } from './../../core/global/modal.service';
 import { debounceTime, distinctUntilChanged, flatMap, map, Observable, of, Subject, delay, tap, from } from 'rxjs';
 import { ProductService } from './../../core/global/product.service';
-import { Item, ProductList, AvancedFilter } from './../../core/model/Product';
+import { Item, ProductList, AvancedFilter } from '../../core/model/interfaces/Product';
 import { ServerService } from './../../core/server/server.service';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 

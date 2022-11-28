@@ -2,7 +2,7 @@ import { AccountService } from './../../core/account/account.service';
 import { Router } from '@angular/router';
 import { ServerService } from './../../core/server/server.service';
 import { Component, OnInit } from '@angular/core';
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 
 @Component({
   selector: 'app-profile',

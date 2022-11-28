@@ -1,3 +1,4 @@
+import { TitlePageComponent } from './title-page/title-page.component';
 import { CardCompanyLinksComponent } from './header/card-company-links/card-company-links.component';
 import { PublicidadeHomeComponent } from './publicidade-home/publicidade-home.component';
 import { ButtonCartComponent } from './button-cart/button-cart.component';
@@ -95,7 +96,8 @@ import { CartHeaderComponent } from './header/cart-header/cart-header.component'
     ButtonCartComponent,
     PublicidadeHomeComponent,
     CardCompanyLinksComponent,
-    CartHeaderComponent
+    CartHeaderComponent,
+    TitlePageComponent
   ],
   imports: [
     CommonModule,
@@ -164,7 +166,8 @@ import { CartHeaderComponent } from './header/cart-header/cart-header.component'
     IconComponent,
     ButtonCartComponent,
     PublicidadeHomeComponent,
-    CartHeaderComponent
+    CartHeaderComponent,
+    TitlePageComponent
   ],
 })
 export class ComponentsModule {}

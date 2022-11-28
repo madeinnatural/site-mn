@@ -1,9 +1,9 @@
-import { Address } from './../../../core/model/User';
+import { Address } from './../../../core/model/interfaces/User';
 import { GlobalEventService } from './../../../core/global/global.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from './../../../core/global/user.service';
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 import { AccountService } from './../../../core/account/account.service';
 
 import { Router } from '@angular/router';

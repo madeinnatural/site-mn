@@ -35,13 +35,11 @@ export class Item {
   ){}
 }
 
-export class CartProduct {
-  constructor(
-      quantity: number,
-      id: number,
-      parcial_price: number,
-      product: ProductList
-  ){}
+export interface CartProduct {
+  quantity: number,
+  id: number,
+  parcial_price: number,
+  product: ProductList
 }
 
 export class Purchase {
@@ -121,4 +119,23 @@ export interface ProductListRequest {
   provider_primary: string,
   total: number,
   categoria?: string,
+}
+
+export interface Snack {
+  display_name: string;
+  name: string;
+  price: number;
+  quantity: number;
+  product_weight: number;
+  secondary_category: string;
+}
+
+export interface SnackProduct {
+  id: number;
+  display_name: string;
+  name: string;
+  price: number;
+  product_weight: number;
+  quantity: number;
+  secondary_category: string;
 }

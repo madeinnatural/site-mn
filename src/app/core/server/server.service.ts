@@ -1,6 +1,7 @@
-import { Address } from './../model/User';
+import { Snack } from 'src/app/core/model/interfaces/Product';
+import { Address } from './../model/interfaces/User';
 import { ProductService } from './../global/product.service';
-import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from './../model/Product';
+import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from '../model/interfaces/Product';
 import { GlobalEventService } from './../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -8,8 +9,8 @@ import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from, map, Observable, of } from 'rxjs';
-import { ProductList } from '../model/Product';
-import User, { UserLogin } from '../model/User';
+import { ProductList } from '../model/interfaces/Product';
+import User, { UserLogin } from '../model/interfaces/User';
 
 @Injectable({providedIn: 'root'})
 export class ServerService {
@@ -192,5 +193,9 @@ export class ServerService {
 
     async updateAddress (address: Address) {
       return this.talkToServer('users/update_address', {address}, {type: 'PUT'});
+    }
+
+    async getSnacks (): Promise<Snack[]> {
+      return this.talkToServer('products/snacks');
     }
 }

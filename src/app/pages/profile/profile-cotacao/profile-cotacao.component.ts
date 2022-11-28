@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 import { AccountService } from './../../../core/account/account.service';
 import { Component, Input, OnInit } from '@angular/core';
 

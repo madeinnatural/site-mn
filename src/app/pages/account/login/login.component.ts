@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { GlobalEventService } from './../../../core/global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './../../../core/account/account.service';
-import { UserLogin } from './../../../core/model/User';
+import { UserLogin } from './../../../core/model/interfaces/User';
 import { FormGroup, FormBuilder, Validators, FormControl, FormsModule } from '@angular/forms';
 import { Component, Input, OnInit, Output, EventEmitter, ViewChild } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';

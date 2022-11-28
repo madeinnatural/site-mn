@@ -1,6 +1,6 @@
 import { GlobalAlertComponent } from './components/global-alert/global-alert.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { AlertoInterface } from './core/model/Alert';
+import { AlertoInterface } from './core/model/interfaces/Alert';
 import { GlobalEventService } from './core/global/global.service';
 import { GlobalAlertService } from './core/global-alert.service';
 import { AccountService } from './core/account/account.service';

@@ -1,5 +1,5 @@
 import { Router, NavigationExtras } from '@angular/router';
-import { UserLogin, UserRegister } from './../../core/model/User';
+import { UserLogin, UserRegister } from './../../core/model/interfaces/User';
 import { AccountService } from './../../core/account/account.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';

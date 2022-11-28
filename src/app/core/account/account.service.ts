@@ -1,14 +1,14 @@
 import { UserService } from './../global/user.service';
 import { Router } from '@angular/router';
 import { CookieOptions, CookieService } from '@ngx-toolkit/cookie';
-import { UserRegister } from './../model/User';
+import { UserRegister } from './../model/interfaces/User';
 import { ServerService } from './../server/server.service';
 import { GlobalEventService } from './../global/global.service';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 
 import { environment } from '../../../environments/environment';
-import User, { UserLogin } from '../model/User';
+import User, { UserLogin } from '../model/interfaces/User';
 
 @Injectable({
   providedIn: 'root'

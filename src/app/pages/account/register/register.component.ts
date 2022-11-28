@@ -1,9 +1,9 @@
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 import { MnInputComponent } from './../../../components/input/input.component';
 import { Router } from '@angular/router';
 import { GlobalEventService } from './../../../core/global/global.service';
 import { AccountService } from './../../../core/account/account.service';
-import { UserRegister } from './../../../core/model/User';
+import { UserRegister } from './../../../core/model/interfaces/User';
 import { Component,Input,OnInit,Output,EventEmitter,ViewChild,} from '@angular/core';
 import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 

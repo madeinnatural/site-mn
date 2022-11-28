@@ -1,9 +1,9 @@
 import { ServerService } from './../../core/server/server.service';
-import { ProductList } from 'src/app/core/model/Product';
-import { Purchase } from './../../core/model/Product';
+import { ProductList } from 'src/app/core/model/interfaces/Product';
+import { Purchase } from '../../core/model/interfaces/Product';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { UserService } from './../../core/global/user.service';
-import User  from 'src/app/core/model/User';
+import User  from 'src/app/core/model/interfaces/User';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 

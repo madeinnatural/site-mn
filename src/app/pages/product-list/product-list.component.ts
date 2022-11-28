@@ -1,5 +1,5 @@
 import { PaginatorComponent } from './../../components/paginator/paginator.component';
-import { Item, DataSearch } from './../../core/model/Product';
+import { Item, DataSearch } from '../../core/model/interfaces/Product';
 import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/global/global.service';
 import { ProductService } from './../../core/global/product.service';
@@ -7,7 +7,7 @@ import { ServerService } from './../../core/server/server.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { ProductList } from 'src/app/core/model/Product';
+import { ProductList } from 'src/app/core/model/interfaces/Product';
 
 @Component({
   selector: 'app-product-list',

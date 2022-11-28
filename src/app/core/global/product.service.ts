@@ -2,7 +2,7 @@ import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
-import { Item, ProductList } from './../model/Product';
+import { Item, ProductList } from '../model/interfaces/Product';
 import { Injectable, Input, OnInit } from '@angular/core';
 import { ServerService } from '../server/server.service';
 import { PurchaseService } from './purchase.service';

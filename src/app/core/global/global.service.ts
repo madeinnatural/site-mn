@@ -1,6 +1,6 @@
-import { AlertoInterface } from './../model/Alert';
+import { AlertoInterface } from './../model/interfaces/Alert';
 import { UserService } from './user.service';
-import { UserRegister } from './../model/User';
+import { UserRegister } from './../model/interfaces/User';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';

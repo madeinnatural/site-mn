@@ -1,6 +1,6 @@
 import { ProfileRequestsComponent } from './../../pages/profile/profile-requests/profile-requests.component';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ProductList } from 'src/app/core/model/Product';
+import { ProductList } from 'src/app/core/model/interfaces/Product';
 import { Component, Injectable, OnInit, Inject } from '@angular/core'
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';

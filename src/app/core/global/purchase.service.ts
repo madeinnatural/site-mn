@@ -1,10 +1,10 @@
 import { GlobalEventService } from './global.service';
 import { ProductService } from './product.service';
 import { ServerService } from './../server/server.service';
-import { ProductList, Purchase } from './../model/Product';
+import { ProductList, Purchase } from '../model/interfaces/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
-import { Item } from '../model/Product';
+import { Item } from '../model/interfaces/Product';
 
 @Injectable({
   providedIn: 'root',

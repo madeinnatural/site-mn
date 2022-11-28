@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 
 @Component({

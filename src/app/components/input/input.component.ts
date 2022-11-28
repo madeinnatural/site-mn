@@ -15,7 +15,7 @@ import {
   ValidatorEnum,
   Validator,
   IntervalValidator,
-} from '../../core/model/Validatores';
+} from '../../core/model/interfaces/Validatores';
 
 type Mask = {
   mask:

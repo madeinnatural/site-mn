@@ -1,3 +1,4 @@
+import { SnackPage } from './snack/snack-page';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from './../core/server/server.service';
@@ -55,6 +56,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
 
 
 @NgModule({
@@ -72,7 +74,9 @@ import { MatTreeModule } from '@angular/material/tree';
     ProductListComponent,
     PurchaseSummaryComponent,
     PasswordRecoveryComponent,
-    RecoveryFormComponent
+    RecoveryFormComponent,
+    PageNotFoundComponentComponent,
+    SnackPage
   ],
   imports: [
     CommonModule,

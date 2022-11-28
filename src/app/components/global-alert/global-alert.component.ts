@@ -1,5 +1,5 @@
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { AlertoInterface } from './../../core/model/Alert';
+import { AlertoInterface } from './../../core/model/interfaces/Alert';
 import { Component, Inject, Input, OnInit } from '@angular/core';
 
 @Component({

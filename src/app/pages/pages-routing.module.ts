@@ -1,9 +1,9 @@
+import { SnackPage } from './snack/snack-page';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
-import { LoginComponent } from './account/login/login.component';
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
@@ -13,7 +13,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { AuthQuard } from '../core/guards/auth.quard';
-import { ProfileComponent } from './profile/profile.component';
+import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -31,6 +31,9 @@ const routes: Routes = [
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
   {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
+  {path: 'snacks', component: SnackPage},
+  {path: 'page-not-found', component: PageNotFoundComponentComponent},
+  {path: '**', redirectTo: 'page-not-found'}
 ];
 
 @NgModule({

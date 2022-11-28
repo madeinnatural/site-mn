@@ -1,6 +1,6 @@
 import { ProductService } from './../../core/global/product.service';
 import { UserService } from './../../core/global/user.service';
-import User from 'src/app/core/model/User';
+import User from 'src/app/core/model/interfaces/User';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { PurchaseService } from './../../core/global/purchase.service';
 import { GlobalEventService } from './../../core/global/global.service';
