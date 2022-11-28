@@ -24,10 +24,11 @@
 <div ngbDropdown *ngIf="type == 'menu_fechamendo'">
   <div class="col">
     <div class="row">
-      <div ngbDropdownToggle class="tn_open_menu_fechar_pedido" style="margin-left: 10px;" target="_blank">
+      <div ngbDropdownToggle class="tn_open_menu_fechar_pedido" style="margin-left: 10px;" >
 
-        <button class="btn border border-white btn-outline-primary bg-white" style="position: relative;">
-          <img cless="btn_green tot_itens_pedido btn" style="height: 23px;" src="assets/img/bag.svg">
+        <button class="btn border border-white btn-outline-primary bg-white" style="position: relative; ">
+          <img cless="btn_green tot_itens_pedido btn" style="height: 23px;     display: flex;
+          padding-right: 10px;" src="assets/img/bag.svg">
           <div class="btn_green tot_itens_pedido dropdown-header" style="color: #ffff;" *ngIf="cartLength > 0">
             {{cartLength}}</div>
         </button>
@@ -35,7 +36,7 @@
         <div ngbDropdownMenu >
           <!-- FECHAMANDO DO PEDIDO -->
 
-          <div class="btn cont_valor">
+          <div class="btn cont_valor" style="z-index: 99999999;">
             <div class="d-flex valor ">
               = {{ finalPrice | currency:'BRL':true:'1.2-2'}}
             </div>

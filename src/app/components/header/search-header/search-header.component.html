@@ -1,13 +1,13 @@
 
-  <div class="input-group w-100">
-    <div class="input-group-prepend item">
-      <span class="input-group-text bg-white">
-        <img src="assets/img/pesquisa.svg">
-      </span>
-    </div>
-    <input type="text" class="form-control input_pesquisa item" placeholder="Procure por nome, marca..."[(ngModel)]="query" (keypress)="monteQuery($event)" #name_produc />
-    <button class="input-group-append input-group-text item bg-white" (click)="bucarProduto()">
-        <a class="btn btn-link btn_buscar _color_green">Buscar</a>
-    </button>
+<div class="input-group w-100">
+  <div class="input-group-prepend item">
+    <span class="input-group-text bg-white">
+      <img src="assets/img/pesquisa.svg">
+    </span>
   </div>
+  <input type="text" class="form-control input_pesquisa item" placeholder="Procure por nome, marca..."[(ngModel)]="query" (keypress)="monteQuery($event)" #name_produc />
+  <button class="input-group-append input-group-text item bg-white" (click)="bucarProduto()">
+      <a class="btn btn-link btn_buscar _color_green">Buscar</a>
+  </button>
+</div>
 

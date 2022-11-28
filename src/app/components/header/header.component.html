@@ -1,21 +1,25 @@
 <div class="container" style="padding-bottom: 81px;">
 
   <header>
-
-    <app-dropdown class="w-5"></app-dropdown>
-
     <ng-template [ngTemplateOutlet]="logo"></ng-template>
 
     <app-search-header style="width: 60%;"></app-search-header>
 
-    <app-cart-header
+    <app-button-main>
+
+      <!-- <app-search-header style="width: 60%;"></app-search-header> -->
+
+      <app-cart-header
       [goPageRegistration]="goPageRegistration"
       [cartLength]="cartLength"
       [finalPrice]="finalPrice"
       [user]="user"
       >
-    </app-cart-header>
+      </app-cart-header>
 
+    <!-- <app-dropdown class="mobile-menu-hider"></app-dropdown> -->
+
+    </app-button-main>
   </header>
 
 </div>

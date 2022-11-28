@@ -143,4 +143,12 @@ export class HeaderComponent implements OnInit {
     this.nav.navigate(['/']);
   }
 
+  active: boolean = true
+
+  closeMenu () {
+    this.active = !this.active
+  }
+
 }
+
+
