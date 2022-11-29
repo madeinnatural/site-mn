@@ -1,32 +1,34 @@
 <div class="container" style="padding-bottom: 81px;">
 
   <header>
+    <app-dropdown class="mobile-menu-hider"></app-dropdown>
     <ng-template [ngTemplateOutlet]="logo"></ng-template>
-
     <app-search-header style="width: 60%;"></app-search-header>
 
-    <app-button-main>
+    <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice"
+    [userPresent]="!user?.name" [goCart]="goCart" [goPageRegistration]="goPageRegistration">
+    </app-dropdown>
 
-      <!-- <app-search-header style="width: 60%;"></app-search-header> -->
+    <button class="btn " (click)="goProfile()">
+      <img style="height: 23px;" src="assets/img/user.svg">
+    </button>
 
-      <app-cart-header
-      [goPageRegistration]="goPageRegistration"
-      [cartLength]="cartLength"
-      [finalPrice]="finalPrice"
-      [user]="user"
-      >
-      </app-cart-header>
+    <app-cart-header
+    [goPageRegistration]="goPageRegistration"
+    [cartLength]="cartLength"
+    [finalPrice]="finalPrice"
+    [user]="user"
+    >
+    </app-cart-header>
 
-    <!-- <app-dropdown class="mobile-menu-hider"></app-dropdown> -->
 
-    </app-button-main>
   </header>
 
 </div>
 
 
 <ng-template #logo>
-  <div (click)="goHome()" class="d-none d-md-block">
+  <div (click)="goHome()" class="d-none d-md-block pl-2">
     <div class="logo d-flex align-items-center ">
       <a>
         <img style="height: 53px;" alt="Logo Made in Natural" src="assets/img/logo.webp" class="img-fluid" />
