@@ -1,0 +1,36 @@
+
+<app-header></app-header>
+
+<app-title-page title="Snacks" ></app-title-page>
+
+<div class="container">
+  <div class="row p-4">
+   <table class="table">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Valor parcial</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Adicionar</th>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let snack of sanckService.productInCart">
+        <td>{{snack.name}}</td>
+        <td>{{snack.subTotal}}</td>
+        <td>{{snack.price}}</td>
+        <td>
+          <input type="number" class="form-control" [(ngModel)]="snack.quantity" min="0" max="100">
+        </td>
+        <td>
+          <button class="btn btn-primary" (click)="sanckService.incrementSnackQuantity(snack.id)" >Adicionar</button>
+          <button class="btn btn-danger" (click)="sanckService.decrementSnackQuantity(snack.id)" >Remover</button>
+        </td>
+      </tr>
+    </tbody>
+
+  </table>
+  </div>
+</div>

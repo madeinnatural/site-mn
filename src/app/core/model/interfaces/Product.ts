@@ -122,6 +122,7 @@ export interface ProductListRequest {
 }
 
 export interface Snack {
+  id: number;
   display_name: string;
   name: string;
   price: number;
@@ -137,5 +138,6 @@ export interface SnackProduct {
   price: number;
   product_weight: number;
   quantity: number;
+  subTotal: number;
   secondary_category: string;
 }

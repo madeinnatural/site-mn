@@ -1,5 +1,5 @@
-import { ProductList } from 'src/app/core/model/interfaces/Product';
-import { CartProduct } from './../model/interfaces/Product';
+
+import { CartProduct, Item, ProductList } from './../model/interfaces/Product';
 import { ServerService } from './../server/server.service';
 import { Snack, SnackProduct } from './../model/interfaces/Product';
 import { SnackAbstract } from 'src/app/core/model/classes/SnackAbstract';
@@ -7,20 +7,19 @@ import { Injectable } from '@angular/core';
 import { GlobalEventService } from '../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 
-@Injectable({providedIn: 'root'})
-export class SnackService extends SnackAbstract {
+@Injectable({ providedIn: 'root' })
+export class SnackService {
 
   private _productInCart: SnackProduct[] = [];
-
-  get productInCart () {
+  get productInCart(): SnackProduct[] {
     return this._productInCart;
   }
 
-  set productInCart (list: Snack[]) {
+  set productInCart(list: Snack[]) {
     const products: SnackProduct[] = list.map((item) => {
       const product = item as SnackProduct;
       product.id = list.length;
-      product.price = item.price * item.quantity * item.product_weight;
+      product.subTotal = item.price * item.quantity * item.product_weight;
       return product;
     });
     this._productInCart = products;
@@ -29,141 +28,197 @@ export class SnackService extends SnackAbstract {
   constructor(
     public server: ServerService,
     public cookie: CookieService,
-    public global: GlobalEventService,
-  ) {
-    super();
-  }
-
-  decrementSnackQuantity (id: number) {
-    this.decrement(id);
-  }
+    public global: GlobalEventService
+  ) {}
 
   // Funções de listagem
-  protected increment (id: number) {
-    const product = this._productInCart.find((item) => item.id === id);
-    if (product) {
-      if (product.quantity <= 0) {
+  protected increment(id: number) {
+    this.productInCart.forEach((product, index) => {
+      if (product && product.id === id) {
         product.quantity += 1;
-        product.price = product.price + product.product_weight;
-      } else {
-        this.add(product);
+        product.subTotal = product.price * product.product_weight * product.quantity;
       }
-    } else {
-      console.error('Produto não encontrado');
-    }
+    });
   }
 
-  protected decrement (id: number) {
-    const product = this._productInCart.find((item) => item.id === id);
-    if (product) {
-      if ( product.quantity > 1 ) {
-        product.quantity -= 1;
-        product.price = product.price - product.product_weight;
-      } else {
-        this.remove(product);
+  protected decrement(id: number) {
+    if (this._productInCart.length === 0) throw new Error("Carrinho vazio service");
+    this._productInCart.forEach((product, index ) => {
+      if (product && product.id === id) {
+        if (product.quantity > 1) {
+          const priceOld = product.price * product.product_weight * product.quantity;
+          product.subTotal = product.price - priceOld
+          product.quantity -= 1;
+        } else {
+          this._productInCart.splice(index, 1);
+        }
       }
-    } else {
-      console.error('Produto não encontrado');
-    }
+    })
   }
 
-  // Funções de carrinho
-  protected add (product: SnackProduct) {
+  // Funções de carrinho Service---------------------------
+  protected add(product: SnackProduct) {
     this.productInCart.push(product);
   }
 
-  protected remove (product: SnackProduct) {
+  protected remove(product: SnackProduct) {
     this.productInCart = this.productInCart.filter((item) => item !== product);
   }
+  // ------------------------------------------------------
 
-  async refresh() {
-    this.productInCart = [{
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.00,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-    }]
-    // this.productInCart = await this.server.getSnacks();
+
+
+
+  // Funções de carrinho Local Storage: remove
+  protected decrementCart(id: any): void {
+    const hasCart = this.cookie.hasItem(this.global.CART_PATH);
+    if (!hasCart) throw new Error('Carrinho não encontrado');
+
+    const product = this.productInCart.find((item) => item.id === id);
+    if (!product) throw new Error('Produto não encontrado');
+
+    product.quantity -= 1;
+    product.subTotal = this.getParcialPrice(
+      product.price,
+      product.quantity,
+      product.product_weight
+    )
+
+    this.addCartListLocalStorage(product);
   }
 
-  // Funções de carrinho Local Storage
-  get cart(): CartProduct[] {
+  // Funções de carrinho Local Storage:add
+  protected incrementCart(id: number) {
+    const hasCart = this.cookie.hasItem(this.global.CART_PATH);
+    const product = this.productInCart.find((item) => item.id === id);
+
+    if (!product) throw new Error('Produto não encontrado');
+    if (!hasCart) return this.addCartListLocalStorage(product);
+
+    const productInService = this.productInCart.find((item) => item.id === id);
+    if (!productInService) throw new Error('Produto não encontrado');
+
+    productInService.quantity += 1;
+    productInService.subTotal = productInService.price * productInService.product_weight * productInService.quantity;
+
+    this.addCartListLocalStorage(productInService);
+  }
+
+  // Funções de carrinho Local Storage: Classe
+  private transformerCartProduct(product: SnackProduct ): CartProduct {
+    return {
+      quantity: product.quantity,
+      id: product.id,
+      parcial_price: product.price,
+      product: {
+        id: product.id,
+        product_name: product.name,
+        weight: product.product_weight,
+        price: product.price * product.product_weight,
+        quantity: product.quantity,
+      }
+    }
+  }
+
+  private addCartListLocalStorage (productInService: SnackProduct) {
+    const itemCart = this.transformerCartProduct(productInService);
     const cart = this.cookie.getItem(this.global.CART_PATH);
     if (cart) {
       const cartList: CartProduct[] = JSON.parse(cart);
-      return cartList;
+      const productInCartMacthIndex = cartList.findIndex((item) => item.id === productInService.id);
+
+      if (productInCartMacthIndex != -1) cartList[productInCartMacthIndex] = itemCart;
+      else cartList.push(itemCart);
+
+      this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cartList));
     } else {
-      return [];
+      this.cookie.setItem(this.global.CART_PATH, JSON.stringify([itemCart]));
     }
   }
 
-  set cart(list: CartProduct[]) {
-    if (list) {
-      this.cookie.setItem(this.global.CART_PATH, JSON.stringify(list), {expires: 1});
-    }
-  }
-
-  private getParcialPrice (price: number, quant: number, weigh: number) {
+  private getParcialPrice(price: number, quant: number, weigh: number) {
     return price * quant * weigh;
   }
 
-  protected incrementCart(id: number): void {
-    const cart = this.cart;
-    if (cart) {
-      const product = cart.find((item) => item.id === id);
-      if (product) {
-        if (product.quantity > 0 ) {
-          product.quantity += 1;
-          product.parcial_price = this.getParcialPrice(product.product.price, product.product.quantity, product.product.weight);
-          this.cart = cart;
-        } else {
-          product.quantity = 0;
-          product.parcial_price = this.getParcialPrice(product.product.price, product.product.quantity, product.product.weight);
-          this.cart = cart;
-        }
-      } else {
-        console.error('Produto não encontrado');
-      }
-    } else {
-      const product = this._productInCart.find((item) => item.id === id);
-      if (product) {
-        const cartProduct: CartProduct = {
-          id: product.id,
-          quantity: product.quantity + 1,
-          parcial_price: this.getParcialPrice(product.price, product.quantity, product.product_weight),
-          product: {
-            id: this.cart.length,
-            product_name: product.name,
-            price: product.price,
-            quantity: product.quantity,
-            weight: product.product_weight,
-            total: product.price * product.quantity * product.product_weight,
-          },
-        };
-        this.cart = [cartProduct];
-      } else {
-        console.error('Produto não encontrado');
-      }
-    }
+  // Funções all
+  refresh() {
+
+    // LEMPRAR QUE DO SERVIDOR PRECISA VIR UM ID COM DOIS ALGOTITMOS PARA NÃO CONFLITAR COM OS IDS DO CARRINHO
+    this._productInCart = [
+      {
+        id: 1,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+      {
+        id: 2,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+      {
+        id: 3,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+      {
+        id: 4,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+      {
+        id: 5,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+      {
+        id: 6,
+        display_name: 'Coca-Cola',
+        name: 'coca-cola',
+        price: 5.0,
+        product_weight: 2,
+        quantity: 0,
+        secondary_category: 'Bebidas',
+        subTotal: 0,
+      },
+    ];
+
+    console.log(this.productInCart);
+    // this.productInCart = await this.server.getSnacks();
   }
 
-  protected decrementCart(id: number): void {
-
+  decrementSnackQuantity(id: number) {
+    this.decrement(id);
+    this.decrementCart(id);
   }
 
-  protected removeCart(product: SnackProduct): void {
-
+  incrementSnackQuantity(id: number) {
+    this.increment(id);
+    this.incrementCart(id);
   }
-
-  protected addCart(product: SnackProduct): void {
-
-  }
-
-  protected refreshCart(): void {
-
-  }
-
 
 }

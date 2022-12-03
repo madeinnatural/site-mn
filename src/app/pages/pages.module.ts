@@ -1,4 +1,4 @@
-import { SnackPage } from './snack/snack-page';
+import { SnackPage } from './snack/snack-page.component';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from './../core/server/server.service';
