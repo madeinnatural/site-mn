@@ -7,6 +7,17 @@ import { Injectable } from '@angular/core';
 import { GlobalEventService } from '../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 
+interface Filter {
+  categoria: Categorie[],
+  price: number,
+  preso: number
+}
+
+export interface Categorie {
+  id: number,
+  name: string
+}
+
 @Injectable({ providedIn: 'root' })
 export class SnackService {
 
@@ -15,21 +26,22 @@ export class SnackService {
     return this._productInCart;
   }
 
-  set productInCart(list: Snack[]) {
-    const products: SnackProduct[] = list.map((item) => {
-      const product = item as SnackProduct;
-      product.id = list.length;
-      product.subTotal = item.price * item.quantity * item.product_weight;
-      return product;
-    });
-    this._productInCart = products;
+  set productInCart(list: SnackProduct[]) {
+    this._productInCart = list;
+  }
+
+  filter: Filter = {
+    categoria: [],
+    price: 0,
+    preso: 0
   }
 
   constructor(
     public server: ServerService,
     public cookie: CookieService,
     public global: GlobalEventService
-  ) {}
+  ) {
+  }
 
   // Funções de listagem
   protected increment(id: number) {
@@ -141,74 +153,9 @@ export class SnackService {
   }
 
   // Funções all
-  refresh() {
+  async refresh() {
 
-    // LEMPRAR QUE DO SERVIDOR PRECISA VIR UM ID COM DOIS ALGOTITMOS PARA NÃO CONFLITAR COM OS IDS DO CARRINHO
-    this._productInCart = [
-      {
-        id: 1,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-      {
-        id: 2,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-      {
-        id: 3,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-      {
-        id: 4,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-      {
-        id: 5,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-      {
-        id: 6,
-        display_name: 'Coca-Cola',
-        name: 'coca-cola',
-        price: 5.0,
-        product_weight: 2,
-        quantity: 0,
-        secondary_category: 'Bebidas',
-        subTotal: 0,
-      },
-    ];
-
-    console.log(this.productInCart);
-    // this.productInCart = await this.server.getSnacks();
+    // const categeories = await this.getCategories();
   }
 
   decrementSnackQuantity(id: number) {
@@ -221,4 +168,19 @@ export class SnackService {
     this.incrementCart(id);
   }
 
+  async getCategories() {
+    return await this.server.getCategoriasSnacks();
+  }
+
+  pullProductList() {
+
+  }
+
 }
+
+
+/**
+ * Coisas que precisa ser feitas no servidor:
+ * 1 - Criar um ID para o carrinho ( multiplicando o id por 1000 )
+ * 2 - Modelo de filtragem de produtos
+ */

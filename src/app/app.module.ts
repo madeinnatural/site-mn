@@ -1,3 +1,4 @@
+import { SnackResolve } from './core/guards/product-snacks.resolver';
 import { AuthInterceptor } from './core/security/auth.interceptor';
 import { phoneMaskBrDirective } from './core/directives/phone-mask-br.directive';
 import { ComponentsModule } from './components/components.module';
@@ -45,6 +46,7 @@ import { AuthQuard } from './core/guards/auth.quard';
   ],
   providers: [
     AuthQuard,
+    SnackResolve,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
   ],

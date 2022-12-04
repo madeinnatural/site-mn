@@ -5,22 +5,73 @@
 
 <div class="container">
   <div class="row p-4">
+
+
+     <!-- Abrir modal com filtro -->
+     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+      Filtro
+    </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px;">
+              <div class="modal-header border-0">
+                <h5 class="modal-title"><strong>Filtros</strong></h5>
+                <button type="button" style="opacity: 1;" class="close" data-dismiss="modal" aria-label="Close">
+                  <img style="width: 20px; color: #000;" src="assets/img/close_modal.svg">
+                </button>
+              </div>
+              <div class="modal-body border-0">
+                <div class="form-group">
+                  <label>Categoria</label>
+                  <select class="form-control">
+                    <option >Selecionar</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label>Peso</label>
+                  <div class="slider-container pl-2">
+                      <input type="text" id="slider3" class="slider" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Preço</label>
+                  <div class="slider-container pl-2">
+                      <input type="text" id="slider3" class="slider" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
    <table class="table">
+
+
+
     <thead>
       <tr>
         <th>Nome</th>
         <th>Valor parcial</th>
         <th>Preço</th>
+        <th>Peso</th>
         <th>Quantidade</th>
         <th>Adicionar</th>
       </tr>
 
     </thead>
-    <tbody>
+    <tbody>data
       <tr *ngFor="let snack of sanckService.productInCart">
         <td>{{snack.name}}</td>
         <td>{{snack.subTotal}}</td>
         <td>{{snack.price}}</td>
+        <td>{{snack.product_weight}}</td>
         <td>
           <input type="number" class="form-control" [(ngModel)]="snack.quantity" min="0" max="100">
         </td>
@@ -34,3 +85,8 @@
   </table>
   </div>
 </div>
+
+<script src="assets/js/jquery-3.4.1.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/rSlider.js"></script>
+<script src="assets/js/script.js"></script>
