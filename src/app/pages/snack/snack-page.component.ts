@@ -5,12 +5,21 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OnInit, Component} from '@angular/core';
 import { SnackService } from '../../core/services/SnackService';
 
+
 @Component({
   templateUrl: './snack-page.component.html',
   styleUrls: ['./snack-page.component.scss'],
   providers: [SnackService]
 })
 export class SnackPage implements OnInit {
+
+  termo: string = '';
+
+  keyPress(event: any){
+    if (event.key == 'Enter') {
+      this.sanckService.searchProduct(this.termo);
+    }
+  }
 
   constructor(
     public sanckService: SnackService,
@@ -36,7 +45,7 @@ export class SnackPage implements OnInit {
           return productr.map((product:any) => {
             return {
               id: product.id,
-              display_name: product.display_name ? product.display_name : product.product_name,
+              display_name: product.display_name,
               name: product.product_name,
               price: product.price,
               product_weight: product.weight,
@@ -47,12 +56,11 @@ export class SnackPage implements OnInit {
           })
         }
       )).subscribe((response) => {
-        console.log(response);
         this.sanckService.productInCart = response;
       })
 
       dataR.categeories.subscribe((response) => {
-        // console.log(response);
+        this.sanckService.categories = response;
       });
 
     });

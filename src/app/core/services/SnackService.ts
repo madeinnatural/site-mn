@@ -7,10 +7,16 @@ import { Injectable } from '@angular/core';
 import { GlobalEventService } from '../global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 
-interface Filter {
-  categoria: Categorie[],
-  price: number,
-  preso: number
+export interface Filter {
+  categoryId: number,
+  price: {
+    priceMin: number,
+    priceMax: number
+  },
+  weight: {
+    weightMin: number,
+    weightMax: number
+  }
 }
 
 export interface Categorie {
@@ -31,10 +37,18 @@ export class SnackService {
   }
 
   filter: Filter = {
-    categoria: [],
-    price: 0,
-    preso: 0
+    categoryId: -1,
+    price: {
+      priceMin: 0,
+      priceMax: 100
+    },
+    weight: {
+      weightMin: 0,
+      weightMax: 100,
+    }
   }
+
+  categories: Categorie[] = [];
 
   constructor(
     public server: ServerService,
@@ -174,6 +188,12 @@ export class SnackService {
 
   pullProductList() {
 
+  }
+
+
+  async searchProduct(termo: string) {
+    const filter = this.filter;
+    this.productInCart = await this.server.getSnacks(termo, filter);
   }
 
 }

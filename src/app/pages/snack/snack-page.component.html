@@ -7,53 +7,24 @@
   <div class="row p-4">
 
 
-     <!-- Abrir modal com filtro -->
-     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Filtro
+    <div class="input-group mb-3 mb-md-0" style="height: 50px; ">
+      <div class="input-group-prepend">
+        <span class="input-group-text bg-white">
+          <img style="height: 22px" src="assets/img/pesquisa.svg" />
+        </span>
+      </div>
+      <input [(ngModel)]="termo" (keypress)="keyPress($event)" type="text" style="height: auto"
+        placeholder="procure por nome, marca..." class="form-control border-left-0" />
+    </div>
+
+    <button class="btn mb-4 ml-md-3 mb-md-0 d-flex align-items-center justify-content-center text-uppercase btn_green"
+     type="button" data-toggle="modal" data-target="#my-modal">
+     <img style="width: 32px;" src="assets/img/filtro.webp">
+     <div class="ml-3 text-white">Filtro Avançado</div>
     </button>
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px;">
-              <div class="modal-header border-0">
-                <h5 class="modal-title"><strong>Filtros</strong></h5>
-                <button type="button" style="opacity: 1;" class="close" data-dismiss="modal" aria-label="Close">
-                  <img style="width: 20px; color: #000;" src="assets/img/close_modal.svg">
-                </button>
-              </div>
-              <div class="modal-body border-0">
-                <div class="form-group">
-                  <label>Categoria</label>
-                  <select class="form-control">
-                    <option >Selecionar</option>
-                  </select>
-                </div>
-
-                <div class="form-group">
-                  <label>Peso</label>
-                  <div class="slider-container pl-2">
-                      <input type="text" id="slider3" class="slider" />
-                  </div>
-                </div>
-
-                <div class="form-group">
-                  <label>Preço</label>
-                  <div class="slider-container pl-2">
-                      <input type="text" id="slider3" class="slider" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-
 
 
    <table class="table">
-
-
 
     <thead>
       <tr>
@@ -66,7 +37,7 @@
       </tr>
 
     </thead>
-    <tbody>data
+    <tbody>
       <tr *ngFor="let snack of sanckService.productInCart">
         <td>{{snack.name}}</td>
         <td>{{snack.subTotal}}</td>
@@ -76,17 +47,58 @@
           <input type="number" class="form-control" [(ngModel)]="snack.quantity" min="0" max="100">
         </td>
         <td>
-          <button class="btn btn-primary" (click)="sanckService.incrementSnackQuantity(snack.id)" >Adicionar</button>
+          <button class="btn btn-green" (click)="sanckService.incrementSnackQuantity(snack.id)" >Adicionar</button>
           <button class="btn btn-danger" (click)="sanckService.decrementSnackQuantity(snack.id)" >Remover</button>
         </td>
       </tr>
     </tbody>
 
-  </table>
+    </table>
   </div>
 </div>
 
-<script src="assets/js/jquery-3.4.1.min.js"></script>
-<script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="assets/js/rSlider.js"></script>
-<script src="assets/js/script.js"></script>
+
+
+
+
+
+<div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="filter-modal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content pl-4 pr-4 border-0" style="border-radius: 15px;">
+        <div class="modal-header border-0">
+          <h5 class="modal-title"><strong>Filtros</strong></h5>
+          <button type="button" style="opacity: 1;" class="close" data-dismiss="modal" aria-label="Close">
+            <img style="width: 20px; color: #000;" src="assets/img/close_modal.svg">
+          </button>
+        </div>
+        <div class="modal-body border-0">
+
+          <div class="form-group">
+            <label>Embalagem</label>
+            <select class="form-control">
+              <option *ngFor="let category of sanckService.categories">{{category.name}}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Peso (Kg)</label>
+            <div class="slider-container pl-2">
+                <input type="text" id="slider3" class="slider" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Valor do produto</label>
+            <div class="slider-container pl-2">
+                <input type="text" id="slider3" class="slider" />
+            </div>
+          </div>
+
+        </div>
+      </div>
+  </div>
+</div>
+
+
+<script src="../../../assets/js/rSlider.js"></script>
+<script src="../../../assets/js/script.js"></script>

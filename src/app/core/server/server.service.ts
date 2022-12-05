@@ -1,5 +1,5 @@
 import { SnackProduct } from './../model/interfaces/Product';
-import { Categorie } from './../services/SnackService';
+import { Categorie, Filter } from './../services/SnackService';
 import { Snack } from 'src/app/core/model/interfaces/Product';
 import { Address } from './../model/interfaces/User';
 import { ProductService } from './../global/product.service';
@@ -197,8 +197,9 @@ export class ServerService {
       return this.talkToServer('users/update_address', {address}, {type: 'PUT'});
     }
 
-    async getSnacks (): Promise<SnackProduct[]> {
-      return this.talkToServer('products/snacks');
+    async getSnacks (termo: string, filter: Filter): Promise<SnackProduct[]> {
+
+      return this.talkToServer('products/get_products_snack', { filter: JSON.stringify(filter), termo});
     }
 
     async getCategories (): Promise<Categorie> {
