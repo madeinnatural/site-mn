@@ -1,3 +1,5 @@
+import { GlobalEventService } from './../../core/global/global.service';
+import { CookieService } from '@ngx-toolkit/cookie';
 import { Product, SnackProduct } from './../../core/model/interfaces/Product';
 import { Observable, map, mapTo } from 'rxjs';
 import { Categorie } from './../../core/services/SnackService';
@@ -23,7 +25,9 @@ export class SnackPage implements OnInit {
 
   constructor(
     public sanckService: SnackService,
-    public router: ActivatedRoute
+    public router: ActivatedRoute,
+    public cookie: CookieService,
+    public global: GlobalEventService,
   ) {
     const data = this.router.data;
     data.subscribe((response) => {
@@ -32,12 +36,33 @@ export class SnackPage implements OnInit {
         categeories: Observable<Categorie[]>
       } = (response as any).data;
 
-      function vefiryQuantity(productId: number) {
-        return 0
+      const cartLocalStorage = cookie.getItem(global.CART_PATH);
+      let cart = cartLocalStorage ? JSON.parse(cartLocalStorage) : null;
+
+      const vefiryQuantity = (productId: number) => {
+        if (cart) {
+          const product = cart.find((product: Product) => product.id == productId);
+          if (product) {
+            return product.quantity;
+          } else {
+            return 0;
+          }
+        } else {
+          return 0
+        }
       }
 
-      function vefirySubTotal(productId: number) {
-        return 0
+      const vefirySubTotal = (productId: number) => {
+        if (cart) {
+          const product = cart.find((product: Product) => product.id == productId);
+          if (product) {
+            return product.parcial_price;
+          } else {
+            return 0
+          }
+        } else {
+          return 0
+        }
       }
 
       dataR.product.pipe(map(
@@ -50,7 +75,7 @@ export class SnackPage implements OnInit {
               price: product.price,
               product_weight: product.weight,
               quantity: vefiryQuantity(product.id),
-              subTotal: vefirySubTotal(product.id),
+              subTotal: vefiryQuantity(product.id) * product.price * product.weight,
               secondary_category: product.secondary_category,
             }
           })
