@@ -67,7 +67,7 @@ export class SnackPage implements OnInit {
 
       dataR.product.pipe(map(
         productr => {
-          return productr.map((product:any) => {
+          const data = productr.map((product:any) => {
             return {
               id: product.id,
               display_name: product.display_name,
@@ -79,6 +79,8 @@ export class SnackPage implements OnInit {
               secondary_category: product.secondary_category,
             }
           })
+          console.log(data);
+          return data
         }
       )).subscribe((response) => {
         this.sanckService.productInCart = response;

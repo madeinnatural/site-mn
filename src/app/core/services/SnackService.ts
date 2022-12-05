@@ -61,7 +61,8 @@ export class SnackService {
   protected increment(id: number) {
     this.productInCart.forEach((product, index) => {
       if (product && product.id === id) {
-        product.quantity += 1;
+        console.log(product.quantity);
+        // product.quantity += 1;
         product.subTotal = product.price * product.product_weight * product.quantity;
       }
     });
@@ -167,10 +168,7 @@ export class SnackService {
   }
 
   // Funções all
-  async refresh() {
-
-    // const categeories = await this.getCategories();
-  }
+  async refresh() {}
 
   decrementSnackQuantity(id: number) {
     this.decrement(id);
@@ -193,8 +191,35 @@ export class SnackService {
 
   async searchProduct(termo: string) {
     const filter = this.filter;
-    this.productInCart = await this.server.getSnacks(termo, filter);
-  }
+
+    const cartJson = this.cookie.getItem(this.global.CART_PATH);
+    const cart = cartJson ? JSON.parse(cartJson) : [];
+    const vefiryQuantity = (productId: number) => {
+      if (cart) {
+        const product = cart.find((product: any) => product.id == productId);
+        if (product) {
+          return product.quantity;
+        } else {
+          return 0;
+        }
+      } else {
+        return 0
+      }
+    }
+
+    this.productInCart = (await this.server.getSnacks(termo, filter)).map((product:any) => {
+        return {
+          id: product.id,
+          display_name: product.display_name,
+          name: product.product_name,
+          price: product.price,
+          product_weight: product.weight,
+          quantity: vefiryQuantity(product.id),
+          subTotal: vefiryQuantity(product.id) * product.price * product.weight,
+          secondary_category: product.secondary_category,
+        }
+      })
+    }
 
 }
 
