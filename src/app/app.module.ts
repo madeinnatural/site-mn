@@ -6,6 +6,7 @@ import { PagesModule } from './pages/pages.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -43,6 +44,7 @@ import { AuthQuard } from './core/guards/auth.quard';
     NgbPaginationModule,
     NgbAlertModule,
     MatFormFieldModule,
+    FontAwesomeModule
   ],
   providers: [
     AuthQuard,

@@ -7,6 +7,7 @@ import { GlobalEventService } from './../../core/global/global.service';
 import { AccountService } from './../../core/account/account.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,9 @@ import { NavigationExtras, Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
+  faCoffee = faCoffee;
+
+  openMenu: boolean = false;
 
   user: User;
 

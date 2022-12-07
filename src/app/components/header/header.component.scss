@@ -1,54 +1,292 @@
-// header fixado no top estilo carrinha de compra
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 60px;
-  background-color: #fff;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+
+a {
+  color: inherit;
 }
 
-@media screen and (max-width: 780px) {
-  .hidder-780{
-    display:none;
+.dropdown {
+  &-list {
+    justify-content: center; text-decoration: none;
+  }
+}
+
+
+.search {
+  padding: 0;
+  margin: 0;
+
+  &-box {
+    position: relative;
+    background-color: #c7fcd7;
+    height: 40px;
+    border-radius: 40px;
+    padding: 10px;
   }
 
-  .show-780{
-    display: block;
+  &-btn {
+    color: #e84118;
+    float: right;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 2s;
   }
 
-  .mobile-menu {
+  &-txt {
+    border: none;
+    background: none;
+    outline: none;
+    float: left;
+    padding: 0;
+    color: #5c4f79;
+    font-size: 16px;
+    transition: 0.4s;
+    line-height: 20px;
+    width: 0px;
+  }
 
-    // Menu mobile
-    &-response {
+  &-box:hover > &-txt {
+    width: auto;
+    padding: 0 6px;
+  }
+
+  &-box:hover > &-btn {
+    background: #fff;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@import '../../../assets/styles.scss';
+
+.header{
+   position: fixed;
+   display: flex;
+   align-items: center;
+   width: 100%;
+   height: 4rem;
+   background: #fff;
+   position: sticky;
+   top: 0;
+   z-index: 999;
+   justify-content: space-between;
+   border-bottom: 1px solid var(--neutral-light);
+
+   &-extend{
+      border: 0;
+   }
+
+   &-mobile-btn{
+      background: transparent;
+      border: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      width: 4rem;
+      height: 4rem;
+
+      ::ng-deep .icon{
+         fill: var(--neutral-darkest);
+      }
+   }
+
+   &-brand{
+      width: auto;
+      display: flex;
+      justify-content: center;
+
+      img{
+         height: 3rem;
+      }
+
+   }
+
+   &-user{
+      display: flex;
+      justify-content: end;
+   }
+
+   &-menu, &-brand, &-user{
+      display: content;
+      flex: 1;
+   }
+
+   &-nav{
+      @extend .transition;
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #fff;
-      z-index: 999999;
       opacity: 0;
       visibility: hidden;
-      transition: all 0.5s ease-in-out;
-      &.active {
-        opacity: 1;
-        visibility: visible;
-      }
-    }
-    &-hider {
-      display: none;
-    }
+      left: 0;
+      top: 4rem;
+      width: 100%;
+      height: calc(100vh - 4rem);
+      background: #fff;
 
-  }
+      &.active{
+         opacity: 1;
+         visibility: visible;
+         top: 4rem;
+      }
+
+      ul{
+         padding: 0;
+         margin: 0;
+         list-style: none;
+      }
+
+      li{
+         margin: 0;
+         padding: 0;
+
+         a{
+            @extend .text-sm;
+            color: var(--neutral-darkest);
+            display: flex;
+            height: 4rem;
+            align-items: center;
+            padding: 0 2rem;
+            width: 100%;
+            border-bottom: 1px solid var(--neutral-light);
+
+            &:focus, &:hover{
+               text-decoration: none;
+            }
+
+         }
+
+      }
+
+   }
+
+   &-mobile{
+      display: initial;
+   }
+
+   &-desktop{
+      display: none;
+   }
+
 }
+
+
+// DESKTOP //////////////////////////////////////////////
+@media (min-width: 767px) {
+   .header{
+      height: 4rem;
+      position: fixed;
+      padding: 0 3rem;
+
+      &-menu{
+         display: none;
+      }
+
+      &-brand{
+
+         img{
+            height: 4rem;
+            width: auto;
+         }
+
+      }
+
+      &-user{
+         display: none;
+
+         &-btn{
+            padding: 0 2rem 0 12px;
+
+            img{
+               margin-top: -3px;
+            }
+
+         }
+
+      }
+
+      &-menu, &-brand, &-user{
+         flex: 0;
+         display: content;
+      }
+
+      &-nav{
+         position: relative;
+         background: transparent;
+         height: auto;
+         width: auto;
+         left: auto;
+         top: auto;
+         display: flex;
+          text-align: center;
+         opacity: 1;
+         visibility: visible;
+
+         &.active{
+            top: 0;
+         }
+
+         ul{
+            display: flex;
+            align-items: center;
+         }
+
+         li a{
+            border: 0;
+            height: auto;
+
+            &:hover{
+               text-decoration: none;
+               color: var(--primary);
+            }
+
+         }
+
+         .btn{
+            margin-left: 2rem;
+          }
+
+      }
+
+      &-mobile{
+         display: none;
+      }
+
+      &-desktop{
+         display: initial;
+      }
+
+   }
+}
+

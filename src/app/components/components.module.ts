@@ -69,6 +69,7 @@ import { MnButtonComponent } from './mn-button/mn-button.component';
 import { MnFormComponent } from './mn-form/mn-form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { CartHeaderComponent } from './header/cart-header/cart-header.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -142,6 +143,7 @@ import { CartHeaderComponent } from './header/cart-header/cart-header.component'
     MatTooltipModule,
     MatTreeModule,
     TextMaskModule,
+    FontAwesomeModule
   ],
   exports: [
     HeaderComponent,

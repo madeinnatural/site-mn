@@ -1,3 +1,4 @@
+import { ProductService } from './../global/product.service';
 
 import { CartProduct, Item, ProductList } from './../model/interfaces/Product';
 import { ServerService } from './../server/server.service';
@@ -52,6 +53,7 @@ export class SnackService {
 
   constructor(
     public server: ServerService,
+    public productService: ProductService,
     public cookie: CookieService,
     public global: GlobalEventService
   ) {
@@ -62,7 +64,7 @@ export class SnackService {
     this.productInCart.forEach((product, index) => {
       if (product && product.id === id) {
         console.log(product.quantity);
-        // product.quantity += 1;
+        product.quantity += 1;
         product.subTotal = product.price * product.product_weight * product.quantity;
       }
     });
@@ -70,17 +72,19 @@ export class SnackService {
 
   protected decrement(id: number) {
     if (this._productInCart.length === 0) throw new Error("Carrinho vazio service");
-    this._productInCart.forEach((product, index ) => {
-      if (product && product.id === id) {
-        if (product.quantity > 1) {
-          const priceOld = product.price * product.product_weight * product.quantity;
-          product.subTotal = product.price - priceOld
-          product.quantity -= 1;
-        } else {
-          this._productInCart.splice(index, 1);
-        }
-      }
-    })
+
+    const product = this._productInCart.find((item) => item.id === id);
+
+    if (!product) throw new Error('Produto não encontrado');
+
+    if (product.quantity > 1) {
+      product.quantity -= 1;
+      product.subTotal -= product.price * product.product_weight * product.quantity;
+    } else {
+      product.quantity = 0;
+      product.subTotal = 0
+    }
+
   }
 
   // Funções de carrinho Service---------------------------
@@ -117,18 +121,19 @@ export class SnackService {
   // Funções de carrinho Local Storage:add
   protected incrementCart(id: number) {
     const hasCart = this.cookie.hasItem(this.global.CART_PATH);
-    const product = this.productInCart.find((item) => item.id === id);
+    const indexProduct = this.productInCart.findIndex((item) => item.id === id);
 
-    if (!product) throw new Error('Produto não encontrado');
-    if (!hasCart) return this.addCartListLocalStorage(product);
+    if (!indexProduct) throw new Error('Produto não encontrado');
+    if (!hasCart) return this.addCartListLocalStorage(this.productInCart[indexProduct]);
 
-    const productInService = this.productInCart.find((item) => item.id === id);
-    if (!productInService) throw new Error('Produto não encontrado');
+    const product: SnackProduct = {
+      ...this.productInCart[indexProduct],
+    }
 
-    productInService.quantity += 1;
-    productInService.subTotal = productInService.price * productInService.product_weight * productInService.quantity;
+    product.quantity += 1;
+    product.subTotal = this.getParcialPrice( product.price, product.quantity, product.product_weight);
 
-    this.addCartListLocalStorage(productInService);
+    this.addCartListLocalStorage(product);
   }
 
   // Funções de carrinho Local Storage: Classe
@@ -159,6 +164,10 @@ export class SnackService {
 
       this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cartList));
     } else {
+      itemCart.quantity = 1;
+      itemCart.parcial_price = itemCart.quantity * itemCart.product.price * itemCart.product.weight;
+      itemCart.product.quantity = itemCart.quantity;
+      itemCart.product.total = itemCart.product.price * itemCart.product.weight * itemCart.product.quantity;
       this.cookie.setItem(this.global.CART_PATH, JSON.stringify([itemCart]));
     }
   }

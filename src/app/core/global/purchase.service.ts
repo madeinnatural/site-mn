@@ -22,18 +22,14 @@ export class PurchaseService {
     return this.server.getPurchase(id);
   }
 
-  totalPrice() {
+  totalPrice(): number {
     const cart_jason = this.cookieService.getItem('cart');
 
     if (cart_jason) {
-      const cart = this.getCartLocalStorage();
-
-      let total = 0;
-      for (let i = 0; i < cart.filter((e) => e.parcial_price > 0).length; i++) {
-        total += cart[i].product.price * cart[i].product.quantity * cart[i].product.weight;
-      }
-
-      return total;
+      const cart = JSON.parse(cart_jason);
+      return cart.reduce((total: number, item: Item) => {
+        return total + (item.product.price * item.product.quantity * item.product.weight);
+      }, 0);
     }
 
     return 0;

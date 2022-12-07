@@ -5,6 +5,7 @@ import { GlobalEventService } from './core/global/global.service';
 import { GlobalAlertService } from './core/global-alert.service';
 import { AccountService } from './core/account/account.service';
 import { Component } from '@angular/core';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+
+  faCoffee = faCoffee;
 
   hidderHeader = false;
   alert = false;

@@ -1,0 +1,139 @@
+.text-xl {
+   font-size: 20px;
+   line-height: 28px;
+   letter-spacing: 0px;
+}
+
+.text-lg {
+   font-size: 2rem;
+   line-height: 3rem;
+   letter-spacing: 0px;
+}
+
+.text-md {
+   font-size: 14px;
+   line-height: 20px;
+   letter-spacing: 0;
+}
+
+.text-sm {
+   font-size: 12px;
+   line-height: 20px;
+   letter-spacing: 0;
+}
+
+.text-xs {
+   font-size: 10px;
+   line-height: 2rem;
+   letter-spacing: 0;
+}
+
+:root {
+   --spacing-xs: 1rem;
+   --spacing-sm: 2rem;
+   --spacing-md: 2rem;
+   --spacing-lg: 4rem;
+   --spacing-xl: 5rem;
+}
+
+:root {
+   --primary-darkest: #B2051D;
+   --primary-dark: #D60F2A;
+   --primary: #E71935;
+   --primary-light: #FFCFDA;
+   --primary-lightest: #FFE8EE;
+
+   --danger-darkest: #B2051D;
+   --danger-dark: #D60F2A;
+   --danger: #E71935;
+   --danger-light: #FFCFDA;
+   --danger-lightest: #FFE8EE;
+
+   --success-darkest: #60B21E;
+   --success-dark: #73D12A;
+   --success: #73D12A;
+   --success-light: #C3FF80;
+   --success-lightest: #E8F8D1;
+
+   --warning-darkest: #B57B00;
+   --warning-dark: #E89E00;
+   --warning: #F3AE1A;
+   --warning-light: #FFE9BA;
+   --warning-lightest: #FFF4DB;
+
+   --neutral-darkest: #12455F;
+   --neutral-dark: #678898;
+   --neutral: #A7C1CF;
+   --neutral-light: #E1EDF2;
+   --neutral-lightest: #F2F8FC;
+}
+
+@mixin border-radius($radius) {
+   -webkit-border-radius: $radius;
+   -moz-border-radius: $radius;
+   -ms-border-radius: $radius;
+   border-radius: $radius;
+}
+
+@mixin box-shadow($box-shadow) {
+   -webkit-box-shadow: $box-shadow;
+   -moz-box-shadow: $box-shadow;
+   -ms-box-shadow: $box-shadow;
+   box-shadow: $box-shadow;
+}
+
+@mixin blur($blur) {
+   -webkit-filter: blur($blur);
+   -moz-filter: blur($blur);
+   -ms-filter: blur($blur);
+   filter: blur($blur);
+}
+
+.box-shadow {
+   -webkit-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07) !important;
+   -moz-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07) !important;
+   -ms-box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07) !important;
+   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07) !important;
+}
+
+
+// DESKTOP //////////////////////////////////////////////
+@media (min-width: 767px) { 
+
+   :root {
+      --spacing-md: 3rem;
+      --spacing-lg: 5rem;
+      --spacing-xl: 10rem;
+   }
+
+   .text-xl {
+      font-size: 5rem;
+      line-height: 6rem;
+      letter-spacing: -1px;
+   }
+   
+   .text-lg {
+      font-size: 22px;
+      line-height: 4rem;
+      letter-spacing: -1px;
+   }
+
+   .text-md {
+      font-size: 18px;
+      line-height: 4rem;
+      letter-spacing: -0.5px;
+   }
+   
+   .text-sm {
+      font-size: 14px;
+      line-height: 3rem;
+      letter-spacing: 0;
+   }
+   
+   .text-xs {
+      font-size: 12px;
+      line-height: 3rem;
+      letter-spacing: 0;
+   }
+
+}

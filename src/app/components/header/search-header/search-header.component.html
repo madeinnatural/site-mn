@@ -1,5 +1,5 @@
-
-<div class="input-group w-100">
+<!--
+<div class="input-group">
   <div class="input-group-prepend item">
     <span class="input-group-text bg-white">
       <img src="assets/img/pesquisa.svg">
@@ -9,5 +9,14 @@
   <button class="input-group-append input-group-text item bg-white" (click)="bucarProduto()">
       <a class="btn btn-link btn_buscar _color_green">Buscar</a>
   </button>
-</div>
+</div> -->
 
+<div class="search">
+  <div class="search-box">
+    <input class="search-txt" type="text" placeholder="Procure por nome, marca..." [(ngModel)]="query"
+      (keypress)="monteQuery($event)" #name_produc />
+    <a class="search-btn">
+      <i class="fa fa-search" aria-hidden="true"></i>
+    </a>
+  </div>
+</div>

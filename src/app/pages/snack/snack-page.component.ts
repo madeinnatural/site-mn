@@ -95,7 +95,6 @@ export class SnackPage implements OnInit {
 
 
   async ngOnInit() {
-   await this.sanckService.refresh();
   }
 
 
