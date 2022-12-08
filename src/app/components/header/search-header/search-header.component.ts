@@ -1,6 +1,6 @@
 import { GlobalEventService } from '../../../core/global/global.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-header',
@@ -11,6 +11,8 @@ export class SearchHeaderComponent implements OnInit {
 
   query: string = '';
   buscar_header = new EventEmitter<string>();
+
+  @Input() type: 'mobile' | 'desktop' = 'desktop';
 
   constructor(
     public router: Router,

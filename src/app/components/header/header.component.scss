@@ -211,52 +211,6 @@ $button-bg-color: #7f8ff4;
 $button-text-color: #fff;
 
 
-.search {
-  padding: 0px;
-  margin: 0;
-
-  &-desktop {
-    position: relative;
-    top: 50%;
-    background-color: white;
-
-    &-txt {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 40rem;
-      border-radius: 5px;
-      height: 48px;
-      padding-left: 3rem;
-    }
-
-    // Lupa no final do input dentro do input
-    &-lupa {
-      position: absolute;
-      color: #45832f;
-      float: left;
-      margin-left: 1%;
-      height: 3rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: 1s;
-    }
-
-    // Butão de busca dentro do input
-    &-btn {
-      position: absolute;
-      transform: translate(100%, -10%);
-      border: none;
-      bottom: 0;
-
-      cursor: pointer;
-      margin-left: 68%;
-    }
-
-  }
-}
-
 .dropdown {
   &-list {
     justify-content: center;

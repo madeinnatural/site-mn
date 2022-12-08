@@ -29,8 +29,6 @@ export class HeaderComponent implements OnInit {
   showHeader: boolean = true;
   _finalPrice: number = 0;
 
-
-
   change_query(event: any) {
     if (event.target.value) this.query = event.target.value;
   }
@@ -110,16 +108,9 @@ export class HeaderComponent implements OnInit {
 
     this.finalPrice = this.totalPrice();
 
-    // QUANDO NA ROTA DE LOGIN FECHAR MENU
-    this.accountService.hidderHeaderFooter.subscribe((mostrar)=>{
-      this.showHeader = !mostrar;
-    })
-
     this.globalEventService.addItemCartEmit.subscribe(e => {
       this.finalPrice = this.totalPrice()
     });
-
-
 
   }
 

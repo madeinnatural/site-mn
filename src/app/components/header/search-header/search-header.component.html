@@ -1,9 +1,27 @@
-<div class="search ">
+<div *ngIf="type == 'mobile'" class="search ">
   <div class="search-box">
     <input class="search-txt" type="text" placeholder="Procure por nome, marca..." [(ngModel)]="query"
       (keypress)="monteQuery($event)" #name_produc />
     <a class="search-btn">
       <i class="fa fa-search" aria-hidden="true"></i>
     </a>
+  </div>
+</div>
+
+
+<div *ngIf="type == 'desktop'" class="pl-4 search-desktop">
+  <div class="search-desktop-box">
+
+    <span class="search-desktop-lupa">
+      <img src="assets/img/pesquisa.svg">
+    </span>
+
+    <input type="text" class="search-desktop-txt form-control" placeholder="Procure por nome, marca..."
+      [(ngModel)]="query" #name_produc />
+
+    <button (click)="bucarProduto()" class="search-desktop-btn bg-white">
+      <a class="btn btn-link btn_buscar _color_green">Buscar</a>
+    </button>
+
   </div>
 </div>

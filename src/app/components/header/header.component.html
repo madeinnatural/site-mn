@@ -25,22 +25,7 @@
       <img class="header-desktop " src="assets/img/logo.webp" style="height: 3rem;" alt="Made in Natural">
     </a>
 
-    <div class="pl-4 search-desktop">
-        <div class="search-desktop-box">
-
-          <span class="search-desktop-lupa">
-            <img src="assets/img/pesquisa.svg">
-          </span>
-
-          <input type="text" class="search-desktop-txt form-control" placeholder="Procure por nome, marca..."
-            [(ngModel)]="query" #name_produc />
-
-          <button class="search-desktop-btn bg-white">
-            <a class="btn btn-link btn_buscar _color_green">Buscar</a>
-          </button>
-
-        </div>
-    </div>
+    <app-search-header></app-search-header>
 
   </div>
 
@@ -65,9 +50,13 @@
         </li>
       </ul>
     </nav>
+
+    <img class="header-mobile btn" routerLink="/" src="assets/img/icon.png" style="height: 3rem;" alt="Made in Natural">
+
+    <app-search-header type="mobile"></app-search-header>
+
   </div>
 
-  <img class="header-mobile btn" routerLink="/" src="assets/img/icon.png" style="height: 3rem;" alt="Made in Natural">
 
   <div class="header-mobile">
 
