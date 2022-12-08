@@ -1,53 +1,27 @@
+<div class="dropdown open">
 
-<div ngbDropdown>
-
-  <div ngbDropdownToggle class="tn_open_menu_fechar_pedido" style="margin-left: 10px;" >
-
-        <button class="btn border border-white btn-outline-primary bg-white" style="position: relative; ">
-          <img cless="btn_green tot_itens_pedido btn" style="height: 23px;" src="assets/img/bag.svg">
-          <div class="btn_green tot_itens_pedido dropdown-header" style="color: #ffff;" *ngIf="cartLength > 0">
-            {{cartLength}}</div>
-        </button>
-
-        <div ngbDropdownMenu >
-          <!-- FECHAMANDO DO PEDIDO -->
-
-          <div class="btn cont_valor" style="z-index: 99999999;">
-            <div class="d-flex valor ">
-              = {{ finalPrice | currency:'BRL':true:'1.2-2'}}
-            </div>
-
-            <div class="p-4 w-100" >
-              <button ngbDropdownItem
-              *ngIf="goCart"
-              (click)="goCart()"
-              class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido">
-                <a target="_blank" style="color: white;" rel="noopener noreferrer">
-                  Fechar Pedido
-                </a>
-              </button>
+  <button class="btn dropdown-toggle" id="menuPrice" data-toggle="dropdown">
+    <img cless="btn_green" src="assets/img/bag.svg">
+    <div *ngIf="cartLength > 0" class="btn_green contador tot_itens_pedido">
+      {{cartLength}}
+    </div>
+  </button>
 
 
-              <button ngbDropdownItem
-                style="background-color: #ffff;  color: #000000;"
-                *ngIf="!userPresent && goPageRegistration"
-                class="mt-3 text-center text_n_tem_conta">
-                Agradecemos a confiança.
-              </button>
+  <div class="dropdown-menu menu_fechar_pedido dropdown-menu-right" aria-labelledby="menuPrice">
+    <div class="p-4 cont_valor">
+      <div class="valor">= {{ finalPrice | currency:'BRL':true:'1.2-2' }}</div>
+    </div>
+    <div class="p-4 w-100">
 
+      <!-- Buttão loading quando submetido -->
+      <button (click)="goCart()" [disabled]="finalPrice <= 0" class="btn btn_green w-100 rounded-0 text-uppercase btn_fechar_pedido" type="button" disabled>
+        <span *ngIf="loading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        <span *ngIf="!loading">Fechar pedido</span>
+      </button>
 
-              <button ngbDropdownItem
-                style="background-color: #ffff;  color: #000000;"
-                *ngIf="userPresent && goPageRegistration"
-                class="mt-3 text-center text_n_tem_conta">
-                Não possui conta? <a (click)="goPageRegistration()" class="_color_green">Cadastre-se</a>
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
+      <div class="mt-3 text-center text_n_tem_conta">Não possui conta? <a href="" class="_color_green">Cadastre-se</a></div>
+    </div>
   </div>
 
 </div>

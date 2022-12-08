@@ -1,16 +1,52 @@
-
-.item_menu {
-  font-weight: 500 !important;
-  margin-right: 75px !important;
-  color: #202020 !important;;
-  font-size: 14px !important;;
-  border-radius: 5px !important;
-}
-
-.mostrar_valor {
-  margin-bottom: 50px;
-}
-
 .dropdown-toggle::after{
   display: none;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  position: relative;
+  color: #ffff;
+  width: 50px;
+}
+
+button .tot_itens_pedido {
+  position: absolute;
+  margin-bottom: -10px;
+  margin-left: 0;
+  bottom: 0;
+  left: 20px;
+  font-size: 12px;
+  font-weight: 400;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  padding: 0 !important;
+}
+
+.dropdown-menu {
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+
+button a {
+  color: #fff;
+  vertical-align: middle;
+  text-decoration: none;
+  text-align: center;
+}
+
+.menu_fechar_pedido {
+  // Abrir menu pela esquerda
+  left: 0;
+  width: 280px;
+  box-shadow: 0px 13px 17px rgba(0, 0, 0, 0.0509804);
+  border: 1px solid #F5F5F5;
+  a {
+    color: #fff;
+  }
 }

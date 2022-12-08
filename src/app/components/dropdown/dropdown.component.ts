@@ -14,14 +14,21 @@ export class DropdownComponent implements OnInit {
   @Input() cartLength: number = 0;
   @Input() finalPrice: number = 0;
   @Input() userPresent: boolean = false;
-  @Input() goCart?: Function;
   @Input() goPageRegistration?: Function;
+
+  loading: boolean = false;
 
   constructor(
     public nav: Router
   ) {}
 
   ngOnInit() {
+  }
+
+  async goCart () {
+    this.loading = true;
+    await this.nav.navigateByUrl('cart');
+    this.loading = false;
   }
 
 }

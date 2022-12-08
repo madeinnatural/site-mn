@@ -1,45 +1,55 @@
-<header class="header w-100" style="display: flex; justify-content: space-around">
+<header class="header">
 
-  <div class="header-desktop dropdown open ">
-    <button class="btn dropdown" id="triggerId" data-toggle="dropdown" aria-expanded="false"
-        aria-expanded="false">
-        <img class="header-desktop" (click)="openMenu = !openMenu"  style="height: 2rem;" src="assets/img/menu_green.png">
-        </button>
+  <div class="header-desktop dropdown open justify-content-around">
+
+    <button class="btn dropdown" id="triggerId" data-toggle="dropdown" aria-expanded="false" aria-expanded="false">
+      <img class="header-desktop" (click)="openMenu = !openMenu" style="height: 2rem;" src="assets/img/menu_green.png">
+    </button>
     <div class="dropdown-menu" aria-labelledby="triggerId">
-        <button class="dropdown-item">
-          <a class="dropdown-list" target="_blank" href="https://madeinnatural.com.br/para-escritorios">Snacks para
-            empresas</a>
-        </button>
-        <button class="dropdown-item">
-          <a class="dropdown-list" target="_blank" href="https://madeinnatural.com.br/seja-revendedor">Seja Revendedo</a>
-        </button>
-        <button class="dropdown-item">
-          <a class="dropdown-list" target="_blank" href="https://www.loja.madeinnatural.com.br/">Para sua Casa</a>
-        </button>
-        <button class="dropdown-item">
-          <a class="dropdown-list" target="_blank" href="https://contato.madeinnatural.com.br">Fale Cosnosco</a>
-        </button>
+      <button class="dropdown-item">
+        <a class="dropdown-list" target="_blank" href="https://madeinnatural.com.br/para-escritorios">Snacks para
+          empresas</a>
+      </button>
+      <button class="dropdown-item">
+        <a class="dropdown-list" target="_blank" href="https://madeinnatural.com.br/seja-revendedor">Seja Revendedo</a>
+      </button>
+      <button class="dropdown-item">
+        <a class="dropdown-list" target="_blank" href="https://www.loja.madeinnatural.com.br/">Para sua Casa</a>
+      </button>
+      <button class="dropdown-item">
+        <a class="dropdown-list" target="_blank" href="https://contato.madeinnatural.com.br">Fale Cosnosco</a>
+      </button>
     </div>
+
+    <a class="header-desktop pl-2" routerLink="/" href="javascript:void(0)">
+      <img class="header-desktop " src="assets/img/logo.webp" style="height: 3rem;" alt="Made in Natural">
+    </a>
+
+    <div class="pl-4 search-desktop">
+        <div class="search-desktop-box">
+
+          <span class="search-desktop-lupa">
+            <img src="assets/img/pesquisa.svg">
+          </span>
+
+          <input type="text" class="search-desktop-txt form-control" placeholder="Procure por nome, marca..."
+            [(ngModel)]="query" #name_produc />
+
+          <button class="search-desktop-btn bg-white">
+            <a class="btn btn-link btn_buscar _color_green">Buscar</a>
+          </button>
+
+        </div>
+    </div>
+
   </div>
 
-  <a class="header-desktop" routerLink="/"  href="javascript:void(0)">
-    <img class="header-desktop" src="assets/img/logo.webp" style="height: 3rem;" alt="Made in Natural">
-  </a>
-
-  <div class="header-mobile" (click)="openMenu = !openMenu">
-    <img style="height: 2rem;" src="assets/img/menu_green.png">
+  <div class="header-mobile">
+    <img class="btn" (click)="openMenu = !openMenu" style="height: 2rem;" src="assets/img/menu_green.png">
 
     <nav class="header-nav" [class.active]="openMenu">
       <ul>
-        <li class="header-mobile d-flex justify-content-center">
-          <!-- <img class="header-mobile" src="assets/img/icon.png" style="height: 3rem;" alt="Made in Natural"> -->
 
-          <button class="btn " (click)="goProfile()">
-            <img style="height: 23px;" src="assets/img/user.svg">
-          </button>
-
-          <!-- <a routerLink="/" href="javascript:void(0);" style="justify-content: center;">Home</a> -->
-        </li>
         <li class="header-mobile">
           <a style="justify-content: center;" href="https://madeinnatural.com.br/para-escritorios">Snacks para
             empresas</a>
@@ -57,65 +67,29 @@
     </nav>
   </div>
 
-  <img class="header-mobile" routerLink="/" src="assets/img/icon.png" style="height: 3rem;" alt="Made in Natural">
+  <img class="header-mobile btn" routerLink="/" src="assets/img/icon.png" style="height: 3rem;" alt="Made in Natural">
 
-  <app-search-header class="header-mobile"></app-search-header>
+  <div class="header-mobile">
+
+    <button class="btn" (click)="goProfile()">
+      <img style="height: 23px;" src="assets/img/user.svg">
+    </button>
+
+    <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice" [userPresent]="!user"
+     [goPageRegistration]="goPageRegistration">
+    </app-dropdown>
+  </div>
 
   <div class="header-desktop">
-
-    <div class="d-flex justify-content-between">
 
       <button class="btn" (click)="goProfile()">
         <img style="height: 23px;" src="assets/img/user.svg">
       </button>
 
-      <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice"
-        [userPresent]="!user" [goCart]="goCart" [goPageRegistration]="goPageRegistration">
+      <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice" [userPresent]="!user"
+         [goPageRegistration]="goPageRegistration">
       </app-dropdown>
-
-    </div>
 
   </div>
 
 </header>
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <ng-template #logo>
-  <div (click)="goHome()" class="d-none d-md-block pl-2">
-    <div class="logo d-flex align-items-center ">
-      <a>
-        <img style="height: 53px;" alt="Logo Made in Natural" src="assets/img/logo.webp" class="img-fluid" />
-      </a>
-    </div>
-  </div>
-</ng-template> -->
-
-
-<!-- <app-dropdown class="mobile-menu-hider"></app-dropdown>
-<ng-template [ngTemplateOutlet]="logo"></ng-template>
-
-<app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice"
-[userPresent]="!user?.name" [goCart]="goCart" [goPageRegistration]="goPageRegistration">
-</app-dropdown>
-
-<button class="btn " (click)="goProfile()">
-  <img style="height: 23px;" src="assets/img/user.svg">
-</button>
-
-<app-cart-header
-[goPageRegistration]="goPageRegistration"
-[cartLength]="cartLength"
-[finalPrice]="finalPrice"
-[user]="user"
->
-</app-cart-header> -->
