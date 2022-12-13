@@ -11,6 +11,7 @@ export class ProductList {
     public provider_tertiary?: string,
     public categoria?: string,
     public unit?: string,
+    public type_packing?: string,
     public created_at?: Date
   ){}
 }

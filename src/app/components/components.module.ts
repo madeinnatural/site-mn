@@ -70,6 +70,7 @@ import { MnFormComponent } from './mn-form/mn-form.component';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { CartHeaderComponent } from './header/cart-header/cart-header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TableComponent } from './table/table.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     CardCompanyLinksComponent,
     CartHeaderComponent,
     TitlePageComponent,
-    ButtonMainComponent
+    ButtonMainComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,
@@ -171,7 +173,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ButtonCartComponent,
     PublicidadeHomeComponent,
     CartHeaderComponent,
-    TitlePageComponent
+    TitlePageComponent,
+    TableComponent
   ],
 })
 export class ComponentsModule {}

@@ -88,25 +88,24 @@ export class ProductsCartComponent implements OnInit {
 
 
   changeCartData () {
-
     const quantidade = this.productService.getQuantidade();
     const total = this.productService.getTotal();
 
     this.data_card.emit({quantidade,total})
   }
 
-  addItemCart(product: ProductList) {
-    this.productService.addItem(product.id);
+  addItemCart(id: number) {
+    this.productService.addItem(id);
     this.changeCartData();
   }
 
-  removeItem(product: ProductList) {
-    this.productService.decreseItem(product.id);
+  removeItem(id: number) {
+    this.productService.decreseItem(id);
     this.changeCartData();
   }
 
-  initCart(product: ProductList) {
-    this.productService.initCart(product.id);
+  initCart(id: number) {
+    this.productService.initCart(id);
     this.changeCartData();
   }
 

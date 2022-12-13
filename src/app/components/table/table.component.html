@@ -1,0 +1,144 @@
+<table class="table" *ngIf="productList | async as products; else loading ">
+
+    <ng-container *ngIf="productList | async as products; else loading">
+
+        <thead *ngIf="products.length;">
+            <tr class="bg-white">
+                <th scope="col">Produto</th>
+                <th scope="col" class="classe-nova text-center">Valo parcial</th>
+                <th scope="col" class="classe-nova pl-4"></th>
+            </tr>
+        </thead>
+
+        <tbody *ngIf="products.length; else productNull">
+
+            <tr *ngFor="let product of products; index as i">
+                <td scope="row" style="max-width: 400px;" class="col-auto">
+
+                    <div class="classe-nova">
+                        <h5> {{product.product_name}} </h5>
+                        <div>
+                            <span scope="row" class="classe-nova">Unidade: {{ product.weight }} kg</span>
+                            <div class="ml-3 text-white"></div>
+                            <span class="text-muted">Preço: {{ product.price | currency: 'R$' }}</span>
+                            <div class="ml-3 text-white"></div>
+                        </div>
+                    </div>
+
+                    <div class="d-lg-none" style="margin-top: 10px; gap: 10px">
+
+                        <div class="card">
+                            <div class="card-body row">
+
+                                <div class="card-body">
+                                    <h4 class="card-title">{{product.product_name}}</h4>
+
+                                    <h6 class="card-subtitle text-muted">{{ product.provider_primary }}</h6>
+
+                                    <div *ngIf="product.quantity">
+                                        <span class="text-muted"> Unidade de: {{product.weight}} kg</span>
+                                        <div class="ml-3 text-white"></div>
+                                        <span>Parcial: {{product.quantity * product.price * product.weight | currency:
+                                            'R$' }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+
+                                    <button (click)="addItem(product.id);" *ngIf="!product.quantity; else cartNotNull"
+                                        class="btn  w-100" type="button" aria-expanded="false"
+                                        aria-controls="contentID">
+                                        <img style="height: 16px; padding-left: 10px !important;"
+                                            src="assets/img/carrinho.svg" />
+                                        Adicionar ao carrinho
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                            <ng-template #cartNotNull>
+                                <div class="card-body d-flex justify-content-center"
+                                    style="text-align: -webkit-center !important;"
+                                    *ngIf="product.quantity && product.quantity > 0">
+                                    <div class="row">
+                                        <button (click)="removeItem(product.id)" class="btn btn_remove">
+                                            <img style="width: 12px;" src="assets/img/minus.svg">
+                                        </button>
+                                        <h5 class="mx-2">{{product.quantity}}</h5>
+                                        <button (click)="addItem(product.id)" class="btn btn_remove">
+                                            <img style="width: 12px;" src="assets/img/add.svg">
+                                        </button>
+                                    </div>
+                                </div>
+                            </ng-template>
+
+
+                        </div>
+
+
+
+                    </div>
+
+                </td>
+                <td scope="row" class="classe-nova col-auto">
+                    <!-- card de preço -->
+                    <div class="card">
+                        <div class=" card-body align-items-center d-flex justify-content-center col-sm">
+                            <h5>{{ product.quantity * product.price * product.weight| currency: 'R$' }}</h5>
+                        </div>
+                    </div>
+                    <!-- sub total -->
+                </td>
+
+                <td scope="row" class="classe-nova pull-right">
+
+                    <div style="max-width: 460px; height: 72px" class="d-flex align-items-center">
+                        <span (click)="addItem(product.id);" *ngIf="!product.quantity; else cartNotNull">
+                            <button class="btn d-flex align-items-center">
+                                <img style="width: 26px;" src="assets/img/carrinho.svg">
+                                <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
+                            </button>
+                        </span>
+                    </div>
+
+                </td>
+            </tr>
+
+        </tbody>
+
+        <tbody>
+            <tr *ngIf="products.length < 100">
+                <td colspan="5" class="text-center bg-white">
+                    <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
+                        VER LISTA COMPLETA
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+
+    </ng-container>
+
+</table>
+
+
+<ng-template #loading>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div>
+                    <app-loading></app-loading>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+
+<ng-template #productNull>
+    <tr>
+        <td colspan="5" class="text-center">
+            <h5>Nenhum produto encontrado</h5>
+        </td>
+    </tr>
+</ng-template>
