@@ -61,29 +61,29 @@ export class SnackService {
 
   // Funções de listagem
   protected increment(id: number) {
-    this.productInCart.forEach((product, index) => {
-      if (product && product.id === id) {
-        console.log(product.quantity);
-        product.quantity += 1;
-        product.subTotal = product.price * product.product_weight * product.quantity;
-      }
-    });
+    // this.productInCart.forEach((product, index) => {
+    //   if (product && product.id === id) {
+    //     console.log(product.quantity);
+    //     product.quantity += 1;
+    //     product.subTotal = product.price * product.product_weight * product.quantity;
+    //   }
+    // });
   }
 
   protected decrement(id: number) {
-    if (this._productInCart.length === 0) throw new Error("Carrinho vazio service");
+    // if (this._productInCart.length === 0) throw new Error("Carrinho vazio service");
 
-    const product = this._productInCart.find((item) => item.id === id);
+    // const product = this._productInCart.find((item) => item.id === id);
 
-    if (!product) throw new Error('Produto não encontrado');
+    // if (!product) throw new Error('Produto não encontrado');
 
-    if (product.quantity > 1) {
-      product.quantity -= 1;
-      product.subTotal -= product.price * product.product_weight * product.quantity;
-    } else {
-      product.quantity = 0;
-      product.subTotal = 0
-    }
+    // if (product.quantity > 1) {
+    //   product.quantity -= 1;
+    //   product.subTotal -= product.price * product.product_weight * product.quantity;
+    // } else {
+    //   product.quantity = 0;
+    //   product.subTotal = 0
+    // }
 
   }
 
@@ -102,74 +102,74 @@ export class SnackService {
 
   // Funções de carrinho Local Storage: remove
   protected decrementCart(id: any): void {
-    const hasCart = this.cookie.hasItem(this.global.CART_PATH);
-    if (!hasCart) throw new Error('Carrinho não encontrado');
+    // const hasCart = this.cookie.hasItem(this.global.CART_PATH);
+    // if (!hasCart) throw new Error('Carrinho não encontrado');
 
-    const product = this.productInCart.find((item) => item.id === id);
-    if (!product) throw new Error('Produto não encontrado');
+    // const product = this.productInCart.find((item) => item.id === id);
+    // if (!product) throw new Error('Produto não encontrado');
 
-    product.quantity -= 1;
-    product.subTotal = this.getParcialPrice(
-      product.price,
-      product.quantity,
-      product.product_weight
-    )
+    // product.quantity -= 1;
+    // product.subTotal = this.getParcialPrice(
+    //   product.price,
+    //   product.quantity,
+    //   product.product_weight
+    // )
 
-    this.addCartListLocalStorage(product);
+    // this.addCartListLocalStorage(product);
   }
 
   // Funções de carrinho Local Storage:add
   protected incrementCart(id: number) {
-    const hasCart = this.cookie.hasItem(this.global.CART_PATH);
-    const indexProduct = this.productInCart.findIndex((item) => item.id === id);
+    // const hasCart = this.cookie.hasItem(this.global.CART_PATH);
+    // const indexProduct = this.productInCart.findIndex((item) => item.id === id);
 
-    if (!indexProduct) throw new Error('Produto não encontrado');
-    if (!hasCart) return this.addCartListLocalStorage(this.productInCart[indexProduct]);
+    // if (!indexProduct) throw new Error('Produto não encontrado');
+    // if (!hasCart) return this.addCartListLocalStorage(this.productInCart[indexProduct]);
 
-    const product: SnackProduct = {
-      ...this.productInCart[indexProduct],
-    }
+    // const product: SnackProduct = {
+    //   ...this.productInCart[indexProduct],
+    // }
 
-    product.quantity += 1;
-    product.subTotal = this.getParcialPrice( product.price, product.quantity, product.product_weight);
+    // product.quantity += 1;
+    // product.subTotal = this.getParcialPrice( product.price, product.quantity, product.product_weight);
 
-    this.addCartListLocalStorage(product);
+    // this.addCartListLocalStorage(product);
   }
 
   // Funções de carrinho Local Storage: Classe
-  private transformerCartProduct(product: SnackProduct ): CartProduct {
+  private transformerCartProduct(product: SnackProduct, price: number, parcial_price: number ): CartProduct {
     return {
-      quantity: product.quantity,
+      quantity: 0,
       id: product.id,
-      parcial_price: product.price,
+      parcial_price,
       product: {
         id: product.id,
         product_name: product.name,
-        weight: product.product_weight,
-        price: product.price * product.product_weight,
-        quantity: product.quantity,
+        weight: product.weight,
+        price: price,
+        quantity: 0,
       }
     }
   }
 
   private addCartListLocalStorage (productInService: SnackProduct) {
-    const itemCart = this.transformerCartProduct(productInService);
-    const cart = this.cookie.getItem(this.global.CART_PATH);
-    if (cart) {
-      const cartList: CartProduct[] = JSON.parse(cart);
-      const productInCartMacthIndex = cartList.findIndex((item) => item.id === productInService.id);
+    // const itemCart = this.transformerCartProduct(productInService);
+    // const cart = this.cookie.getItem(this.global.CART_PATH);
+    // if (cart) {
+    //   const cartList: CartProduct[] = JSON.parse(cart);
+    //   const productInCartMacthIndex = cartList.findIndex((item) => item.id === productInService.id);
 
-      if (productInCartMacthIndex != -1) cartList[productInCartMacthIndex] = itemCart;
-      else cartList.push(itemCart);
+    //   if (productInCartMacthIndex != -1) cartList[productInCartMacthIndex] = itemCart;
+    //   else cartList.push(itemCart);
 
-      this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cartList));
-    } else {
-      itemCart.quantity = 1;
-      itemCart.parcial_price = itemCart.quantity * itemCart.product.price * itemCart.product.weight;
-      itemCart.product.quantity = itemCart.quantity;
-      itemCart.product.total = itemCart.product.price * itemCart.product.weight * itemCart.product.quantity;
-      this.cookie.setItem(this.global.CART_PATH, JSON.stringify([itemCart]));
-    }
+    //   this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cartList));
+    // } else {
+    //   itemCart.quantity = 1;
+    //   itemCart.parcial_price = itemCart.quantity * itemCart.product.price * itemCart.product.weight;
+    //   itemCart.product.quantity = itemCart.quantity;
+    //   itemCart.product.total = itemCart.product.price * itemCart.product.weight * itemCart.product.quantity;
+    //   this.cookie.setItem(this.global.CART_PATH, JSON.stringify([itemCart]));
+    // }
   }
 
   private getParcialPrice(price: number, quant: number, weigh: number) {
@@ -222,7 +222,7 @@ export class SnackService {
           display_name: product.display_name,
           name: product.product_name,
           price: product.price,
-          product_weight: product.weight,
+          weight: product.weight,
           quantity: vefiryQuantity(product.id),
           subTotal: vefiryQuantity(product.id) * product.price * product.weight,
           secondary_category: product.secondary_category,

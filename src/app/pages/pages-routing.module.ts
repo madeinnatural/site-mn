@@ -1,4 +1,5 @@
-import { SnackResolve } from './../core/guards/product-snacks.resolver';
+import { CategoriesResolver } from './../core/resolvers/categories.resolver';
+import { SnackResolve } from '../core/resolvers/product-snacks.resolver';
 import { SnackPage } from './snack/snack-page.component';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
@@ -32,7 +33,7 @@ const routes: Routes = [
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
   {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
-  {path: 'snacks', resolve: { data: SnackResolve }, component: SnackPage},
+  {path: 'snacks', resolve: { productList: SnackResolve, categories: CategoriesResolver }, component: SnackPage},
   {path: 'page-not-found', component: PageNotFoundComponentComponent},
   {path: '**', redirectTo: 'page-not-found'}
 ];

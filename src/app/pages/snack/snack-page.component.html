@@ -25,139 +25,66 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-12">
+    <table class="table">
+      <thead>
+        <tr class="bg-white">
+          <th scope="col">Nome do Produto</th>
+          <th scope="col">Preço</th>
+          <th scope="col">Total Parcial</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of productsTable">
+         <td scope="row" class="w-50">{{item.product.display_name}}</td>
+         <td scope="row">
+          <span *ngIf="item.typeCharge == 'box'">
+            {{item.product.price.box_30 | currency:'BRL':true}}
+          </span>
+          <span *ngIf="item.typeCharge == 'unit'">
+            {{item.product.price.unitary | currency:'BRL':true}}
+          </span>
 
-        <table class="table" *ngIf=" sanckService.productInCart else loading ">
+         </td>
+         <td scope="row">
+          <span *ngIf="item.subTotal" >{{ item.subTotal | currency:'BRL':true }}</span>
+         </td>
+         <td scope="row" class="controller">
 
-          <ng-container *ngIf="sanckService.productInCart else loading">
+          <button class="btn" (click)="item.typeCharge = 'none' " type="button" aria-expanded="false" *ngIf="item.quantity == 0 && !item.typeCharge">
+            <img style="height: 16px; padding-left: 10px !important;"src="assets/img/carrinho.svg" /> Adicionar ao carrinho
+          </button>
 
-            <thead *ngIf="sanckService.productInCart.length;">
-              <tr class="bg-white">
-                <th scope="col">Produto</th>
-                <th scope="col" class="classe-nova text-center">Valo parcial</th>
-                <th scope="col" class="classe-nova pl-4"></th>
-              </tr>
-            </thead>
+          <div *ngIf="item.typeCharge && item.quantity == 0" class="embalagem">
+            <span class="embalagem-title">Escolha qual tipo de embalagem</span>
+            <div class="embalagem-body">
+              <button (click)="changeTypeCharge(item, 'box')" class="button-16" role="button" type="button">
+                <span class="text">Caixa</span>
+              </button>
+              <button (click)="changeTypeCharge(item, 'unit')" class="button-16" role="button" type="button">
+                <span class="text">Kg</span>
+              </button>
+            </div>
+          </div>
 
-            <tbody *ngIf="sanckService.productInCart.length; else loading">
+          <!-- Borões de adicionar e remover item -->
+          <div class="d-flex align-items-center" *ngIf="item.typeCharge && item.quantity > 0">
+            <button (click)="removeProductQuantity(item)" class="btn btn_remove" type="button" aria-expanded="false">
+              <img style="width: 12px;" src="assets/img/minus.svg">
+            </button>
+            <div class="ml-2 mr-2">
+              {{item.quantity}}
+            </div>
+            <button (click)="addProductQuantity(item)" class="btn btn_remove" type="button" aria-expanded="false">
+              <img style="width: 12px;" src="assets/img/add.svg">
+            </button>
+          </div>
 
-              <tr *ngFor="let product of sanckService.productInCart; index as i">
-                <td scope="row" style="max-width: 400px;" class="col-auto">
+         </td>
 
-                  <div class="classe-nova">
-                    <h5> {{product.display_name}} </h5>
-                    <div>
-                      <span scope="row" class="classe-nova">Unidade: {{ product.product_weight }} kg</span>
-                      <div class="ml-3 text-white"></div>
-                      <span class="text-muted">Preço: {{ product.price | currency: 'R$' }}</span>
-                      <div class="ml-3 text-white"></div>
-                    </div>
-                  </div>
-
-                  <div class="d-lg-none" style="margin-top: 10px; gap: 10px">
-
-                    <div class="card">
-                      <div class="card-body row">
-
-                        <div class="card-body">
-                          <h4 class="card-title">{{product.display_name}}</h4>
-
-                          <h6 class="card-subtitle text-muted">{{ product.secondary_category }}</h6>
-
-                          <div *ngIf="product.quantity">
-                            <span class="text-muted"> Unidade de: {{product.product_weight}} kg</span>
-                            <div class="ml-3 text-white"></div>
-                            <span>Parcial: {{product.quantity * product.price * product.product_weight | currency: 'R$'
-                              }}</span>
-                          </div>
-                        </div>
-
-                        <div class="card-body">
-
-                          <button (click)="sanckService.incrementSnackQuantity(product.id)"
-                            *ngIf="!product.quantity; else cartNotNull" class="btn  w-100" type="button"
-                            aria-expanded="false" aria-controls="contentID">
-                            <img style="height: 16px; padding-left: 10px !important;" src="assets/img/carrinho.svg" />
-                            Adicionar ao carrinho
-                          </button>
-
-                        </div>
-
-                      </div>
-
-                      <ng-template #cartNotNull>
-                        <div class="card-body d-flex justify-content-center"
-                          style="text-align: -webkit-center !important;"
-                          *ngIf="product.quantity && product.quantity > 0">
-                          <div class="row">
-                            <button (click)="sanckService.decrementSnackQuantity(product.id)" class="btn btn_remove">
-                              <img style="width: 12px;" src="assets/img/minus.svg">
-                            </button>
-                            <h5 class="mx-2">{{product.quantity}}</h5>
-                            <button (click)="sanckService.incrementSnackQuantity(product.id)" class="btn btn_remove">
-                              <img style="width: 12px;" src="assets/img/add.svg">
-                            </button>
-                          </div>
-                        </div>
-                      </ng-template>
-
-
-                    </div>
-
-
-
-                  </div>
-
-                </td>
-                <td scope="row" class="classe-nova col-auto">
-                  <!-- card de preço -->
-                  <div class="card">
-                    <div class=" card-body align-items-center d-flex justify-content-center col-sm">
-                      <h5>{{ product.subTotal| currency: 'R$' }}</h5>
-                    </div>
-                  </div>
-                  <!-- sub total -->
-                </td>
-
-                <td scope="row" class="classe-nova pull-right">
-
-                  <div style="max-width: 460px; height: 72px" class="d-flex align-items-center">
-                    <span (click)="sanckService.incrementSnackQuantity(product.id)"
-                      *ngIf="!product.quantity; else cartNotNull">
-                      <button class="btn d-flex align-items-center">
-                        <img style="width: 26px;" src="assets/img/carrinho.svg">
-                        <h6 class="_color_green ml-3 mb-0">Adicionar ao carrinho</h6>
-                      </button>
-                    </span>
-                  </div>
-
-                </td>
-              </tr>
-
-            </tbody>
-
-            <tbody>
-              <tr *ngIf="sanckService.productInCart.length < 100">
-                <td colspan="5" class="text-center bg-white">
-                  <button class="btn d-block m-auto btn_outline_green align-items-center">
-                    VER LISTA COMPLETA
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-
-          </ng-container>
-
-        </table>
-
-        <h6 style="font-size: 14px">
-          * Compra minima por forncedor - R$400.00
-        </h6>
-
-      </div>
-    </div>
-
+        </tr>
+      </tbody>
+    </table>
 
   </div>
 </div>

@@ -15,7 +15,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ProductsCartComponent implements OnInit {
 
-  listProduct: Observable<ProductList[]> = new Observable();
+  productList: Observable<ProductList[]> = new Observable();
   filter: AvancedFilter = { price: 0, category: '' };
   loadingPage = false;
   termo = '';
@@ -50,7 +50,7 @@ export class ProductsCartComponent implements OnInit {
   pullProducts(page: number = 0) {
     this.global.loading.emit(true);
     this.productService.pullProductSever(page).pipe((e) => {
-      this.listProduct = e;
+      this.productList = e;
       return e;
     }).subscribe({
       next: (products) => {
@@ -70,7 +70,7 @@ export class ProductsCartComponent implements OnInit {
   search() {
     return this.serverService.search(this.termo, this.page)
     .pipe(tap((products) => { products.data = this.productService.veryfy_product_in_cart(products.data); return products; }))
-    .pipe(map(element => this.listProduct = of(element.data)))
+    .pipe(map(element => this.productList = of(element.data)))
     .subscribe({
       next: (products) => {
 
@@ -130,7 +130,7 @@ export class ProductsCartComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.listProduct.pipe(map((products) => { products = this.productService.veryfy_product_in_cart(products); return products; }));
+    this.productList.pipe(map((products) => { products = this.productService.veryfy_product_in_cart(products); return products; }));
   }
 
 }

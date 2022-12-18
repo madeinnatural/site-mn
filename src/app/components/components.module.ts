@@ -71,6 +71,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { CartHeaderComponent } from './header/cart-header/cart-header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableComponent } from './table/table.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
   declarations: [
@@ -102,7 +103,8 @@ import { TableComponent } from './table/table.component';
     CartHeaderComponent,
     TitlePageComponent,
     ButtonMainComponent,
-    TableComponent
+    TableComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
@@ -174,7 +176,8 @@ import { TableComponent } from './table/table.component';
     PublicidadeHomeComponent,
     CartHeaderComponent,
     TitlePageComponent,
-    TableComponent
+    TableComponent,
+    SearchComponent
   ],
 })
 export class ComponentsModule {}

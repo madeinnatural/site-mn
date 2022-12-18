@@ -136,9 +136,10 @@ export interface SnackProduct {
   id: number;
   display_name: string;
   name: string;
-  price: number;
-  product_weight: number;
-  quantity: number;
-  subTotal: number;
+  price: {
+    box_30: number,
+    unitary: number,
+  };
+  weight: number;
   secondary_category: string;
 }
