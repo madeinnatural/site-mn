@@ -1,6 +1,7 @@
+import { ProductList } from 'src/app/core/model/interfaces/Product';
 import { GlobalEventService } from './../../core/global/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
-import { SnackProduct } from './../../core/model/interfaces/Product';
+import { SnackProduct, CartProduct } from './../../core/model/interfaces/Product';
 import { ActivatedRoute } from '@angular/router';
 import { Component} from '@angular/core';
 import { SnackService } from '../../core/services/SnackService';
@@ -24,9 +25,7 @@ export class SnackPage {
 
   termo: string = '';
   keyPress(event: any){
-    if (event.key == 'Enter') {
-      this.sanckService.searchProduct(this.termo);
-    }
+    if (event.key == 'Enter') {}
   }
 
   constructor(
@@ -34,22 +33,7 @@ export class SnackPage {
     public router: ActivatedRoute,
     public cookie: CookieService,
     public global: GlobalEventService,
-  ) {
-    const dataResolvers = this.router.data;
-    dataResolvers.subscribe((data) => {
-      this.sanckService.categories = data['categories'];
-      const productList: SnackProduct[] = data['productList'];
-      this.productsTable = productList.map((product) => {
-        return {
-          product,
-          quantity: 0,
-          subTotal: 0,
-        }
-      });
-
-      console.log(this.productsTable);
-    })
-  }
+  ) {}
 
   addProductQuantity(product: TableSnackProduct) {
     product.quantity++;
@@ -58,6 +42,8 @@ export class SnackPage {
     } else if (product.typeCharge == 'unit') {
       product.subTotal = product.product.price.unitary * product.quantity;
     }
+
+    this.addSnackProductLS(product);
   }
 
   removeProductQuantity(product: TableSnackProduct) {
@@ -73,6 +59,51 @@ export class SnackPage {
       product.quantity = 0;
       product.typeCharge = undefined;
     }
+  }
+
+
+  transformerSnackProductinProductList(item: TableSnackProduct) {
+    return new ProductList(
+      item.product.id,
+      item.product.display_name,
+      item.typeCharge == 'box' ? Number(item.product.weight.box): item.product.weight.kg,
+      item.typeCharge == 'box' ? item.product.price.box_30 : item.product.price.unitary,
+      item.quantity,
+      item.typeCharge == 'box' ? item.product.price.box_30 * item.quantity : item.product.price.unitary * item.quantity,
+      'snack',
+      item.product.secondary_category,
+    );
+  }
+
+  addSnackProductLS(product: TableSnackProduct) {
+    const productList = this.transformerSnackProductinProductList(product);
+    const cartJson = this.cookie.getItem(this.global.CART_PATH);
+
+    if (cartJson) {
+      const cart: CartProduct[] = JSON.parse(cartJson);
+      const productCart = cart.find((item) => item.product.id == product.product.id);
+      if (productCart) {
+        productCart.quantity = product.quantity;
+        productCart.parcial_price = product.subTotal;
+      } else {
+        cart.push({
+          id: product.product.id,
+          quantity: product.quantity,
+          parcial_price: product.subTotal,
+          product: productList,
+        });
+      }
+      this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cart));
+    } else {
+      const cart: CartProduct[] = [{
+        id: product.product.id,
+        quantity: product.quantity,
+        parcial_price: product.subTotal,
+        product: productList,
+      }];
+      this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cart));
+    }
+
   }
 
   changeTypeCharge(product: TableSnackProduct, typeCharge: 'box' | 'unit') {

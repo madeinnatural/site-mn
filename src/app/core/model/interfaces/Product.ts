@@ -140,6 +140,9 @@ export interface SnackProduct {
     box_30: number,
     unitary: number,
   };
-  weight: number;
+  weight: {
+    box: string,
+    kg: number
+  };
   secondary_category: string;
 }

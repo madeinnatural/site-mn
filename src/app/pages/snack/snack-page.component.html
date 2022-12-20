@@ -29,6 +29,7 @@
       <thead>
         <tr class="bg-white">
           <th scope="col">Nome do Produto</th>
+          <th scope="col">Base de calculo</th>
           <th scope="col">Preço</th>
           <th scope="col">Total Parcial</th>
           <th scope="col"></th>
@@ -37,6 +38,10 @@
       <tbody>
         <tr *ngFor="let item of productsTable">
          <td scope="row" class="w-50">{{item.product.display_name}}</td>
+         <td scope="row">
+          <span>{{ item.typeCharge == 'box' ? item.product.weight.box.replace('Cx', 'Caixa') : ''}} </span>
+          <span>{{ item.typeCharge == 'unit' ? 'kg ' +item.product.weight.kg : ''}} </span>
+        </td>
          <td scope="row">
           <span *ngIf="item.typeCharge == 'box'">
             {{item.product.price.box_30 | currency:'BRL':true}}
