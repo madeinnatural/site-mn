@@ -1,8 +1,8 @@
-import { ProductService } from './../global/product.service';
-import { ServerService } from './../server/server.service';
+import { ProductService } from './../services/product.service';
+import { ServerService } from './server.service';
 import { SnackProduct } from './../model/interfaces/Product';
 import { Injectable } from '@angular/core';
-import { GlobalEventService } from '../global/global.service';
+import { GlobalEventService } from '../services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 
 export interface Filter {

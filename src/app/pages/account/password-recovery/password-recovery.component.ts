@@ -1,8 +1,8 @@
 import { AlertoInterface } from './../../../core/model/interfaces/Alert';
-import { GlobalEventService } from 'src/app/core/global/global.service';
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { GlobalAlertService } from './../../../core/global-alert.service';
 import { AccountService } from './../../../core/account/account.service';
-import { ServerService } from './../../../core/server/server.service';
+import { ServerService } from '../../../core/services/server.service';
 import { Submitable, MnFormComponent } from './../../../components/mn-form/mn-form.component';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Navigation, Router } from '@angular/router';

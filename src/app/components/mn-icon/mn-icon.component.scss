@@ -1,0 +1,44 @@
+:host{
+  display: flex;
+}
+
+.icon{
+  display: inline-block;
+  margin: 0 auto;
+
+  &-xl{
+     width: 5rem;
+     height: 5rem;
+  }
+
+  &-lg{
+     width: 4rem;
+     height: 4rem;
+  }
+
+  &-md{
+     width: 3rem;
+     height: 3rem;
+  }
+
+  &-sm{
+     width: 2rem;
+     height: 2rem;
+  }
+
+  &-xs{
+     width: 1rem;
+     height: 1rem;
+  }
+
+  &-xxs{
+     width: 0.5rem;
+     height: 0.5rem;
+  }
+
+  &-default{
+     width: 0.8rem;
+     height: 0.8rem;
+  }
+
+}

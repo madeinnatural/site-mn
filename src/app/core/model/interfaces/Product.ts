@@ -19,7 +19,7 @@ export class ProductList {
 export class Product {
   constructor(
     public id: number,
-    public productName: string,
+    public product_name: string,
     public weight: number,
     public price: number,
     public quantity: number,
@@ -40,7 +40,7 @@ export interface CartProduct {
   quantity: number,
   id: number,
   parcial_price: number,
-  product: ProductList
+  // product: ProductList
 }
 
 export class Purchase {
@@ -85,26 +85,26 @@ export class ProductDetail {
   constructor(
     produto: string,
     kg: number,
-    preco: number,
+    price: number,
     categoria: number,
     ativo: number,
-    fornecedor: string,
     unidade: string,
-    nome_exibicao: string,
     categoria2: string,
     categoria4: string,
     ativo_editavel: string,
     qtdd_gramas: string,
     quantidade: string,
-    margem_30: string,
-    margem_1k: string,
-    margem_caixa: string,
   ){}
 }
 
 export interface AvancedFilter {
   price: number;
   category: string;
+}
+
+export interface DataBar {
+  total: number,
+  quantidade: number,
 }
 
 export interface DataSearch {
@@ -132,17 +132,69 @@ export interface Snack {
   secondary_category: string;
 }
 
+export interface CategoriePrice  {
+  box_30?: number,
+  unitary?: number,
+  box?: number,
+}
+
+export interface CategorieWeight {
+  box?: string,
+  kg?: number
+}
+
 export interface SnackProduct {
   id: number;
   display_name: string;
   name: string;
-  price: {
-    box_30: number,
-    unitary: number,
-  };
-  weight: {
-    box: string,
-    kg: number
-  };
+  price: CategoriePrice;
+  weight: CategorieWeight;
   secondary_category: string;
+}
+
+// Vem do servidor da planilha de Editaveis.
+export interface ProductResponse {
+  id: number,
+  active: boolean,
+  name: string,
+  unidade: string,
+  price_category: {
+    weight_unit: number,
+    packing: number
+  },
+  product_categories: {
+    main: string,
+    sub: string,
+    ordinary: string
+  },
+  product_attributes: {
+    weight_unit: number,
+    packing: {
+      packing_quantity: number,
+      packing_weight: number
+    }
+  }
+}
+
+// Envia para o servidor da planilha de Editaveis para registro de produto na compra.
+export interface ProductRequest {
+  product_name: string,
+	quantity: number,
+	price: number, // Preço Caixa ou kg
+  packing: string // Caixa ou KG unidade
+  product_categories: {
+    main: string,
+    sub: string,
+    ordinary: string
+  },
+}
+
+// Mostra os produtos na tela de compra.
+export interface ProductsDisplay {
+  id: number,
+  quantityInCart: number,
+  subTotal: number,
+  product: ProductResponse
+  active?: boolean,
+  typeCharge?: string,
 }

@@ -1,8 +1,8 @@
-import { ServerService } from './../../../../core/server/server.service';
+import { ServerService } from '../../../../core/services/server.service';
 import { UserRegister } from './../../../../core/model/interfaces/User';
 import { MnFormComponent } from './../../../../components/mn-form/mn-form.component';
 import { HttpClient } from '@angular/common/http';
-import { GlobalEventService } from 'src/app/core/global/global.service';
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import User from 'src/app/core/model/interfaces/User';
 import { Submitable } from 'src/app/components/mn-form/mn-form.component';

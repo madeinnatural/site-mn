@@ -1,7 +1,7 @@
 import { Address } from './../model/interfaces/User';
 import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { GlobalEventService } from 'src/app/core/global/global.service';
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import User from '../model/interfaces/User';

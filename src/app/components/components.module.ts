@@ -8,7 +8,7 @@ import { ResumoCompraComponent } from './resumo-compra/resumo-compra.component';
 import { GlobalAlertComponent } from './global-alert/global-alert.component';
 import { AvancedFilterComponent } from './avanced-filter/avanced-filter.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PurchaseService } from './../core/global/purchase.service';
+import { PurchaseService } from './../core/services/purchase.service';
 import { FormComponent } from './form/form.component';
 import { LoadingComponent } from './loading/loading.component';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
@@ -72,6 +72,10 @@ import { CartHeaderComponent } from './header/cart-header/cart-header.component'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TableComponent } from './table/table.component';
 import { SearchComponent } from './search/search.component';
+import { MnIconComponent } from './mn-icon/mn-icon.component';
+import { ButtonQuantityComponent } from './table/button-quantity/button-quantity.component';
+import { ButtonInitCartComponent } from './table/button-init-cart/button-init-cart.component';
+import { CardChooseComponent } from './table/card-choose/card-choose.component'
 
 @NgModule({
   declarations: [
@@ -104,7 +108,11 @@ import { SearchComponent } from './search/search.component';
     TitlePageComponent,
     ButtonMainComponent,
     TableComponent,
-    SearchComponent
+    SearchComponent,
+    MnIconComponent,
+    ButtonQuantityComponent,
+    ButtonInitCartComponent,
+    CardChooseComponent,
   ],
   imports: [
     CommonModule,
@@ -177,7 +185,11 @@ import { SearchComponent } from './search/search.component';
     CartHeaderComponent,
     TitlePageComponent,
     TableComponent,
-    SearchComponent
+    SearchComponent,
+    MnIconComponent,
+    ButtonQuantityComponent,
+    ButtonInitCartComponent,
+    CardChooseComponent
   ],
 })
 export class ComponentsModule {}

@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ProductList } from './../../core/model/interfaces/Product';
+import { ProductList, ProductsDisplay } from './../../core/model/interfaces/Product';
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
@@ -10,22 +10,37 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
 })
 export class TableComponent {
 
-  @Input() productList?: Observable< ProductList[] >;
+  @Input() productList?: Observable< ProductsDisplay[] >;
 
-  @Output() itemRm = new EventEmitter<{id: number}>();
-  @Output() itemAdd = new EventEmitter<{id: number}>();
+  @Output() itemRm = new EventEmitter<any>();
+  @Output() itemAdd = new EventEmitter<any>();
   @Output() showAll = new EventEmitter<boolean>();
 
-  removeItem(id: number) {
-    this.itemRm.emit({id});
+
+  changeTypeCharge(product: ProductsDisplay) {
+    this.addItem(product);
   }
 
-  addItem(id: number) {
-    this.itemAdd.emit({id});
+  removeItem(data: ProductsDisplay) {
+    this.itemRm.emit(data);
+  }
+
+  addItem(data: ProductsDisplay) {
+    this.itemAdd.emit(data);
   }
 
   showProductsAll() {
     this.showAll.emit(true);
+  }
+
+  changePrice(productD: ProductsDisplay) {
+    if (productD.typeCharge == 'box') {
+      return productD.product.price_category.packing;
+    } else if (productD.typeCharge == 'unit') {
+      return productD.product.price_category.weight_unit;
+    } else {
+      return '';
+    }
   }
 
 }

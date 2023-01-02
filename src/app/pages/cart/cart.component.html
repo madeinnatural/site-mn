@@ -55,11 +55,11 @@
                                   </tr>
                               </thead>
                               <tbody>
-                                  <tr *ngFor="let item of products">
+                                  <tr *ngFor="let item of cartService.productInCart">
                                       <td>
                                           <div class="d-flex align-items-center">
-                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="remove(item.id)" style="width: 12px;"></button>
-                                              <div>{{item.product.product_name}}</div>
+                                              <button class="btn btn-link"><img src="assets/img/close.svg" (click)="remove(item)" style="width: 12px;"></button>
+                                              <div>{{item.product.name}}</div>
                                           </div>
                                           <table class="w-100 d-lg-none mb-3">
                                               <thead>
@@ -71,29 +71,29 @@
                                                   <tr>
                                                       <td class="py-0">
                                                           <div class="d-flex align-items-center">
-                                                              <img  (click)="removeItem(item.id); $event.stopPropagation()" style="width: 24px;" src="assets/img/minus_circle_red.svg">
-                                                              <h5 class="mx-3 mb-0">{{item.quantity}}</h5>
-                                                              <img  (click)="add(item.id)" style="width: 24px;" src="assets/img/add_circle_red.svg">
+                                                              <img  (click)="remove(item); $event.stopPropagation()" style="width: 24px;" src="assets/img/minus_circle_red.svg">
+                                                              <h5 class="mx-3 mb-0">{{item.quantityInCart}}</h5>
+                                                              <img  (click)="add(item)" style="width: 24px;" src="assets/img/add_circle_red.svg">
                                                           </div>
                                                       </td>
-                                                      <td class="py-0">{{item.product.price | currency:'BRL':true:'1.2-2'}}</td>
-                                                      <td class="py-0">{{item.parcial_price | currency:'BRL':true:'1.2-2'}}</td>
+                                                      <!-- <td class="py-0">{{item.product.price | currency:'BRL':true:'1.2-2'}}</td> -->
+                                                      <td class="py-0">{{item.subTotal | currency:'BRL':true:'1.2-2'}}</td>
                                                   </tr>
                                               </tbody>
                                           </table>
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
                                           <div class="td_in">
-                                              <img style="width: 24px;" (click)="removeItem(item.id)" src="assets/img/minus_circle_red.svg">
-                                              <h5 class="mx-3 mb-0">{{item.quantity}}</h5>
-                                              <img style="width: 24px;"(click)="add(item.id)" src="assets/img/add_circle_red.svg">
+                                              <img style="width: 24px;" (click)="remove(item)" src="assets/img/minus_circle_red.svg">
+                                              <h5 class="mx-3 mb-0">{{item.quantityInCart}}</h5>
+                                              <img style="width: 24px;"(click)="add(item)" src="assets/img/add_circle_red.svg">
                                           </div>
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
-                                          <div class="td_in">{{item.product.price | currency: 'BRL' }}</div>
+                                          <!-- <div class="td_in">{{item.product.price | currency: 'BRL' }}</div> -->
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
-                                          <div class="td_in"><strong>{{item.parcial_price | currency: 'BRL'}}</strong></div>
+                                          <div class="td_in"><strong>{{item.subTotal | currency: 'BRL'}}</strong></div>
                                       </td>
                                   </tr>
                               </tbody>
@@ -132,7 +132,7 @@
                             <strong>Algo deu errado!</strong> {{errorMsg}}.
                           </div>
                           <br>
-                          <button  [disabled]="products.length == 0" (click)="finalizePurchase()" class="btn btn_green text-uppercase w-100">Fechar pedido</button>
+                          <button  [disabled]="cartService.productInCart.length == 0" (click)="finalizePurchase()" class="btn btn_green text-uppercase w-100">Fechar pedido</button>
                           <br>
                           <br>
                           <!-- <button (click)="creteCotacao()"  class="btn text-uppercase _color_green w-100" style="font-weight: 500;">Salvar cotação</button> -->

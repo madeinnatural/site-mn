@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from '@ngx-toolkit/cookie';
-import { GlobalEventService } from './../global/global.service';
+import { GlobalEventService } from './../services/global.service';
 import { AccountService } from './../account/account.service';
-import { ServerService } from './../server/server.service';
+import { ServerService } from '../services/server.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree, RouterModule } from '@angular/router';
 import {environment} from '../../../environments/environment';

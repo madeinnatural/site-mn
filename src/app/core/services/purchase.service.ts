@@ -1,6 +1,6 @@
 import { GlobalEventService } from './global.service';
 import { ProductService } from './product.service';
-import { ServerService } from './../server/server.service';
+import { ServerService } from '../services/server.service';
 import { ProductList, Purchase } from '../model/interfaces/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -28,7 +28,7 @@ export class PurchaseService {
     if (cart_jason) {
       const cart = JSON.parse(cart_jason);
       return cart.reduce((total: number, item: Item) => {
-        return total + (item.product.price * item.product.quantity * item.product.weight);
+        // return total + (item.product.price * item.product.quantity * item.product.weight);
       }, 0);
     }
 
@@ -77,7 +77,7 @@ export class PurchaseService {
 
         const current_price_item = cart[cart.findIndex((e) => e.id == item.id)].product.price
 
-        cart[cart.findIndex((e) => e.id == item.id)].product.price -= current_price_item;
+        // cart[cart.findIndex((e) => e.id == item.id)].product.price -= current_price_item;
 
         if (count_item == 0) {
           cart[cart.findIndex((e) => e.id == item.id)].parcial_price = 0;
@@ -87,10 +87,10 @@ export class PurchaseService {
             1
           );
 
-          this.productService.listProduct.splice(
-            cart.findIndex((e) => e.id == item.id),
-            1
-          );
+          // this.productService.listProduct.splice(
+          //   cart.findIndex((e) => e.id == item.id),
+          //   1
+          // );
 
           this.cookieService.setItem('cart', JSON.stringify(cart));
 
@@ -131,8 +131,8 @@ export class PurchaseService {
         cart[cart.findIndex((e) => e.id == item.id)].product.quantity += 1;
         const count_item =
           cart[cart.findIndex((e) => e.id == item.id)].product.quantity;
-        cart[cart.findIndex((e) => e.id == item.id)].product.price *=
-          count_item;
+        // cart[cart.findIndex((e) => e.id == item.id)].product.price *=
+          // count_item;
 
         this.cookieService.setItem('cart', JSON.stringify(cart));
       } else {

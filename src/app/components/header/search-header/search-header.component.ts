@@ -1,4 +1,4 @@
-import { GlobalEventService } from '../../../core/global/global.service';
+import { GlobalEventService } from '../../../core/services/global.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 

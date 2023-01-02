@@ -1,4 +1,4 @@
-import { GlobalAlertService } from './../global-alert.service';
+import { GlobalAlertService } from '../global-alert.service';
 import { GlobalEventService } from './global.service';
 import { Injectable } from '@angular/core';
 

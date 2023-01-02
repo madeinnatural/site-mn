@@ -1,9 +1,9 @@
-import { ServerService } from './../../../core/server/server.service';
+import { ServerService } from '../../../core/services/server.service';
 import { ModalComponent } from './../../../components/modal/modal.component';
 import { ProductList } from 'src/app/core/model/interfaces/Product';
 import { Observable, map } from 'rxjs';
 import { PurchaseHistory } from '../../../core/model/interfaces/Product';
-import { PurchaseService } from './../../../core/global/purchase.service';
+import { PurchaseService } from './../../../core/services/purchase.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';

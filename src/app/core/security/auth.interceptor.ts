@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { GlobalEventService } from 'src/app/core/global/global.service';
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import {Injectable} from '@angular/core';
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';

@@ -1,3 +1,4 @@
+import { HttpService } from './core/services/http.service';
 import { CategoriesResolver } from './core/resolvers/categories.resolver';
 import { SnackResolve } from './core/resolvers/product-snacks.resolver';
 import { AuthInterceptor } from './core/security/auth.interceptor';
@@ -21,7 +22,7 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthQuard } from './core/guards/auth.quard';
-
+import { ProductListResolver } from './core/resolvers/product-list.resolver';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { AuthQuard } from './core/guards/auth.quard';
     AuthQuard,
     SnackResolve,
     CategoriesResolver,
+    ProductListResolver,
+    HttpService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {appearance: 'fill'}}
   ],

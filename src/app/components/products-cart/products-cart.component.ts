@@ -1,21 +1,22 @@
-import { AlertoInterface } from './../../core/model/interfaces/Alert';
-import { GlobalEventService } from './../../core/global/global.service';
+import { CartService } from './../../core/services/cart.service';
+import { ProductsDisplay, DataBar } from './../../core/model/interfaces/Product';
+import { GlobalEventService } from './../../core/services/global.service';
 import { AvancedFilterComponent } from './../avanced-filter/avanced-filter.component';
-import { ModalService } from './../../core/global/modal.service';
-import { debounceTime, distinctUntilChanged, flatMap, map, Observable, of, Subject, delay, tap, from } from 'rxjs';
-import { ProductService } from './../../core/global/product.service';
-import { Item, ProductList, AvancedFilter } from '../../core/model/interfaces/Product';
-import { ServerService } from './../../core/server/server.service';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { ModalService } from './../../core/services/modal.service';
+import { Observable} from 'rxjs';
+import { AvancedFilter } from '../../core/model/interfaces/Product';
+import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-products-cart',
   templateUrl: './products-cart.component.html',
   styleUrls: ['./products-cart.component.scss'],
 })
-export class ProductsCartComponent implements OnInit {
+export class ProductsCartComponent {
 
-  productList: Observable<ProductList[]> = new Observable();
+  @Input() productList?: Observable<ProductsDisplay[]>;
+  @Output() data_card = new EventEmitter<DataBar>();
+
   filter: AvancedFilter = { price: 0, category: '' };
   loadingPage = false;
   termo = '';
@@ -24,20 +25,11 @@ export class ProductsCartComponent implements OnInit {
   total = 1;
   quantidade = 1;
 
-  @Output() data_card = new EventEmitter< {
-    total: number,
-    quantidade: number,
-  }>()
-
   constructor (
-    public productService: ProductService,
-    public serverService: ServerService,
     public modalService: ModalService,
-    public server: ServerService,
     public global: GlobalEventService,
-  ){
-    this.pullProducts();
-  }
+    private cartService: CartService,
+  ){}
 
   keyPress(event: KeyboardEvent) {
     if (this.termo.length > 3) {
@@ -48,65 +40,52 @@ export class ProductsCartComponent implements OnInit {
   }
 
   pullProducts(page: number = 0) {
-    this.global.loading.emit(true);
-    this.productService.pullProductSever(page).pipe((e) => {
-      this.productList = e;
-      return e;
-    }).subscribe({
-      next: (products) => {
-      },
-      error: (error) => {
-        this.global.goAlert.emit({
-          text: (error as Error).message,
-          type: 'warning',
-          duration: 5000,
-        });
-        throw new Error('Algo deu errado');
-      }
-    })
-    this.global.loading.emit(false);
+    // this.global.loading.emit(true);
+    // this.productService.pullProductSever(page).pipe((e) => {
+    //   this.productList = e;
+    //   return e;
+    // }).subscribe({
+    //   next: (products) => {
+    //   },
+    //   error: (error) => {
+    //     this.global.goAlert.emit({
+    //       text: (error as Error).message,
+    //       type: 'warning',
+    //       duration: 5000,
+    //     });
+    //     throw new Error('Algo deu errado');
+    //   }
+    // })
+    // this.global.loading.emit(false);
   }
 
   search() {
-    return this.serverService.search(this.termo, this.page)
-    .pipe(tap((products) => { products.data = this.productService.veryfy_product_in_cart(products.data); return products; }))
-    .pipe(map(element => this.productList = of(element.data)))
-    .subscribe({
-      next: (products) => {
 
-      },
-      error: (error) => {
-        this.global.goAlert.emit({
-          text: (error as Error).message,
-          type: 'warning',
-          duration: 5000,
-        });
-        throw new Error('Algo deu errado');
-      }
-    })
   }
 
 
   changeCartData () {
-    const quantidade = this.productService.getQuantidade();
-    const total = this.productService.getTotal();
+    // const quantidade = this.productService.getQuantidade();
+    // const total = this.productService.getTotal();
 
-    this.data_card.emit({quantidade,total})
+    // this.data_card.emit({quantidade,total})
   }
 
-  addItemCart(id: number) {
-    this.productService.addItem(id);
+  addItemCart(product: ProductsDisplay) {
+    product.quantityInCart = product.quantityInCart + 1;
+    if (product.typeCharge == 'box') product.subTotal = product.quantityInCart * product.product.price_category.packing;
+    if (product.typeCharge == 'unit') product.subTotal = product.quantityInCart * product.product.price_category.weight_unit;
+
+    this.cartService.addProductInCart(product);
     this.changeCartData();
   }
 
-  removeItem(id: number) {
-    this.productService.decreseItem(id);
-    this.changeCartData();
+  removeItem(product: ProductsDisplay) {
+    // this.productService.decreseItem(id);
   }
 
-  initCart(id: number) {
-    this.productService.initCart(id);
-    this.changeCartData();
+  initCart(product: ProductsDisplay) {
+    // this.productService.initCart(id);
   }
 
   showProductsAll() {
@@ -127,10 +106,6 @@ export class ProductsCartComponent implements OnInit {
           this.search();
         }
     });
-  }
-
-  ngOnInit(){
-    this.productList.pipe(map((products) => { products = this.productService.veryfy_product_in_cart(products); return products; }));
   }
 
 }

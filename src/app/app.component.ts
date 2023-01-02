@@ -1,7 +1,8 @@
+import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { GlobalAlertComponent } from './components/global-alert/global-alert.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlertoInterface } from './core/model/interfaces/Alert';
-import { GlobalEventService } from './core/global/global.service';
+import { GlobalEventService } from './core/services/global.service';
 import { GlobalAlertService } from './core/global-alert.service';
 import { AccountService } from './core/account/account.service';
 import { Component } from '@angular/core';
@@ -25,8 +26,30 @@ export class AppComponent {
     private accountService: AccountService,
     public globalEventService: GlobalEventService,
     public globalAlertService: GlobalAlertService,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    public router: Router
     ) {
+
+      router.events.subscribe((event: Event) => {
+        switch (true) {
+          case event instanceof NavigationStart: {
+            this.loading = true;
+            break;
+          }
+
+          case event instanceof NavigationEnd:
+          case event instanceof NavigationCancel:
+          case event instanceof NavigationError: {
+            this.loading = false;
+            break;
+          }
+          default: {
+            break;
+          }
+        }
+      });
+
+
     this.accountService.hidderHeaderFooter.subscribe(hideHead => {
       this.hidderHeader = hideHead;
     })
@@ -35,12 +58,6 @@ export class AppComponent {
       const { text, showError } = error;
       this.globalAlertService.alertError(text);
     })
-
-    //adiciona evento do loading
-    this.globalEventService.loading.subscribe((loading:boolean) => {
-      console.log('loading', loading);
-      this.loading = loading;
-    });
 
     this.globalEventService.goAlert.subscribe( (alert: AlertoInterface ) => {
       this.alertData = alert;

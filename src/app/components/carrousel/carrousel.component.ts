@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { GlobalEventService } from './../../core/global/global.service';
+import { GlobalEventService } from './../../core/services/global.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

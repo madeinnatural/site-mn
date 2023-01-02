@@ -4,7 +4,7 @@
     <mn-search [termo]="termo" (goSearch)="termo = $event; this.search()" ></mn-search>
     <div class="row">
       <div class="col-12">
-        <mn-table [productList]="productList" (itemAdd)="addItemCart($event.id)" (itemRm)="removeItem($event.id)" (showAll)="showProductsAll()" ></mn-table>
+        <mn-table [productList]="productList" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" (showAll)="showProductsAll()" ></mn-table>
         <h6 style="font-size: 14px">* Compra minima por forncedor - R$400.00</h6>
       </div>
     </div>

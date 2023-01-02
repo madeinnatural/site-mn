@@ -75,7 +75,7 @@
         <img style="height: 23px;" src="assets/img/user.svg">
       </button>
 
-      <app-dropdown type="menu_fechamendo" [cartLength]="cartLength" [finalPrice]="finalPrice" [userPresent]="!user"
+      <app-dropdown type="menu_fechamendo" [cartLength]="cartService.productInCart.length" [finalPrice]="cartService.totalPrice()" [userPresent]="!user"
          [goPageRegistration]="goPageRegistration">
       </app-dropdown>
 

@@ -1,8 +1,8 @@
 import { MnInputComponent } from './../../../components/input/input.component';
 import { ToastComponent } from './../../../components/toast/toast.component';
-import { UserService } from './../../../core/global/user.service';
+import { UserService } from './../../../core/services/user.service';
 import { Router } from '@angular/router';
-import { GlobalEventService } from './../../../core/global/global.service';
+import { GlobalEventService } from './../../../core/services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { AccountService } from './../../../core/account/account.service';
 import { UserLogin } from './../../../core/model/interfaces/User';

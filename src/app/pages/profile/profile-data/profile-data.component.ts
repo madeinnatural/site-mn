@@ -1,13 +1,13 @@
 import { Address } from './../../../core/model/interfaces/User';
-import { GlobalEventService } from './../../../core/global/global.service';
+import { GlobalEventService } from './../../../core/services/global.service';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from './../../../core/global/user.service';
+import { UserService } from './../../../core/services/user.service';
 import User from 'src/app/core/model/interfaces/User';
 import { AccountService } from './../../../core/account/account.service';
 
 import { Router } from '@angular/router';
-import { ServerService } from './../../../core/server/server.service';
+import { ServerService } from '../../../core/services/server.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 

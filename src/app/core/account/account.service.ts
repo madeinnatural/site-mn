@@ -1,9 +1,9 @@
-import { UserService } from './../global/user.service';
+import { UserService } from './../services/user.service';
 import { Router } from '@angular/router';
 import { CookieOptions, CookieService } from '@ngx-toolkit/cookie';
 import { UserRegister } from './../model/interfaces/User';
-import { ServerService } from './../server/server.service';
-import { GlobalEventService } from './../global/global.service';
+import { ServerService } from '../services/server.service';
+import { GlobalEventService } from './../services/global.service';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 

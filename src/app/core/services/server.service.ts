@@ -1,10 +1,10 @@
-import { SnackProduct } from './../model/interfaces/Product';
-import { Categorie, Filter } from './../services/SnackService';
+import { SnackProduct } from '../model/interfaces/Product';
+import { Categorie, Filter } from './SnackService';
 import { Snack } from 'src/app/core/model/interfaces/Product';
-import { Address } from './../model/interfaces/User';
-import { ProductService } from './../global/product.service';
+import { Address } from '../model/interfaces/User';
+import { ProductService } from '../services/product.service';
 import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from '../model/interfaces/Product';
-import { GlobalEventService } from './../global/global.service';
+import { GlobalEventService } from '../services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';

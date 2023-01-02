@@ -1,4 +1,4 @@
-import { PurchaseService } from './../core/global/purchase.service';
+import { PurchaseService } from './../core/services/purchase.service';
 import { AccountComponent } from './../pages/account/account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';

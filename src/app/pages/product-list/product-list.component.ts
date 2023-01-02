@@ -1,9 +1,9 @@
 import { PaginatorComponent } from './../../components/paginator/paginator.component';
 import { Item, DataSearch } from '../../core/model/interfaces/Product';
 import { Observable, map } from 'rxjs';
-import { GlobalEventService } from './../../core/global/global.service';
-import { ProductService } from './../../core/global/product.service';
-import { ServerService } from './../../core/server/server.service';
+import { GlobalEventService } from './../../core/services/global.service';
+import { ProductService } from './../../core/services/product.service';
+import { ServerService } from '../../core/services/server.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -47,24 +47,24 @@ export class ProductListComponent implements OnInit {
 
   async pullProducts(page?: number) {
     if(page || page == 0) this.current_page = page;
-    this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(map(products => this.init(products)));
+    // this.products$ = this.server.getProductListQuery(this.query, this.current_page).pipe(map(products => this.init(products)));
   }
 
   init(products: DataSearch) {
     this.moreProduct = products.more_product;
-    return this.productService.veryfy_product_in_cart(products.data);
+    // return this.productService.veryfy_product_in_cart(products.data);
   }
 
   addItemCart(product: ProductList) {
-    this.productService.addItem(product.id);
+    // this.productService.addItem(product.id);
   }
 
   removeItem(product: ProductList) {
-    this.productService.decreseItem(product.id);
+    // this.productService.decreseItem(product.id);
   }
 
   initCart(product: ProductList) {
-    this.productService.initCart(product.id);
+    // this.productService.initCart(product.id);
   }
 
   keyPress(event: KeyboardEvent) {

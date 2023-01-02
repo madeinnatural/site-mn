@@ -1,4 +1,4 @@
-import { GlobalEventService } from 'src/app/core/global/global.service';
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';

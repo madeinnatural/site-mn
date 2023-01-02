@@ -1,0 +1,12 @@
+<div class="button">
+  <div class="button-quantity button-size-{{size}}">
+    <button (click)="removeItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
+      <mn-icon name="minus" [size]="size"></mn-icon>
+    </button>
+    {{quantity}}
+    <button (click)="addItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
+      <mn-icon name="plus" [size]="size"></mn-icon>
+    </button>
+  </div>
+</div>
+

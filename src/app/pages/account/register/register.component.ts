@@ -1,7 +1,7 @@
 import User from 'src/app/core/model/interfaces/User';
 import { MnInputComponent } from './../../../components/input/input.component';
 import { Router } from '@angular/router';
-import { GlobalEventService } from './../../../core/global/global.service';
+import { GlobalEventService } from './../../../core/services/global.service';
 import { AccountService } from './../../../core/account/account.service';
 import { UserRegister } from './../../../core/model/interfaces/User';
 import { Component,Input,OnInit,Output,EventEmitter,ViewChild,} from '@angular/core';

@@ -1,11 +1,12 @@
-import { ProductService } from './../../core/global/product.service';
-import { UserService } from './../../core/global/user.service';
+import { CartService } from './../../core/services/cart.service';
+import { ProductService } from './../../core/services/product.service';
+import { UserService } from './../../core/services/user.service';
 import User from 'src/app/core/model/interfaces/User';
 import { CookieService } from '@ngx-toolkit/cookie';
-import { PurchaseService } from './../../core/global/purchase.service';
-import { GlobalEventService } from './../../core/global/global.service';
+import { PurchaseService } from './../../core/services/purchase.service';
+import { GlobalEventService } from './../../core/services/global.service';
 import { AccountService } from './../../core/account/account.service';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Inject, Injectable } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,24 +15,15 @@ import { faCoffee } from '@fortawesome/free-solid-svg-icons';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
-
+export class HeaderComponent {
   faCoffee = faCoffee;
-
+  active: boolean = true
   openMenu: boolean = false;
-
-  user: User;
-
-  user_name?: string = '';
-
-  query: string = '';
-
   showHeader: boolean = true;
   _finalPrice: number = 0;
-
-  change_query(event: any) {
-    if (event.target.value) this.query = event.target.value;
-  }
+  query: string = '';
+  user_name?: string = '';
+  user: User;
 
   get finalPrice () {
     this._finalPrice = this.purchaseService.totalPrice()
@@ -58,6 +50,8 @@ export class HeaderComponent implements OnInit {
     return this.accountService.current_user.name;
   }
 
+  purchaseValue: number =  0;
+
   constructor(
     private nav: Router,
     private accountService: AccountService,
@@ -65,9 +59,13 @@ export class HeaderComponent implements OnInit {
     private purchaseService: PurchaseService,
     private cookieService: CookieService,
     public userService: UserService,
+    public cartService: CartService,
     private productService: ProductService
   ) {
+
     const current_user  = this.accountService.current_user;
+
+
 
     this.user = current_user;
 
@@ -104,53 +102,20 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-
-    this.finalPrice = this.totalPrice();
-
-    this.globalEventService.addItemCartEmit.subscribe(e => {
-      this.finalPrice = this.totalPrice()
-    });
-
-  }
-
-  totalPrice(){
-    return this.purchaseService.totalPrice();
-  }
-
-  getLengthPurhase() {
-    return this.purchaseService.itemCount();
-  }
-
   goPageLogin() {
     this.nav.navigate(['login']);
   }
 
   goPageRegistration () {
-    const extra: NavigationExtras = {
-      queryParams: {type: 'registration'},
-    };
-
+    const extra: NavigationExtras = {queryParams: {type: 'registration'} };
     this.nav.navigate(['registration'], extra);
   }
 
-  goHome(){
-    this.nav.navigate(['/']);
-  }
-
-  active: boolean = true
-
-  closeMenu () {
-    this.active = !this.active
-  }
-
-  goCart() {
-    this.nav.navigate(['cart']);
-  }
-
-  goProfile() {
-    this.nav.navigate(['/profile/profile_data']);
-  }
+  change_query(event: any) {if (event.target.value) this.query = event.target.value;}
+  goHome(){this.nav.navigate(['/'])}
+  closeMenu () {this.active = !this.active}
+  goCart() {this.nav.navigate(['cart']);}
+  goProfile() {this.nav.navigate(['/profile/profile_data'])}
 
 }
 

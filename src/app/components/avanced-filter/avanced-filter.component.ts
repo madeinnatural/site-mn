@@ -1,4 +1,4 @@
-import { ServerService } from './../../core/server/server.service';
+import { ServerService } from '../../core/services/server.service';
 import { DialogData } from './../modal/modal.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';

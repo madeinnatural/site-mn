@@ -16,9 +16,10 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { AuthQuard } from '../core/guards/auth.quard';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
+import { ProductListResolver } from '../core/resolvers/product-list.resolver';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', resolve: { productList: ProductListResolver }, component: HomeComponent},
   {path: 'login', component: AccountComponent},
   {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
   {path: 'profile', canActivate: [AuthQuard],

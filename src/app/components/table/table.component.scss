@@ -1,0 +1,44 @@
+.controller {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  &-title {
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    text-align: center;
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    width: 10rem;
+    height: 2.5rem;
+
+    button {
+
+      max-width: 100px;
+      max-height: 50px;
+      border: 1px solid #ccc;
+    }
+  }
+}
+
+.row-table {
+  vertical-align: middle;
+  &-titles {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    text-align: start;
+  }
+}
+
+span {
+  display: flex;
+  gap: .5rem;
+}

@@ -1,0 +1,11 @@
+<div class="embalagem" *ngIf="product">
+  <span class="embalagem-title">Escolha qual tipo de embalagem</span>
+  <div class="embalagem-body">
+    <button (click)="changeTypeCharge(product, 'box')" class="button-16" [class.active]="product.typeCharge == 'box'" role="button" type="button">
+      <span class="text">Caixa</span>
+    </button>
+    <button (click)="changeTypeCharge(product, 'unit')" class="button-16" [class.active]="product.typeCharge == 'unit'" role="button" type="button">
+      <span class="text">Kg</span>
+    </button>
+  </div>
+</div>
