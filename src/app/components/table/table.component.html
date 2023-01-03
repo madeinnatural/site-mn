@@ -1,19 +1,92 @@
 <table class="table" *ngIf="productList | async as products; else loading ">
 
-  <ng-container *ngIf="productList | async as products; else loading">
+  <ng-container *ngIf="innerWidth >= 980">
+    <ng-container *ngIf="productList | async as products; else loading">
 
-    <thead *ngIf="products.length;">
+      <thead *ngIf="products.length;">
+        <tr class="bg-white">
+          <th scope="col" class="pivo">Produto</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Preço/Unidade</th>
+          <th scope="col">Unidade</th>
+          <th scope="col">Adicionar ao carrinho</th>
+        </tr>
+      </thead>
+
+      <tbody *ngIf="products.length; else productNull">
+        <tr *ngFor="let product of products; index as i">
+          <ng-container *ngIf="productValid(product)">
+            <td scope="row" class="row-table">
+
+              <div class="row-table">
+                <div class="row-table-titles">
+                  {{ product.product.name }}
+                </div>
+                <div class="row-table-body">
+                  <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
+                </div>
+              </div>
+
+            </td>
+
+            <td scope="row" class="row-table">
+              <span class="row-table-category">
+                {{ product.product.product_categories.main }}
+              </span>
+            </td>
+
+            <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
+
+            <td scope="row" class="row-table">
+              <div class="product-detail">
+
+                  <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
+                    Caixa <mn-icon name="box" size="xs"></mn-icon>
+                    {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
+                  </span>
+
+                  <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
+                    Peso <mn-icon name="balance" size="xs"></mn-icon>
+                    {{ product.product.product_attributes.weight_unit }} kg
+                  </span>
+
+              </div>
+            </td>
+
+            <td scope="row" class="row-table pull-right">
+
+              <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
+
+              <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
+
+              <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
+
+            </td>
+          </ng-container>
+        </tr>
+
+      </tbody>
+
+      <tbody>
+        <tr *ngIf="products.length < 100">
+          <td colspan="5" class="text-center bg-white">
+            <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
+              VER LISTA COMPLETA
+            </button>
+          </td>
+        </tr>
+      </tbody>
+
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="innerWidth < 980">
+    <thead>
       <tr class="bg-white">
         <th scope="col">Produto</th>
-        <th scope="col">Categoria</th>
-        <th scope="col">Preço/Unidade</th>
-        <th scope="col">Unidade</th>
-        <th scope="col">Adicionar ao carrinho</th>
       </tr>
     </thead>
-
-    <tbody *ngIf="products.length; else productNull">
-
+    <tbody>
       <tr *ngFor="let product of products; index as i">
         <ng-container *ngIf="productValid(product)">
           <td scope="row" class="row-table">
@@ -27,91 +100,29 @@
               </div>
             </div>
 
-            <div class="d-lg-none">
-              <div class="card">
-                <div class="card-body row">
+            <div scope="row" class="row-table">
+              <span class="row-table-category">
+                {{ product.product.product_categories.main }}
+              </span>
+            </div>
 
-                  <div class="card-body">
-                    <h4 class="card-title">{{product.product.name}}</h4>
+            <div scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</div>
 
-                    <h6 class="card-subtitle text-muted">{{ product.product }}</h6>
+            <div class="control-mobile">
 
-                    <div *ngIf="product.quantityInCart">
-                      <!-- <span class="text-muted"> Unidade de: {{product.weight}} kg</span> -->
-                      <div class="ml-3 text-white"></div>
-                      <span>Parcial: {{product.subTotal | currency: 'BRL' }}</span>
-                    </div>
-                  </div>
+              <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
 
-                  <div class="card-body">
+              <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
 
-                    <button (click)="addItem(product);" *ngIf="!product.quantityInCart; else cartNotNull"
-                      class="btn  w-100" type="button" aria-expanded="false" aria-controls="contentID">
-                      <mn-icon name="cart"></mn-icon>
-                      Adicionar ao carrinho
-                    </button>
+              <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
 
-                  </div>
-
-                </div>
-
-                <ng-template #cartNotNull>
-                  <button-quantity size="default" *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
-                </ng-template>
-
-              </div>
             </div>
 
           </td>
 
-          <td scope="row" class="row-table">
-            <span class="row-table-category">
-              {{ product.product.product_categories.main }}
-            </span>
-          </td>
 
-          <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
-
-          <td scope="row" class="row-table">
-            <div class="product-detail">
-
-                <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
-                  Caixa <mn-icon name="box" size="xs"></mn-icon>
-                  {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
-                </span>
-
-                <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
-                  Peso <mn-icon name="balance" size="xs"></mn-icon>
-                  {{ product.product.product_attributes.weight_unit }} kg
-                </span>
-
-            </div>
-          </td>
-
-          <td scope="row" class="row-table pull-right">
-
-            <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
-
-            <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
-
-            <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
-
-          </td>
         </ng-container>
-      </tr>
-
     </tbody>
-
-    <tbody>
-      <tr *ngIf="products.length < 100">
-        <td colspan="5" class="text-center bg-white">
-          <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
-            VER LISTA COMPLETA
-          </button>
-        </td>
-      </tr>
-    </tbody>
-
   </ng-container>
 
 </table>

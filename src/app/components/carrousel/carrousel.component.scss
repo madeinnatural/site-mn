@@ -29,17 +29,42 @@
 }
 
 .text-title {
-  font-size: 90px !important;
+  padding: 5rem 0 2.5rem 0;
+  font-size: 5rem !important;
   color: white;
+  h1 {
+    font-size: 1rem !important;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .text-title {
+    padding: 2.5rem 0 2.5rem 0;
+    font-size: 3.5rem !important;
+    color: white;
+  }
+
+  .c {
+    &-mobile {
+      text-align: center 'important';
+      text-align: -webkit-center !important;
+      button {
+        width: 100%;
+        min-width: -webkit-fill-available;
+      }
+    }
+  }
 }
 
 .c {
   &-title {
-    font-size: 90px !important;
+    font-size: 1rem !important;
     color: white;
   }
   &-body {
-    padding: 5rem 0 0 0;
+    padding: 2rem 0 0 0;
     color: white;
+
   }
 }

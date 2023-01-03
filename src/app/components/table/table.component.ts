@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ProductList, ProductsDisplay } from './../../core/model/interfaces/Product';
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, HostListener } from '@angular/core';
 
 @Component({
   selector: 'mn-table',
@@ -8,7 +8,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input
   styleUrls: ['./table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TableComponent {
+export class TableComponent implements OnInit {
 
   @Input() productList?: Observable< ProductsDisplay[] >;
 
@@ -16,6 +16,9 @@ export class TableComponent {
   @Output() itemAdd = new EventEmitter<any>();
   @Output() showAll = new EventEmitter<boolean>();
 
+  ngOnInit() {
+    this.innerWidth = window.innerWidth;
+  }
 
   changeTypeCharge(product: ProductsDisplay) {
     this.addItem(product);
@@ -57,6 +60,13 @@ export class TableComponent {
 
   productValid(product: ProductsDisplay) {
     return typeof product.product.price_category.packing == 'number' || typeof product.product.price_category.weight_unit == 'number' ? true : false;
+  }
+
+  innerWidth: number = 0;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: any) {
+    this.innerWidth = window.innerWidth;
   }
 
 }
