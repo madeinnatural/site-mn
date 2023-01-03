@@ -15,83 +15,89 @@
     <tbody *ngIf="products.length; else productNull">
 
       <tr *ngFor="let product of products; index as i">
-        <td scope="row" class="row-table">
+        <ng-container *ngIf="productValid(product)">
+          <td scope="row" class="row-table">
 
-          <div class="row-table">
-            <div class="row-table-titles">
-              {{ product.product.name }}
+            <div class="row-table">
+              <div class="row-table-titles">
+                {{ product.product.name }}
+              </div>
+              <div class="row-table-body">
+                <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
+              </div>
             </div>
-            <div class="row-table-body">
-              <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
-            </div>
-          </div>
 
-          <div class="d-lg-none">
-            <div class="card">
-              <div class="card-body row">
+            <div class="d-lg-none">
+              <div class="card">
+                <div class="card-body row">
 
-                <div class="card-body">
-                  <h4 class="card-title">{{product.product.name}}</h4>
+                  <div class="card-body">
+                    <h4 class="card-title">{{product.product.name}}</h4>
 
-                  <h6 class="card-subtitle text-muted">{{ product.product }}</h6>
+                    <h6 class="card-subtitle text-muted">{{ product.product }}</h6>
 
-                  <div *ngIf="product.quantityInCart">
-                    <!-- <span class="text-muted"> Unidade de: {{product.weight}} kg</span> -->
-                    <div class="ml-3 text-white"></div>
-                    <span>Parcial: {{product.subTotal | currency: 'BRL' }}</span>
+                    <div *ngIf="product.quantityInCart">
+                      <!-- <span class="text-muted"> Unidade de: {{product.weight}} kg</span> -->
+                      <div class="ml-3 text-white"></div>
+                      <span>Parcial: {{product.subTotal | currency: 'BRL' }}</span>
+                    </div>
                   </div>
+
+                  <div class="card-body">
+
+                    <button (click)="addItem(product);" *ngIf="!product.quantityInCart; else cartNotNull"
+                      class="btn  w-100" type="button" aria-expanded="false" aria-controls="contentID">
+                      <mn-icon name="cart"></mn-icon>
+                      Adicionar ao carrinho
+                    </button>
+
+                  </div>
+
                 </div>
 
-                <div class="card-body">
-
-                  <button (click)="addItem(product);" *ngIf="!product.quantityInCart; else cartNotNull"
-                    class="btn  w-100" type="button" aria-expanded="false" aria-controls="contentID">
-                    <mn-icon name="cart"></mn-icon>
-                    Adicionar ao carrinho
-                  </button>
-
-                </div>
+                <ng-template #cartNotNull>
+                  <button-quantity size="default" *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
+                </ng-template>
 
               </div>
+            </div>
 
-              <ng-template #cartNotNull>
-                <button-quantity size="default" *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
-              </ng-template>
+          </td>
+
+          <td scope="row" class="row-table">
+            <span class="row-table-category">
+              {{ product.product.product_categories.main }}
+            </span>
+          </td>
+
+          <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
+
+          <td scope="row" class="row-table">
+            <div class="product-detail">
+
+                <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
+                  Caixa <mn-icon name="box" size="xs"></mn-icon>
+                  {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
+                </span>
+
+                <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
+                  Peso <mn-icon name="balance" size="xs"></mn-icon>
+                  {{ product.product.product_attributes.weight_unit }} kg
+                </span>
 
             </div>
-          </div>
+          </td>
 
-        </td>
+          <td scope="row" class="row-table pull-right">
 
-        <td scope="row" class="row-table">{{ product.product.product_categories.main }}</td>
+            <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
 
-        <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
+            <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
 
-        <td scope="row" class="row-table">
-          <div class="product-detail">
+            <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
 
-              <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
-                Caixa <mn-icon name="box" size="xs"></mn-icon>
-                {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
-              </span>
-
-              <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
-                Peso <mn-icon name="balance" size="xs"></mn-icon>
-                {{ product.product.product_attributes.weight_unit }} kg
-              </span>
-
-          </div>
-        </td>
-
-        <td scope="row" class="row-table pull-right">
-
-          <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
-
-          <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
-
-          <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
-
-        </td>
+          </td>
+        </ng-container>
       </tr>
 
     </tbody>

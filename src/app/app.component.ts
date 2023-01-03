@@ -1,3 +1,4 @@
+import { CounterBarData } from './core/model/interfaces/Utils';
 import { Event, NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router } from '@angular/router';
 import { GlobalAlertComponent } from './components/global-alert/global-alert.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -81,12 +82,13 @@ export class AppComponent {
 
     });
 
-    this.globalEventService.counterBar.subscribe( (data) => {
-
-      console.log('ADICIONOU ALGO NO CARRINHO')
-      this.counterBarData.totalPrice = data.totalPrice;
-      this.counterBarData.quantity = data.quantity;
-      this.counterBarActive = true;
+    this.globalEventService.counterBar.subscribe({
+      next: (data: CounterBarData) => {
+        this.counterBarData = data;
+        this.counterBarActive = data.active ? data.active : false;
+      },
+      error: (err: any) => { },
+      complete: () => { }
     });
   }
 

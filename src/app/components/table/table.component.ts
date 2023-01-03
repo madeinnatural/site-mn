@@ -34,13 +34,29 @@ export class TableComponent {
   }
 
   changePrice(productD: ProductsDisplay) {
+    let price = 0;
     if (productD.typeCharge == 'box') {
-      return productD.product.price_category.packing;
+      const currentPrice = productD.product.price_category.packing;
+      if (typeof currentPrice == 'number') {
+        price = currentPrice;
+      } else {
+        price = 0;
+      }
     } else if (productD.typeCharge == 'unit') {
-      return productD.product.price_category.weight_unit;
+      const currentPrice = productD.product.price_category.weight_unit;
+      if (typeof currentPrice == 'number') {
+        price = currentPrice;
+      } else {
+        price = 0;
+      }
     } else {
-      return 0;
+      price = 0;
     }
+    return price;
+  }
+
+  productValid(product: ProductsDisplay) {
+    return typeof product.product.price_category.packing == 'number' || typeof product.product.price_category.weight_unit == 'number' ? true : false;
   }
 
 }

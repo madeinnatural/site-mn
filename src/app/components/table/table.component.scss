@@ -20,7 +20,6 @@
     height: 2.5rem;
 
     button {
-
       max-width: 100px;
       max-height: 50px;
       border: 1px solid #ccc;
@@ -31,12 +30,21 @@
 .row-table {
   vertical-align: middle;
   padding: .5rem;
+  max-width: 50rem;
+
+  span &-category {
+    text-align: start;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+
   &-titles {
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.3rem;
     text-align: start;
   }
+
   &-body {
     display: flex;
     flex-direction: column;
