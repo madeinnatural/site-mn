@@ -1,3 +1,4 @@
+import { CounterBarData } from './../model/interfaces/Utils';
 import { AlertoInterface } from './../model/interfaces/Alert';
 import { UserService } from './user.service';
 import { UserRegister } from './../model/interfaces/User';
@@ -38,6 +39,7 @@ export class GlobalEventService {
   addItemCartEmit = new EventEmitter<'removel:cart' | 'add:cart' | 'init:cart'>();
   finishPurchaseEmitter = new EventEmitter<number>();
   search = new EventEmitter<string>();
+  counterBar = new EventEmitter<CounterBarData>();
 
   constructor(
     public http: HttpClient,

@@ -1,5 +1,5 @@
 <router-outlet *ngIf="!loading"></router-outlet>
-
+<resumo-compra *ngIf="!loading && counterBarActive" [dataBar]="counterBarData"></resumo-compra>
 <div *ngIf="loading" class="row">
   <div class="col-12">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">

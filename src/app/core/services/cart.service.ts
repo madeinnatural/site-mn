@@ -1,3 +1,4 @@
+import { GlobalEventService } from 'src/app/core/services/global.service';
 import { ProductRequest, ProductsDisplay, ProductResponse } from './../model/interfaces/Product';
 import { Injectable } from '@angular/core';
 
@@ -8,7 +9,9 @@ export class CartService {
 
   productInCart: ProductsDisplay[] = []
 
-  constructor() { }
+  constructor(
+    public global: GlobalEventService,
+  ) { }
 
   compareCart(product: ProductResponse): ProductsDisplay {
     const productDisplay: ProductsDisplay = {
@@ -39,9 +42,21 @@ export class CartService {
     } else {
       this.productInCart.push(product);
     }
+    this.changeCartData();
   }
 
   totalPrice(): number {
     return this.productInCart.reduce((total, item) => total + item.subTotal, 0);
   }
+
+  totalQuantity(): number {
+    return this.productInCart.reduce((total, item) => total + item.quantityInCart, 0);
+  }
+
+  changeCartData () {
+    const totalPrice = this.totalQuantity();
+    const quantity = this.totalPrice();
+    this.global.counterBar.emit({totalPrice,quantity})
+  }
+
 }

@@ -39,7 +39,7 @@ export class TableComponent {
     } else if (productD.typeCharge == 'unit') {
       return productD.product.price_category.weight_unit;
     } else {
-      return '';
+      return 0;
     }
   }
 

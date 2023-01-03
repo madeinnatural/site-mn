@@ -22,8 +22,8 @@ export class ProductsCartComponent {
   termo = '';
   page = 0;
 
-  total = 1;
-  quantidade = 1;
+  total = 0;
+  quantidade = 0;
 
   constructor (
     public modalService: ModalService,
@@ -63,21 +63,20 @@ export class ProductsCartComponent {
 
   }
 
-
-  changeCartData () {
-    // const quantidade = this.productService.getQuantidade();
-    // const total = this.productService.getTotal();
-
-    // this.data_card.emit({quantidade,total})
-  }
-
   addItemCart(product: ProductsDisplay) {
-    product.quantityInCart = product.quantityInCart + 1;
-    if (product.typeCharge == 'box') product.subTotal = product.quantityInCart * product.product.price_category.packing;
-    if (product.typeCharge == 'unit') product.subTotal = product.quantityInCart * product.product.price_category.weight_unit;
+    product.quantityInCart += 1;
+
+    if (product.typeCharge == 'unit') {
+      // Quantidade do produto * preço da unidade * peso do produto
+      const subTotal = product.quantityInCart * product.product.price_category.weight_unit;
+      product.subTotal = subTotal;
+    } else if (product.typeCharge == 'box') {
+      // Quantidade do produto * preço do produto do pacote * peso do produto
+      const subTotal = product.quantityInCart * product.product.price_category.packing;
+      product.subTotal = subTotal;
+    }
 
     this.cartService.addProductInCart(product);
-    this.changeCartData();
   }
 
   removeItem(product: ProductsDisplay) {

@@ -30,15 +30,49 @@
 
 .row-table {
   vertical-align: middle;
+  padding: .5rem;
   &-titles {
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0.3rem;
     text-align: start;
   }
+  &-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    font-size: medium;
+    gap: 0.5rem;
+  }
 }
 
-span {
+.product-detail {
+  &-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    margin: 0.5rem;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
+
+button-init-cart {
+  color: #03A64A;
+  display: read-write-plaintext-only;
+  padding: .5rem 0 .5rem 0;
   display: flex;
-  gap: .5rem;
+  align-items: center;
+  justify-content: space-around;
+  background-color: none;
+  white-space: nowrap;
+  gap: .4rem;
+  cursor: pointer;
 }

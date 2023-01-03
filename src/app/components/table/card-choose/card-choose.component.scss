@@ -66,3 +66,41 @@
   box-shadow: rgba(0, 0, 0, .1) 0 1px 1px;
   color: #03A64A;
 }
+
+// Botão desabilitado
+
+button:disabled {
+  background-color: #f8f9fa !important;
+  border: 1px solid #f8f9fa !important;
+  border-radius: 4px;
+  color: #3c4043 !important;
+  cursor: default !important;
+  font-family: arial,sans-serif;
+  font-size: 14px;
+  height: 36px;
+  line-height: 27px;
+  min-width: 54px;
+  padding: 0 16px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: pre;
+
+  &:hover {
+    border-color: #f8f9fa !important;
+    box-shadow: rgba(0, 0, 0, .1) 0 1px 1px !important;
+    color: #3c4043 !important;
+  }
+
+  &:focus {
+    border-color: #f8f9fa !important;
+    outline: none !important;
+  }
+
+  &.active {
+    border-color: #f8f9fa !important;
+    box-shadow: rgba(0, 0, 0, .1) 0 1px 1px !important;
+    color: #3c4043 !important;
+  }
+}

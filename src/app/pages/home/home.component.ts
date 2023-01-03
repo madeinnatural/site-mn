@@ -16,15 +16,4 @@ export class HomeComponent {
   constructor(public aRouter: ActivatedRoute) {
     this.products = this.aRouter.data.pipe(map((data) => data['productList']));
   }
-
-  data_card = {
-    total: 0,
-    quantidade: 0,
-  }
-
-  changeDataCard(data: any) {
-    console.log(data)
-    this.data_card = data;
-  }
-
 }

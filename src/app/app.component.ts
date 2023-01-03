@@ -22,6 +22,12 @@ export class AppComponent {
   alertData?: AlertoInterface;
   loading = false;
 
+  counterBarActive: boolean = false;
+  counterBarData = {
+    totalPrice: 0,
+    quantity: 0,
+  }
+
   constructor(
     private accountService: AccountService,
     public globalEventService: GlobalEventService,
@@ -73,6 +79,14 @@ export class AppComponent {
 
       openSnackBar();
 
+    });
+
+    this.globalEventService.counterBar.subscribe( (data) => {
+
+      console.log('ADICIONOU ALGO NO CARRINHO')
+      this.counterBarData.totalPrice = data.totalPrice;
+      this.counterBarData.quantity = data.quantity;
+      this.counterBarActive = true;
     });
   }
 

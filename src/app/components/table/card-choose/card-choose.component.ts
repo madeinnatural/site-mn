@@ -11,6 +11,7 @@ export class CardChooseComponent {
 
   @Input() product?: ProductsDisplay;
   @Input() active: boolean = false;
+  @Input() disabled: boolean = false;
 
   @Output() itemAdd = new EventEmitter<ProductsDisplay>();
 

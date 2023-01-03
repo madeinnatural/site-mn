@@ -5,8 +5,10 @@
     <thead *ngIf="products.length;">
       <tr class="bg-white">
         <th scope="col">Produto</th>
-        <th scope="col">Preço</th>
-        <th scope="col"></th>
+        <th scope="col">Categoria</th>
+        <th scope="col">Preço/Unidade</th>
+        <th scope="col">Unidade</th>
+        <th scope="col">Adicionar ao carrinho</th>
       </tr>
     </thead>
 
@@ -15,31 +17,16 @@
       <tr *ngFor="let product of products; index as i">
         <td scope="row" class="row-table">
 
-          <div class="row-table-titles">
-            {{ product.product.name }}
-            <div class="product-detail">
-              <!-- <span scope="row" class="classe-nova">Unidade: {{ product.weight }} kg</span> -->
-              <div class="ml-3 text-white"></div>
-              <!-- <span class="text-muted">Preço: {{ product.price | currency: 'R$' }}</span> -->
-              <div class="ml-3 text-white"></div>
-
-                <span *ngIf="product.typeCharge && product.typeCharge != 'unit' ">
-                  Caixa <mn-icon name="box" size="xs"></mn-icon>
-                  <div class="ml-1 text-white"></div>
-                  {{ product.product.price_category.packing | currency: 'BRL' }}
-                </span>
-
-                <span *ngIf="product.typeCharge && product.typeCharge != 'box' ">
-                  Peso <mn-icon name="balance" size="xs"></mn-icon>
-                  <div class="ml-1 text-white"></div>
-                  {{ product.product.price_category.weight_unit | currency: 'R$' }}
-                </span>
-
+          <div class="row-table">
+            <div class="row-table-titles">
+              {{ product.product.name }}
+            </div>
+            <div class="row-table-body">
+              <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
             </div>
           </div>
 
           <div class="d-lg-none">
-
             <div class="card">
               <div class="card-body row">
 
@@ -76,7 +63,25 @@
 
         </td>
 
+        <td scope="row" class="row-table">{{ product.product.product_categories.main }}</td>
+
         <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
+
+        <td scope="row" class="row-table">
+          <div class="product-detail">
+
+              <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
+                Caixa <mn-icon name="box" size="xs"></mn-icon>
+                {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
+              </span>
+
+              <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
+                Peso <mn-icon name="balance" size="xs"></mn-icon>
+                {{ product.product.product_attributes.weight_unit }} kg
+              </span>
+
+          </div>
+        </td>
 
         <td scope="row" class="row-table pull-right">
 

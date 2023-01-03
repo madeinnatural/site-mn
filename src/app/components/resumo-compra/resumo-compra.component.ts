@@ -1,16 +1,17 @@
+import { CounterBarData } from './../../core/model/interfaces/Utils';
 import { Router } from '@angular/router';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-resumo-compra',
+  selector: 'resumo-compra',
   templateUrl: './resumo-compra.component.html',
   styleUrls: ['./resumo-compra.component.scss']
 })
 export class ResumoCompraComponent implements OnInit {
 
-  @Input() data_card = {
-    total: 0,
-    quantidade: 0,
+  @Input() dataBar: CounterBarData = {
+    totalPrice: 0,
+    quantity: 0,
   }
 
   constructor(
@@ -19,13 +20,12 @@ export class ResumoCompraComponent implements OnInit {
 
   goCart() {
     const url = '/cart';
-    console.log('indo para:', url);
     this.route.navigate([url]);
     window.scrollTo(0, 0);
   }
 
-  changeDataCard(data: any) {
-    this.data_card = data;
+  changeDataCard(data: CounterBarData) {
+    this.dataBar = data;
   }
 
   public innerWidth: any;

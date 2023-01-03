@@ -70,6 +70,7 @@
 .btn-init {
   &-cart {
     color: #03A64A;
+    display: read-write-plaintext-only;
     padding: .4rem;
     display: flex;
     align-items: center;
