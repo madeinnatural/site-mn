@@ -47,9 +47,14 @@ export class ServerService {
       return this.talkToServer('purchase/register', {shopping_cart: products}, {type: 'POST'});
     }
 
-    search(termo: string, numberPage = 0) {
-      let url = `seach?query=${termo}`;
+    search(data: AvancedFilter, numberPage?: number) {
+      let url = `seach?query=${data.termo}`;
       if (numberPage) url += '&page=' + numberPage
+      const filterPrice = data.price;
+      const filterCategory = data.category;
+
+      if (filterPrice) url += '&price=' + filterPrice;
+      if (filterCategory) url += '&category=' + filterCategory;
       return this.http.get<DataSearch>(environment.baseUrl + url);
     }
 
@@ -66,7 +71,7 @@ export class ServerService {
     getProductListQuery(query: string, current_page?: number): Observable<DataSearch> {
       let url = `seach?query=${query}` + '&page=' + current_page;
       return this.http.get<DataSearch>( environment.baseUrl + url).pipe(map(e => {
-        e.data = e.data.filter(e => e.product_name != 'produto');
+        e.data = e.data.filter(e => e.name != 'produto');
         return e;
       }));
     }

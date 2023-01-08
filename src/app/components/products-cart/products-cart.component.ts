@@ -8,18 +8,19 @@ import { AvancedFilter } from '../../core/model/interfaces/Product';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-products-cart',
+  selector: 'products-cart',
   templateUrl: './products-cart.component.html',
   styleUrls: ['./products-cart.component.scss'],
 })
 export class ProductsCartComponent {
 
   @Input() productList?: Observable<ProductsDisplay[]>;
+
   @Output() data_card = new EventEmitter<DataBar>();
+  @Output() dataSearch = new EventEmitter<AvancedFilter>();
 
   filter: AvancedFilter = { price: 0, category: '' };
   loadingPage = false;
-  termo = '';
   page = 0;
 
   total = 0;
@@ -32,7 +33,7 @@ export class ProductsCartComponent {
   ){}
 
   keyPress(event: KeyboardEvent) {
-    if (this.termo.length > 3) {
+    if ( this.filter.termo && this.filter.termo.length > 3) {
       setTimeout(() => {
         this.search();
       },500);
@@ -60,7 +61,7 @@ export class ProductsCartComponent {
   }
 
   search() {
-
+    this.dataSearch.emit(this.filter);
   }
 
   addItemCart(product: ProductsDisplay) {

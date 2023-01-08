@@ -98,6 +98,7 @@ export class ProductDetail {
 }
 
 export interface AvancedFilter {
+  termo?: string,
   price: number;
   category: string;
 }
@@ -108,7 +109,7 @@ export interface DataBar {
 }
 
 export interface DataSearch {
-  data: ProductList[],
+  data: ProductResponse[],
   more_product: boolean,
 }
 

@@ -69,6 +69,6 @@
   </div>
 </section>
 
-<app-products-cart [productList]="products"></app-products-cart>
+<products-cart (dataSearch)="search($event)" [productList]="products"></products-cart>
 <app-publicidade-home></app-publicidade-home>
 <app-footer></app-footer>

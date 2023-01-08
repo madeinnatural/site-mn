@@ -1,7 +1,7 @@
 <!--=========== section tabela ===========-->
 <section class="pt-5 pb-5 section_table">
   <div class="container">
-    <mn-search [termo]="termo" (goSearch)="termo = $event; this.search()" ></mn-search>
+    <mn-search [termo]="filter.termo ? filter.termo : '' " (goSearch)="filter.termo = $event; this.search()" ></mn-search>
     <div class="row">
       <div class="col-12">
         <mn-table [productList]="productList" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" (showAll)="showProductsAll()" ></mn-table>
