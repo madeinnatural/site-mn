@@ -1,3 +1,4 @@
+import { SearchBarButtonComponent } from './search/button/button.component';
 import { ButtonMainComponent } from './header/button-main/button-main.component';
 import { TitlePageComponent } from './title-page/title-page.component';
 import { CardCompanyLinksComponent } from './header/card-company-links/card-company-links.component';
@@ -75,7 +76,8 @@ import { SearchComponent } from './search/search.component';
 import { MnIconComponent } from './mn-icon/mn-icon.component';
 import { ButtonQuantityComponent } from './table/button-quantity/button-quantity.component';
 import { ButtonInitCartComponent } from './table/button-init-cart/button-init-cart.component';
-import { CardChooseComponent } from './table/card-choose/card-choose.component'
+import { CardChooseComponent } from './table/card-choose/card-choose.component';
+import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component'
 
 @NgModule({
   declarations: [
@@ -113,6 +115,8 @@ import { CardChooseComponent } from './table/card-choose/card-choose.component'
     ButtonQuantityComponent,
     ButtonInitCartComponent,
     CardChooseComponent,
+    SearchBarButtonComponent,
+    ButtonLupaComponent
   ],
   imports: [
     CommonModule,

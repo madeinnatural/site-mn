@@ -1,3 +1,47 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
 html {
   font-size: 14px;
 }
@@ -18,7 +62,7 @@ html {
   }
 }
 
-@media screen and (max-width: 993px) {
+/* @media screen and (max-width: 993px) {
   header .centro_menu {
     position: absolute;
     z-index: 9999;
@@ -26,7 +70,7 @@ html {
     top: 81px;
     background: #fff;
   }
-}
+} */
 
 
 .btn {
@@ -48,8 +92,9 @@ html {
   border-radius: 5px;
   color: #fff;
   font-weight: 700;
-  height: 40px;
-  width: 419px;
+  height: 2rem;
+  width: 100%;
+  max-width: 419px;
 }
 
 .btn_outline_white {
@@ -86,102 +131,6 @@ html {
   }
 }
 
-/*=============== header ===============*/
-header {
-  height: 81px;
-}
-
-header .btn_entrar {
-  text-decoration: underline;
-  white-space: nowrap;
-  font-size: 14px;
-}
-
-header .btn_buscar {
-  font-weight: bold;
-}
-
-header .input_pesquisa {
-  height: 48px;
-}
-
-.modal_open {
-  position: absolute;
-  z-index: 9999;
-  left: 0;
-  top: 81px;
-  background: #fff;
-}
-
-#menu_fechar_pedido {
-  display: none;
-  position: absolute;
-  right: 0;
-  top: 70px;
-  z-index: 99;
-  width: 280px;
-  box-shadow: 0px 13px 17px rgba(0, 0, 0, 0.0509804);
-  border: 1px solid #F5F5F5;
-}
-
-#menu_fechar_pedido .cont_valor {
-  border-bottom: solid 1px #F5F5F5;
-}
-
-#menu_fechar_pedido .cont_valor .valor {
-  color: #202020;
-  font-weight: 500;
-}
-
-#menu_fechar_pedido .btn_fechar_pedido {
-  white-space: nowrap;
-  font-size: 14px;
-  font-weight: 500;
-}
-
-#menu_fechar_pedido .text_n_tem_conta {
-  font-size: 12px;
-  color: #757575;
-  font-weight: 500;
-}
-
-#menu_fechar_pedido a {
-  text-decoration: underline;
-}
-
-header .tot_itens_pedido {
-  position: absolute;
-  bottom: 0;
-  left: 20px;
-  font-size: 12px;
-  font-weight: 400;
-  width: 19px;
-  height: 19px;
-  border-radius: 50%;
-  padding: 0 !important;
-}
-
-#cont_external_links {
-  display: block;
-}
-
-@media (min-width: 992px) {
-  header .centro_menu {
-    position: relative;
-    top: 0;
-    border: none;
-  }
-
-  #cont_external_links {
-    display: none;
-    position: absolute;
-    left: -270px;
-    top: 65px;
-    z-index: 99;
-  }
-}
-
-/*=============== fim header ===============*/
 
 /*=============== carrousel ===============*/
 .carousel-item {

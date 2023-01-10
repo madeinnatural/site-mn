@@ -1,0 +1,18 @@
+span {
+  cursor: pointer;
+}
+
+.button-search {
+  border-right: none !important;
+  border-start-end-radius: 0 !important;
+  border-end-end-radius: 0 !important;
+
+  height: auto;
+  &:hover {
+    background-color: #f5f5f5;
+  }
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: green;
+}

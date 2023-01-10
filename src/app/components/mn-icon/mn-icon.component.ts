@@ -7,5 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class MnIconComponent {
   @Input() name = '';
+  @Input() loading = false;
   @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxs' | 'default' = 'default';
 }

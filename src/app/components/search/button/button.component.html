@@ -1,0 +1,6 @@
+<div class="input-group-prepend">
+  <span class="input-group-text bg-white button-search">
+    <app-button-lupa *ngIf="!loading"></app-button-lupa>
+    <mat-spinner *ngIf="loading" class="spinner" diameter="25" strokeWidth="2"></mat-spinner>
+  </span>
+</div>

@@ -1,3 +1,4 @@
+import { ISubmitableSearch } from './../../core/model/interfaces/Utils';
 import { CartService } from './../../core/services/cart.service';
 import { ProductsDisplay, DataBar } from './../../core/model/interfaces/Product';
 import { GlobalEventService } from './../../core/services/global.service';
@@ -6,6 +7,7 @@ import { ModalService } from './../../core/services/modal.service';
 import { Observable} from 'rxjs';
 import { AvancedFilter } from '../../core/model/interfaces/Product';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { Submitable } from '../mn-form/mn-form.component';
 
 @Component({
   selector: 'products-cart',
@@ -26,19 +28,13 @@ export class ProductsCartComponent {
   total = 0;
   quantidade = 0;
 
+  @Input() loading: boolean = false;
+
   constructor (
     public modalService: ModalService,
     public global: GlobalEventService,
     private cartService: CartService,
   ){}
-
-  keyPress(event: KeyboardEvent) {
-    if ( this.filter.termo && this.filter.termo.length > 3) {
-      setTimeout(() => {
-        this.search();
-      },500);
-    }
-  }
 
   pullProducts(page: number = 0) {
     // this.global.loading.emit(true);
@@ -60,8 +56,19 @@ export class ProductsCartComponent {
     // this.global.loading.emit(false);
   }
 
-  search() {
-    this.dataSearch.emit(this.filter);
+  search(termo?: string): ISubmitableSearch {
+    return {
+      submit: () => {
+        return new Promise((resolve, reject) => {
+          console.log(termo);
+          resolve(this.filter.termo);
+        });
+      }
+    };
+  }
+
+  goSearch(termo: string) {
+    console.log(termo)
   }
 
   addItemCart(product: ProductsDisplay) {
@@ -103,7 +110,6 @@ export class ProductsCartComponent {
           const {category, price} = result;
           this.filter.category = category;
           this.filter.price = price;
-          this.search();
         }
     });
   }
