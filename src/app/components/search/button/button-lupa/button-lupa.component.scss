@@ -1,20 +1,22 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
-button {
+.lupa  {
   display: flex;
   align-items: center;
   background: none;
   border: none;
   padding: 0;
+  margin: 0;
   font: inherit;
   cursor: pointer;
   outline: inherit;
 }
 
-button {
+.lupa  {
   transition: all 0.3s ease-in-out;
   &:hover {
     transform: scale(1.1);

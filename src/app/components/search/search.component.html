@@ -1,22 +1,16 @@
-<div class="row mb-3">
-  <div class="col-12 d-block d-md-flex justify-content-between">
-    <div class="input-group mb-3 mb-md-0">
-
-      <search-bar-button [loading]="loading" ></search-bar-button>
-
-      <input
-        [value]="termo"
-        (keyup)="keyPress($event)"
-        type="text"
-        [placeholder]="placeholder"
-        class="form-control border-left-0 input-search" />
-
-      </div>
-    <!-- <button
-          class="btn mb-4 ml-md-3 mb-md-0 d-flex align-items-center justify-content-center text-uppercase btn_green"
-          style="height: 50px; max-width: 400px;">
-          <img style="width: 32px" src="assets/img/filtro.webp" />
-          <div class="ml-3 text-white">Filtro Avançado</div>
-        </button> -->
+<div class="search-bar">
+  <div class="input-group">
+    <search-bar-button [loading]="loading" class="btn-lupa" ></search-bar-button>
+    <input
+      [value]="termo"
+      (keyup)="keyPress($event)"
+      type="text"
+      [placeholder]="placeholder"
+      class="form-control border-left-0 input-search"
+    />
   </div>
+  <button class="btn text-uppercase btn_green">
+    <img src="assets/img/filtro.webp" />
+    Filtro Avançado
+  </button>
 </div>
