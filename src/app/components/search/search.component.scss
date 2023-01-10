@@ -46,7 +46,8 @@ button {
   }
 }
 
-button p {
+button span {
+  align-self: end !important;
   color: white;
 }
 
