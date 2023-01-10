@@ -1,10 +1,16 @@
 <div *ngIf="type == 'mobile'" class="search ">
   <div class="search-box">
-    <input class="search-txt" type="text" placeholder="Procure por nome, marca..." [(ngModel)]="query"
-      (keypress)="monteQuery($event)" #name_produc />
+    <input
+      class="search-txt" type="text"
+      placeholder="Procure por nome, marca..."
+      (keyup)="monteQuery($event)"
+      #name_produc
+    />
+
     <a class="search-btn">
       <i class="fa fa-search" aria-hidden="true"></i>
     </a>
+
   </div>
 </div>
 
@@ -16,8 +22,10 @@
       <img src="assets/img/pesquisa.svg">
     </span>
 
-    <input type="text" class="search-desktop-txt form-control" placeholder="Procure por nome, marca..."
-      [(ngModel)]="query" #name_produc />
+    <input type="text"
+    (keyup)="monteQuery($event)"
+    class="search-desktop-txt form-control"
+    placeholder="Procure por nome, marca..." #name_produc />
 
     <button (click)="bucarProduto()" class="search-desktop-btn bg-white">
       <a class="btn btn-link btn_buscar _color_green">Buscar</a>
