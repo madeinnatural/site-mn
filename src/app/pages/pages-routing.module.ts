@@ -1,4 +1,3 @@
-import { SnackPage } from './snack/snack-page.component';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
@@ -32,7 +31,6 @@ const routes: Routes = [
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
   {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
-  {path: 'snacks', resolve: { productList: '', categories: '' }, component: SnackPage},
   {path: 'page-not-found', component: PageNotFoundComponentComponent},
   {path: '**', redirectTo: 'page-not-found'}
 ];

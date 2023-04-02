@@ -1,4 +1,3 @@
-import { SnackPage } from './snack/snack-page.component';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from '../core/services/server.service';
@@ -75,8 +74,7 @@ import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundCom
     PurchaseSummaryComponent,
     PasswordRecoveryComponent,
     RecoveryFormComponent,
-    PageNotFoundComponentComponent,
-    SnackPage
+    PageNotFoundComponentComponent
   ],
   imports: [
     CommonModule,

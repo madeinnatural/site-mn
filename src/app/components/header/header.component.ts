@@ -1,5 +1,4 @@
 import { CartService } from './../../core/services/cart.service';
-import { ProductService } from './../../core/services/product.service';
 import { UserService } from './../../core/services/user.service';
 import User from 'src/app/core/model/interfaces/User';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -60,7 +59,6 @@ export class HeaderComponent {
     private cookieService: CookieService,
     public userService: UserService,
     public cartService: CartService,
-    private productService: ProductService
   ) {
 
     const current_user  = this.accountService.current_user;

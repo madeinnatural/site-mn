@@ -40,7 +40,7 @@ export class MinValidator implements MnValidator {
    readonly type = 'default';
    message = 'O valor mínimo é #';
    private currencyPipe = new CurrencyPipe("pt-BR");
-   
+
    constructor (public params: string, message?: string) {
       if (message) { this.message = message };
       this.message = this.message.replace('#', this.currencyPipe.transform(parseFloat(params), "R$ ", "code", "1.2-2", "pt-BR") || "");
@@ -62,7 +62,7 @@ export class IntervalValidator implements MnValidator {
 
    validate(value: string): boolean {
       let x = parseFloat(value);
-      return this.min <= x && x <= this.max;
+      return (this.min as number) <= x && x <= (this.max as number);
    }
 }
 
@@ -99,20 +99,19 @@ export class MaskedMinLenghtValidator extends MinLenghtValidator{
 }
 
 export class NameValidator implements MnValidator {
-   readonly type = 'default';
-   message = 'Insira sobrenome.';
-   constructor (message?: string) {
-      if (message) { this.message = message; }
-   }
+  readonly type = 'default';
+  message = 'Insira sobrenome.';
+  constructor (message?: string) {
+    if (message) { this.message = message; }
+  }
 
-   preValidate(name: string) {
-      return name.split(" ").filter(char => char != "").join(" ");
-   }
+  preValidate(name: string) {
+    return name.split(" ").filter(char => char != "").join(" ");
+  }
 
-   validate(value: string): boolean {
-      // if (value && value.match(/[A-z][A-z]* [A-z][A-z]*/g)) { return true; } else { return false; }
-      if (value && value.match(/[A-z][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ]* [A-z][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ]*/g)) { return true; } else { return false; }
-   }
+  validate(value: string): boolean {
+    if (value && value.match(/[A-z][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ]* [A-z][A-zàèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇ]*/g)) { return true; } else { return false; }
+  }
 }
 
 export class EmailValidator implements MnValidator {
@@ -202,7 +201,7 @@ export class ShortDateValidator implements MnValidator {
 export class FullDateValidator implements MnValidator {
    readonly type = 'default';
    message = 'Data inválida.';
-   
+
    constructor (message?: string) {
       if (message) { this.message = message; }
    }
@@ -406,25 +405,25 @@ export class CNPJValidator implements MnValidator {
 
    validate(value: string): boolean {
       const cnpj = value.replace(/[^\d]+/g,'');
- 
+
       if(cnpj == '') return false;
-      
+
       if (cnpj.length != 14)
          return false;
-   
+
       // Elimina CNPJs invalidos conhecidos
-      if (cnpj == "00000000000000" || 
-         cnpj == "11111111111111" || 
-         cnpj == "22222222222222" || 
-         cnpj == "33333333333333" || 
-         cnpj == "44444444444444" || 
-         cnpj == "55555555555555" || 
-         cnpj == "66666666666666" || 
-         cnpj == "77777777777777" || 
-         cnpj == "88888888888888" || 
+      if (cnpj == "00000000000000" ||
+         cnpj == "11111111111111" ||
+         cnpj == "22222222222222" ||
+         cnpj == "33333333333333" ||
+         cnpj == "44444444444444" ||
+         cnpj == "55555555555555" ||
+         cnpj == "66666666666666" ||
+         cnpj == "77777777777777" ||
+         cnpj == "88888888888888" ||
          cnpj == "99999999999999")
          return false;
-            
+
       // Valida DVs
       let tamanho = cnpj.length - 2
       let numeros = cnpj.substring(0,tamanho);
@@ -441,7 +440,7 @@ export class CNPJValidator implements MnValidator {
       let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
       if (resultado != parseInt(digitos.charAt(0)))
          return false;
-            
+
       tamanho = tamanho + 1;
       numeros = cnpj.substring(0,tamanho);
       soma = 0;
@@ -454,7 +453,7 @@ export class CNPJValidator implements MnValidator {
       resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
       if (resultado != parseInt(digitos.charAt(1)))
             return false;
-            
+
       return true;
    }
 }
@@ -514,15 +513,7 @@ export enum ValidatorEnum {
    cpfcnpj = 'cpfcnpj'
 }
 
-// A cada validador criado deve-se atualizar o factory.
-// Não é obrigatório criar chamadas simples para todos os validadores.
 export class ValidatorFactory {
-   /* Parametro sempre recebe Array, os dados pode vir:
-      1: String - "required"
-      2: Array - [nome,message?,params?]
-      3: Objeto - {nome:"", params:"", message:""}
-      4: MnValidator
-   */
    static getValidators(validators: Array<ValidatorEnum | Array<ValidatorEnum|string|any> | Validator | MnValidator>): MnValidator[] {
       const response: MnValidator[] = [];
       for (let validator of validators) {
@@ -538,15 +529,11 @@ export class ValidatorFactory {
 
          }
 
-         if (typeof validator === 'string') {// transforma string em objeto
-            validator = {name: validator};
-         }
-         // se um custom validator for enviado adiciona
+         if (typeof validator === 'string') validator = {name: validator};
          if (this.instanceOfMnValidator(validator)) {
-            response.push(validator);
-            continue;
+          response.push(validator);
+          continue;
          }
-
          if (this.instanceOfValidator(validator)) {
             switch (validator.name) {
                case ValidatorEnum.required: {

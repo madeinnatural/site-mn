@@ -1,8 +1,7 @@
 import { Router, NavigationExtras } from '@angular/router';
-import { UserLogin, UserRegister } from './../../core/model/interfaces/User';
+import { UserLogin } from './../../core/model/interfaces/User';
 import { AccountService } from './../../core/account/account.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -15,33 +14,18 @@ export class AccountComponent implements OnInit, OnDestroy {
   type: 'registration' | 'login' = 'login';
 
   constructor(
-    private formBuilder: FormBuilder,
     private accountService: AccountService,
     private router: Router,
   ) {
-
     const dataNavigatio = this.router.getCurrentNavigation();
-
     if (dataNavigatio) {
-
       const { type } = dataNavigatio.extractedUrl.queryParams;
-
-      if (type) {
-        this.type = type;
-      } else {
-
-        if (this.router.url == 'login') {
-          this.type = 'login';
-        }
-
-      }
-
+      if (type) { this.type = type }
+      else { if (this.router.url == 'login') this.type = 'login' }
     } else {
       this.type = 'login';
     }
-
     accountService.loginActiver(true)
-
   }
 
   ngOnInit(): void {
@@ -61,6 +45,5 @@ export class AccountComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.accountService.loginActiver(false);
   }
-
 
 }

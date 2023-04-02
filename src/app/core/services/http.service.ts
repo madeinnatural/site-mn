@@ -1,4 +1,4 @@
-import { Product, ProductResponse } from './../model/interfaces/Product';
+import { Product } from './../model/interfaces/Product';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

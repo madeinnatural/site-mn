@@ -6,22 +6,6 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import User from '../model/interfaces/User';
 
-let user: User = {
-  name: '',
-  email: '',
-  cnpj: '',
-  phone: '',
-  adresses: {
-    number: '',
-    street: '',
-    city: '',
-    cep: '',
-    state: '',
-  },
-  adresses_main: '',
-  id: 0,
-};
-
 @Injectable({
   providedIn: 'root'
 })

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { GlobalEventService } from './../services/global.service';
-import { AccountService } from './../account/account.service';
 import { ServerService } from '../services/server.service';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree, RouterModule } from '@angular/router';
@@ -17,7 +16,6 @@ export class AuthQuard implements CanActivate {
   constructor(
     public serverService: ServerService,
     private router: Router,
-    private account: AccountService,
     private cookieService: CookieService,
     private globalEventService: GlobalEventService,
     private httpClient: HttpClient

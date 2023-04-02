@@ -1,8 +1,6 @@
-import { PaginatorComponent } from './../../components/paginator/paginator.component';
-import { Item, DataSearch } from '../../core/model/interfaces/Product';
+import { DataSearch } from '../../core/model/interfaces/Product';
 import { Observable, map } from 'rxjs';
 import { GlobalEventService } from './../../core/services/global.service';
-import { ProductService } from './../../core/services/product.service';
 import { ServerService } from '../../core/services/server.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
@@ -30,7 +28,6 @@ export class ProductListComponent implements OnInit {
     private router: Router,
     private server: ServerService,
     private cookieService: CookieService,
-    public productService: ProductService,
     public globalEventService: GlobalEventService
   ) {
     this.query = this.getQueryParams();

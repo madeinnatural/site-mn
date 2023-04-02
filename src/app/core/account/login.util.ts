@@ -1,4 +1,3 @@
-// DADOS RETORNADOS PELO LOGIN
 export type LoginResponse = {
   auth_token: string;
   id: number;
@@ -16,12 +15,4 @@ export type LoginResponse = {
   purchase_tax: number;
   has_notification: boolean;
   know: number;
-}
-
-export enum LoginStatus {
- ok = 'ok',
- loginError = 'login',
- passwordError = 'senha',
- error = 'error',
- noPasswordError = "sem_senha"
 }

@@ -1,5 +1,4 @@
-import { GlobalErrorService } from '../../core/services/global-error.service';
-import { MatSnackBar, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
+import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angular/core';
 
 @Component({

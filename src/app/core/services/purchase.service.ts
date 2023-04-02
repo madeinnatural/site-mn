@@ -1,5 +1,4 @@
 import { GlobalEventService } from './global.service';
-import { ProductService } from './product.service';
 import { ServerService } from '../services/server.service';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
@@ -12,7 +11,6 @@ export class PurchaseService {
   constructor(
     public cookieService: CookieService,
     public serverService: ServerService,
-    public productService: ProductService,
     public globalEventService: GlobalEventService,
     private server: ServerService
   ) {}

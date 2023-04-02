@@ -1,8 +1,6 @@
 import { UserService } from './../services/user.service';
-import { Router } from '@angular/router';
-import { CookieOptions, CookieService } from '@ngx-toolkit/cookie';
+import { CookieService } from '@ngx-toolkit/cookie';
 import { UserRegister } from './../model/interfaces/User';
-import { ServerService } from '../services/server.service';
 import { GlobalEventService } from './../services/global.service';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
@@ -37,9 +35,7 @@ export class AccountService {
     private globalEventService: GlobalEventService,
     private cookieService:CookieService,
     private userService: UserService
-  ) {
-    // CHAMAR NO SEVIDOR
-  }
+  ) {}
 
   loginActiver(active: boolean) {
     this.hidderHeaderFooter.emit(active);
