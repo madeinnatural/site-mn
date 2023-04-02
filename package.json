@@ -28,6 +28,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@myndmanagement/text-mask": "^13.1.3",
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@ngrx/store": "^13.2.0",
     "@ngx-toolkit/cookie": "^13.2.1",
     "@ngx-toolkit/device": "^13.2.1",
     "@popperjs/core": "^2.10.2",

@@ -20,6 +20,9 @@ import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthQuard } from './core/guards/auth.quard';
+import { StoreModule } from '@ngrx/store';
+import { orderReducer } from './store/order.store';
+import { productSaleReducer } from './store/productSale.store';
 
 
 @NgModule({
@@ -44,7 +47,11 @@ import { AuthQuard } from './core/guards/auth.quard';
     NgbPaginationModule,
     NgbAlertModule,
     MatFormFieldModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    StoreModule.forRoot(
+      { order: orderReducer, productsSale: productSaleReducer },
+      {}
+    )
   ],
   providers: [
     AuthQuard,
