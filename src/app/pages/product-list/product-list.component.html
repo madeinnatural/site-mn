@@ -70,9 +70,9 @@
                 <td scope="row" style="max-width: 400px;" class="col-auto">
 
                   <div class="classe-nova">
-                    <h5> {{product.product_name}} </h5>
+                    <h5> {{product.product.name}} </h5>
                     <div>
-                      <span>Unidade: {{ product.weight }} kg</span>
+                      <span>Unidade: UNIDADE AQUI kg</span>
                       <!-- <div class="ml-3 text-white"></div> -->
                       <!-- <span class="text-muted">Preço: {{ product.price | currency: 'R$' }}</span> -->
                       <!-- <div class="ml-3 text-white"></div> -->
@@ -85,12 +85,12 @@
                       <div class="card-body row">
 
                         <div class="card-body">
-                          <h4 class="card-title">{{product.product_name}}</h4>
+                          <h4 class="card-title">{{'nome de produto'}}</h4>
 
-                          <h6 class="card-subtitle text-muted">{{ product.provider_primary }}</h6>
+                          <h6 class="card-subtitle text-muted">{{'categoria '}}</h6>
 
                           <div *ngIf="product.quantity">
-                            <span class="text-muted"> Unidade de: {{product.weight}} kg</span>
+                            <span class="text-muted"> Unidade de: {{'peso'}} kg</span>
                             <div class="ml-3 text-white"></div>
                             <!-- <span>Parcial: {{product.quantity * product.price | currency: 'R$' }}</span> -->
                           </div>

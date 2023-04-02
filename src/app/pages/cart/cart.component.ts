@@ -21,11 +21,6 @@ export class CartComponent {
     return this.preco_entrega + this.total;
   };
 
-  // Dpois vc precisa construir um sistema mais robusto, quando cliente solicitar a compra
-  // esses produtos va para o servidor e o servidor vai criar uma compra com um token de validação
-  // quando for finalizada a compra as compras que foram autenticadas com o token e todos os itens batendo
-  // com o que foi solicitado, a compra é finalizada e o cliente recebe um email de confirmação
-  // para evitar que uma compra seja enviada com dados modificados e passe.
   constructor(
     public server: ServerService,
     public router: Router,
@@ -35,20 +30,6 @@ export class CartComponent {
 
   async finishPurchase() {
     try {
-      // const cart: any = this.productService.getCart()
-      // .filter( item => item.product.quantity > 0 )
-      // .map(item => {
-      //   return {
-      //     product_name: item.product.product_name,
-      //     weight: item.product.weight,
-      //     category: item.product.categoria,
-      //     provider_primary: item.product.provider_primary,
-      //     quantity: item.product.quantity,
-      //     price: item.product.price
-      //   }
-      // });
-
-      // return this.server.finishPurchase(cart);
 
     } catch (error) {
       throw new Error((error as Error).message);
@@ -95,23 +76,15 @@ export class CartComponent {
 
 // MANIPULAÇÃO DE PRODUTOS
   removeItem(itemId: number) {
-    // this.productService.decreseItem(itemId);
-    this.descremetarItemCartLocal(itemId);
+
   }
 
   remove(productsDisplay: ProductsDisplay) {
-    if(productsDisplay.quantityInCart > 0){
-      productsDisplay.quantityInCart -= 1;
-      productsDisplay.subTotal -= productsDisplay.subTotal;
-    }
+
   }
 
   add(productsDisplay: ProductsDisplay) {
-    // Adicionar quantidade de produtos
-    if (productsDisplay.quantityInCart != 0) {
-      productsDisplay.quantityInCart += 1;
-      productsDisplay.subTotal += productsDisplay.subTotal;
-    }
+
   }
 
 

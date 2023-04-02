@@ -23,7 +23,7 @@
                   {{ product.product.name }}
                 </div>
                 <div class="row-table-body">
-                  <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
+                  <span *ngIf="product">Valor parcial: {{ '' }}</span>
                 </div>
               </div>
 
@@ -31,16 +31,16 @@
 
             <td scope="row" class="row-table">
               <span class="row-table-category">
-                {{ product.product.product_categories.main }}
+                <!-- {{ product.product.product_categories.main }} -->
               </span>
             </td>
 
-            <td scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</td>
+            <td scope="row" class="row-table"> {{ '' }}</td>
 
             <td scope="row" class="row-table">
               <div class="product-detail">
 
-                  <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
+                  <!-- <span *ngIf="product.typeCharge && product.typeCharge == 'box' " class="product-detail-item">
                     Caixa <mn-icon name="box" size="xs"></mn-icon>
                     {{ product.product.product_attributes.packing.packing_quantity }} / {{ product.product.product_attributes.packing.packing_weight }}
                   </span>
@@ -48,18 +48,18 @@
                   <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
                     Peso <mn-icon name="balance" size="xs"></mn-icon>
                     {{ product.product.product_attributes.weight_unit }} kg
-                  </span>
+                  </span> -->
 
               </div>
             </td>
 
             <td scope="row" class="row-table pull-right">
 
-              <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
+              <!-- <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
 
               <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
 
-              <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
+              <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity> -->
 
             </td>
           </ng-container>
@@ -96,25 +96,25 @@
                 {{ product.product.name }}
               </div>
               <div class="row-table-body">
-                <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span>
+                <!-- <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span> -->
               </div>
             </div>
 
             <div scope="row" class="row-table">
               <span class="row-table-category">
-                {{ product.product.product_categories.main }}
+                <!-- {{ product.product.product_categories.main }} -->
               </span>
             </div>
 
-            <div scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</div>
+            <!-- <div scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</div> -->
 
             <div class="control-mobile">
 
-              <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose>
+              <!-- <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose> -->
 
-              <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart>
+              <!-- <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart> -->
 
-              <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
+              <!-- <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity> -->
 
             </div>
 

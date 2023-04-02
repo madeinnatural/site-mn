@@ -1,7 +1,6 @@
 import { GlobalEventService } from './global.service';
 import { ProductService } from './product.service';
 import { ServerService } from '../services/server.service';
-import { ProductList, Purchase } from '../model/interfaces/Product';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { Item } from '../model/interfaces/Product';
@@ -65,61 +64,61 @@ export class PurchaseService {
   }
 
   removeItem(item: Item) {
-    // CASO JÁ EXISTA CARRINHO
-    if (this.cookieService.hasItem('cart')) {
-      const cart = this.getCartLocalStorage();
+    // // CASO JÁ EXISTA CARRINHO
+    // if (this.cookieService.hasItem('cart')) {
+    //   const cart = this.getCartLocalStorage();
 
-      // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
-      if (cart.some((current_item) => current_item.id == item.id)) {
-        cart[cart.findIndex((e) => e.id == item.id)].product.quantity -= 1;
+    //   // VERIFICA SE EXISTE ALGUM ITEM COM O ID IDENTICO.
+    //   if (cart.some((current_item) => current_item.id == item.id)) {
+    //     cart[cart.findIndex((e) => e.id == item.id)].product.quantity -= 1;
 
-        const count_item = cart[cart.findIndex((e) => e.id == item.id)].product.quantity;
+    //     const count_item = cart[cart.findIndex((e) => e.id == item.id)].product.quantity;
 
-        const current_price_item = cart[cart.findIndex((e) => e.id == item.id)].product.price
+    //     const current_price_item = cart[cart.findIndex((e) => e.id == item.id)].product.price
 
-        // cart[cart.findIndex((e) => e.id == item.id)].product.price -= current_price_item;
+    //     // cart[cart.findIndex((e) => e.id == item.id)].product.price -= current_price_item;
 
-        if (count_item == 0) {
-          cart[cart.findIndex((e) => e.id == item.id)].parcial_price = 0;
+    //     if (count_item == 0) {
+    //       cart[cart.findIndex((e) => e.id == item.id)].parcial_price = 0;
 
-          cart.splice(
-            cart.findIndex((e) => e.id == item.id),
-            1
-          );
+    //       cart.splice(
+    //         cart.findIndex((e) => e.id == item.id),
+    //         1
+    //       );
 
-          // this.productService.listProduct.splice(
-          //   cart.findIndex((e) => e.id == item.id),
-          //   1
-          // );
+    //       // this.productService.listProduct.splice(
+    //       //   cart.findIndex((e) => e.id == item.id),
+    //       //   1
+    //       // );
 
-          this.cookieService.setItem('cart', JSON.stringify(cart));
+    //       this.cookieService.setItem('cart', JSON.stringify(cart));
 
-          this.globalEventService.addItemCartEmit.emit('removel:cart');
+    //       this.globalEventService.addItemCartEmit.emit('removel:cart');
 
-          return;
-        }
+    //       return;
+    //     }
 
-        // cart[cart.findIndex((e) => e.id == item.id)].quantity -= 1;
-        // cart[cart.findIndex((e) => e.id == item.id)].parcial_price -=
-        //   item.product.price;
+    //     // cart[cart.findIndex((e) => e.id == item.id)].quantity -= 1;
+    //     // cart[cart.findIndex((e) => e.id == item.id)].parcial_price -=
+    //     //   item.product.price;
 
-        // this.productService.listProduct.splice(
-        //   cart.findIndex((e) => e.id == item.id),
-        //   1
-        // );
+    //     // this.productService.listProduct.splice(
+    //     //   cart.findIndex((e) => e.id == item.id),
+    //     //   1
+    //     // );
 
-        // cart.push({
-        //   quantity: count_item,
-        //   id: item.id,
-        //   parcial_price: curret_price,
-        //   product: item.product,
-        // });
+    //     // cart.push({
+    //     //   quantity: count_item,
+    //     //   id: item.id,
+    //     //   parcial_price: curret_price,
+    //     //   product: item.product,
+    //     // });
 
-        this.globalEventService.addItemCartEmit.emit('removel:cart');
+    //     this.globalEventService.addItemCartEmit.emit('removel:cart');
 
-        this.cookieService.setItem('cart',JSON.stringify(cart));
-      }
-    }
+    //     this.cookieService.setItem('cart',JSON.stringify(cart));
+    //   }
+    // }
   }
 
   addItemCart(item: Item) {

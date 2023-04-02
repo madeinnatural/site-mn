@@ -98,7 +98,7 @@ export class SnackPage {
       const cart: CartProduct[] = [{
         id: product.product.id,
         quantity: product.quantity,
-        parcial_price: product.subTotal,
+        // parcial_price: product.subTotal,
         // product: productList,
       }];
       this.cookie.setItem(this.global.CART_PATH, JSON.stringify(cart));

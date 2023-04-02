@@ -72,17 +72,17 @@ export class ProductsCartComponent {
   }
 
   addItemCart(product: ProductsDisplay) {
-    product.quantityInCart += 1;
+    // product.quantityInCart += 1;
 
-    if (product.typeCharge == 'unit') {
-      // Quantidade do produto * preço da unidade * peso do produto
-      const subTotal = product.quantityInCart * product.product.price_category.weight_unit;
-      product.subTotal = subTotal;
-    } else if (product.typeCharge == 'box') {
-      // Quantidade do produto * preço do produto do pacote * peso do produto
-      const subTotal = product.quantityInCart * product.product.price_category.packing;
-      product.subTotal = subTotal;
-    }
+    // if (product.typeCharge == 'unit') {
+    //   // Quantidade do produto * preço da unidade * peso do produto
+    //   const subTotal = product.quantityInCart * product.product.price_category.weight_unit;
+    //   product.subTotal = subTotal;
+    // } else if (product.typeCharge == 'box') {
+    //   // Quantidade do produto * preço do produto do pacote * peso do produto
+    //   const subTotal = product.quantityInCart * product.product.price_category.packing;
+    //   product.subTotal = subTotal;
+    // }
 
     this.cartService.addProductInCart(product);
   }

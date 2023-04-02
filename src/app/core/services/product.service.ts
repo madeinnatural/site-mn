@@ -94,7 +94,7 @@ export class ProductService {
 //           product['provider_primary'] = product['provider_primary'] != '' ? product['provider_primary'] : 'INDEFINIDO';
 //           product['quantity'] = this.calculeQuantidade(product.id, productsCart);
 //           return product;
-//         }).filter((product) => product['product_name'] != 'produto');
+//         }).filter((product) => product['name'] != 'produto');
 //       }
 //     )).pipe(map((products) => { this.listProduct = products; return products; }));
 //   }
@@ -123,7 +123,7 @@ export class ProductService {
 //     // this.listProduct = products.map((e) => {
 //     //   return {
 //     //     id: e.id,
-//     //     product_name: e.product_name,
+//     //     name: e.name,
 //     //     price: e.price ? e.price : 0.0,
 //     //     provider_primary: e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',
 //     //     weight: e.weight ? e.weight : 0.0,
@@ -156,7 +156,7 @@ export class ProductService {
 //       // products.map((e) => {
 //       //   this.listProduct.push({
 //       //     id: e.id,
-//       //     product_name: e.product_name,
+//       //     name: e.name,
 //       //     price: e.price ? e.price : 0.0,
 //       //     provider_primary:
 //       //       e.provider_primary != '' ? e.provider_primary : 'INDEFINIDO',

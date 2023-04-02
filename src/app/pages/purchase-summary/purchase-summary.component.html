@@ -1,6 +1,6 @@
 <app-header></app-header>
 <!--=============== Status de compras ===============-->
-  <section class="w-100 pt-5 section_carrinho_de_compras">
+<section class="w-100 pt-5 section_carrinho_de_compras">
     <div class="container">
         <div class="row">
             <div class="col-12 mb-3">
@@ -44,7 +44,7 @@
                                 <tr *ngFor="let product of products">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div>{{product.product_name}}</div>
+                                            <div>{{product.product.name}}</div>
                                         </div>
                                         <table class="w-100 d-lg-none mb-3">
                                             <thead>
@@ -56,11 +56,11 @@
                                                 <tr>
                                                     <td class="py-0">
                                                         <div class="d-flex align-items-center">
-                                                            <h5 class="mx-3 mb-0">{{product.quantity}}</h5>
+                                                            <h5 class="mx-3 mb-0">{{product}}</h5>
                                                         </div>
                                                     </td>
                                                     <!-- <td class="py-0">{{product.price | currency}}</td> -->
-                                                    <td class="py-0">{{product.total | currency}}</td>
+                                                    <!-- <td class="py-0">{{product | currency}}</td> -->
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -74,7 +74,7 @@
                                         <!-- <div class="td_in">{{product.price | currency}}</div> -->
                                     </td>
                                     <td class="py-0 d-none d-lg-table-cell">
-                                        <div class="td_in"><strong>{{product.total| currency}}</strong></div>
+                                        <!-- <div class="td_in"><strong>{{product.total| currency}}</strong></div> -->
                                     </td>
                                 </tr>
                                 <!-- <tr>

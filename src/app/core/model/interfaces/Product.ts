@@ -1,31 +1,4 @@
-export class ProductList {
-  constructor(
-    public id: number,
-    public product_name: string,
-    public weight: number,
-    public price: number,
-    public quantity: number,
-    public total?: number,
-    public provider?: string,
-    public provider_primary?: string,
-    public provider_tertiary?: string,
-    public categoria?: string,
-    public unit?: string,
-    public type_packing?: string,
-    public created_at?: Date
-  ){}
-}
 
-export class Product {
-  constructor(
-    public id: number,
-    public product_name: string,
-    public weight: number,
-    public price: number,
-    public quantity: number,
-    public categoria?: string,
-  ){}
-}
 
 export class Item {
   constructor(
@@ -39,14 +12,12 @@ export class Item {
 export interface CartProduct {
   quantity: number,
   id: number,
-  parcial_price: number,
-  // product: ProductList
 }
 
 export class Purchase {
   constructor(
     public id: number,
-    public product_name: string,
+    public name: string,
     public weight: number,
     public category: string,
     public provider_primary: string,
@@ -69,7 +40,7 @@ export class PurchaseHistory {
 export class Cotacao {
   constructor(
     public id: number,
-    public product_name: string,
+    public name: string,
     public weight: number,
     public price: number,
     public quantity: number,
@@ -114,7 +85,7 @@ export interface DataSearch {
 }
 
 export interface ProductListRequest {
-  product_name: string,
+  name: string,
   weight: number,
   price: number,
   quantity: number,
@@ -179,7 +150,7 @@ export interface ProductResponse {
 
 // Envia para o servidor da planilha de Editaveis para registro de produto na compra.
 export interface ProductRequest {
-  product_name: string,
+  name: string,
 	quantity: number,
 	price: number, // Preço Caixa ou kg
   packing: string // Caixa ou KG unidade
@@ -190,12 +161,26 @@ export interface ProductRequest {
   },
 }
 
+export interface Product {
+  code: string,
+  name: string,
+  weight: number,
+  obs: string,
+  unit: string,
+  price: number,
+  package: string,
+  provider: 'rmoura' | 'celmar',
+  category_main: string,
+  category_sub: string,
+}
+
 // Mostra os produtos na tela de compra.
 export interface ProductsDisplay {
-  id: number,
-  quantityInCart: number,
-  subTotal: number,
-  product: ProductResponse
-  active?: boolean,
-  typeCharge?: string,
+  product: Product,
+  quantity: number,
+}
+
+export interface ProductList {
+  quantity: number,
+  product: Product,
 }

@@ -1,5 +1,3 @@
-import { CategoriesResolver } from './../core/resolvers/categories.resolver';
-import { SnackResolve } from '../core/resolvers/product-snacks.resolver';
 import { SnackPage } from './snack/snack-page.component';
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
@@ -16,10 +14,10 @@ import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { AuthQuard } from '../core/guards/auth.quard';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
-import { ProductListResolver } from '../core/resolvers/product-list.resolver';
+
 
 const routes: Routes = [
-  {path: '', resolve: { productList: ProductListResolver }, component: HomeComponent},
+  {path: '', component: HomeComponent},
   {path: 'login', component: AccountComponent},
   {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
   {path: 'profile', canActivate: [AuthQuard],
@@ -34,7 +32,7 @@ const routes: Routes = [
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
   {path: 'password-recovery', component: PasswordRecoveryComponent},
   {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
-  {path: 'snacks', resolve: { productList: SnackResolve, categories: CategoriesResolver }, component: SnackPage},
+  {path: 'snacks', resolve: { productList: '', categories: '' }, component: SnackPage},
   {path: 'page-not-found', component: PageNotFoundComponentComponent},
   {path: '**', redirectTo: 'page-not-found'}
 ];

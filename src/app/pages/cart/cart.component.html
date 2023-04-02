@@ -72,12 +72,12 @@
                                                       <td class="py-0">
                                                           <div class="d-flex align-items-center">
                                                               <img  (click)="remove(item); $event.stopPropagation()" style="width: 24px;" src="assets/img/minus_circle_red.svg">
-                                                              <h5 class="mx-3 mb-0">{{item.quantityInCart}}</h5>
+                                                              <h5 class="mx-3 mb-0">{{'item'}}</h5>
                                                               <img  (click)="add(item)" style="width: 24px;" src="assets/img/add_circle_red.svg">
                                                           </div>
                                                       </td>
                                                       <!-- <td class="py-0">{{item.product.price | currency:'BRL':true:'1.2-2'}}</td> -->
-                                                      <td class="py-0">{{item.subTotal | currency:'BRL':true:'1.2-2'}}</td>
+                                                      <td class="py-0">{{'' | currency:'BRL':true:'1.2-2'}}</td>
                                                   </tr>
                                               </tbody>
                                           </table>
@@ -85,7 +85,7 @@
                                       <td class="py-0 d-none d-lg-table-cell">
                                           <div class="td_in">
                                               <img style="width: 24px;" (click)="remove(item)" src="assets/img/minus_circle_red.svg">
-                                              <h5 class="mx-3 mb-0">{{item.quantityInCart}}</h5>
+                                              <h5 class="mx-3 mb-0">{{''}}</h5>
                                               <img style="width: 24px;"(click)="add(item)" src="assets/img/add_circle_red.svg">
                                           </div>
                                       </td>
@@ -93,7 +93,7 @@
                                           <!-- <div class="td_in">{{item.product.price | currency: 'BRL' }}</div> -->
                                       </td>
                                       <td class="py-0 d-none d-lg-table-cell">
-                                          <div class="td_in"><strong>{{item.subTotal | currency: 'BRL'}}</strong></div>
+                                          <div class="td_in"><strong>{{'' | currency: 'BRL'}}</strong></div>
                                       </td>
                                   </tr>
                               </tbody>

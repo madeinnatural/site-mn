@@ -14,43 +14,19 @@ export class CartService {
   ) { }
 
   compareCart(product: ProductResponse): ProductsDisplay {
-    const productDisplay: ProductsDisplay = {
-      id: product.id,
-      quantityInCart: 0,
-      subTotal: 0,
-      product: product,
-      typeCharge: 'unit'
-    };
-
-    if (this.productInCart.length > 0) {
-      const productCart = this.productInCart.find(item => item.id === product.id);
-      if(productCart) {
-        productDisplay.quantityInCart = productCart.quantityInCart;
-        productDisplay.subTotal = productCart.subTotal;
-        productDisplay.typeCharge = productCart.typeCharge;
-      }
-    }
-
-    return productDisplay;
+    return '' as any
   }
 
   addProductInCart(product: ProductsDisplay) {
-    const productCart = this.productInCart.find(item => item.id === product.id);
-    if(productCart) {
-      productCart.quantityInCart = product.quantityInCart;
-      productCart.subTotal = product.subTotal;
-    } else {
-      this.productInCart.push(product);
-    }
-    this.changeCartData();
+
   }
 
   totalPrice(): number {
-    return this.productInCart.reduce((total, item) => total + item.subTotal, 0);
+    return 0;
   }
 
   totalQuantity(): number {
-    return this.productInCart.reduce((total, item) => total + item.quantityInCart, 0);
+    return 0;
   }
 
   changeCartData () {
