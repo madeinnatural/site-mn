@@ -21,8 +21,8 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthQuard } from './core/guards/auth.quard';
 import { StoreModule } from '@ngrx/store';
-import { orderReducer } from './store/order.store';
-import { productSaleReducer } from './store/productSale.store';
+import { orderReducer } from './states-handler/store/order.store';
+import { productSaleReducer } from './states-handler/store/productSale.store';
 
 
 @NgModule({

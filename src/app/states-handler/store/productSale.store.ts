@@ -1,5 +1,5 @@
 import { createAction, createReducer, props, on } from "@ngrx/store"
-import { Product } from "../core/model/interfaces/Product";
+import { Product } from "../../core/model/interfaces/Product";
 
 export interface ProductSale {
   product: Product;

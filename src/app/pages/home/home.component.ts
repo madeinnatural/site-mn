@@ -7,7 +7,7 @@ import { ServerService } from 'src/app/core/services/server.service';
 import { Store } from '@ngrx/store';
 import { Order } from 'src/app/core/domain/model/logistics/cart';
 import { Observable } from 'rxjs';
-import { ProductSale } from 'src/app/store/productSale.store';
+import { ProductSale } from 'src/app/states-handler/store/productSale.store';
 import { ProductSaleServiceService } from 'src/app/core/services/product-sale-service.service';
 
 @Component({
