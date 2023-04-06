@@ -24,7 +24,7 @@ import { StoreModule } from '@ngrx/store';
 import { orderReducer } from './states-handler/store/order.store';
 import { productSaleReducer } from './states-handler/store/productSale.store';
 import { EffectsModule } from '@ngrx/effects';
-import { productSieve } from './states-handler/store/filter.store';
+import { productSieve, provider } from './states-handler/store/filter.store';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
@@ -55,7 +55,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
       {
         productSieve: productSieve,
         order: orderReducer,
-        productsSale: productSaleReducer
+        productsSale: productSaleReducer,
+        provider: provider
       },{}
     ),
     EffectsModule.forRoot()

@@ -79,7 +79,7 @@ import { ButtonQuantityComponent } from './table/button-quantity/button-quantity
 import { ButtonInitCartComponent } from './table/button-init-cart/button-init-cart.component';
 import { CardChooseComponent } from './table/card-choose/card-choose.component';
 import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component';
-import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component'
+import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +119,7 @@ import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price
     CardChooseComponent,
     SearchBarButtonComponent,
     ButtonLupaComponent,
-    SliderPriceComponent
+    SliderPriceComponent,
   ],
   imports: [
     CommonModule,

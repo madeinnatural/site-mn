@@ -1,8 +1,7 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { CelmarCategories, LoadedProductProperties, RmouraCategories, setMainCategorie, setPackage, setPrice, setSubCategorie, setUnit } from '../../states-handler/store/filter.store';
-import { Pagination } from '../../core/model/interfaces/specification-products-loaded';
+import { CelmarCategories, LoadedProductProperties, RmouraCategories, changeProvider, setMainCategorie, setPackage, setPrice, setSubCategorie, setUnit } from '../../states-handler/store/filter.store';
 import { map } from 'rxjs';
 
 @Component({
@@ -27,11 +26,17 @@ export class AvancedFilterComponent {
       packages: [],
     }
   }
-  currentMainCategory = '';
-  currentSubCategory = '';
-  currentPackage = '';
-  currentPrice: { min: number, max: number } = { min: 0, max: 2000 };
-  currentUnit = '';
+
+  filter = {
+    mainCategory: '',
+    subCategory:  '',
+    unit:         '',
+    package:      '',
+    price:        {
+      min: 0,
+      max: 1000
+    }
+  }
 
   set mainCategoryId (params: string) {
     this.productListingProperties.dispatch(setMainCategorie(params));
@@ -50,33 +55,38 @@ export class AvancedFilterComponent {
   }
 
   get mainCategoryId () {
-    return this.currentMainCategory
+    return this.filter.mainCategory
   }
 
   get subCategoryId () {
-    return this.currentMainCategory
+    return this.filter.subCategory
   }
 
   get unitId () {
-    return this.currentUnit
+    return this.filter.unit
   }
 
   get packageId () {
-    return this.currentPackage
+    return this.filter.package
   }
 
   productSieve$ = this.productListingProperties.pipe(select('productSieve')).pipe(map((data) => data.filter));
+  provider$ = this.provider.pipe(select('provider'));
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
-    private productListingProperties: Store<{productSieve: LoadedProductProperties}>
-  ){
+    private productListingProperties: Store<{productSieve: LoadedProductProperties}>,
+    private provider: Store<{ provider: 'RMOURA' | 'CELMAR' }>
+    ){
     this.productSieve$.subscribe((data) => {
-      this.currentMainCategory = data.mainCategoryId;
-      this.currentSubCategory = data.subCategoryId;
-      this.currentPackage = data.packageId;
-      this.currentPrice = data.price;
-      this.currentUnit = data.unitId;
+      this.filter = {
+        mainCategory: data.mainCategoryId,
+        subCategory:  data.subCategoryId,
+        unit:         data.unitId,
+        package:      data.packageId,
+        price:        data.price
+      }
     });
+    this.provider$.subscribe((data) => this.type = data )
   }
 
   calculationPrice ({ min, max }: { min: number, max: number }) {

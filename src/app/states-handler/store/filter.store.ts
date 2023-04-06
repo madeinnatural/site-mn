@@ -40,6 +40,7 @@ export enum ActionTypesProductProperties {
   'SET_FILTER_PRICE' = '[Product Properties] Set Price',
   'SET_TEXT' = '[Product Properties] Set Text',
   'GET_PRODUCT_PROPERTIES' = '[Product Properties] Get Product Properties',
+  'CHANGE_PROVIDER' = '[Product Properties] Change Provider',
 }
 
 export const setCurrentPage = createAction(ActionTypesProductProperties.SET_PAGE, (props: LoadedProductProperties) => ({ props }));
@@ -51,6 +52,7 @@ export const setUnit = createAction(ActionTypesProductProperties.SET_FILTER_UNIT
 export const setPackage = createAction(ActionTypesProductProperties.SET_FILTER_PACKAGE, (props: string) => ({ props }));
 export const setText = createAction(ActionTypesProductProperties.SET_TEXT, (props: string) => ({ props }));
 export const getProductProperties = createAction(ActionTypesProductProperties.GET_PRODUCT_PROPERTIES, (props: LoadedProductProperties) => ({ props }));
+export const changeProvider = createAction(ActionTypesProductProperties.CHANGE_PROVIDER, (props: 'RMOURA' | 'CELMAR') => ({ props }));
 
 const initialize: LoadedProductProperties = {
   filter:    {
@@ -80,8 +82,11 @@ export const productSieve = createReducer(
   on(setUnit, (state, { props }) => ({ ...state, filter: { ...state.filter, unitId: props } })),
   on(setPackage, (state, { props }) => ({ ...state, filter: { ...state.filter, packageId: props } })),
   on(setText, (state, { props }) => ({ ...state, text: props })),
-);
-
+  );
+export const provider = createReducer(
+  'RMOURA',
+  on(changeProvider, (state, { props }) => props)
+)
 export interface CelmarCategories {
   filterResponse: FilterResponse;
 }
