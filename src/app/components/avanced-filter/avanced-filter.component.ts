@@ -1,10 +1,9 @@
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Inject, Input, OnInit } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { CelmarCategories, FilterClass, LoadedProductProperties, setMainCategorie } from 'src/app/states-handler/store/filter.store';
-import { Pagination } from 'src/app/core/model/interfaces/specification-products-loaded';
-import { Observable, map } from 'rxjs';
-import { Options } from '@angular-slider/ngx-slider';
+import { CelmarCategories, LoadedProductProperties, setMainCategorie } from '../../states-handler/store/filter.store';
+import { Pagination } from '../../core/model/interfaces/specification-products-loaded';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-avanced-filter',
@@ -20,13 +19,12 @@ export class AvancedFilterComponent {
       subCategory:  [],
       packages:     [],
     }
-  }
-
-  currentMainCategory: string = '1';
-  currentSubCategory: string = '1';
-  currentPackage: string = '1';
+  };
+  currentMainCategory = '';
+  currentSubCategory = '';
+  currentPackage = '';
   currentPrice: { min: number, max: number } = { min: 0, max: 2000 };
-  currentUnit: string = '1';
+  currentUnit = '';
 
   set price (params: { min: number, max: number }) {
     this.productListingProperties.dispatch({
@@ -105,8 +103,7 @@ export class AvancedFilterComponent {
   productSieve$ = this.productListingProperties.pipe(select('productSieve')).pipe(map((data) => data.filter));
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
-    private productListingProperties: Store<{productSieve: LoadedProductProperties}>,
-    @Inject(MAT_DIALOG_DATA) public data: {price: number, category: string, filter_unidade: string},
+    private productListingProperties: Store<{productSieve: LoadedProductProperties}>
   ){
     this.productSieve$.subscribe((data) => {
       this.currentMainCategory = data.mainCategoryId;
@@ -114,13 +111,7 @@ export class AvancedFilterComponent {
       this.currentPackage = data.packageId;
       this.currentPrice = data.price;
       this.currentUnit = data.unitId;
-    })
-  }
-
-  formatLabel(value: number) {
-    console.log(value)
-    return value;
+    });
   }
   onNoClick() { this.dialogRef.close(); }
-
 }

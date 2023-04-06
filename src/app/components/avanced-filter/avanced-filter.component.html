@@ -6,7 +6,6 @@
       <img style="width: 20px; color: #000" src="assets/img/close_modal.svg" />
     </button>
   </h5>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Sair</button>
 
   <div class="modal-body border-0" *ngIf="type == 'CELMAR'">
     <div class="form-group">
@@ -24,6 +23,7 @@
       <select class="form-control" [(ngModel)]="packageId">
         <option *ngFor="let category of celmarCategories.filterResponse.packages; index as i" value="{{category.id}}"> {{category.name}}</option>
       </select>
+      <br>
       <app-slider-price></app-slider-price>
     </div>
   </div>
