@@ -1,7 +1,7 @@
 <!--=========== section tabela ===========-->
 <section class="pt-5 pb-5 section_table">
   <div class="container">
-    <mn-search (goSearch)="goSearch($event)" placeholder="Procure por nome, marca..." [loading]="loading" ></mn-search>
+    <mn-search (clickAdvencedFilterEvent)="openFiltro()" (goSearch)="goSearch($event)" placeholder="Procure por nome, marca..." [loading]="loading" ></mn-search>
     <div class="row">
       <div class="col-12">
         <mn-table [productList]="productList" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" (showAll)="showProductsAll()" ></mn-table>

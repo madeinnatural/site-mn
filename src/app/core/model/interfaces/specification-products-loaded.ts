@@ -1,3 +1,5 @@
+import { FilterClass } from "src/app/states-handler/store/filter.store"
+
 export interface CelmarProductFilter {
   mainCategoryId: string,
   subCategoryId: string,
@@ -23,8 +25,8 @@ export interface Pagination {
   limit: number
 }
 
-export interface SpecificationProductsLoaded <T> {
-  filter: T,
+export interface SpecificationProductsLoaded {
+  filter: FilterClass,
   paginator: Pagination,
   text: string
 }

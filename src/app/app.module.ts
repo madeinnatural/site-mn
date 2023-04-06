@@ -23,7 +23,9 @@ import { AuthQuard } from './core/guards/auth.quard';
 import { StoreModule } from '@ngrx/store';
 import { orderReducer } from './states-handler/store/order.store';
 import { productSaleReducer } from './states-handler/store/productSale.store';
-
+import { EffectsModule } from '@ngrx/effects';
+import { productSieve } from './states-handler/store/filter.store';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -48,10 +50,15 @@ import { productSaleReducer } from './states-handler/store/productSale.store';
     NgbAlertModule,
     MatFormFieldModule,
     FontAwesomeModule,
+    NgxSliderModule,
     StoreModule.forRoot(
-      { order: orderReducer, productsSale: productSaleReducer },
-      {}
-    )
+      {
+        productSieve: productSieve,
+        order: orderReducer,
+        productsSale: productSaleReducer
+      },{}
+    ),
+    EffectsModule.forRoot()
   ],
   providers: [
     AuthQuard,

@@ -14,6 +14,11 @@ export class SearchComponent {
   @Input() termo: string = '';
   @Input() loading: boolean = false;
 
+  @Output() clickAdvencedFilterEvent = new EventEmitter<void>();
+  clickAdvencedFilter() {
+    this.clickAdvencedFilterEvent.emit();
+  }
+
   @Output() goSearch = new EventEmitter<string>();
 
   private termoSubject: Subject<string> = new Subject<string>();

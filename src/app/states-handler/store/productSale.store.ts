@@ -1,14 +1,28 @@
-import { createAction, createReducer, props, on } from "@ngrx/store"
-import { Product } from "../../core/model/interfaces/Product";
+import { createAction, createReducer, props, on } from "@ngrx/store";
+import { ProductModel } from "src/app/core/domain/model/product/product";
 
-export interface ProductSale {
-  product: Product;
+export interface ProductSale<T> {
+  product: ProductModel | T;
   quantity: number;
 }
 
+export interface ProductRmoura {
+  id: number;
+  name: string;
+  price: number;
+}
+
+export interface ProductCelmar {
+  id: number;
+  name: string;
+  price: number;
+}
+
+export interface ProductProvider { productRmoura: ProductSale<ProductRmoura>[], productCelmar: ProductSale<ProductCelmar>[]  }
+
 export const loadProductSalesSuccess = createAction(
   '[Product Sale] Load Product Sales Success',
-  props<{ productSales: ProductSale[] }>()
+  props<ProductProvider>()
 );
 
 export const loadProductSalesFailure = createAction(
@@ -16,11 +30,21 @@ export const loadProductSalesFailure = createAction(
   props<{ error: any }>()
 );
 
-const startProductSale: ProductSale[] = [];
+const productSaleInitialState: ProductProvider = {
+  productRmoura: [],
+  productCelmar: []
+};
 
 export const productSaleReducer = createReducer(
-  startProductSale,
-  on(loadProductSalesSuccess, (state, { productSales }) => ([...productSales]))
+  productSaleInitialState,
+  on(
+    loadProductSalesSuccess,
+    (state, { productRmoura, productCelmar }) => ({
+      ...state,
+      productRmoura,
+      productCelmar
+    })
+  )
 );
 
 

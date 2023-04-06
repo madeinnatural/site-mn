@@ -29,6 +29,7 @@ import { SearchHeaderComponent } from './header/search-header/search-header.comp
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { ToastComponent } from './toast/toast.component';
 import { TextMaskModule } from '@myndmanagement/text-mask';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatButtonModule } from '@angular/material/button';
@@ -77,7 +78,8 @@ import { MnIconComponent } from './mn-icon/mn-icon.component';
 import { ButtonQuantityComponent } from './table/button-quantity/button-quantity.component';
 import { ButtonInitCartComponent } from './table/button-init-cart/button-init-cart.component';
 import { CardChooseComponent } from './table/card-choose/card-choose.component';
-import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component'
+import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component';
+import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component'
 
 @NgModule({
   declarations: [
@@ -116,7 +118,8 @@ import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.com
     ButtonInitCartComponent,
     CardChooseComponent,
     SearchBarButtonComponent,
-    ButtonLupaComponent
+    ButtonLupaComponent,
+    SliderPriceComponent
   ],
   imports: [
     CommonModule,
@@ -159,7 +162,8 @@ import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.com
     MatTooltipModule,
     MatTreeModule,
     TextMaskModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    NgxSliderModule
   ],
   exports: [
     HeaderComponent,
@@ -193,7 +197,8 @@ import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.com
     MnIconComponent,
     ButtonQuantityComponent,
     ButtonInitCartComponent,
-    CardChooseComponent
+    CardChooseComponent,
+    SliderPriceComponent
   ],
 })
 export class ComponentsModule {}
