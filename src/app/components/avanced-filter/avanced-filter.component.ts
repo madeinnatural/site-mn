@@ -1,7 +1,7 @@
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { CelmarCategories, LoadedProductProperties, setMainCategorie } from '../../states-handler/store/filter.store';
+import { CelmarCategories, LoadedProductProperties, RmouraCategories, setMainCategorie, setPackage, setPrice, setSubCategorie, setUnit } from '../../states-handler/store/filter.store';
 import { Pagination } from '../../core/model/interfaces/specification-products-loaded';
 import { map } from 'rxjs';
 
@@ -12,7 +12,7 @@ import { map } from 'rxjs';
 })
 export class AvancedFilterComponent {
 
-  @Input() type: 'RMOURA' | 'CELMAR' = 'CELMAR';
+  @Input() type: 'RMOURA' | 'CELMAR' = 'RMOURA';
   celmarCategories: CelmarCategories = {
     filterResponse: {
       mainCategory: [],
@@ -20,59 +20,33 @@ export class AvancedFilterComponent {
       packages:     [],
     }
   };
+  rmouraCategories: RmouraCategories = {
+    filterResponse: {
+      units: [],
+      categories: [],
+      packages: [],
+    }
+  }
   currentMainCategory = '';
   currentSubCategory = '';
   currentPackage = '';
   currentPrice: { min: number, max: number } = { min: 0, max: 2000 };
   currentUnit = '';
 
-  set price (params: { min: number, max: number }) {
-    this.productListingProperties.dispatch({
-      type: 'SET_PRICE',
-      props: {
-        price: params
-      }
-    });
-  }
-
   set mainCategoryId (params: string) {
     this.productListingProperties.dispatch(setMainCategorie(params));
   }
 
   set subCategoryId (params: string) {
-    this.productListingProperties.dispatch({
-      type: 'SET_SUB_CATEGORY',
-      props: {
-        subCategoryId: params
-      }
-    });
+    this.productListingProperties.dispatch(setSubCategorie(params));
   }
 
   set unitId (params: string) {
-    this.productListingProperties.dispatch({
-      type: 'SET_UNIT',
-      props: {
-        unitId: params
-      }
-    });
+    this.productListingProperties.dispatch(setUnit(params));
   }
 
   set packageId (params: string) {
-    this.productListingProperties.dispatch({
-      type: 'SET_PACKAGE',
-      props: {
-        packageId: params
-      }
-    });
-  }
-
-  set paginator (params: Pagination) {
-    this.productListingProperties.dispatch({
-      type: 'SET_PAGE',
-      props: {
-        paginator: params
-      }
-    });
+    this.productListingProperties.dispatch(setPackage(params));
   }
 
   get mainCategoryId () {
@@ -91,15 +65,6 @@ export class AvancedFilterComponent {
     return this.currentPackage
   }
 
-  set text (params: string) {
-    this.productListingProperties.dispatch({
-      type: 'SET_TEXT',
-      props: {
-        text: params
-      }
-    });
-  }
-
   productSieve$ = this.productListingProperties.pipe(select('productSieve')).pipe(map((data) => data.filter));
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
@@ -113,5 +78,10 @@ export class AvancedFilterComponent {
       this.currentUnit = data.unitId;
     });
   }
+
+  calculationPrice ({ min, max }: { min: number, max: number }) {
+    this.productListingProperties.dispatch(setPrice({ min, max }));
+  }
+
   onNoClick() { this.dialogRef.close(); }
 }

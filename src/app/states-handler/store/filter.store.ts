@@ -44,6 +44,7 @@ export enum ActionTypesProductProperties {
 
 export const setCurrentPage = createAction(ActionTypesProductProperties.SET_PAGE, (props: LoadedProductProperties) => ({ props }));
 export const setCurrentLimit = createAction(ActionTypesProductProperties.SET_LIMIT, (props: LoadedProductProperties) => ({ props }));
+export const setPrice = createAction(ActionTypesProductProperties.SET_FILTER_PRICE, (props: Price) => ({ props }));
 export const setMainCategorie = createAction(ActionTypesProductProperties.SET_FILTER_MAIN_CATEGORY, (props: string) => ({ props }));
 export const setSubCategorie = createAction(ActionTypesProductProperties.SET_FILTER_SUB_CATEGORY, (props: string) => ({ props }));
 export const setUnit = createAction(ActionTypesProductProperties.SET_FILTER_UNIT, (props: string) => ({ props }));
@@ -72,6 +73,7 @@ const initialize: LoadedProductProperties = {
 export const productSieve = createReducer(
   initialize,
   on(setCurrentPage, (state, { props }) => ({ ...state, paginator: { ...state.paginator, page: props.paginator.page } })),
+  on(setPrice, (state, { props }) => ({ ...state, filter: { ...state.filter, price: props } })),
   on(setCurrentLimit, (state, { props }) => ({ ...state, paginator: { ...state.paginator, limit: props.paginator.limit } })),
   on(setMainCategorie, (state, { props }) => ({ ...state, filter: { ...state.filter, mainCategoryId: props } })),
   on(setSubCategorie, (state, { props }) => ({ ...state, filter: { ...state.filter, subCategoryId: props } })),
@@ -82,6 +84,14 @@ export const productSieve = createReducer(
 
 export interface CelmarCategories {
   filterResponse: FilterResponse;
+}
+
+export interface RmouraCategories {
+  filterResponse: {
+    units: Category[],
+    categories: Category[],
+    packages: Package[]
+  }
 }
 
 export interface FilterResponse {
