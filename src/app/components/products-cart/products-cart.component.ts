@@ -5,6 +5,9 @@ import { ModalService } from './../../core/services/modal.service';
 import { Observable} from 'rxjs';
 import { AvancedFilter } from '../../core/model/interfaces/Product';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
+import { createEffect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { LoadedProductProperties } from 'src/app/states-handler/store/filter.store';
 
 @Component({
   selector: 'products-cart',

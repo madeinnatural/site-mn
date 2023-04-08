@@ -24,8 +24,9 @@ import { StoreModule } from '@ngrx/store';
 import { orderReducer } from './states-handler/store/order.store';
 import { productSaleReducer } from './states-handler/store/productSale.store';
 import { EffectsModule } from '@ngrx/effects';
-import { productSieve, provider } from './states-handler/store/filter.store';
+import { filter, filterSieve, productSieve, provider, ListFilter, getOptionsFilter } from './states-handler/store/filter.store';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { FilterEffectsService } from './states-handler/effect/filter-effects.service';
 
 @NgModule({
   declarations: [
@@ -56,10 +57,14 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
         productSieve: productSieve,
         order: orderReducer,
         productsSale: productSaleReducer,
-        provider: provider
+        provider: provider,
+        currentFilter: filterSieve,
+        filter: filter,
       },{}
     ),
-    EffectsModule.forRoot()
+    EffectsModule.forRoot([
+      FilterEffectsService
+    ]),
   ],
   providers: [
     AuthQuard,
