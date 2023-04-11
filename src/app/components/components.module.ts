@@ -80,6 +80,7 @@ import { ButtonInitCartComponent } from './table/button-init-cart/button-init-ca
 import { CardChooseComponent } from './table/card-choose/card-choose.component';
 import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component';
 import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component';
+import { SelectFilterComponent } from './avanced-filter/select-filter/select-filter.component';
 
 @NgModule({
   declarations: [
@@ -120,6 +121,7 @@ import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price
     SearchBarButtonComponent,
     ButtonLupaComponent,
     SliderPriceComponent,
+    SelectFilterComponent,
   ],
   imports: [
     CommonModule,
@@ -198,7 +200,8 @@ import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price
     ButtonQuantityComponent,
     ButtonInitCartComponent,
     CardChooseComponent,
-    SliderPriceComponent
+    SliderPriceComponent,
+    SelectFilterComponent
   ],
 })
 export class ComponentsModule {}

@@ -1,53 +1,30 @@
 <div class="border-0">
   <h5 class="modal-title">
     <strong>Filtro Avançado</strong>
-    <button class="close" type="button" style="opacity: 1" data-dismiss="modal" aria-label="Close" (click)="onNoClick()">
+    <button class="close" type="button" style="opacity: 1" data-dismiss="modal" aria-label="Close"
+      (click)="onNoClick()">
       <img src="assets/img/close_modal.svg" alt="Close" style="width: 20px; color: #000" />
     </button>
   </h5>
-  <div class="modal-body border-0" *ngIf="filters$ | async as filters; else loading">
-    <div class="form-group" *ngIf="type === 'RMOURA'" >
-      <label><strong>Categoria Principal</strong></label>
-      <select class="form-control" [(ngModel)]="mainCategoryId">
-        <option *ngFor="let category of filters.rmoura.categories; index as i" [value]="category.id">{{category.name | titlecase}}</option>
-      </select>
-      <br>
-      <label><strong>Unidades</strong></label>
-      <select class="form-control" [(ngModel)]="unitId">
-        <option *ngFor="let category of filters.rmoura.units index as i" [value]="category.id">{{category.name | titlecase}}</option>
-      </select>
-      <br>
-      <label><strong>Embalagem</strong></label>
-      <select class="form-control" [(ngModel)]="packageId">
-        <option *ngFor="let category of filters.rmoura.packages; index as i" [value]="category.id">{{category.name | titlecase}}</option>
-      </select>
-      <br>
+  <div class="modal-body border-0">
+    <div *ngIf="filterList$ | async as filters;">
+      <app-select-filter *ngIf="currentFilte$ | async as identify; else loading"
+        title="Categoria Princial"
+        [filters]="filters.celmar.mainCategory"
+        [currentFilterID]="identify.mainCategoryId"
+        (changeFilterEmit)="changeMainCategory($event)">
+      </app-select-filter>
     </div>
-    <div class="form-group" *ngIf="type === 'CELMAR'" >
-      <label><strong>Categoria Principal</strong></label>
-      <select class="form-control">
-        <option *ngFor="let category of filters.celmar.mainCategory index as i" [value]="category.id">{{category.name | titlecase}}</option>
-        <!-- <option *ngFor="let category of optionsCelmarMainCategerie$ | async ; index as i" [value]="category.id">{{category.name | titlecase}}</option> -->
-      </select>
-      <br>
-      <label><strong>Categoria secundaria</strong></label>
-      <select class="form-control" [(ngModel)]="subCategoryId">
-        <option *ngFor="let category of filters.celmar.subCategory index as i" [value]="category.id">{{category.name | titlecase}}</option>
-      </select>
-      <br>
-      <label><strong>Embalagem</strong></label>
-      <select class="form-control" [(ngModel)]="packageId">
-        <option *ngFor="let category of filters.celmar.packages; index as i" [value]="category.id">{{category.name | titlecase}}</option>
-      </select>
-      <br>
-    </div>
-    <app-slider-price [currentPrice]="filter.price" (price)="calculationPrice($event)"></app-slider-price>
-  </div>
-  <ng-template #loading>
-    <div class="d-flex justify-content-center">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
+
+    <ng-template #loading>
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    </div>
-  </ng-template>
+    </ng-template>
+
+    <app-slider-price [currentPrice]="currentfilter.price" (price)="calculationPrice($event)"></app-slider-price>
+  </div>
+
 </div>

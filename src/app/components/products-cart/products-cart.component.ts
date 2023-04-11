@@ -6,8 +6,8 @@ import { Observable} from 'rxjs';
 import { AvancedFilter } from '../../core/model/interfaces/Product';
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { createEffect } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { LoadedProductProperties } from 'src/app/states-handler/store/filter.store';
+import { Store, select } from '@ngrx/store';
+import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-handler/store/filter.store';
 
 @Component({
   selector: 'products-cart',
@@ -26,11 +26,15 @@ export class ProductsCartComponent {
   quantidade = 0;
 
   @Input() loading: boolean = false;
+  filterList$ = this.store.pipe<ListFilter>(select('filtersProvider')).pipe(select('filterResponse'));
 
   constructor (
     public modalService: ModalService,
     public global: GlobalEventService,
-  ){}
+    private store: Store<any>,
+  ){
+    this.store.dispatch(getFilters());
+  }
 
   pullProducts(page: number = 0) {}
 
@@ -53,7 +57,10 @@ export class ProductsCartComponent {
   }
 
   openFiltro() {
-    this.modalService.openModal(AvancedFilterComponent, {}).afterClosed().subscribe( async (result) => {});
+    this.modalService.openModal(AvancedFilterComponent, {
+      filter: this.filter,
+      filterList: this.filterList$,
+    }).afterClosed().subscribe( async (result) => {});
   }
 
 }

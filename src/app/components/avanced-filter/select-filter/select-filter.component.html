@@ -1,0 +1,11 @@
+<div class="form-group" *ngIf="filters" >
+  <label class="form-label">
+    <strong>{{title}}</strong>
+  </label>
+  <select class="form-control" [ngModel]="currentFilterID" (change)="changeFilter($event)">
+    <option *ngFor="let category of filters" [value]="category.id">
+      {{category.name | titlecase}}
+    </option>
+  </select>
+  <label><strong>Categoria secundaria</strong></label>
+</div>
