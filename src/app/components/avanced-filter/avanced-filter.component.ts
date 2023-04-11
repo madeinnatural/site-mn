@@ -14,15 +14,6 @@ interface o {currentFilter: FilterClass, filterList: FilterResponse}
 })
 export class AvancedFilterComponent {
 
-  @Input() type: 'RMOURA' | 'CELMAR' = 'CELMAR';
-
-  currentfilter = {
-    price:          {
-      min: 0,
-      max: 1000
-    }
-  }
-
   changeMainCategory (id: string) {
     this.store.dispatch(setMainCategorie( { props: id } ));
   }
@@ -34,6 +25,7 @@ export class AvancedFilterComponent {
   }
 
   currentFilte$ = this.store.pipe<FilterClass>(select('currentFilter'));
+  provider$ = this.store.pipe<string>(select('provider'));
   filterList$: Observable<FilterResponse>
 
   constructor(
