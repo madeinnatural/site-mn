@@ -40,8 +40,8 @@
         <app-select-filter *ngIf="currentFilte$ | async as identify; else loading"
           title="Categoria Princial"
           [filters]="filters.rmoura.categories"
-          [currentFilterID]="identify.mainCategoryId"
-          (changeFilterEmit)="changeMainCategory($event)">
+          [currentFilterID]="identify.categoryId"
+          (changeFilterEmit)="changeCategory($event)">
         </app-select-filter>
       </div>
 
@@ -50,7 +50,7 @@
           title="Unidade"
           [filters]="filters.rmoura.units"
           [currentFilterID]="identify.unitId"
-          (changeFilterEmit)="changeSubCategory($event)">
+          (changeFilterEmit)="changeUnit($event)">
         </app-select-filter>
       </div>
 
@@ -59,7 +59,7 @@
           title="Embalagem"
           [filters]="filters.rmoura.packages"
           [currentFilterID]="identify.packageId"
-          (changeFilterEmit)="changeUnit($event)">
+          (changeFilterEmit)="changePackage($event)">
         </app-select-filter>
       </div>
     </div>

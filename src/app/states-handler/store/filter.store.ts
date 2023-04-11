@@ -3,6 +3,7 @@ import { Action, createAction, createReducer, createSelector, on, props } from "
 const initialize: LoadedProductProperties = {
   filter:    {
     mainCategoryId: '',
+    categoryId:       '',
     subCategoryId:  '',
     unitId:         '',
     packageId:      '',
@@ -33,6 +34,7 @@ export enum ActionTypesProductProperties {
   'SUCCESS_LOAD_FILTER'       = '[Product Properties] Success Load Filter',
   'SET_FILTERS'               = '[Product Properties] Set Filters',
   'GET_FILTERS_STORE'         = '[Product Properties] Get Filters Store',
+  'SET_FILTER_CATEGORY'       = '[Product Properties] Set Category',
 }
 
 export const setCurrentLimit        = createAction(ActionTypesProductProperties.SET_LIMIT, props<LoadedProductProperties>());
@@ -48,6 +50,7 @@ export const changeProvider         = createAction(ActionTypesProductProperties.
 export const getFilters             = createAction(ActionTypesProductProperties.GET_FILTERS);
 export const successLoadFilter      = createAction(ActionTypesProductProperties.SUCCESS_LOAD_FILTER, props<{props: ListFilter }>());
 
+export const setCategory            = createAction(ActionTypesProductProperties.SET_FILTER_CATEGORY, props<{ props: string }>());
 export const setFilters             = createAction(ActionTypesProductProperties.SET_FILTERS, props<{ props: ListFilter }>());
 export const getFilterAPI           = createAction(ActionTypesProductProperties.GET_FILTERS, props<{ provider: 'RMOURA' | 'CELMAR' }>());
 export const getFilterStore         = createAction(ActionTypesProductProperties.GET_FILTERS_STORE);
@@ -57,6 +60,7 @@ export const getFilterStore         = createAction(ActionTypesProductProperties.
 const initializeCurrentFilter: FilterClass = {
   mainCategoryId: '',
   subCategoryId:  '',
+  categoryId:     '',
   unitId:         '',
   packageId:      '',
   price:          {
@@ -68,6 +72,7 @@ const initializeCurrentFilter: FilterClass = {
 export const currentFilter = createReducer<FilterClass>(
   initializeCurrentFilter,
   on(setMainCategorie,  (state, { props })    => ({ ...state, mainCategoryId: props })),
+  on(setCategory,       (state, { props })    => ({ ...state, categoryId: props })),
   on(setSubCategorie,   (state, { props })    => ({ ...state, subCategoryId: props })),
   on(setUnit,           (state, { props })    => ({ ...state, unitId: props })),
   on(setPackage,        (state, { props })    => ({ ...state, packageId: props })),
@@ -98,10 +103,6 @@ export const provider = createReducer(
   'RMOURA',
   on(changeProvider, (state, { provider }) => provider)
 );
-
-export interface CelmarCategories {
-  filterResponse: Filter;
-}
 
 export interface RmouraCategories {
   filterResponse: {
@@ -160,7 +161,6 @@ export interface Rmoura {
   categories: Package[];
 }
 
-
 export interface LoadedProductProperties {
   filter:    FilterClass;
   paginator: Paginator;
@@ -170,6 +170,7 @@ export interface LoadedProductProperties {
 export interface FilterClass {
   mainCategoryId: string;
   subCategoryId:  string;
+  categoryId:       string;
   unitId:         string;
   packageId:      string;
   price:          Price;

@@ -15,10 +15,6 @@ export class SelectFilterComponent {
 
   @Output() changeFilterEmit  = new EventEmitter<string>();
 
-  constructor() {
-    console.log('SELECT FILTER: ', this.filters);
-  }
-
   changeFilter(event: {target: any}) {
     const filterId = event.target.value as string;
     this.changeFilterEmit.emit(filterId);

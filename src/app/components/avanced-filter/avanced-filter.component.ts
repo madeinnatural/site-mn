@@ -1,4 +1,4 @@
-import { FilterResponse, setPackage, setSubCategorie } from './../../states-handler/store/filter.store';
+import { FilterResponse, setPackage, setSubCategorie, changeProvider, setCategory, setUnit } from './../../states-handler/store/filter.store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Input, Inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
@@ -17,11 +17,17 @@ export class AvancedFilterComponent {
   changeMainCategory (id: string) {
     this.store.dispatch(setMainCategorie( { props: id } ));
   }
+  changeCategory (id: string) {
+    this.store.dispatch(setCategory( { props: id } ));
+  }
   changeSubCategory (id: string) {
     this.store.dispatch(setSubCategorie( { props: id } ));
   }
-  changeUnit (id: string) {
+  changePackage (id: string) {
     this.store.dispatch(setPackage( { props: id } ));
+  }
+  changeUnit (id: string) {
+    this.store.dispatch(setUnit( { props: id } ));
   }
 
   currentFilte$ = this.store.pipe<FilterClass>(select('currentFilter'));
