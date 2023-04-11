@@ -1,5 +1,5 @@
 import { Options } from '@angular-slider/ngx-slider';
-import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { Price } from 'src/app/states-handler/store/filter.store';
 
 @Component({
@@ -29,16 +29,19 @@ export class SliderPriceComponent {
     this.price.emit({ min: this.minValue, max: value });
   }
 
+  constructor() {}
+
   options: Options = {
-    floor: 0,
     ceil: 1000,
-    step: 5,
+    animate: true
   };
 
   @Input() currentPrice: Price = {
     min: 0,
     max: 1000
   }
+
+  title = 'Preço (R$) /Unidade'
 
   @Output() price = new EventEmitter<{ min: number, max: number }>();
 }

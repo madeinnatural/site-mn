@@ -36,6 +36,25 @@ $SITE-MADE-IN-NATURAL-theme: mat.define-light-theme((color: (primary: $SITE-MADE
 @include mat.all-component-themes($SITE-MADE-IN-NATURAL-theme);
 
 
+.ngx-slider-bar {
+  background-color: #45842E !important;
+}
+.ngx-slider-pointer {
+  background-color: #ccc !important;
+  cursor: pointer;
+  border-bottom-style: solid;
+  width: 10px !important;
+  height: 20px !important;
+  top: -8px !important;
+  background-color: #89c872 !important;
+  z-index: 3 !important;
+  border-radius: 16px !important;
+  border-style: dotted;
+}
+
+.ngx-slider-pointer:after {
+  display: none;
+}
 
 // @import '../node_modules/font-awesome/scss/font-awesome';
 

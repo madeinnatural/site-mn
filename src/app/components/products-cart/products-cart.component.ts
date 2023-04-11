@@ -57,7 +57,7 @@ export class ProductsCartComponent {
   }
 
   openFiltro() {
-    this.modalService.openModal(AvancedFilterComponent, {
+    this.modalService.openModal(AvancedFilterComponent,{
       filter: this.filter,
       filterList: this.filterList$,
     }).afterClosed().subscribe( async (result) => {});

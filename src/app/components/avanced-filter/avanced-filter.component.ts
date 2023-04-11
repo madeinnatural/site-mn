@@ -1,17 +1,11 @@
-import { Category, FilterResponse, ListFilter } from './../../states-handler/store/filter.store';
+import { FilterResponse, setPackage, setSubCategorie } from './../../states-handler/store/filter.store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Input, Inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { CelmarCategories, FilterClass, LoadedProductProperties, RmouraCategories, getFilters, setMainCategorie, setPackage, setPrice, setSubCategorie, setUnit } from '../../states-handler/store/filter.store';
+import { FilterClass, setMainCategorie, setPrice } from '../../states-handler/store/filter.store';
 import { Observable } from 'rxjs';
 
-interface ContentStore {
-  currentFilter: ListFilter,
-  productSieve:  LoadedProductProperties,
-  filter:        FilterClass,
-  provider:      'RMOURA' | 'CELMAR',
-  getOptionsFilter: Category[]
-}
+interface o {currentFilter: FilterClass, filterList: FilterResponse}
 
 @Component({
   selector: 'app-avanced-filter',
@@ -30,8 +24,13 @@ export class AvancedFilterComponent {
   }
 
   changeMainCategory (id: string) {
-    console.log('CHANGE MAIN CATEGORY: ',id);
     this.store.dispatch(setMainCategorie( { props: id } ));
+  }
+  changeSubCategory (id: string) {
+    this.store.dispatch(setSubCategorie( { props: id } ));
+  }
+  changeUnit (id: string) {
+    this.store.dispatch(setPackage( { props: id } ));
   }
 
   currentFilte$ = this.store.pipe<FilterClass>(select('currentFilter'));
@@ -40,10 +39,11 @@ export class AvancedFilterComponent {
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
     private store: Store<any>,
-    @Inject(MAT_DIALOG_DATA) public data: { data:  { filterList: Observable<FilterResponse> } }
+    @Inject(MAT_DIALOG_DATA) public DataDialog: {
+      data:  { filterList: Observable<FilterResponse> }
+    }
   ){
-    console.log('DATA: ', data);
-    this.filterList$ = data.data.filterList;
+    this.filterList$ = DataDialog.data.filterList;
   }
 
   calculationPrice ({ min, max }: { min: number, max: number }) {
