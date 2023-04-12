@@ -8,7 +8,7 @@ import { IconComponent } from './icon/icon.component';
 import { ResumoCompraComponent } from './resumo-compra/resumo-compra.component';
 import { GlobalAlertComponent } from './global-alert/global-alert.component';
 import { AvancedFilterComponent } from './avanced-filter/avanced-filter.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDropdownModule, NgbModule, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { PurchaseService } from './../core/services/purchase.service';
 import { FormComponent } from './form/form.component';
 import { LoadingComponent } from './loading/loading.component';
@@ -165,7 +165,9 @@ import { SelectFilterComponent } from './avanced-filter/select-filter/select-fil
     MatTreeModule,
     TextMaskModule,
     FontAwesomeModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgbNavModule,
+    NgbDropdownModule,
   ],
   exports: [
     HeaderComponent,

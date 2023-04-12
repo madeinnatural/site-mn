@@ -10,6 +10,7 @@ import { Store, select } from '@ngrx/store';
 import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-handler/store/filter.store';
 import { loadProducts } from 'src/app/states-handler/store/product.store';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
+import { NgbDropdownModule, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'products-cart',
@@ -17,6 +18,22 @@ import { ProductModel } from 'src/app/core/domain/model/product/product';
   styleUrls: ['./products-cart.component.scss'],
 })
 export class ProductsCartComponent {
+
+  active: any;
+	disabled = true;
+
+	onNavChange(changeEvent: NgbNavChangeEvent) {
+		if (changeEvent.nextId === 3) {
+			changeEvent.preventDefault();
+		}
+	}
+
+	toggleDisabled() {
+		this.disabled = !this.disabled;
+		if (this.disabled) {
+			this.active = 1;
+		}
+	}
 
   @Input() productList?: Observable<ProductsDisplay[]>;
 

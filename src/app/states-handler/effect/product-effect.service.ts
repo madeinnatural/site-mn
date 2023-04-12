@@ -64,7 +64,7 @@ export class ProductEffectService {
         },
         paginator: {
           page:  filter.page,
-          limit: 100
+          limit: filter.limit
         },
         text: filter.text
       };

@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
-import { ProductList, ProductsDisplay } from './../../core/model/interfaces/Product';
+import { ProductsDisplay } from './../../core/model/interfaces/Product';
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, HostListener } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { setCurrentLimit } from 'src/app/states-handler/store/filter.store';
 
 @Component({
   selector: 'mn-table',
@@ -32,8 +34,12 @@ export class TableComponent implements OnInit {
     this.itemAdd.emit(data);
   }
 
+  constructor(
+    private store: Store<any>
+  ) { }
+
   showProductsAll() {
-    this.showAll.emit(true);
+    this.store.dispatch(setCurrentLimit({ limit: 9000 }));
   }
 
   changePrice(productD: ProductsDisplay) {

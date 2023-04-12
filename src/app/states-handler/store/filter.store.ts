@@ -10,6 +10,7 @@ const initialize: LoadedProductProperties = {
     price:         { min: 0, max: 1000 },
     text           :'',
     page           :1,
+    limit          :10
   },
   paginator: {
     page:  1,
@@ -36,7 +37,7 @@ export enum ActionTypesProductProperties {
   'SET_FILTER_CATEGORY'       = '[Product Properties] Set Category',
 }
 
-export const setCurrentLimit        = createAction(ActionTypesProductProperties.SET_LIMIT, props<LoadedProductProperties>());
+export const setCurrentLimit        = createAction(ActionTypesProductProperties.SET_LIMIT, props<{ limit: number }>());
 export const setMainCategorie       = createAction(ActionTypesProductProperties.SET_FILTER_MAIN_CATEGORY, props<{props: string}>());
 export const setCurrentPage         = createAction(ActionTypesProductProperties.SET_PAGE,  props<{page: number}>());
 export const setPrice               = createAction(ActionTypesProductProperties.SET_FILTER_PRICE, props<Price>());
@@ -62,6 +63,7 @@ const initializeCurrentFilter: FilterClass = {
   categoryId:     '',
   unitId:         '',
   packageId:      '',
+  limit:          10,
   price:          {
     min: 0,
     max: 1000
@@ -80,6 +82,7 @@ export const currentFilter = createReducer<FilterClass>(
   on(setPrice,          (state, { min, max }) => ({ ...state, price: { min, max } })),
   on(setText,           (state, { props })    => ({ ...state, text: props })),
   on(setCurrentPage,    (state, { page })     => ({ ...state, page })),
+  on(setCurrentLimit,   (state, { limit })    => ({ ...state, limit })),
 );
 
 const initializeFilter: ListFilter = {
@@ -178,6 +181,7 @@ export interface FilterClass {
   packageId      :string;
   text           :string;
   page           :number;
+  limit          :number;
   price          :Price;
 }
 
