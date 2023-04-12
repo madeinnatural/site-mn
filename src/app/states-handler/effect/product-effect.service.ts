@@ -63,10 +63,10 @@ export class ProductEffectService {
           price:      filter.price
         },
         paginator: {
-          page:  1,
+          page:  filter.page,
           limit: 100
         },
-        text: ''
+        text: filter.text
       };
       this.celmarBody = {
         filter: {
@@ -76,10 +76,10 @@ export class ProductEffectService {
           price:          filter.price
         },
         paginator: {
-          page:  1,
+          page:  filter.page,
           limit: 100
         },
-        text: ''
+        text: filter.text
       };
     });
   }

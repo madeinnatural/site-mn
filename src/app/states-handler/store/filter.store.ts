@@ -2,15 +2,14 @@ import { Action, createAction, createReducer, createSelector, on, props } from "
 
 const initialize: LoadedProductProperties = {
   filter:    {
-    mainCategoryId: '',
-    categoryId:       '',
-    subCategoryId:  '',
-    unitId:         '',
-    packageId:      '',
-    price:          {
-      min: 0,
-      max: 1000
-    }
+    mainCategoryId :'',
+    categoryId     :'',
+    subCategoryId  :'',
+    unitId         :'',
+    packageId      :'',
+    price:         { min: 0, max: 1000 },
+    text           :'',
+    page           :1,
   },
   paginator: {
     page:  1,
@@ -39,7 +38,7 @@ export enum ActionTypesProductProperties {
 
 export const setCurrentLimit        = createAction(ActionTypesProductProperties.SET_LIMIT, props<LoadedProductProperties>());
 export const setMainCategorie       = createAction(ActionTypesProductProperties.SET_FILTER_MAIN_CATEGORY, props<{props: string}>());
-export const setCurrentPage         = createAction(ActionTypesProductProperties.SET_PAGE,  props<LoadedProductProperties>());
+export const setCurrentPage         = createAction(ActionTypesProductProperties.SET_PAGE,  props<{page: number}>());
 export const setPrice               = createAction(ActionTypesProductProperties.SET_FILTER_PRICE, props<Price>());
 export const setSubCategorie        = createAction(ActionTypesProductProperties.SET_FILTER_SUB_CATEGORY, props<{props: string}>());
 export const setUnit                = createAction(ActionTypesProductProperties.SET_FILTER_UNIT, props<{props: string}>());
@@ -66,7 +65,9 @@ const initializeCurrentFilter: FilterClass = {
   price:          {
     min: 0,
     max: 1000
-  }
+  },
+  text:           '',
+  page:            1,
 }
 
 export const currentFilter = createReducer<FilterClass>(
@@ -77,6 +78,8 @@ export const currentFilter = createReducer<FilterClass>(
   on(setUnit,           (state, { props })    => ({ ...state, unitId: props })),
   on(setPackage,        (state, { props })    => ({ ...state, packageId: props })),
   on(setPrice,          (state, { min, max }) => ({ ...state, price: { min, max } })),
+  on(setText,           (state, { props })    => ({ ...state, text: props })),
+  on(setCurrentPage,    (state, { page })     => ({ ...state, page })),
 );
 
 const initializeFilter: ListFilter = {
@@ -168,12 +171,14 @@ export interface LoadedProductProperties {
 }
 
 export interface FilterClass {
-  mainCategoryId: string;
-  subCategoryId:  string;
-  categoryId:       string;
-  unitId:         string;
-  packageId:      string;
-  price:          Price;
+  mainCategoryId :string;
+  subCategoryId  :string;
+  categoryId     :string;
+  unitId         :string;
+  packageId      :string;
+  text           :string;
+  page           :number;
+  price          :Price;
 }
 
 export interface Price {
