@@ -29,6 +29,8 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { FilterEffectsService } from './states-handler/effect/filter-effects.service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ProductEffectService } from './states-handler/effect/product-effect.service';
+import { productReducer } from './states-handler/store/product.store';
 
 @NgModule({
   declarations: [
@@ -59,10 +61,12 @@ import { environment } from '../environments/environment';
         provider: provider,
         filtersProvider: filtersProvider,
         currentFilter: currentFilter,
+        getProducts: productReducer,
       },{}
     ),
     EffectsModule.forRoot([
-      FilterEffectsService
+      FilterEffectsService,
+      ProductEffectService,
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

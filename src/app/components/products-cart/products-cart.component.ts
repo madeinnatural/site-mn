@@ -8,6 +8,8 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { createEffect } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-handler/store/filter.store';
+import { loadProducts } from 'src/app/states-handler/store/product.store';
+import { ProductModel } from 'src/app/core/domain/model/product/product';
 
 @Component({
   selector: 'products-cart',
@@ -27,6 +29,8 @@ export class ProductsCartComponent {
 
   @Input() loading: boolean = false;
   filterList$ = this.store.pipe<ListFilter>(select('filtersProvider')).pipe(select('filterResponse'));
+  loadProducts$ = this.store.pipe(select('getProducts'));
+  currentFilter$ = this.store.pipe(select('currentFilter'));
 
   constructor (
     public modalService: ModalService,
@@ -34,6 +38,13 @@ export class ProductsCartComponent {
     private store: Store<any>,
   ){
     this.store.dispatch(getFilters());
+    this.store.dispatch(loadProducts())
+    this.currentFilter$.subscribe((filter) => {
+      this.store.dispatch(loadProducts());
+    });
+    this.loadProducts$.subscribe((products) => {
+      console.log(products);
+    })
   }
 
   pullProducts(page: number = 0) {}
