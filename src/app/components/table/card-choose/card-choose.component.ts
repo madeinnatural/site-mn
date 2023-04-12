@@ -16,7 +16,6 @@ export class CardChooseComponent {
   @Output() itemAdd = new EventEmitter<ProductsDisplay>();
 
   changeTypeCharge(product: ProductsDisplay,type: string) {
-    // product.typeCharge = type;
     this.itemAdd.emit(product);
   }
 

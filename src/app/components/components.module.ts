@@ -81,6 +81,7 @@ import { CardChooseComponent } from './table/card-choose/card-choose.component';
 import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.component';
 import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component';
 import { SelectFilterComponent } from './avanced-filter/select-filter/select-filter.component';
+import { BodyComponent } from './table/body/body.component';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,7 @@ import { SelectFilterComponent } from './avanced-filter/select-filter/select-fil
     ButtonLupaComponent,
     SliderPriceComponent,
     SelectFilterComponent,
+    BodyComponent,
   ],
   imports: [
     CommonModule,

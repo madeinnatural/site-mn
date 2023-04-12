@@ -2,7 +2,7 @@ import { AccountModel } from "../account/account"
 import { ProductModel } from "../product/product"
 
 export interface Order {
-  producId: string,
+  productId: string,
   quantity: number
 }
 
@@ -14,7 +14,8 @@ export interface CartItem {
 
 export interface CartModel {
   id: string,
-  account: AccountModel
-  cartItem: CartItem[],
+  account?: AccountModel
+  cartItem: ProductModel[],
+  orders: Order[],
   total: number
 }

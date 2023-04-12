@@ -20,7 +20,7 @@ export class FilterEffectsService {
   loadFilter = createEffect(
     () => this.actions$.pipe(
       ofType(getFilterAPI),
-      switchMap(() => this.http.get<ListFilter>(environment.baseUrl + 'get-product-filter')),
+      switchMap(() => this.http.post<ListFilter>(environment.baseUrl + 'create-cart', {})),
       tap((filter: ListFilter) => this.store.dispatch(setFilters({props: filter}))),
       map((filter: ListFilter) => successLoadFilter({props: filter}))
     )

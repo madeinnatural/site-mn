@@ -1,3 +1,4 @@
+import { productShowcaseReducer } from './states-handler/store/product-showcase.store';
 import { HttpService } from './core/services/http.service';
 import { AuthInterceptor } from './core/security/auth.interceptor';
 import { phoneMaskBrDirective } from './core/directives/phone-mask-br.directive';
@@ -21,8 +22,6 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AuthQuard } from './core/guards/auth.quard';
 import { StoreModule } from '@ngrx/store';
-import { orderReducer } from './states-handler/store/order.store';
-import { productSaleReducer } from './states-handler/store/productSale.store';
 import { EffectsModule } from '@ngrx/effects';
 import { currentFilter, provider, filtersProvider } from './states-handler/store/filter.store';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
@@ -31,6 +30,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ProductEffectService } from './states-handler/effect/product-effect.service';
 import { productReducer } from './states-handler/store/product.store';
+import { cartReducer } from './states-handler/store/cart.store';
+import { CartEffectsService } from './states-handler/effect/cart.effects.service';
 
 @NgModule({
   declarations: [
@@ -56,17 +57,18 @@ import { productReducer } from './states-handler/store/product.store';
     MatFormFieldModule,
     FontAwesomeModule,
     NgxSliderModule,
-    StoreModule.forRoot(
-      {
-        provider: provider,
-        filtersProvider: filtersProvider,
-        currentFilter: currentFilter,
-        getProducts: productReducer,
-      },{}
-    ),
+    StoreModule.forRoot({
+      productShowcase :productShowcaseReducer,
+      filtersProvider :filtersProvider,
+      getProducts     :productReducer,
+      currentFilter   :currentFilter,
+      cart            :cartReducer,
+      provider        :provider,
+    },{}),
     EffectsModule.forRoot([
       FilterEffectsService,
       ProductEffectService,
+      CartEffectsService
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],

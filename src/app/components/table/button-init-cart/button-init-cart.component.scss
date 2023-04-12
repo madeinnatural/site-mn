@@ -79,10 +79,14 @@
     white-space: nowrap;
     gap: .4rem;
     cursor: pointer;
+    border: 1px solid #03A64A;
+    border-radius: 5px;
   }
 }
 
 .btn-init-cart:hover {
-  border: 1px solid #03A64A;
-  border-radius: 5px;
+  background-color:  #fff;
+  border: .14rem solid #03A64A ;
+  color: #03A64A !important;
+  transition: all 0.1s ease-in-out;
 }

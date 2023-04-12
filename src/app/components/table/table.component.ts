@@ -2,7 +2,8 @@ import { Observable } from 'rxjs';
 import { ProductsDisplay } from './../../core/model/interfaces/Product';
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, HostListener } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { setCurrentLimit } from 'src/app/states-handler/store/filter.store';
+import { Category, setCurrentLimit } from 'src/app/states-handler/store/filter.store';
+import { Showcase } from 'src/app/states-handler/store/product-showcase.store';
 
 @Component({
   selector: 'mn-table',
@@ -12,14 +13,14 @@ import { setCurrentLimit } from 'src/app/states-handler/store/filter.store';
 })
 export class TableComponent implements OnInit {
 
-  @Input() productList?: Observable< ProductsDisplay[] >;
-
-  @Output() itemRm = new EventEmitter<any>();
-  @Output() itemAdd = new EventEmitter<any>();
-  @Output() showAll = new EventEmitter<boolean>();
+  @Input() showcases?: Observable<Showcase[]>;
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+  }
+
+  formatCategory(category: Category[]) {
+    return category.map((cat: Category) => cat.name).join(' | ')
   }
 
   changeTypeCharge(product: ProductsDisplay) {
@@ -27,11 +28,15 @@ export class TableComponent implements OnInit {
   }
 
   removeItem(data: ProductsDisplay) {
-    this.itemRm.emit(data);
+
   }
 
   addItem(data: ProductsDisplay) {
-    this.itemAdd.emit(data);
+
+  }
+
+  addCart(id: string) {
+    console.log('ID do produto:', id)
   }
 
   constructor(
@@ -58,3 +63,50 @@ export class TableComponent implements OnInit {
   }
 
 }
+
+
+
+// <ng-container *ngIf="innerWidth < 980">
+//   <thead>
+//     <tr class="bg-white">
+//       <th scope="col">Produto</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr *ngFor="let product of products; index as i">
+//       <ng-container *ngIf="productValid(product)">
+//         <td scope="row" class="row-table">
+
+//           <div class="row-table">
+//             <div class="row-table-titles">
+//               {{ product.product.name }}
+//             </div>
+//             <div class="row-table-body">
+//               <!-- <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span> -->
+//             </div>
+//           </div>
+
+//           <div scope="row" class="row-table">
+//             <span class="row-table-category">
+//               <!-- {{ product.product.product_categories.main }} -->
+//             </span>
+//           </div>
+
+//           <!-- <div scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</div> -->
+
+//           <div class="control-mobile">
+
+//             <!-- <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose> -->
+
+//             <!-- <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart> -->
+
+//             <!-- <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity> -->
+
+//           </div>
+
+//         </td>
+
+
+//       </ng-container>
+//   </tbody>
+// </ng-container>

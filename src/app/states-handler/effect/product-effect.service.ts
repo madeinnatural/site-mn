@@ -93,7 +93,7 @@ export class ProductEffectService {
         return this.http.post<ProductModel[]>(environment.baseUrl + url, {...body} );
       }),
       tap((products: ProductModel[]) => this.store.dispatch(setProducts({products}))),
-      map((products: ProductModel[]) => loadProductsSuccess({products}))
+      map((products: ProductModel[]) => loadProductsSuccess({products})),
     )
   );
 }

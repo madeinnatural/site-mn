@@ -11,6 +11,8 @@ import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-
 import { loadProducts } from 'src/app/states-handler/store/product.store';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
 import { NgbDropdownModule, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { uploadProductsShowcase } from 'src/app/states-handler/store/product-showcase.store';
+import { loadCartSuccess } from 'src/app/states-handler/store/cart.store';
 
 @Component({
   selector: 'products-cart',
@@ -48,6 +50,7 @@ export class ProductsCartComponent {
   filterList$ = this.store.pipe<ListFilter>(select('filtersProvider')).pipe(select('filterResponse'));
   loadProducts$ = this.store.pipe(select('getProducts'));
   currentFilter$ = this.store.pipe(select('currentFilter'));
+  productShowcase$ = this.store.pipe(select('productShowcase'));
 
   constructor (
     public modalService: ModalService,
@@ -55,13 +58,11 @@ export class ProductsCartComponent {
     private store: Store<any>,
   ){
     this.store.dispatch(getFilters());
-    this.store.dispatch(loadProducts())
-    this.currentFilter$.subscribe((filter) => {
-      this.store.dispatch(loadProducts());
-    });
+    this.store.dispatch(loadProducts());
+    this.currentFilter$.subscribe(() => this.store.dispatch(loadProducts()));
     this.loadProducts$.subscribe((products) => {
-      console.log(products);
-    })
+      this.store.dispatch(uploadProductsShowcase({ products }))
+    });
   }
 
   pullProducts(page: number = 0) {}
