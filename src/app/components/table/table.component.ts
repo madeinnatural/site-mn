@@ -24,12 +24,14 @@ export class TableComponent implements OnInit {
     this.innerWidth = window.innerWidth;
   }
 
-  formatCategory(category: Category[]) {
-    return category.map((cat: Category) => cat.name).join(' | ')
+  innerWidth: number = 0;
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.innerWidth = window.innerWidth;
   }
 
-  changeTypeCharge() {
-
+  formatCategory(category: Category[]) {
+    return category.map((cat: Category) => cat.name).join(' | ')
   }
 
   removeItem(product: ProductModel) {
@@ -55,13 +57,6 @@ export class TableComponent implements OnInit {
 
   productValid(product: ProductsDisplay) {
 
-  }
-
-  innerWidth: number = 0;
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event: any) {
-    this.innerWidth = window.innerWidth;
   }
 
 }

@@ -52,13 +52,8 @@
         </td>
 
         <td scope="row" class="row-table pull-right">
-
           <button-init-cart *ngIf="!showcase.itemAdded" (click)="addItem(showcase.product)" size="default"></button-init-cart>
           <button-quantity *ngIf="showcase.itemAdded" [quantity]="showcase.selectedQuantity" [item]="showcase.product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
-
-          <!-- <card-choose></card-choose> -->
-
-
         </td>
       </tr>
 

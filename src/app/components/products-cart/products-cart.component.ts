@@ -1,20 +1,20 @@
-import { ProductsDisplay, DataBar } from './../../core/model/interfaces/Product';
-import { GlobalEventService } from './../../core/services/global.service';
-import { AvancedFilterComponent } from './../avanced-filter/avanced-filter.component';
-import { ModalService } from './../../core/services/modal.service';
-import { Observable} from 'rxjs';
-import { AvancedFilter } from '../../core/model/interfaces/Product';
-import { Component, Output, EventEmitter, Input } from '@angular/core';
-import { createEffect } from '@ngrx/effects';
+import { Component} from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-handler/store/filter.store';
-import { loadProducts, setProducts } from 'src/app/states-handler/store/product.store';
-import { ProductModel } from 'src/app/core/domain/model/product/product';
-import { NgbDropdownModule, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { addProductShowcase, removeProductShowcase, uploadProductsShowcase } from 'src/app/states-handler/store/product-showcase.store';
-import { loadCartSuccess } from 'src/app/states-handler/store/cart.store';
-import { addProductOrder, getProductOrder, removeProductOrder } from 'src/app/states-handler/store/order.store';
-import { Order } from 'src/app/core/domain/model/logistics/cart';
+
+import {
+  GlobalEventService,
+  AvancedFilterComponent,
+  ModalService,
+  AvancedFilter,
+  ListFilter,
+  getFilters,
+  loadProducts,
+  addProductOrder,
+  removeProductOrder,
+  removeProductShowcase,
+  addProductShowcase,
+  ProductModel
+} from './imports';
 
 @Component({
   selector: 'products-cart',

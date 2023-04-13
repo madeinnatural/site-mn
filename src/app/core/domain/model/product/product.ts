@@ -1,16 +1,16 @@
-export interface Package {
+interface Package {
   id: string
   name: string
   products:  ProductModel[]
 }
 
-export interface Unit {
+interface Unit {
   id: string
   name: string
   products: ProductModel[]
 }
 
-export interface Category {
+interface Category {
   id: string
   name: string
   products: ProductModel[]
