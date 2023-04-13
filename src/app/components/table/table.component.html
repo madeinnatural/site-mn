@@ -53,8 +53,8 @@
 
         <td scope="row" class="row-table pull-right">
 
-          <button-init-cart  (click)="addCart(showcase.product.id)" size="default"></button-init-cart>
-          <!-- <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity> -->
+          <button-init-cart *ngIf="!showcase.itemAdded" (click)="addItem(showcase.product)" size="default"></button-init-cart>
+          <button-quantity *ngIf="showcase.itemAdded" [quantity]="showcase.selectedQuantity" [item]="showcase.product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
 
           <!-- <card-choose></card-choose> -->
 

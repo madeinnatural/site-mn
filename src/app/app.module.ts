@@ -32,6 +32,7 @@ import { ProductEffectService } from './states-handler/effect/product-effect.ser
 import { productReducer } from './states-handler/store/product.store';
 import { cartReducer } from './states-handler/store/cart.store';
 import { CartEffectsService } from './states-handler/effect/cart.effects.service';
+import { orderReducer } from './states-handler/store/order.store';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { CartEffectsService } from './states-handler/effect/cart.effects.service
       currentFilter   :currentFilter,
       cart            :cartReducer,
       provider        :provider,
+      order           :orderReducer,
     },{}),
     EffectsModule.forRoot([
       FilterEffectsService,

@@ -8,11 +8,13 @@ import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { createEffect } from '@ngrx/effects';
 import { Store, select } from '@ngrx/store';
 import { ListFilter, LoadedProductProperties, getFilters } from 'src/app/states-handler/store/filter.store';
-import { loadProducts } from 'src/app/states-handler/store/product.store';
+import { loadProducts, setProducts } from 'src/app/states-handler/store/product.store';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
 import { NgbDropdownModule, NgbNavChangeEvent, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { uploadProductsShowcase } from 'src/app/states-handler/store/product-showcase.store';
+import { addProductShowcase, removeProductShowcase, uploadProductsShowcase } from 'src/app/states-handler/store/product-showcase.store';
 import { loadCartSuccess } from 'src/app/states-handler/store/cart.store';
+import { addProductOrder, getProductOrder, removeProductOrder } from 'src/app/states-handler/store/order.store';
+import { Order } from 'src/app/core/domain/model/logistics/cart';
 
 @Component({
   selector: 'products-cart',
@@ -20,36 +22,9 @@ import { loadCartSuccess } from 'src/app/states-handler/store/cart.store';
   styleUrls: ['./products-cart.component.scss'],
 })
 export class ProductsCartComponent {
-
-  active: any;
-	disabled = true;
-
-	onNavChange(changeEvent: NgbNavChangeEvent) {
-		if (changeEvent.nextId === 3) {
-			changeEvent.preventDefault();
-		}
-	}
-
-	toggleDisabled() {
-		this.disabled = !this.disabled;
-		if (this.disabled) {
-			this.active = 1;
-		}
-	}
-
-  @Input() productList?: Observable<ProductsDisplay[]>;
-
-  filter: AvancedFilter = { price: 0, category: '' };
-  loadingPage = false;
-  page = 0;
-
-  total = 0;
-  quantidade = 0;
-
-  @Input() loading: boolean = false;
-  filterList$ = this.store.pipe<ListFilter>(select('filtersProvider')).pipe(select('filterResponse'));
-  loadProducts$ = this.store.pipe(select('getProducts'));
-  currentFilter$ = this.store.pipe(select('currentFilter'));
+  filterList$      = this.store.pipe<ListFilter>(select('filtersProvider')).pipe(select('filterResponse'));
+  loadProducts$    = this.store.pipe(select('getProducts'));
+  currentFilter$   = this.store.pipe(select('currentFilter'));
   productShowcase$ = this.store.pipe(select('productShowcase'));
 
   constructor (
@@ -60,31 +35,24 @@ export class ProductsCartComponent {
     this.store.dispatch(getFilters());
     this.store.dispatch(loadProducts());
     this.currentFilter$.subscribe(() => this.store.dispatch(loadProducts()));
-    this.loadProducts$.subscribe((products) => {
-      this.store.dispatch(uploadProductsShowcase({ products }))
-    });
   }
 
-  pullProducts(page: number = 0) {}
-
-  goSearch(termo: string) {}
-
-  addItemCart(product: ProductsDisplay) {
+  addItemCart(product: ProductModel ) {
+    this.store.dispatch(addProductShowcase({ product }));
+    this.store.dispatch(addProductOrder({ productId: product.id }));
   }
 
-  removeItem(product: ProductsDisplay) {
-
+  removeItem(product: ProductModel) {
+    this.store.dispatch(removeProductShowcase({ product }));
+    this.store.dispatch(removeProductOrder({ productId: product.id }));
   }
 
-  initCart(product: ProductsDisplay) {
+  initCart(product: ProductModel) {
+    this.store.dispatch(addProductShowcase({ product }));
+    this.store.dispatch(addProductOrder({ productId: product.id }));
   }
 
-  showProductsAll() {
-    this.pullProducts(-1);
-    window.scrollY
-    window.scrollTo(500, 1000);
-  }
-
+  filter: AvancedFilter = { price: 0, category: '' };
   openFiltro() {
     this.modalService.openModal(AvancedFilterComponent,{
       filter: this.filter,

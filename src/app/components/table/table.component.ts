@@ -1,9 +1,10 @@
 import { Observable } from 'rxjs';
 import { ProductsDisplay } from './../../core/model/interfaces/Product';
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, Input, HostListener } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { Category, setCurrentLimit } from 'src/app/states-handler/store/filter.store';
 import { Showcase } from 'src/app/states-handler/store/product-showcase.store';
+import { ProductModel } from 'src/app/core/domain/model/product/product';
 
 @Component({
   selector: 'mn-table',
@@ -15,6 +16,10 @@ export class TableComponent implements OnInit {
 
   @Input() showcases?: Observable<Showcase[]>;
 
+  @Output() itemRm = new EventEmitter<ProductModel>();
+  @Output() itemAdd = new EventEmitter<ProductModel>();
+  @Output() showAll = new EventEmitter<boolean>();
+
   ngOnInit() {
     this.innerWidth = window.innerWidth;
   }
@@ -23,22 +28,19 @@ export class TableComponent implements OnInit {
     return category.map((cat: Category) => cat.name).join(' | ')
   }
 
-  changeTypeCharge(product: ProductsDisplay) {
-    this.addItem(product);
-  }
-
-  removeItem(data: ProductsDisplay) {
+  changeTypeCharge() {
 
   }
 
-  addItem(data: ProductsDisplay) {
-
+  removeItem(product: ProductModel) {
+    this.itemRm.emit(product);
   }
 
-  addCart(id: string) {
-    console.log('ID do produto:', id)
+  addItem(product: ProductModel) {
+    this.itemAdd.emit(product);
   }
 
+  productShowcase = this.store.pipe(select('productShowcase'));
   constructor(
     private store: Store<any>
   ) { }

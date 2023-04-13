@@ -7,6 +7,8 @@ import { map, mergeMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
 import { loadProducts, loadProductsSuccess, setProducts } from "../store/product.store";
+import { uploadProductsShowcase } from "../store/product-showcase.store";
+import { Order } from "src/app/core/domain/model/logistics/cart";
 
 
 export interface Body<T> {
@@ -47,11 +49,12 @@ export class ProductEffectService {
   currentProvider: 'RMOURA' | 'CELMAR' = 'CELMAR';
   rmouraBody?: Body<FilterRmoura>;
   celmarBody?: Body<FilterCelmar>;
+  orders: Order[] = [];
 
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private store: Store<{ currentFilter: FilterClass, provider: 'RMOURA' | 'CELMAR' }>
+    private store: Store<{ currentFilter: FilterClass, provider: 'RMOURA' | 'CELMAR', order: Order[] }>
   ) {
     this.store.select('provider').subscribe(provider => this.currentProvider = provider);
     this.store.select('currentFilter').subscribe(filter => {
@@ -82,6 +85,9 @@ export class ProductEffectService {
         text: filter.text
       };
     });
+    this.store.select('order').subscribe(order => {
+      this.orders = order;
+    });
   }
 
   loadProducts$ = createEffect(
@@ -92,7 +98,7 @@ export class ProductEffectService {
         const body = this.currentProvider === 'CELMAR' ? this.celmarBody : this.rmouraBody;
         return this.http.post<ProductModel[]>(environment.baseUrl + url, {...body} );
       }),
-      tap((products: ProductModel[]) => this.store.dispatch(setProducts({products}))),
+      tap((products: ProductModel[]) => this.store.dispatch(uploadProductsShowcase({products, orders: this.orders}))),
       map((products: ProductModel[]) => loadProductsSuccess({products})),
     )
   );

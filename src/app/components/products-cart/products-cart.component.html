@@ -1,20 +1,15 @@
-
-
-
-<!--=========== section tabela ===========-->
-
 <section class="pt-5 pb-5 section_table">
   <div class="container">
-    <mn-search (clickAdvencedFilterEvent)="openFiltro()" (goSearch)="goSearch($event)" placeholder="Procure por nome, marca..." [loading]="loading" ></mn-search>
+    <mn-search (clickAdvencedFilterEvent)="openFiltro()" placeholder="Procure por nome, marca..." ></mn-search>
     <mat-tab-group>
         <div class="row">
           <div class="col-12">
             <mat-tab label="Produtos a granel">
-              <mn-table [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" (showAll)="showProductsAll()" ></mn-table>
+              <mn-table [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" ></mn-table>
               <h6 style="font-size: 14px">* Compra minima por forncedor - R$400.00</h6>
             </mat-tab>
             <mat-tab label="Produtos caixa fechada">
-              <mn-table [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" (showAll)="showProductsAll()" ></mn-table>
+              <mn-table [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" ></mn-table>
               <h6 style="font-size: 14px">* Compra minima por forncedor - R$400.00</h6>
             </mat-tab>
           </div>
@@ -22,4 +17,3 @@
       </mat-tab-group>
     </div>
 </section>
-<!--=========== fim section tabela ===========-->
