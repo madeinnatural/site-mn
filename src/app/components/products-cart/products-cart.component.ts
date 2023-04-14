@@ -1,3 +1,4 @@
+import { changeProvider } from './../../states-handler/store/filter.store';
 import { Component} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
@@ -16,6 +17,11 @@ import {
   ProductModel
 } from './imports';
 
+enum Provider {
+  'RMOURA' = 0,
+  'CELMAR' = 1
+}
+
 @Component({
   selector: 'products-cart',
   templateUrl: './products-cart.component.html',
@@ -26,6 +32,12 @@ export class ProductsCartComponent {
   loadProducts$    = this.store.pipe(select('getProducts'));
   currentFilter$   = this.store.pipe(select('currentFilter'));
   productShowcase$ = this.store.pipe(select('productShowcase'));
+
+  onTabClick(event: any) {
+    const currentProvider = Provider[event] as 'RMOURA' | 'CELMAR';
+    this.store.dispatch(changeProvider({ provider: currentProvider }));
+    this.store.dispatch(loadProducts());
+  }
 
   constructor (
     public modalService: ModalService,

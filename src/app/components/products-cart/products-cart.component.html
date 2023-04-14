@@ -1,7 +1,7 @@
 <section class="pt-5 pb-5 section_table">
   <div class="container">
     <mn-search (clickAdvencedFilterEvent)="openFiltro()" placeholder="Busque pelo nome do produto" ></mn-search>
-    <mat-tab-group>
+    <mat-tab-group (selectedIndexChange)="onTabClick($event)">
         <div class="row">
           <div class="col-12">
             <mat-tab label="Produtos a granel">
