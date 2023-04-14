@@ -23,8 +23,8 @@ export interface ProductModel {
   provider: 'celmar' | 'rmoura'
   price: number
   weight: number
-  unit: string
   obs: string
+  unit: Unit[]
   package: Package[];
   category: Category[];
   mainCategory: Category[];

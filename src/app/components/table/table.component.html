@@ -3,54 +3,70 @@
   <ng-container *ngIf="innerWidth >= 980">
     <thead *ngIf="showcases.length;">
       <tr class="bg-white">
-        <th scope="col" class="pivo">Produto</th>
-        <th scope="col">Categoria</th>
-        <th scope="col">Preço/Unidade</th>
-        <th scope="col">Unidade</th>
-        <th scope="col">Adicionar ao carrinho</th>
+        <th scope="col" class="pivo">Produto  </th>
+        <th scope="col">Preço/Unidade         </th>
+        <th scope="col">Unidade               </th>
+        <th scope="col">Categoria             </th>
+        <th scope="col">Categoria Secundaria  </th>
+        <th scope="col">Embalagem             </th>
+        <th scope="col">Adicionar ao carrinho </th>
       </tr>
     </thead>
 
     <tbody *ngIf="showcases.length; else productNull">
       <tr *ngFor="let showcase of showcases; index as i">
+        <!-- Nome do Produto -->
         <td scope="row" class="row-table">
-
           <div class="row-table">
             <div class="row-table-titles">
               {{ showcase.product.name }}
             </div>
           </div>
-
         </td>
 
-        <td scope="row" class="row-table">
-          <span class="row-table-category">
-            {{ formatCategory(showcase.product.category) | titlecase }}
-          </span>
-        </td>
-
+        <!-- Preço do Produto -->
         <td scope="row" class="row-table text-center">
-          <mat-toolbar>
+          <mat-toolbar style="place-content: center !important;">
             {{showcase.product.price | currency:'BRL':'symbol':'1.2-2' }}
           </mat-toolbar>
         </td>
 
+        <!-- Unidade do Produto -->
         <td scope="row" class="row-table">
           <div class="product-detail">
-
-            <span class="product-detail-item">
-              Caixa <mn-icon name="box" size="xs"></mn-icon>
-              {{ showcase.product.package[0].name }}
+            <span class="product-detail-item" *ngIf="showcase.product.unit">
+              {{ showcase.product.unit[0].name | titlecase }}
             </span>
-
-            <!-- <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
-              Peso <mn-icon name="balance" size="xs"></mn-icon>
-              {{ product.product.product_attributes.weight_unit }} kg
-            </span> -->
-
           </div>
         </td>
 
+        <!-- Categoria do Produto -->
+        <td scope="row" class="product-detail">
+            <span class="product-detail-item" *ngIf="!showcase.product.subCategory">
+              {{ showcase.product.category ? showcase.product.category[0].name : '' | titlecase }}
+            </span>
+            <span class="product-detail-item" *ngIf="showcase.product.subCategory">
+              {{ showcase.product.subCategory[0].name | titlecase }}
+            </span>
+        </td>
+
+        <!-- Categoria Secundaria do Produto -->
+        <td scope="row" class="product-detail">
+          <span class="product-detail-item" *ngIf="showcase.product.subCategory">
+            {{ showcase.product.subCategory[0].name | titlecase }}
+          </span>
+        </td>
+
+        <!-- Embalagem do Produto -->
+        <td scope="row" class="product-detail" style="vertical-align: middle;" >
+          <span style="display: flex; justify-content: space-around; align-items: center;" >
+            {{ showcase.product.package[0].name | titlecase }}
+            <mn-icon *ngIf="!showcase.product.mainCategory"  name="box" size="xs"></mn-icon>
+            <mn-icon *ngIf="showcase.product.mainCategory"  name="balance" size="xs"></mn-icon>
+          </span>
+        </td>
+
+        <!-- Adicionar ao Carrinho -->
         <td scope="row" class="row-table fa-pull-right">
 
           <button-quantity *ngIf="showcase.itemAdded"
@@ -93,22 +109,37 @@
         <td scope="row" class="row-table">
 
           <div class="row-table">
+            <!-- Nome do produto -->
             <div class="row-table-titles">
               {{showcase.product.name }}
             </div>
+            <!-- Preço do Produdo -->
             <div class="row-table-body" >
               {{ showcase.product.price | currency:'BRL':'symbol':'1.2-2' }}
-
             </div>
           </div>
 
-          <div scope="row" class="row-table">
-            <span class="row-table-category">
+          <!-- Categoria -->
+          <div class="row-table">
+            <span class="row-table-category" *ngIf="showcase.product.category">
               {{showcase.product.category[0].name | titlecase }}
+            </span>
+            <span class="row-table-category" *ngIf="showcase.product.subCategory">
+              {{showcase.product.subCategory[0].name | titlecase }}
             </span>
           </div>
 
-          <div scope="row" class="row-table" *ngIf="showcase.partialPrice "> <span><h4>{{showcase.partialPrice | currency:'BRL':'symbol':'1.2-2'}}</h4></span> </div>
+          <div class="row-table">
+            {{ showcase.product.package[0].name | titlecase }}
+            <mn-icon *ngIf="!showcase.product.mainCategory" name="box" size="xs"></mn-icon>
+            <mn-icon *ngIf="showcase.product.mainCategory"  name="balance" size="xs"></mn-icon>
+          </div>
+
+          <div class="row-table" *ngIf="showcase.partialPrice ">
+            <mat-toolbar style="place-content: center !important;">
+              <span>  <h4>{{showcase.partialPrice | currency:'BRL':'symbol':'1.2-2'}}</h4></span>
+            </mat-toolbar>
+          </div>
 
           <div class="control-mobile">
             <button-init-cart *ngIf="!showcase.itemAdded" (click)="addItem(showcase.product)" size="default"></button-init-cart>
@@ -143,3 +174,8 @@
     </td>
   </tr>
 </ng-template>
+
+<!-- <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
+  Peso <mn-icon name="balance" size="xs"></mn-icon>
+  {{ product.product.product_attributes.weight_unit }} kg
+</span> -->

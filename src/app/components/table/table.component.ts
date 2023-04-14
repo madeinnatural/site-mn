@@ -43,9 +43,11 @@ export class TableComponent implements OnInit {
   }
 
   productShowcase = this.store.pipe(select('productShowcase'));
+  provider$ = this.store.pipe(select('provider'));
   constructor(
     private store: Store<any>
-  ) { }
+  ) {
+  }
 
   showProductsAll() {
     this.store.dispatch(setCurrentLimit({ limit: 9000 }));
