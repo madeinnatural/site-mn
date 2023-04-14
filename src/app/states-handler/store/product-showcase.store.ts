@@ -4,6 +4,7 @@ import { ProductModel } from "src/app/core/domain/model/product/product";
 
 export interface Showcase {
   selectedQuantity : number;
+  partialPrice     : number;
   itemAdded        : boolean;
   product          : ProductModel;
 }
@@ -26,11 +27,12 @@ export const productShowcaseReducer = createReducer(
   on(uploadProductsShowcase, (state, { products, orders }) => {
     return products.map(product => {
       const order = orders.find(item => item.productId == product.id);
-      if (!order) return ({ selectedQuantity: 0, product, itemAdded: false });
+      if (!order) return ({ selectedQuantity: 0, product, partialPrice: 0, itemAdded: false });
       return {
         selectedQuantity: order?.quantity || 0,
+        itemAdded: order.quantity > 0 || false,
+        partialPrice: order.quantity * product.price,
         product,
-        itemAdded: order.quantity > 0 || false
       }
     });
   }),
@@ -38,6 +40,7 @@ export const productShowcaseReducer = createReducer(
     let productsShowcase = state.find(item => item.product.id === product.id);
     if (productsShowcase) {
       productsShowcase.selectedQuantity += 1;
+      productsShowcase.partialPrice = productsShowcase.selectedQuantity * productsShowcase.product.price;
       productsShowcase.itemAdded = true;
     }
     return state
@@ -47,8 +50,11 @@ export const productShowcaseReducer = createReducer(
     if (productsShowcase) {
       if (productsShowcase.selectedQuantity > 1) {
         productsShowcase.selectedQuantity -= 1;
+        productsShowcase.itemAdded = true;
+        productsShowcase.partialPrice = productsShowcase.selectedQuantity * productsShowcase.product.price;
       } else {
         productsShowcase.selectedQuantity = 0;
+        productsShowcase.partialPrice = 0;
         productsShowcase.itemAdded = false;
       }
     } else {

@@ -1,6 +1,11 @@
 .button {
-  width: 100%;
-  padding: 2rem;
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-direction: column;
+  padding: .1rem;
 
   &-size-xl{
     width: 5rem;

@@ -1,12 +1,18 @@
-<div class="button">
-  <div class="button-quantity button-size-{{size}}">
-    <button (click)="removeItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
-      <mn-icon name="minus" [size]="size"></mn-icon>
-    </button>
-    {{quantity}}
-    <button (click)="addItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
-      <mn-icon name="plus" [size]="size"></mn-icon>
-    </button>
-  </div>
-</div>
-
+<mat-toolbar>
+    <span>
+      <ng-content></ng-content>
+    </span>
+    <mat-toolbar>
+      <div class="button" >
+        <div class="button-quantity button-size-{{size}}">
+          <button (click)="removeItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
+            <mn-icon name="minus" [size]="size"></mn-icon>
+          </button>
+          <h5 style="text-align: center;">{{quantity}}</h5>
+          <button (click)="addItem(item)" class="btn btn_remove" type="button" aria-expanded="false">
+            <mn-icon name="plus" [size]="size"></mn-icon>
+          </button>
+        </div>
+      </div>
+    </mat-toolbar>
+</mat-toolbar>

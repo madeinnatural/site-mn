@@ -1,7 +1,6 @@
 <table class="table" *ngIf="showcases | async as showcases; else loading ">
 
   <ng-container *ngIf="innerWidth >= 980">
-
     <thead *ngIf="showcases.length;">
       <tr class="bg-white">
         <th scope="col" class="pivo">Produto</th>
@@ -20,9 +19,6 @@
             <div class="row-table-titles">
               {{ showcase.product.name }}
             </div>
-            <!-- <div class="row-table-body">
-              <span *ngIf="showcase">Valor parcial: {{ '' }}</span>
-            </div> -->
           </div>
 
         </td>
@@ -33,7 +29,11 @@
           </span>
         </td>
 
-        <td scope="row" class="row-table">{{showcase.product.price | currency:'BRL':'symbol':'1.2-2' }}</td>
+        <td scope="row" class="row-table text-center">
+          <mat-toolbar>
+            {{showcase.product.price | currency:'BRL':'symbol':'1.2-2' }}
+          </mat-toolbar>
+        </td>
 
         <td scope="row" class="row-table">
           <div class="product-detail">
@@ -51,12 +51,24 @@
           </div>
         </td>
 
-        <td scope="row" class="row-table pull-right">
-          <button-init-cart *ngIf="!showcase.itemAdded" (click)="addItem(showcase.product)" size="default"></button-init-cart>
-          <button-quantity *ngIf="showcase.itemAdded" [quantity]="showcase.selectedQuantity" [item]="showcase.product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity>
+        <td scope="row" class="row-table fa-pull-right">
+
+          <button-quantity *ngIf="showcase.itemAdded"
+              [quantity]="showcase.selectedQuantity"
+              [item]="showcase.product"
+              (itemAdd)="addItem($event)"
+              (itemRm)="removeItem($event)">
+              <h6>{{showcase.partialPrice | currency:'BRL':'symbol':'1.2-2'}}</h6>
+          </button-quantity>
+
+          <button-init-cart *ngIf="!showcase.itemAdded"
+            (click)="addItem(showcase.product)"
+            size="default">
+            <h5 *ngIf="showcase.partialPrice">{{showcase.partialPrice}}</h5>
+          </button-init-cart>
+
         </td>
       </tr>
-
     </tbody>
 
     <tbody>
@@ -68,7 +80,44 @@
         </td>
       </tr>
     </tbody>
+  </ng-container>
 
+  <ng-container *ngIf="innerWidth < 980">
+    <thead>
+      <tr class="bg-white">
+        <th scope="col">Produto</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="showcases.length; else productNull">
+      <tr *ngFor="let showcase of showcases; index as i">
+        <td scope="row" class="row-table">
+
+          <div class="row-table">
+            <div class="row-table-titles">
+              {{showcase.product.name }}
+            </div>
+            <div class="row-table-body" >
+              {{ showcase.product.price | currency:'BRL':'symbol':'1.2-2' }}
+
+            </div>
+          </div>
+
+          <div scope="row" class="row-table">
+            <span class="row-table-category">
+              {{showcase.product.category[0].name | titlecase }}
+            </span>
+          </div>
+
+          <div scope="row" class="row-table" *ngIf="showcase.partialPrice "> <span><h4>{{showcase.partialPrice | currency:'BRL':'symbol':'1.2-2'}}</h4></span> </div>
+
+          <div class="control-mobile">
+            <button-init-cart *ngIf="!showcase.itemAdded" (click)="addItem(showcase.product)" size="default"></button-init-cart>
+            <button-quantity *ngIf="showcase.itemAdded" [quantity]="showcase.selectedQuantity" [item]="showcase.product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)"></button-quantity>
+          </div>
+
+        </td>
+      </tr>
+    </tbody>
   </ng-container>
 
 </table>

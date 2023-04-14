@@ -1,4 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { ProductModel, Showcase } from '../../products-cart/imports';
 
 @Component({
   selector: 'button-quantity',
@@ -10,7 +11,7 @@ export class ButtonQuantityComponent {
 
   @Input() size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xxs' | 'default' = 'xs';
   @Input() quantity?: number;
-  @Input() item: any;
+  @Input() item?: ProductModel;
   @Output() itemRm = new EventEmitter<any>();
   @Output() itemAdd = new EventEmitter<any>();
 

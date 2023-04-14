@@ -51,59 +51,5 @@ export class TableComponent implements OnInit {
     this.store.dispatch(setCurrentLimit({ limit: 9000 }));
   }
 
-  changePrice(productD: ProductsDisplay) {
-
-  }
-
-  productValid(product: ProductsDisplay) {
-
-  }
-
 }
 
-
-
-// <ng-container *ngIf="innerWidth < 980">
-//   <thead>
-//     <tr class="bg-white">
-//       <th scope="col">Produto</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr *ngFor="let product of products; index as i">
-//       <ng-container *ngIf="productValid(product)">
-//         <td scope="row" class="row-table">
-
-//           <div class="row-table">
-//             <div class="row-table-titles">
-//               {{ product.product.name }}
-//             </div>
-//             <div class="row-table-body">
-//               <!-- <span *ngIf="product.subTotal">Valor parcial: {{ product.subTotal | currency: 'BRL' }}</span> -->
-//             </div>
-//           </div>
-
-//           <div scope="row" class="row-table">
-//             <span class="row-table-category">
-//               <!-- {{ product.product.product_categories.main }} -->
-//             </span>
-//           </div>
-
-//           <!-- <div scope="row" class="row-table"> {{ changePrice(product) | currency: 'BRL' }}</div> -->
-
-//           <div class="control-mobile">
-
-//             <!-- <card-choose *ngIf="product.active && product.quantityInCart == 0" [product]="product" (itemAdd)="changeTypeCharge($event)" ></card-choose> -->
-
-//             <!-- <button-init-cart *ngIf="product.quantityInCart == 0 && !product.active" size="default" (click)="product.active = true"></button-init-cart> -->
-
-//             <!-- <button-quantity *ngIf="product.typeCharge && product.quantityInCart > 0" [quantity]="product.quantityInCart" [item]="product" (itemAdd)="addItem($event)" (itemRm)="removeItem($event)" ></button-quantity> -->
-
-//           </div>
-
-//         </td>
-
-
-//       </ng-container>
-//   </tbody>
-// </ng-container>
