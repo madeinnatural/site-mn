@@ -1,5 +1,5 @@
 <table class="table" *ngIf="showcases | async as showcases; else loading ">
-
+  <!-- Modo descktop -->
   <ng-container *ngIf="innerWidth >= 980">
     <thead *ngIf="showcases.length;">
       <tr class="bg-white">
@@ -88,6 +88,7 @@
     </tbody>
   </ng-container>
 
+  <!-- Modo não descktop -->
   <ng-container *ngIf="innerWidth < 980">
     <thead>
       <tr class="bg-white">
@@ -141,7 +142,8 @@
     </tbody>
   </ng-container>
 
-  <tbody>
+  <!-- Carregamento de todos os produtos -->
+  <tbody *ngIf="currentPage == 'HOME'">
     <tr *ngIf="showcases.length < 100">
       <td colspan="7" class="text-center bg-white">
         <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
@@ -150,9 +152,7 @@
       </td>
     </tr>
   </tbody>
-
 </table>
-
 
 <ng-template #loading>
   <div class="row">

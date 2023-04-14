@@ -29,7 +29,7 @@ import { FilterEffectsService } from './states-handler/effect/filter-effects.ser
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ProductEffectService } from './states-handler/effect/product-effect.service';
-import { productReducer } from './states-handler/store/product.store';
+import { productReducer, propsPageReducer } from './states-handler/store/product.store';
 import { cartReducer } from './states-handler/store/cart.store';
 import { CartEffectsService } from './states-handler/effect/cart.effects.service';
 import { orderReducer } from './states-handler/store/order.store';
@@ -66,6 +66,7 @@ import { orderReducer } from './states-handler/store/order.store';
       cart            :cartReducer,
       provider        :provider,
       order           :orderReducer,
+      propsPage       :propsPageReducer
     },{}),
     EffectsModule.forRoot([
       FilterEffectsService,

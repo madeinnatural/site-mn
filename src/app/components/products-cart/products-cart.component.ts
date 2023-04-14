@@ -1,5 +1,5 @@
 import { changeProvider } from './../../states-handler/store/filter.store';
-import { Component} from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 
 import {
@@ -32,6 +32,8 @@ export class ProductsCartComponent {
   loadProducts$    = this.store.pipe(select('getProducts'));
   currentFilter$   = this.store.pipe(select('currentFilter'));
   productShowcase$ = this.store.pipe(select('productShowcase'));
+
+  @Input() currentPage = 'HOME';
 
   onTabClick(event: any) {
     const currentProvider = Provider[event] as 'RMOURA' | 'CELMAR';

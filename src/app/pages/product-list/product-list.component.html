@@ -13,6 +13,7 @@
 
 <!--=========== section tabela ===========-->
 <section class="pt-5 pb-5 section_table">
-  <products-cart></products-cart>
+  <products-cart currentPage="product-list" ></products-cart>
+  <app-paginator [_currentPage]="currentPage" [totalPage]="totalPage"></app-paginator>
 </section>
 <!--=========== fim section tabela ===========-->

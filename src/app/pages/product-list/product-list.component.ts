@@ -6,6 +6,7 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { ProductList } from 'src/app/core/model/interfaces/Product';
+import { Store, select } from '@ngrx/store';
 
 @Component({
   selector: 'app-product-list',
@@ -24,14 +25,28 @@ export class ProductListComponent implements OnInit {
 
   paginationData: Array<number> = [];
 
+  currentPage: number = 0;
+  totalPage: number = 0;
+
+  props$ = this.store.pipe<{
+    currentPage: number
+    totalPages: number
+  }>(select('propsPage'))
   constructor(
     private router: Router,
     private server: ServerService,
     private cookieService: CookieService,
-    public globalEventService: GlobalEventService
+    public globalEventService: GlobalEventService,
+    private store: Store<any>
   ) {
     this.query = this.getQueryParams();
     this.pullProducts()
+
+    this.props$.subscribe(props => {
+      this.currentPage = props.currentPage
+      console.log(props.totalPages)
+      this.totalPage = props.totalPages
+    });
   }
 
   hidderPagination: boolean = false;

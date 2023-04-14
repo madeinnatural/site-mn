@@ -6,7 +6,7 @@ import { FilterClass } from '../store/filter.store';
 import { map, mergeMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
-import { loadProducts, loadProductsSuccess, setProducts } from "../store/product.store";
+import { loadProducts, loadProductsSuccess, setProducts, setPropsPage } from "../store/product.store";
 import { uploadProductsShowcase } from "../store/product-showcase.store";
 import { Order } from "src/app/core/domain/model/logistics/cart";
 
@@ -41,6 +41,11 @@ export interface Paginator {
   limit: number;
 }
 
+export interface ResponseDataProducts {
+  currentPage: number;
+  totalPages: number;
+  products: ProductModel[]
+}
 
 @Injectable({
   providedIn: "root"
@@ -96,7 +101,11 @@ export class ProductEffectService {
       mergeMap(() => {
         const url  = this.currentProvider === 'CELMAR' ? 'pull-products-celmar' : 'pull-products-rmoura';
         const body = this.currentProvider === 'CELMAR' ? this.celmarBody : this.rmouraBody;
-        return this.http.post<ProductModel[]>(environment.baseUrl + url, {...body} );
+        return this.http.post<ResponseDataProducts>(environment.baseUrl + url, {...body} );
+      }),
+      map((response: ResponseDataProducts) => {
+        this.store.dispatch(setPropsPage({ currentPage: response.currentPage, totalPages: response.totalPages}))
+        return response.products;
       }),
       tap((products: ProductModel[]) => this.store.dispatch(uploadProductsShowcase({products, orders: this.orders}))),
       map((products: ProductModel[]) => loadProductsSuccess({products})),

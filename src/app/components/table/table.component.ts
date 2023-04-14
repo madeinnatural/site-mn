@@ -15,10 +15,12 @@ import { ProductModel } from 'src/app/core/domain/model/product/product';
 export class TableComponent implements OnInit {
 
   @Input() showcases?: Observable<Showcase[]>;
+  @Input() currentPage = 'HOME';
 
   @Output() itemRm = new EventEmitter<ProductModel>();
   @Output() itemAdd = new EventEmitter<ProductModel>();
   @Output() showAll = new EventEmitter<boolean>();
+
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
