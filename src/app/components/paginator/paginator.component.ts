@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { setCurrentPage } from '../products-cart/imports';
 
 @Component({
@@ -28,17 +28,5 @@ export class PaginatorComponent {
       totalPages: number
     }}>
   ) {}
-
-  nextPage() {
-
-  }
-
-  previewPage() {
-
-  }
-
-  changePage(page: number) {
-
-  }
 
 }
