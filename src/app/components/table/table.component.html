@@ -86,16 +86,6 @@
         </td>
       </tr>
     </tbody>
-
-    <tbody>
-      <tr *ngIf="showcases.length < 100">
-        <td colspan="5" class="text-center bg-white">
-          <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
-            VER LISTA COMPLETA
-          </button>
-        </td>
-      </tr>
-    </tbody>
   </ng-container>
 
   <ng-container *ngIf="innerWidth < 980">
@@ -151,6 +141,16 @@
     </tbody>
   </ng-container>
 
+  <tbody>
+    <tr *ngIf="showcases.length < 100">
+      <td colspan="7" class="text-center bg-white">
+        <button class="btn d-block m-auto btn_outline_green align-items-center" (click)="showProductsAll()">
+          VER LISTA COMPLETA
+        </button>
+      </td>
+    </tr>
+  </tbody>
+
 </table>
 
 
@@ -175,7 +175,3 @@
   </tr>
 </ng-template>
 
-<!-- <span *ngIf="product.typeCharge && product.typeCharge == 'unit' " class="product-detail-item">
-  Peso <mn-icon name="balance" size="xs"></mn-icon>
-  {{ product.product.product_attributes.weight_unit }} kg
-</span> -->
