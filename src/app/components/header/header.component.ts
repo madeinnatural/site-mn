@@ -1,13 +1,5 @@
-import { CartService } from './../../core/services/cart.service';
-import { UserService } from './../../core/services/user.service';
-import User from 'src/app/core/model/interfaces/User';
-import { CookieService } from '@ngx-toolkit/cookie';
-import { PurchaseService } from './../../core/services/purchase.service';
-import { GlobalEventService } from './../../core/services/global.service';
-import { AccountService } from './../../core/account/account.service';
 import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import { Store, select } from '@ngrx/store';
 import { CartModel } from 'src/app/core/domain/model/logistics/cart';
 
@@ -17,7 +9,6 @@ import { CartModel } from 'src/app/core/domain/model/logistics/cart';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  faCoffee = faCoffee;
   active: boolean = true
   openMenu: boolean = false;
   query: string = '';

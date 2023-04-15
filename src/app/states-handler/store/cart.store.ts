@@ -65,36 +65,40 @@ export const cartReducer = createReducer(
     }
   }),
   on(removeItem, (state, { product }) => {
-    const productStore = state.cartItem.find(item => item.id === product.id);
-    if (productStore) {
-      return {
-        ...state,
-        orders: state.orders.map(order => {
-          if (order.productId === product.id) {
-            return {
-              ...order,
-              quantity: order.quantity - 1
+    const order = state.orders.find(item => item.productId === product.id);
+    if (order) {
+      if (order.quantity === 1) {
+        return {
+          ...state,
+          total: state.total - product.price,
+          cartItem: state.cartItem.filter(item => item.id !== product.id),
+          orders: state.orders.filter(item => item.productId !== product.id)
+        }
+      } else {
+        return {
+          ...state,
+          total: state.total - product.price,
+          cartItem: state.cartItem.map(item => {
+            if (item.id === product.id) {
+              return {
+                ...item,
+              }
             }
-          }
-          return order;
-        }),
-        cartItem: state.cartItem.map(item => {
-          if (item.id === product.id) {
-            return {
-              ...item,
+            return item;
+          }),
+          orders: state.orders.map(item => {
+            if (item.productId === product.id) {
+              return {
+                ...item,
+                quantity: item.quantity - 1
+              }
             }
-          }
-          return item;
-        }),
-        total: state.total - product.price
+            return item;
+          })
+        }
       }
     }
-    return {
-      ...state,
-      total: state.total - product.price,
-      cartItem: [...state.cartItem, product],
-      orders: [...state.orders, { productId: product.id, quantity: 1 }]
-    }
+    return state;
   }),
   on(updateItem, (state, { product }) => {
     return state
