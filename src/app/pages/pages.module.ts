@@ -2,11 +2,9 @@ import { RecoveryFormComponent } from './account/password-recovery/recovery-form
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from '../core/services/server.service';
 import { PurchaseService } from './../core/services/purchase.service';
-import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
-import { BrowserModule } from '@angular/platform-browser';
-import { RegisterComponent } from './account/register/register.component';
 import { LoginComponent } from './account/login/login.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
@@ -19,7 +17,6 @@ import { CommonModule } from '@angular/common';
 
 import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
-import { AccountComponent } from './account/account.component';
 import { CartComponent } from './cart/cart.component';
 import { ProfileComponent } from './profile/profile.component';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -56,20 +53,19 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
+import { SignupComponent } from './account/register/signup.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
-    AccountComponent,
-    AccountComponent,
     CartComponent,
     ProfileComponent,
     ProfileDataComponent,
     ProfileRequestsComponent,
     ProfileCotacaoComponent,
     LoginComponent,
-    RegisterComponent,
+    SignupComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
     PasswordRecoveryComponent,
@@ -121,15 +117,13 @@ import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundCom
   ],
   exports: [
     HomeComponent,
-    AccountComponent,
-    AccountComponent,
     CartComponent,
     ProfileComponent,
     ProfileDataComponent,
     ProfileRequestsComponent,
     ProfileCotacaoComponent,
     LoginComponent,
-    RegisterComponent,
+    SignupComponent,
     ProductListComponent,
     PurchaseSummaryComponent,
     RecoveryFormComponent

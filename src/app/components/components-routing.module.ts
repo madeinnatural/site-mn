@@ -1,10 +1,8 @@
-import { PurchaseService } from './../core/services/purchase.service';
-import { AccountComponent } from './../pages/account/account.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path: 'registration', component: AccountComponent}
+
 ];
 
 @NgModule({

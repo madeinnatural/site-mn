@@ -1,36 +1,44 @@
-<div *ngIf="type == 'login'">
+<section class="w-100">
+  <div class="container">
+    <div class="row pt-4">
+      <div class="d-block m-auto w-100" style="max-width: 460px;">
 
-  <div class="col-12 mb-4">
-    <div class="d-flex justify-content-center">
-      <a class="btn _color_green" style="text-decoration: underline;">
-        <h3>Login</h3>
-      </a>
-      <a class="btn" (click)="type = 'registration'">
-        <h3>Cadastro</h3>
-      </a>
+        <div class="col-12 mb-4">
+          <div class="d-flex justify-content-center">
+            <a class="btn _color_green" style="text-decoration: underline;">
+              <h3>Login</h3>
+            </a>
+            <a class="btn" routerLink="/account/signup">
+              <h3>Cadastro</h3>
+            </a>
+          </div>
+        </div>
+
+        <mn-form #form [status_loading]="status_loading" [submitable]="submit" buttonName="Entrar"
+          [showToastForm]="true">
+
+          <mn-input archetype="email" #emailInput placeholder="E-mail" [(value)]="email" requery>
+          </mn-input>
+
+          <br>
+
+          <mn-input archetype="password" #passwordInput placeholder="Senha" [(value)]="password" requery>
+          </mn-input>
+
+        </mn-form>
+
+        <div class="col-12">
+          <div class="d-flex align-items-center justify-content-between">
+            <!-- <label class="d-flex align-items-center">
+                <input #lembrar type="checkbox" class="mr-3"> <strong>Lembrar-me</strong>
+              </label> -->
+            <button (click)="recovery_passord()" class="btn _color_green" style="text-decoration: underline;">
+              <strong>Esqueci a Senha</strong>
+            </button>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
-
-
-  <mn-form #form [status_loading]="status_loading" [submitable]="submit" buttonName="Entrar" [showToastForm]="true">
-
-    <mn-input archetype="email" #emailInput placeholder="E-mail" [(value)]="email" requery>
-    </mn-input>
-
-    <mn-input archetype="password" #passwordInput placeholder="Senha" [(value)]="password" requery>
-    </mn-input>
-
-  </mn-form>
-
-  <div class="col-12">
-    <div class="d-flex align-items-center justify-content-between">
-      <!-- <label class="d-flex align-items-center">
-        <input #lembrar type="checkbox" class="mr-3"> <strong>Lembrar-me</strong>
-      </label> -->
-      <button (click)="recovery_passord()" class="btn _color_green" style="text-decoration: underline;">
-        <strong>Esqueci a Senha</strong>
-      </button>
-    </div>
-  </div>
-
-</div>
+</section>

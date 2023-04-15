@@ -6,18 +6,22 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
-import { AccountComponent } from './account/account.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { AuthQuard } from '../core/guards/auth.quard';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
+import { LoginComponent } from './account/login/login.component';
+import { SignupComponent } from './account/register/signup.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'login', component: AccountComponent},
+  {path: 'account', children: [
+    { path: 'login', component: LoginComponent },
+    { path: 'signup', component: SignupComponent }
+  ]},
   {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
   {path: 'profile', canActivate: [AuthQuard],
     children: [

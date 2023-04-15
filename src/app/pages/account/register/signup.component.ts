@@ -1,29 +1,18 @@
-import User from 'src/app/core/model/interfaces/User';
-import { MnInputComponent } from './../../../components/input/input.component';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { MnInputComponent } from './../../../components/input/input.component';
 import { GlobalEventService } from './../../../core/services/global.service';
 import { AccountService } from './../../../core/account/account.service';
 import { UserRegister } from './../../../core/model/interfaces/User';
-import { Component,Input,OnInit,Output,EventEmitter,ViewChild,} from '@angular/core';
-import { Submitable } from 'src/app/components/mn-form/mn-form.component';
+import { Submitable } from '../../../components/mn-form/mn-form.component';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.scss'],
 })
-export class RegisterComponent {
-
-  @Input('type') current_type: 'login' | 'registration' = 'login';
-  @Output('changeType') changeType = new EventEmitter<'login' | 'registration'>();
-  @Output('register') register = new EventEmitter<UserRegister>();
-
-
-  get type() {return this.current_type;}
-  set type(current_type: 'login' | 'registration') {
-    this.changeType.emit(current_type);
-    this.current_type = current_type;
-  }
+export class SignupComponent {
 
   @ViewChild('form') form: any;
   @ViewChild('email') email?: MnInputComponent;
