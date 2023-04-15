@@ -15,8 +15,6 @@ export class SignupComponent {
   @ViewChild('cpfCnpj') cpfCnpj?: MnInputComponent;
   @ViewChild('email')   email?: MnInputComponent;
 
-  cpf_cnpj = '';
-
   formRegister: SignupRequest = {
     name: '',
     email: '',
@@ -44,10 +42,11 @@ export class SignupComponent {
 
   submit: Submitable = {
     submit: async () => {
-      this.formRegister.cpfCnpj = this.cpf_cnpj;
       this.accountService.signup(this.formRegister);
-      return new Promise((ok, reject) => {
-        ok(true)
+      return new Promise((ok) => {
+        setTimeout(() => {
+          ok(true)
+        }, 1000)
       });
     },
   };

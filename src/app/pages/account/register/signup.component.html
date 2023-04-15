@@ -2,9 +2,7 @@
   <div class="container">
     <div class="row pt-4">
       <div class="d-block m-auto w-100" style="max-width: 460px;">
-
         <div class="section_register">
-
           <div class="col-12 mb-4">
             <div class="d-flex justify-content-center">
               <a class="btn" routerLink="/account/login">
@@ -15,7 +13,6 @@
               </a>
             </div>
           </div>
-
           <mn-form #form [submitable]="submit" buttonName="Cadastrar conta" [showToastForm]="true">
 
             <mn-input [(value)]="formRegister.name" size="sm" archetype="name" placeholder="Nome e sobrenome" required>
@@ -26,7 +23,7 @@
             </mn-input>
             <br>
 
-            <mn-input [(value)]="cpf_cnpj" #cpfCnpj size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
+            <mn-input [(value)]="formRegister.cpfCnpj" #cpfCnpj size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
             </mn-input>
             <br>
 
@@ -39,9 +36,7 @@
             </mn-input>
 
           </mn-form>
-
         </div>
-
       </div>
     </div>
   </div>
