@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, switchMap, tap } from 'rxjs';
-import { FilterClass, ListFilter, getFilterAPI, getFilters, setFilters, successLoadFilter } from '../store/filter.store';
+import { FilterClass, ListFilter, getFilters, setFilters, successLoadFilter } from '../store/filter.store';
 import { Store } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 

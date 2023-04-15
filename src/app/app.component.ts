@@ -57,10 +57,6 @@ export class AppComponent {
       });
 
 
-    this.accountService.hidderHeaderFooter.subscribe(hideHead => {
-      this.hidderHeader = hideHead;
-    })
-
     this.globalEventService.errorPurchase.subscribe( (error) => {
       const { text, showError } = error;
       this.globalAlertService.alertError(text);

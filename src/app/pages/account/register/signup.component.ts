@@ -1,11 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-
 import { MnInputComponent } from './../../../components/input/input.component';
-import { GlobalEventService } from './../../../core/services/global.service';
 import { AccountService } from './../../../core/account/account.service';
-import { UserRegister } from './../../../core/model/interfaces/User';
 import { Submitable } from '../../../components/mn-form/mn-form.component';
+import { SignupRequest } from 'src/app/states-handler/store/account.store';
 
 @Component({
   selector: 'app-signup',
@@ -19,42 +16,24 @@ export class SignupComponent {
 
   cpf_cnpj = '';
 
-  formRegister: UserRegister = {
-    name:'',
-    email:'',
+  formRegister: SignupRequest = {
+    name: '',
+    email: '',
     password: '',
-    phone:'',
-    cpf: '',
-    cnpj: '',
+    phone: '',
+    cpfCnpj: '',
   }
 
   constructor(
     private accountService: AccountService,
-    private globalEventService: GlobalEventService,
-    private router: Router
-  ) {}
+  ) { }
 
   submit: Submitable = {
     submit: async () => {
       return new Promise((ok, reject) => {
-
-          if (this.cpf_cnpj.length >= 14) this.formRegister.cnpj = this.cpf_cnpj;
-          else this.formRegister.cpf = this.cpf_cnpj;
-
-          this.accountService.reginterUser(this.formRegister)
-            .subscribe({
-              next: (res: any) => {
-                this.accountService.logout();
-                this.globalEventService.setDataUser(res);
-                ok(this.router.navigate(['/']));
-              },
-              error: (rej: any) => {
-                const {errors} = rej.error;
-                errors.forEach((element: any) => {if (element.path == 'email') this.email?.postInvalidade(element.message)});
-                reject(true);
-              },
-            });
-          return true;
+        this.formRegister.cpfCnpj = this.cpf_cnpj;
+        this.accountService.signup(this.formRegister);
+        ok(true)
       });
     },
   };

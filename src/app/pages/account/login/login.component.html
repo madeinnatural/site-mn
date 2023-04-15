@@ -14,7 +14,7 @@
           </div>
         </div>
 
-        <mn-form #form [status_loading]="status_loading" [submitable]="submit" buttonName="Entrar"
+        <mn-form #form [submitable]="submit" buttonName="Entrar"
           [showToastForm]="true">
 
           <mn-input archetype="email" #emailInput placeholder="E-mail" [(value)]="email" requery>
@@ -24,7 +24,6 @@
 
           <mn-input archetype="password" #passwordInput placeholder="Senha" [(value)]="password" requery>
           </mn-input>
-
         </mn-form>
 
         <div class="col-12">

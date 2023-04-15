@@ -1,66 +1,21 @@
-import { UserService } from './../services/user.service';
-import { CookieService } from '@ngx-toolkit/cookie';
-import { UserRegister } from './../model/interfaces/User';
-import { GlobalEventService } from './../services/global.service';
-import { HttpClient } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
-
-import { environment } from '../../../environments/environment';
-import User, { UserLogin } from '../model/interfaces/User';
+import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { LoginRequest, SignupRequest, login } from 'src/app/states-handler/store/account.store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
 
-  hidderHeaderFooter = new EventEmitter<boolean>();
-  current_user: User = {
-    id: 0,
-    adresses: {
-      street: '',
-      number: '',
-      city: '',
-      state: '',
-      cep: '',
-    },
-    adresses_main: '',
-    cnpj: '',
-    email: '',
-    name: '',
-    phone: '',
-  };
-
   constructor(
-    private http: HttpClient,
-    private globalEventService: GlobalEventService,
-    private cookieService:CookieService,
-    private userService: UserService
+    private store : Store<any>
   ) {}
 
-  loginActiver(active: boolean) {
-    this.hidderHeaderFooter.emit(active);
+  login(data: LoginRequest) {
+    this.store.dispatch(login({ payload: data }));
   }
 
-  login(dataUser: UserLogin) {
-    return this.http.post(environment.baseUrl + 'token/login',{email: dataUser.email, password: dataUser.password});
-  }
+  logout() { }
 
-  logout () {
-    this.cookieService.clear();
-    this.userService.user = {
-      id: 0,
-      adresses: '',
-      adresses_main: '',
-      cnpj: '',
-      email: '',
-      name: '',
-      phone: '',
-    };
-    this.globalEventService.logoutEvent.emit('logout');
-  }
-
-  reginterUser(dataReginter: UserRegister) {
-    return this.http.post<{user: User, auth_token: string}>(environment.baseUrl + 'users/register', dataReginter);
-  }
-
+  signup(data: SignupRequest) { }
 }

@@ -33,6 +33,9 @@ import { productReducer, propsPageReducer } from './states-handler/store/product
 import { cartReducer } from './states-handler/store/cart.store';
 import { CartEffectsService } from './states-handler/effect/cart.effects.service';
 import { orderReducer } from './states-handler/store/order.store';
+import { accountReducer } from './states-handler/store/account.store';
+import { AccountEffectsService } from './states-handler/effect/account.effect.service';
+import { errorReducer } from './states-handler/store/error.store';
 
 @NgModule({
   declarations: [
@@ -66,12 +69,15 @@ import { orderReducer } from './states-handler/store/order.store';
       cart            :cartReducer,
       provider        :provider,
       order           :orderReducer,
-      propsPage       :propsPageReducer
+      propsPage       :propsPageReducer,
+      account         :accountReducer,
+      error           :errorReducer,
     },{}),
     EffectsModule.forRoot([
       FilterEffectsService,
       ProductEffectService,
-      CartEffectsService
+      CartEffectsService,
+      AccountEffectsService
     ]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
