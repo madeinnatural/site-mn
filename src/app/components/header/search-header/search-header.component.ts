@@ -1,7 +1,8 @@
-import { Subject, debounceTime } from 'rxjs';
-import { GlobalEventService } from '../../../core/services/global.service';
 import { Router } from '@angular/router';
-import { Component, OnInit, EventEmitter, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Subject, debounceTime } from 'rxjs';
+import { setText } from '../../products-cart/imports';
 
 @Component({
   selector: 'app-search-header',
@@ -9,17 +10,13 @@ import { Component, OnInit, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./search-header.component.scss']
 })
 export class SearchHeaderComponent {
-
-  query: string = '';
-  buscar_header = new EventEmitter<string>();
-
   @Input() type: 'mobile' | 'desktop' = 'desktop';
 
+  public query: string = '';
   private searchSubject: Subject<string> = new Subject<string>();
-
   constructor(
     public router: Router,
-    public globalEvents: GlobalEventService,
+    private store: Store<any>
   ) {
     this.searchSubject
       .pipe(debounceTime(500))
@@ -37,10 +34,8 @@ export class SearchHeaderComponent {
   }
 
   bucarProduto() {
-    if (this.query == '')  this.query = " ";
-    this.router.navigateByUrl('product_list?query=' + this.query);
-    this.router.navigate(['product_list'], {queryParams: {query: this.query}});
-    this.globalEvents.search.emit();
+    this.store.dispatch(setText({props: this.query}))
+    this.router.navigate(['product_list']);
   }
 
 }
