@@ -1,4 +1,5 @@
-import { CartModel } from './../../core/domain/model/logistics/cart';
+import { ProductModel } from 'src/app/components/products-cart/imports';
+import { CartModel, Order } from './../../core/domain/model/logistics/cart';
 import { createAction, createReducer, on, props } from "@ngrx/store";
 
 export enum CartActionTypes {
@@ -12,9 +13,9 @@ export enum CartActionTypes {
   'LOAD_CART_FAILURE' = '[Cart] Load Cart Failure',
 }
 
-export const addItem = createAction(CartActionTypes.ADD_ITEM, props<{ productId: string }>());
-export const removeItem = createAction(CartActionTypes.REMOVE_ITEM, props<{ productId: string }>());
-export const updateItem = createAction(CartActionTypes.UPDATE_ITEM, props<{ productId: string }>());
+export const addItem = createAction(CartActionTypes.ADD_ITEM, props<{ product: ProductModel }>());
+export const removeItem = createAction(CartActionTypes.REMOVE_ITEM, props<{ product: ProductModel  }>());
+export const updateItem = createAction(CartActionTypes.UPDATE_ITEM, props<{ product: ProductModel  }>());
 export const clearCart = createAction(CartActionTypes.CLEAR_CART);
 
 export const loadCart = createAction(CartActionTypes.LOAD_CART);
@@ -31,46 +32,72 @@ const initializeCartItem: CartModel = {
 }
 export const cartReducer = createReducer(
   initializeCartItem,
-  on(addItem, (state, { productId }) => {
-    const orderExist = state.orders.find(order => order.productId === productId);
-    if (orderExist) {
+  on(addItem, (state, { product }) => {
+    const productStore = state.cartItem.find(item => item.id === product.id);
+    if (productStore) {
       return {
         ...state,
         orders: state.orders.map(order => {
-          if (order.productId === productId) {
+          if (order.productId === product.id) {
             return {
               ...order,
               quantity: order.quantity + 1
             }
           }
           return order;
-        })
+        }),
+        cartItem: state.cartItem.map(item => {
+          if (item.id === product.id) {
+            return {
+              ...item,
+            }
+          }
+          return item;
+        }),
+        total: state.total + product.price
       }
     }
     return {
       ...state,
-      orders: [...state.orders, { productId, quantity: 1 }]
+      total: state.total + product.price,
+      cartItem: [...state.cartItem, product],
+      orders: [...state.orders, { productId: product.id, quantity: 1 }]
     }
   }),
-  on(removeItem, (state, { productId }) => {
-    return {
-      ...state,
-      orders: state.orders.filter(order => order.productId !== productId)
-    }
-  }),
-  on(updateItem, (state, { productId }) => {
-    return {
-      ...state,
-      orders: state.orders.map(order => {
-        if (order.productId === productId) {
-          return {
-            ...order,
-            quantity: order.quantity + 1
+  on(removeItem, (state, { product }) => {
+    const productStore = state.cartItem.find(item => item.id === product.id);
+    if (productStore) {
+      return {
+        ...state,
+        orders: state.orders.map(order => {
+          if (order.productId === product.id) {
+            return {
+              ...order,
+              quantity: order.quantity - 1
+            }
           }
-        }
-        return order;
-      })
+          return order;
+        }),
+        cartItem: state.cartItem.map(item => {
+          if (item.id === product.id) {
+            return {
+              ...item,
+            }
+          }
+          return item;
+        }),
+        total: state.total - product.price
+      }
     }
+    return {
+      ...state,
+      total: state.total - product.price,
+      cartItem: [...state.cartItem, product],
+      orders: [...state.orders, { productId: product.id, quantity: 1 }]
+    }
+  }),
+  on(updateItem, (state, { product }) => {
+    return state
   }),
   on(clearCart, (state) => {
     return {

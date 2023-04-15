@@ -5,99 +5,33 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { PurchaseService } from './../../core/services/purchase.service';
 import { GlobalEventService } from './../../core/services/global.service';
 import { AccountService } from './../../core/account/account.service';
-import { Component, Input, OnInit, Inject, Injectable } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { Store, select } from '@ngrx/store';
+import { CartModel } from 'src/app/core/domain/model/logistics/cart';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   faCoffee = faCoffee;
   active: boolean = true
   openMenu: boolean = false;
-  showHeader: boolean = true;
-  _finalPrice: number = 0;
   query: string = '';
-  user_name?: string = '';
-  user: User;
 
-  get finalPrice () {
-    this._finalPrice = this.purchaseService.totalPrice()
-    return this._finalPrice
-  }
-
-  set finalPrice (e) {
-    this._finalPrice = e
-  }
-
-  get cartLength () {
-    const cart_j = this.cookieService.getItem('cart')
-    if (cart_j) {
-      return JSON.parse(cart_j).length
-    }
-    return 0
-  }
-
-  get userPresent () {
-    return this.accountService.current_user;
-  }
-
-  get username() {
-    return this.accountService.current_user.name;
-  }
-
-  purchaseValue: number =  0;
-
+  totalItems :number = 0;
+  valueCart  :number = 0;
   constructor(
     private nav: Router,
-    private accountService: AccountService,
-    private globalEventService: GlobalEventService,
-    private purchaseService: PurchaseService,
-    private cookieService: CookieService,
-    public userService: UserService,
-    public cartService: CartService,
+    private store :Store<{cart: CartModel}>
   ) {
-
-    const current_user  = this.accountService.current_user;
-
-
-
-    this.user = current_user;
-
-    if (current_user){
-      const [user_name] = this.user.name.slice(0, 14).split(' ')
-      this.user_name = user_name
-    }
-
-    this.globalEventService.logoutEvent.subscribe(()=> {
-      this.user = {
-        adresses: {
-          cep: '',
-          city: '',
-          street: '',
-          number: '',
-          state: ''
-        },
-        adresses_main: '',
-        cnpj: '',
-        email: '',
-        id: 0,
-        name: '',
-        phone: ''
-      }
+    this.store.pipe(select('cart')).subscribe(cart => {
+      this.totalItems = cart.orders.length;
+      this.valueCart = cart.total
     });
-
-    this.globalEventService.loginEvent.subscribe((user)=> {
-
-      this.user = user;
-      const [user_name] = this.user.name.slice(0, 14).split(' ')
-      this.user_name = user_name
-
-    });
-
   }
 
   goPageLogin() {
@@ -105,7 +39,7 @@ export class HeaderComponent {
   }
 
   goPageRegistration () {
-    const extra: NavigationExtras = {queryParams: {type: 'registration'} };
+    const extra: NavigationExtras = { queryParams: {type: 'registration'} };
     this.nav.navigate(['registration'], extra);
   }
 

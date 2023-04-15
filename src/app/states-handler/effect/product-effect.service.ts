@@ -7,8 +7,10 @@ import { map, mergeMap, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ProductModel } from 'src/app/core/domain/model/product/product';
 import { loadProducts, loadProductsSuccess, setProducts, setPropsPage } from "../store/product.store";
-import { uploadProductsShowcase } from "../store/product-showcase.store";
+import { Showcase, uploadProductsShowcase } from "../store/product-showcase.store";
 import { Order } from "src/app/core/domain/model/logistics/cart";
+import { addProductOrder } from "../store/order.store";
+import { addItem } from "../store/cart.store";
 
 
 export interface Body<T> {
@@ -59,7 +61,11 @@ export class ProductEffectService {
   constructor(
     private actions$: Actions,
     private http: HttpClient,
-    private store: Store<{ currentFilter: FilterClass, provider: 'RMOURA' | 'CELMAR', order: Order[] }>
+    private store: Store<{
+      currentFilter: FilterClass,
+      provider: 'RMOURA' | 'CELMAR', order: Order[],
+      productShowcase: Showcase[]
+    }>
   ) {
     this.store.select('provider').subscribe(provider => this.currentProvider = provider);
     this.store.select('currentFilter').subscribe(filter => {

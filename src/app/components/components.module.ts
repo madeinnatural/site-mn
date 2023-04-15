@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SearchBarButtonComponent } from './search/button/button.component';
 import { ButtonMainComponent } from './header/button-main/button-main.component';
 import { TitlePageComponent } from './title-page/title-page.component';

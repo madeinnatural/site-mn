@@ -16,6 +16,7 @@ import {
   addProductShowcase,
   ProductModel
 } from './imports';
+import { addItem } from 'src/app/states-handler/store/cart.store';
 
 enum Provider {
   'RMOURA' = 0,
@@ -54,6 +55,7 @@ export class ProductsCartComponent {
   addItemCart(product: ProductModel ) {
     this.store.dispatch(addProductShowcase({ product }));
     this.store.dispatch(addProductOrder({ productId: product.id }));
+    this.store.dispatch(addItem({ product }))
   }
 
   removeItem(product: ProductModel) {
