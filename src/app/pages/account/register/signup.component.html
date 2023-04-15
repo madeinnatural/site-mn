@@ -20,15 +20,19 @@
 
             <mn-input [(value)]="formRegister.name" size="sm" archetype="name" placeholder="Nome e sobrenome" required>
             </mn-input>
+            <br>
 
             <mn-input [(value)]="formRegister.email" #email size="sm" archetype="email" placeholder="E-mail" required>
             </mn-input>
+            <br>
 
-            <mn-input [(value)]="cpf_cnpj" size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
+            <mn-input [(value)]="cpf_cnpj" #cpfCnpj size="sm" archetype="cpf,cnpj" placeholder="CPF/CNPJ" required>
             </mn-input>
+            <br>
 
             <mn-input [(value)]="formRegister.phone" size="sm" archetype="phone" placeholder="Telefone" required>
             </mn-input>
+            <br>
 
             <mn-input [(value)]="formRegister.password" #pass size="sm" archetype="password" placeholder="Senha"
               required>

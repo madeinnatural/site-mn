@@ -1,5 +1,5 @@
 import { createReducer, on } from "@ngrx/store";
-import { loginFailure } from "./account.store";
+import { loginFailure, signupFailure } from "./account.store";
 
 export interface ErrorStore {
   error: string,
@@ -17,6 +17,12 @@ export const errorReducer = createReducer(
     return {
       error:  action.message,
       trace: 'LOGIN_FAILURE',
+    }
+  }),
+  on(signupFailure, (states,action) => {
+    return {
+      error:  action.message,
+      trace: 'SIGNUP_FAILURE',
     }
   })
 )

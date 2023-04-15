@@ -3,6 +3,7 @@ import { MnInputComponent } from './../../../components/input/input.component';
 import { AccountService } from './../../../core/account/account.service';
 import { Submitable } from '../../../components/mn-form/mn-form.component';
 import { SignupRequest } from 'src/app/states-handler/store/account.store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-signup',
@@ -11,8 +12,8 @@ import { SignupRequest } from 'src/app/states-handler/store/account.store';
 })
 export class SignupComponent {
 
-  @ViewChild('form') form: any;
-  @ViewChild('email') email?: MnInputComponent;
+  @ViewChild('cpfCnpj') cpfCnpj?: MnInputComponent;
+  @ViewChild('email')   email?: MnInputComponent;
 
   cpf_cnpj = '';
 
@@ -26,13 +27,26 @@ export class SignupComponent {
 
   constructor(
     private accountService: AccountService,
-  ) { }
+    private store: Store<any>,
+  ) {
+    this.store.select('error').subscribe((error: {error: string, trace: string}) => {
+      console.log(error.error);
+      if (error.trace == 'SIGNUP_FAILURE') {
+        if(error.error.toLocaleLowerCase().replace('-', '').includes('email')) {
+          this.email?.postInvalidade(error.error);
+        }
+        if(error.error.toLocaleLowerCase().replace('/', '').includes('cpfcnpj')) {
+          this.cpfCnpj?.postInvalidade(error.error);
+        }
+      }
+    })
+  }
 
   submit: Submitable = {
     submit: async () => {
+      this.formRegister.cpfCnpj = this.cpf_cnpj;
+      this.accountService.signup(this.formRegister);
       return new Promise((ok, reject) => {
-        this.formRegister.cpfCnpj = this.cpf_cnpj;
-        this.accountService.signup(this.formRegister);
         ok(true)
       });
     },

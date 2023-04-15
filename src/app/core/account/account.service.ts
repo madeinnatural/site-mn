@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoginRequest, SignupRequest, login } from 'src/app/states-handler/store/account.store';
+import { LoginRequest, SignupRequest, login, signup } from 'src/app/states-handler/store/account.store';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,7 @@ export class AccountService {
 
   logout() { }
 
-  signup(data: SignupRequest) { }
+  signup(data: SignupRequest) {
+    this.store.dispatch(signup({ payload: data }));
+  }
 }

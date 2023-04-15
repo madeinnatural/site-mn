@@ -1,10 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder } from '@angular/forms';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 
 import { MnInputComponent } from './../../../components/input/input.component';
-import { ToastComponent } from './../../../components/toast/toast.component';
 import { AccountService } from './../../../core/account/account.service';
 import { Submitable } from '../../../components/mn-form/mn-form.component';
 import { Store } from '@ngrx/store';

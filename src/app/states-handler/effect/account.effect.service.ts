@@ -2,7 +2,7 @@ import { switchMap, tap, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { login, loginFailure, loginSuccess, signup } from '../store/account.store';
+import { login, loginFailure, loginSuccess, signup, signupFailure, signupSuccess } from '../store/account.store';
 
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
@@ -10,7 +10,7 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { Router } from '@angular/router';
-import { HttpResponse } from 'src/app/core/domain/model/http/http.model';
+import { HttpErrorResponse, HttpResponse } from 'src/app/core/domain/model/http/http.model';
 
 @Injectable({
   providedIn: "root"
@@ -41,7 +41,11 @@ export class AccountEffectsService {
     () => this.actions$.pipe(
       ofType(login),
       switchMap((action) => {
-        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}login`, action.payload)
+        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}login`, action.payload , {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
         response.subscribe({
           next: ({accessToken}) => {
             this.cookie.setItem('accessToken', accessToken);
@@ -63,21 +67,25 @@ export class AccountEffectsService {
     () => this.actions$.pipe(
       ofType(signup),
       switchMap((action) => {
-        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}signup`, action.payload)
+        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}signup`, action.payload, {
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
         response.subscribe({
-          next: ({accessToken}) => {
+          next: async ({accessToken}) => {
             this.cookie.setItem('accessToken', accessToken);
-            this.router.navigate(['/']);
+            await this.router.navigate(['/']);
           },
-          error: (error: HttpResponse) => {
-            this.openSnackBar('Erro ao criar conta');
-            this.store.dispatch(loginFailure({ message: 'Erro ao criar conta' }))
+          error: (data: HttpErrorResponse ) => {
+            this.openSnackBar(data.error.error);
+            this.store.dispatch(signupFailure({ message: data.error.error }))
           },
         })
         return response
       }),
-      tap(({ accessToken }) => this.store.dispatch(loginSuccess({ accessToken }) )),
-      map(({ accessToken }) => loginSuccess({ accessToken })
+      tap(({ accessToken }) => this.store.dispatch(signupSuccess({ accessToken }) )),
+      map(({ accessToken }) => signupSuccess({ accessToken })
     ))
   )
 

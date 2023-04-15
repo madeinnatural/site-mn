@@ -27,13 +27,13 @@ export enum AccountActionTypes {
 }
 
 // LOGIN
-export const login        = createAction( AccountActionTypes.LOGIN,           props<{payload     :LoginRequest }>())
-export const loginSuccess = createAction( AccountActionTypes.LOGIN_SUCCESS,   props<{accessToken :string}>() )
-export const loginFailure = createAction( AccountActionTypes.LOGIN_FAILURE,   props<{message     :string}>() )
+export const login        = createAction( AccountActionTypes.LOGIN,           props<{payload     :LoginRequest}>())
+export const loginSuccess = createAction( AccountActionTypes.LOGIN_SUCCESS,   props<{accessToken :string}>())
+export const loginFailure = createAction( AccountActionTypes.LOGIN_FAILURE,   props<{message     :string}>())
 // SIGNUP
-export const signup        = createAction( AccountActionTypes.SIGNUP,         props<{payload: SignupRequest }> ())
-export const signupSuccess = createAction( AccountActionTypes.SIGNUP_SUCCESS, props<{accessToken:  string   }> () )
-export const signupFailure = createAction( AccountActionTypes.SIGNUP_FAILURE, props<{accessToken:  string   }> () )
+export const signup        = createAction( AccountActionTypes.SIGNUP,         props<{payload     :SignupRequest}> ())
+export const signupSuccess = createAction( AccountActionTypes.SIGNUP_SUCCESS, props<{accessToken :string}> ())
+export const signupFailure = createAction( AccountActionTypes.SIGNUP_FAILURE, props<{message :string}> ())
 // LOGOUT
 export const logout        = createAction( AccountActionTypes.LOGOUT )
 export const logoutSuccess = createAction( AccountActionTypes.LOGOUT_SUCCESS )

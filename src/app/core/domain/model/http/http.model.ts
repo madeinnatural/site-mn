@@ -5,3 +5,11 @@ export interface HttpResponse {
   headers: HttpHeaders;
   body: any;
 }
+
+export interface HttpErrorResponse {
+  status: number;
+  statusText: string;
+  headers: HttpHeaders;
+  body: any;
+  error: any;
+}
