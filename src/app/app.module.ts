@@ -36,6 +36,7 @@ import { orderReducer } from './states-handler/store/order.store';
 import { accountReducer } from './states-handler/store/account.store';
 import { AccountEffectsService } from './states-handler/effect/account.effect.service';
 import { errorReducer } from './states-handler/store/error.store';
+import { addressReducer } from './states-handler/store/address.store';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { errorReducer } from './states-handler/store/error.store';
       propsPage       :propsPageReducer,
       account         :accountReducer,
       error           :errorReducer,
+      address         :addressReducer
     },{}),
     EffectsModule.forRoot([
       FilterEffectsService,

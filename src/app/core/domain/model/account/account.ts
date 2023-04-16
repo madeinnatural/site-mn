@@ -1,3 +1,13 @@
+
+export interface AddressModel {
+  id: string
+  cep: string
+  street: string
+  number: string
+  city: string
+  state: string
+}
+
 export interface AccountModel {
   id: string
   name: string

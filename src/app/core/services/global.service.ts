@@ -1,7 +1,4 @@
 import { CounterBarData } from './../model/interfaces/Utils';
-import { AlertoInterface } from './../model/interfaces/Alert';
-import { UserService } from './user.service';
-import { UserRegister } from './../model/interfaces/User';
 import { CookieService } from '@ngx-toolkit/cookie';
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
@@ -22,7 +19,7 @@ export class GlobalEventService {
   disableHeaderEvent = new EventEmitter<boolean>();
   triggerLogout = new EventEmitter();
   logoutEvent = new EventEmitter();
-  goAlert = new EventEmitter<AlertoInterface>();
+  goAlert = new EventEmitter<any>();
   loading = new EventEmitter<boolean>();
   loginEvent = new EventEmitter<any>();
   loadingOverlay = new EventEmitter<number>();
@@ -44,10 +41,9 @@ export class GlobalEventService {
   constructor(
     public http: HttpClient,
     public cookieService: CookieService,
-    public userService: UserService
   ) { }
 
-  setDataUser(res: { user: UserRegister; auth_token: string }) {
+  setDataUser(res: { user: any; auth_token: string }) {
     const {user, auth_token} = res;
     const localAuthToken = this.AUTH_TOKEN_COOKIE;
     const localCurrentUser = this.CURRENT_USER_COOKIE;

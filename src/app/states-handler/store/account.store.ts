@@ -1,4 +1,3 @@
-import { ErrorStore } from './error.store';
 import { createAction, createReducer, on, props } from "@ngrx/store";
 import { AccountModel } from "src/app/core/domain/model/account/account";
 
@@ -24,6 +23,7 @@ export enum AccountActionTypes {
   SIGNUP          = '[Account] Signup',
   SIGNUP_SUCCESS  = '[Account] Signup Success',
   SIGNUP_FAILURE  = '[Account] Signup Failure',
+  UPDATE          = '[Account] Update',
 }
 
 // LOGIN
@@ -38,6 +38,9 @@ export const signupFailure = createAction( AccountActionTypes.SIGNUP_FAILURE, pr
 export const logout        = createAction( AccountActionTypes.LOGOUT )
 export const logoutSuccess = createAction( AccountActionTypes.LOGOUT_SUCCESS )
 
+// UPDATE ACCOUNT
+export const updateAccount = createAction( AccountActionTypes.UPDATE, props<{account: AccountModel}>())
+
 const initializeAccount: AccountModel = {
   id: '',
   name: '',
@@ -48,20 +51,8 @@ const initializeAccount: AccountModel = {
 }
 export const accountReducer = createReducer(
   initializeAccount,
-  on(loginSuccess, (state, action) => {
-    return { ...state, ...action }
-  }),
-  on(loginFailure, (state, action) => {
-    return { ...state, ...action }
-  }),
-  on(signupSuccess, (state, action) => {
-    return { ...state, ...action }
-  }),
-  on(signupFailure, (state, action) => {
-    return { ...state, ...action }
-  }),
-  on(logoutSuccess, (state, action) => {
-    return { ...state, ...action }
+  on(updateAccount, (state, action) => {
+    return { ...action.account }
   })
 )
 

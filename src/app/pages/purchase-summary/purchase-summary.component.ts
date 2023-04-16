@@ -1,9 +1,6 @@
 import { ServerService } from '../../core/services/server.service';
 import { ProductList } from 'src/app/core/model/interfaces/Product';
-import { Purchase } from '../../core/model/interfaces/Product';
 import { PurchaseService } from './../../core/services/purchase.service';
-import { UserService } from './../../core/services/user.service';
-import User  from 'src/app/core/model/interfaces/User';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,23 +9,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './purchase-summary.component.html',
   styleUrls: ['./purchase-summary.component.scss']
 })
-export class PurchaseSummaryComponent implements OnInit {
-
-  user: User = {
-    name: '',
-    email: '',
-    phone: '',
-    cnpj: '',
-    adresses: {
-      cep: '',
-      street: '',
-      number: '',
-      city: '',
-      state: '',
-    },
-    adresses_main: '',
-    id: 0,
-  };
+export class PurchaseSummaryComponent {
 
   products: Array<ProductList> = [];
   total: number = 0;
@@ -38,43 +19,6 @@ export class PurchaseSummaryComponent implements OnInit {
 
   constructor(
     public router: Router,
-    private parent :ActivatedRoute,
-    private userService: UserService,
-    private purchaseService: PurchaseService,
     public server: ServerService,
-  ) {
-
-    this.data = parent.snapshot.queryParams
-    this.server.getUserData().subscribe({
-      next: (data: User) => {
-        this.user = data;
-      },
-      error: (err: any) => {console.log('ALGO DE ERRADO NÃO ESTÁ CERTO ¬¬')}
-    });
-  }
-
-  async ngOnInit() {
-
-
-    console.log('Query Params', this.data);
-    const id = (this.data as any).id
-
-
-    if (id) {
-
-      const { products } = await this.purchaseService.getPurchase(id)
-
-      console.log('AQUI =>', products)
-
-      products.forEach((product: ProductList) => {
-          const subTotal = Math.abs((product as any).total);
-          this.total += subTotal;
-      });
-
-      this.products = products;
-
-    }
-
-  }
-
+  ) {}
 }

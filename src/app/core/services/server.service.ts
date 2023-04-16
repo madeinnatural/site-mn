@@ -1,4 +1,3 @@
-import { Address } from '../model/interfaces/User';
 import { Cotacao, Purchase, PurchaseHistory, AvancedFilter, DataSearch } from '../model/interfaces/Product';
 import { GlobalEventService } from '../services/global.service';
 import { CookieService } from '@ngx-toolkit/cookie';
@@ -8,7 +7,6 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { from, map, Observable, of } from 'rxjs';
 import { ProductList } from '../model/interfaces/Product';
-import User, { UserLogin } from '../model/interfaces/User';
 
 @Injectable({providedIn: 'root'})
 export class ServerService {
@@ -30,7 +28,7 @@ export class ServerService {
     return await this.talkToServer('users/recovery_password', {email}, {type: 'POST'});
   }
 
-  getUserData(): Observable<User> {return from( this.talkToServer('users/get_data_user'))}
+  getUserData(): Observable<any> {return from( this.talkToServer('users/get_data_user'))}
   async verifyToken(token: string) {return this.talkToServer('token/verify', {token})}
   async getPurchase(id: number) {return await this.talkToServer('purchase/detail', {id})}
 
@@ -71,8 +69,8 @@ export class ServerService {
     }));
   }
 
-  async login(params: UserLogin) {
-    return this.http.post<string>('token', { email: params.email, password: params.password });
+  async login(params: any) {
+
   }
 
   public getToken(): string | null {
@@ -185,15 +183,15 @@ export class ServerService {
     return await this.talkToServer('seach/get_categories');
   }
 
-  async updateUser(user: User) {
-    return this.talkToServer('users/', user, {type: 'PUT'});
+  async updateUser(user:any) {
+
   }
 
   async getProductFilter(params = {}) {
     return this.talkToServer('seach/filter', params);
   }
 
-  async updateAddress (address: Address) {
+  async updateAddress (address: any) {
     return this.talkToServer('users/update_address', {address}, {type: 'PUT'});
   }
 

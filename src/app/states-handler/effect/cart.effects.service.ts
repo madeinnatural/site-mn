@@ -18,7 +18,7 @@ export class CartEffectsService {
 
   loadCartEffect = this.actions$.pipe(
     ofType(loadCart),
-    switchMap(() => this.http.get<CartModel[]>('http://localhost:3000/cart')),
+    switchMap(() => this.http.get<CartModel[]>('cart')),
     tap((cart: CartModel[]) =>this.store.dispatch(updateCart({ cart }))),
     map((cart: CartModel[]) => this.store.dispatch(loadCartSuccess()))
   );

@@ -1,3 +1,4 @@
+import { logout } from './../store/account.store';
 import { switchMap, tap, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
@@ -41,14 +42,10 @@ export class AccountEffectsService {
     () => this.actions$.pipe(
       ofType(login),
       switchMap((action) => {
-        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}login`, action.payload , {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+        const response = this.http.post<{accessToken: string}>(`login`, action.payload)
         response.subscribe({
           next: ({accessToken}) => {
-            this.cookie.setItem('accessToken', accessToken);
+            this.cookie.setItem(environment.PATH_ACCESS_TOKEN, accessToken);
             this.router.navigate(['/']);
           },
           error: (error: HttpResponse) => {
@@ -67,14 +64,10 @@ export class AccountEffectsService {
     () => this.actions$.pipe(
       ofType(signup),
       switchMap((action) => {
-        const response = this.http.post<{accessToken: string}>(`${environment.baseUrl}signup`, action.payload, {
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
+        const response = this.http.post<{accessToken: string}>(`signup`, action.payload)
         response.subscribe({
           next: async ({accessToken}) => {
-            this.cookie.setItem('accessToken', accessToken);
+            this.cookie.setItem(environment.PATH_ACCESS_TOKEN, accessToken);
             await this.router.navigate(['/']);
           },
           error: (data: HttpErrorResponse ) => {
@@ -87,6 +80,16 @@ export class AccountEffectsService {
       tap(({ accessToken }) => this.store.dispatch(signupSuccess({ accessToken }) )),
       map(({ accessToken }) => signupSuccess({ accessToken })
     ))
+  )
+
+  logoutEffect$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(logout),
+      tap(() => {
+        this.cookie.removeItem(environment.PATH_ACCESS_TOKEN);
+        this.router.navigate(['/']);
+      })
+    )
   )
 
 }

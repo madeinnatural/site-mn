@@ -107,7 +107,7 @@ export class ProductEffectService {
       mergeMap(() => {
         const url  = this.currentProvider === 'CELMAR' ? 'pull-products-celmar' : 'pull-products-rmoura';
         const body = this.currentProvider === 'CELMAR' ? this.celmarBody : this.rmouraBody;
-        return this.http.post<ResponseDataProducts>(environment.baseUrl + url, {...body} );
+        return this.http.post<ResponseDataProducts>( url, {...body } );
       }),
       map((response: ResponseDataProducts) => {
         this.store.dispatch(setPropsPage({ currentPage: response.currentPage, totalPages: response.totalPages}))
