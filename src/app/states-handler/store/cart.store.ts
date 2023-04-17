@@ -7,6 +7,7 @@ export enum CartActionTypes {
   'REMOVE_ITEM' = '[Cart] Remove Item',
   'UPDATE_ITEM' = '[Cart] Update Item',
   'CLEAR_CART' = '[Cart] Clear Cart',
+  'REMOVE_PRODUCT_CART_BY_ID' = '[Cart] Remove Product Cart By Id',
 
   'LOAD_CART' = '[Cart] Load Cart',
   'LOAD_CART_SUCCESS' = '[Cart] Load Cart Success',
@@ -21,7 +22,9 @@ export const clearCart = createAction(CartActionTypes.CLEAR_CART);
 export const loadCart = createAction(CartActionTypes.LOAD_CART);
 export const loadCartSuccess = createAction(CartActionTypes.LOAD_CART_SUCCESS);
 export const loadCartFailure = createAction(CartActionTypes.LOAD_CART_FAILURE, props<{ error: any }>());
-export const updateCart = createAction(CartActionTypes.LOAD_CART_SUCCESS, props<{ cart: CartModel[] }>());
+export const updateCart = createAction(CartActionTypes.LOAD_CART_SUCCESS, props<{ cart: CartModel }>());
+
+export const removeProductCartById = createAction(CartActionTypes.REMOVE_PRODUCT_CART_BY_ID, props<{ productId: string }>());
 
 
 const initializeCartItem: CartModel = {
@@ -130,5 +133,18 @@ export const cartReducer = createReducer(
       ...state,
       ...cart
     }
+  }),
+  on(removeProductCartById, (state, { productId }) => {
+    const product = state.cartItem.find(item => item.id === productId);
+    const order = state.orders.find(item => item.productId === productId);
+    if (product && order) {
+      return {
+        ...state,
+        total: state.total - (product.price * order.quantity),
+        cartItem: state.cartItem.filter(item => item.id !== productId),
+        orders: state.orders.filter(item => item.productId !== productId)
+      }
+    }
+    return state;
   })
 )

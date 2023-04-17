@@ -1,11 +1,10 @@
-import { ProductsDisplay } from 'src/app/core/model/interfaces/Product';
-import { CartService } from './../../core/services/cart.service';
-import { AlertoInterface } from './../../core/model/interfaces/Alert';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ServerService } from '../../core/services/server.service';
-import { Component, OnInit } from '@angular/core';
-import { Item } from '../../core/model/interfaces/Product';
-import { GlobalEventService } from 'src/app/core/services/global.service';
+import { Store } from '@ngrx/store';
+import { ProductModel, addProductOrder, addProductShowcase, removeAllProductWithId, removeProductOrder, removeProductShowcase } from 'src/app/components/products-cart/imports';
+import { CartModel, Order } from 'src/app/core/domain/model/logistics/cart';
+import { addItem, removeItem, removeProductCartById } from 'src/app/states-handler/store/cart.store';
+import { purchaseOrder } from 'src/app/states-handler/store/pruchase.store';
 
 @Component({
   selector: 'app-cart',
@@ -14,19 +13,36 @@ import { GlobalEventService } from 'src/app/core/services/global.service';
 })
 export class CartComponent {
 
-  total = 0;
-  preco_entrega: number = 0;
-
-  get total_bruto() {
-    return this.preco_entrega + this.total;
-  };
-
+  cart$ = this.store.select('cart');
+  private orders: Order[] = [];
   constructor(
-    public server: ServerService,
     public router: Router,
-    public global: GlobalEventService,
-    public cartService: CartService
-  ) {}
+    private store: Store<{cart: CartModel, order: Order[]}>
+  ) {
+    this.store.select('order').subscribe((orders: Order[]) => {
+      for(const order of orders) {
+        this.cart$.subscribe((cart: CartModel) => {
+        if (order.quantity <= 0) {
+            const product = cart.cartItem.find((product: ProductModel) => product.id === order.productId);
+            if (product) {
+              this.store.dispatch(addItem({product}));
+            }
+          }
+        })
+      }
+      this.orders = orders;
+    });
+  }
+
+  getQuantityProduct(id: string) {
+    const order = this.orders.find((order: Order) => order.productId === id);
+    return order ? order.quantity : 0;
+  }
+
+  getSubTotal(product: ProductModel) {
+    const order = this.orders.find((order: Order) => order.productId === product.id);
+    return order ? order.quantity * product.price : 0;
+  }
 
   async finishPurchase() {
     try {
@@ -36,89 +52,27 @@ export class CartComponent {
     }
   }
 
-  errorMsg: string = '';
-  error: boolean = false;
-
   async finalizePurchase(){
-    try {
-
-      if (this.total < 700) {
-        const msg = 'Valor mínimo para finalizar a compra é de R$ 700,00'
-        this.errorMsg = msg;
-        throw new Error(msg);
-      }
-
-      // const {id} = await this.finishPurchase()
-
-      const text = `Recebemos o seu pedido com sucesso! Agora é só aguardar nosso time
-      entrar em contato, se preferir ligue para a gente: (11) 95285-2681. Muito obrigado :)`;
-
-      const msg: AlertoInterface = {
-        text,
-        type: 'success',
-        duration: 20000
-      }
-
-      // this.global.goAlert.emit(msg);
-
-      // this.router.navigate([`profile/pedidos`], { queryParams: {id}});
-    } catch (error: any) {
-      const msg: AlertoInterface = {
-        text: error.message,
-        type: 'danger',
-        duration: 5000
-      }
-      console.error('RESUMO DO ERRO:',error);
-      this.global.goAlert.emit(msg);
-    }
+    this.store.dispatch(purchaseOrder());
   }
 
 
 // MANIPULAÇÃO DE PRODUTOS
-  removeItem(itemId: number) {
-
+  removeItem(product: ProductModel) {
+    this.store.dispatch(removeAllProductWithId({productId: product.id}));
+    this.store.dispatch(removeProductCartById({productId: product.id}));
   }
 
-  remove(productsDisplay: ProductsDisplay) {
-
+  remove(product: ProductModel) {
+    this.store.dispatch(removeProductOrder({productId: product.id}));
+    this.store.dispatch(removeProductShowcase({product}));
+    this.store.dispatch(removeItem({product}));
   }
 
-  add(productsDisplay: ProductsDisplay) {
-
-  }
-
-
-  private removeItemCartLocal (itemId: number) {
-    // const index_current_product = this.products.findIndex((item: Item) => item.product.id === itemId);
-    // const produto_existe = index_current_product !== -1;
-    // if (produto_existe) {
-    //   this.products.splice(index_current_product, 1);
-    // } else {
-    //   throw new Error('Produto não existe no carrinho ¹');
-    // }
-  }
-
-  private descremetarItemCartLocal (itemId: number) {
-    // const index_current_product = this.products.findIndex((item: Item) => item.product.id === itemId);
-    // const produto_existe = index_current_product != -1;
-
-    // if (produto_existe) {
-    //   const quantidade_do_produto = this.products[index_current_product].product.quantity;
-    //   if (quantidade_do_produto == 1) {
-    //     // this.total -= this.products[index_current_product].parcial_price;
-    //     this.products.splice(index_current_product, 1);
-    //     this.removeItemCartLocal(itemId);
-    //   } else {
-    //     // this.products[index_current_product].product.quantity -= 1;
-    //     // const total = this.products[index_current_product].product.price * this.products[index_current_product].product.quantity * this.products[index_current_product].product.weight;
-    //     // this.products[index_current_product].product.total = total
-    //     // this.products[index_current_product].parcial_price = total
-    //     // this.products[index_current_product].quantity = this.products[index_current_product].product.quantity;
-    //     // this.total = this.purchaseService.totalPrice();
-    //   }
-    // } else {
-    //   throw new Error('Produto não existe no carrinho ²');
-    // }
+  add(product: ProductModel) {
+    this.store.dispatch(addProductOrder({productId: product.id}));
+    this.store.dispatch(addProductShowcase({product}));
+    this.store.dispatch(addItem({product}));
   }
 
 }

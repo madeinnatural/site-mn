@@ -6,7 +6,8 @@ export enum OrderActions {
   REMOVE_ORDER = '[Order] Remove Order',
   UPDATE_ORDER = '[Order] Update Order',
   GET_ORDER = '[Order] Get Order',
-  CLEAR_ORDER = '[Order] Clear Order'
+  CLEAR_ORDER = '[Order] Clear Order',
+  REMOVE_ALL_PRODUCT_WITH_ID = '[Order] Remove All Product With Id'
 }
 
 export const addProductOrder = createAction(OrderActions.ADD_ORDER, props<{ productId: string }>())
@@ -14,6 +15,7 @@ export const removeProductOrder = createAction(OrderActions.REMOVE_ORDER, props<
 export const updateProductOrder = createAction(OrderActions.UPDATE_ORDER, props<{ productId: string, quantity: number }>())
 export const getProductOrder = createAction(OrderActions.GET_ORDER)
 export const clearProductOrder = createAction(OrderActions.CLEAR_ORDER)
+export const removeAllProductWithId = createAction(OrderActions.REMOVE_ALL_PRODUCT_WITH_ID, props<{ productId: string }>())
 
 const startOrder: Order[] = []
 
@@ -68,5 +70,8 @@ export const orderReducer = createReducer(
   }),
   on(clearProductOrder, (state) => {
     return [];
+  }),
+  on(removeAllProductWithId, (state, { productId }) => {
+    return state.filter(o => o.productId !== productId);
   })
 )
