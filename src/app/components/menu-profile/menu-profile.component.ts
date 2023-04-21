@@ -17,7 +17,6 @@ export class MenuProfileComponent {
 
   logOut() {
     this.accountService.logout();
-    this.router.navigate(['/'])
   }
 
   replace(url?: string) {

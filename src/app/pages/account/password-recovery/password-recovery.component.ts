@@ -1,6 +1,5 @@
-import { AlertoInterface } from './../../../core/model/interfaces/Alert';
-import { GlobalEventService } from 'src/app/core/services/global.service';
-import { ServerService } from '../../../core/services/server.service';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { AccountService } from './../../../core/account/account.service';
 import { Submitable, MnFormComponent } from './../../../components/mn-form/mn-form.component';
 import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
@@ -11,35 +10,49 @@ import { Router } from '@angular/router';
   styleUrls: ['./password-recovery.component.scss']
 })
 export class PasswordRecoveryComponent {
+
   @ViewChild('form') form?: MnFormComponent;
-  success = false;
+  success;
+  email?: string;
   constructor(
-    public router: Router,
-    public global: GlobalEventService,
-    public server: ServerService
-  ) { }
+    public router         :Router,
+    public accountService :AccountService,
+    public toast          :ToastService,
+  ) {
+    this.success = false;
+  }
+
   onSubmit: Submitable = {
     submit: () => {
       return new Promise( async (resolve, reject) => {
-        try {
-          const email = this.form?.inputs[0].value;
-          if (!email) throw new Error('Email não informado');
-          await this.server.recoveryPassword(email);
-          this.success = true;
-          resolve(true);
-        } catch (error) {
-          let message = 'Erro ao enviar email de recuperação de senha';
-          if ((error as any).message) message = (error as any).message;
-          const msg: AlertoInterface = {
-              type:  'success',
-              text: message,
-              duration: 5000
-          }
-          this.global.goAlert.emit(msg);
-          reject(true);
+        this.email =  this.form?.inputs[0].value;
+        if (!this.email) {
+          this.toast.openSnackBar('Email não informado', 'error-snackbar');
+          resolve(false);
+          return;
         }
+        this.accountService.recoveryPassword(this.email).subscribe({
+          next: (data) => {
+            let message = 'Erro ao enviar email de recuperação de senha';
+            if (data) message = 'Email de recuperação de senha enviado com sucesso';
+            this.toast.openSnackBar(message, data ? 'success-snackbar' : 'error-snackbar')
+            this.router.parseUrl('/success');
+          },
+          error: (error) => {
+            this.success
+          },
+          complete: () => { }
+        });
+        this.success = true;
+        resolve(true);
       });
     }
+  }
+
+  ngAfterViewInit(): void {
+    //Called after ngAfterContentInit when the component's view has been initialized. Applies to components only.
+    //Add 'implements AfterViewInit' to the class.
+
   }
 
 }

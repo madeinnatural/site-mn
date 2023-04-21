@@ -1,5 +1,15 @@
 import { MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
-import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Inject } from '@angular/core';
+
+interface ToastStatus {
+  success: string;
+  error: string;
+  warning: string;
+}
+interface DataToast {
+  message: string;
+  status: ToastStatus;
+};
 
 @Component({
   selector: 'app-toast',
@@ -7,17 +17,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, Inject } from '@angu
   styleUrls: ['./toast.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToastComponent implements OnInit {
-
+export class ToastComponent {
   constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public data: string
-  ) {
-    this.message = data;
-  }
-
-  message: string = '';
-
-  ngOnInit(): void {
-  }
-
+    @Inject(MAT_SNACK_BAR_DATA) public data: DataToast,
+  ) {}
 }

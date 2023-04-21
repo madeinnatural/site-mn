@@ -1,3 +1,3 @@
 <div>
-  <span><img src="assets/img/error.svg" style="height: 23px; padding-right: 20px;"> {{message}}</span>
+  <span><img [src]="data.status.success ? 'assets/img/sucess.png ':'assets/img/error.svg'" style="height: 23px; padding-right: 20px;"> {{data.message}}</span>
 </div>

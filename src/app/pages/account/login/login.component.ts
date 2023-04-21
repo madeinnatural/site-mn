@@ -36,8 +36,8 @@ export class LoginComponent {
   submit: Submitable = {
     submit: async () => {
       return await new Promise((ok) => {
+        this.accountService.login({ email: this.email, password: this.password });
         setTimeout(() => {
-          this.accountService.login({ email: this.email, password: this.password });
           ok(true)
         }, 1000);
       });

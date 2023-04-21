@@ -8,32 +8,39 @@ import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotac
 import { ProfileDataComponent } from './profile/profile-data/profile-data.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes, CanActivate } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { CartComponent } from './cart/cart.component';
 import { AuthQuard } from '../core/guards/auth.quard';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
 import { LoginComponent } from './account/login/login.component';
 import { SignupComponent } from './account/register/signup.component';
+import { SendPasswordRecoverySuccessComponent } from './account/password-recovery/send-password-recovery-success/send-password-recovery-success.component';
 
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'account', children: [
-    { path: 'login', component: LoginComponent },
-    { path: 'signup', component: SignupComponent }
-  ]},
-  {path: 'cart', canActivate: [AuthQuard] ,component: CartComponent},
-  {path: 'profile', canActivate: [AuthQuard],
+  {path: 'account',
     children: [
-      { path: 'pedidos',      canActivate: [AuthQuard], component: ProfileRequestsComponent},
-      { path: 'profile_data', canActivate: [AuthQuard], component: ProfileDataComponent    },
-      { path: 'cotacao',      canActivate: [AuthQuard], component: ProfileCotacaoComponent }
+      {path: 'login',  component: LoginComponent },
+      {path: 'signup', component: SignupComponent }
+    ]
+  },
+  {path: 'cart',   canActivate: [AuthQuard],component: CartComponent},
+  {path: 'profile',canActivate: [AuthQuard],
+    children: [
+      {path: 'pedidos',      canActivate: [AuthQuard], component: ProfileRequestsComponent},
+      {path: 'profile_data', canActivate: [AuthQuard], component: ProfileDataComponent    },
+      {path: 'cotacao',      canActivate: [AuthQuard], component: ProfileCotacaoComponent }
     ]
   },
   {path: 'product_detail', component: ProductDetailComponent},
   {path: 'product_list', component: ProductListComponent},
   {path: 'purchase_summary', component: PurchaseSummaryComponent},
-  {path: 'password-recovery', component: PasswordRecoveryComponent},
+  {path: 'password-recovery', component: PasswordRecoveryComponent,
+    children: [
+      { path: 'success', component: SendPasswordRecoverySuccessComponent }
+    ]
+  },
   {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
   {path: 'page-not-found', component: PageNotFoundComponentComponent},
   {path: '**', redirectTo: 'page-not-found'}

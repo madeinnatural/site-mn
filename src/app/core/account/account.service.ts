@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { LoginRequest, SignupRequest, login, logout, signup } from 'src/app/states-handler/store/account.store';
+import { CookieService } from '@ngx-toolkit/cookie';
+import { LoginRequest, SignupRequest, login, signup } from 'src/app/states-handler/store/account.store';
+import { ServerService } from '../services/server.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +11,10 @@ import { LoginRequest, SignupRequest, login, logout, signup } from 'src/app/stat
 export class AccountService {
 
   constructor(
-    private store : Store<any>
+    private store  :Store<any>,
+    private cookie :CookieService,
+    private router :Router,
+    private server :ServerService
   ) {}
 
   login(data: LoginRequest) {
@@ -16,10 +22,15 @@ export class AccountService {
   }
 
   logout() {
-    this.store.dispatch(logout());
+    this.cookie.clear();
+    this.router.navigate(['/']);
   }
 
   signup(data: SignupRequest) {
     this.store.dispatch(signup({ payload: data }));
+  }
+
+  recoveryPassword(email: string) {
+    return this.server.post<{message: string}>('recovery-password', { email });
   }
 }

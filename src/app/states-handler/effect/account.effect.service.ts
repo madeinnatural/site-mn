@@ -1,5 +1,5 @@
 import { logout } from './../store/account.store';
-import { switchMap, tap, map } from 'rxjs';
+import { switchMap, tap, map, catchError, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -8,10 +8,9 @@ import { login, loginFailure, loginSuccess, signup, signupFailure, signupSuccess
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { CookieService } from '@ngx-toolkit/cookie';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ToastComponent } from 'src/app/components/toast/toast.component';
 import { Router } from '@angular/router';
-import { HttpErrorResponse, HttpResponse } from 'src/app/core/domain/model/http/http.model';
+import { HttpErrorResponse, HttpResponse } from '../../core/domain/model/http/http.model';
+import { ToastService } from '../../core/services/toast.service';
 
 @Injectable({
   providedIn: "root"
@@ -22,41 +21,28 @@ export class AccountEffectsService {
     private http     :HttpClient,
     private actions$ :Actions,
     private store    :Store<any>,
-    private snackBar :MatSnackBar,
+    private toast    :ToastService,
     private cookie   :CookieService,
     private router   :Router
   ) {}
-
-  durationInSeconds = 5;
-  openSnackBar(msg: string) {
-    const config = new MatSnackBarConfig();
-    config.duration = this.durationInSeconds * 1000,
-    config.panelClass = ['error-snackbar']
-    config.horizontalPosition = 'end';
-    config.verticalPosition = 'top';
-    config.data = msg;
-    this.snackBar.openFromComponent(ToastComponent, config);
-  }
 
   loginEffect$ = createEffect(
     () => this.actions$.pipe(
       ofType(login),
       switchMap((action) => {
-        const response = this.http.post<{accessToken: string}>(`login`, action.payload)
-        response.subscribe({
-          next: ({accessToken}) => {
-            this.cookie.setItem(environment.PATH_ACCESS_TOKEN, accessToken);
-            this.router.navigate(['/']);
-          },
-          error: (error: HttpResponse) => {
-            this.openSnackBar('Email ou senha não identificado');
-            this.store.dispatch(loginFailure({ message: 'Email ou senha não identificado' }))
-          },
-        })
-        return response
+        return this.http.post<{accessToken: string}>(`login`, action.payload);
       }),
-      tap(({ accessToken }) => this.store.dispatch(loginSuccess({ accessToken }) )),
-      map(({ accessToken }) => loginSuccess({ accessToken }))
+      catchError((data) => {
+        this.toast.openSnackBar(data.error.error, 'error-snackbar');
+        this.store.dispatch(loginFailure({ message: data.error.error }));
+        return of({ accessToken: null })
+      }),
+      map(({accessToken}) => {
+        if (!accessToken) return loginFailure({ message: 'Login failed' });
+        this.cookie.setItem(environment.PATH_ACCESS_TOKEN, accessToken);
+        this.router.navigate(['/']);
+        return loginSuccess({ accessToken })
+      }),
     )
   )
 
@@ -71,7 +57,7 @@ export class AccountEffectsService {
             await this.router.navigate(['/']);
           },
           error: (data: HttpErrorResponse ) => {
-            this.openSnackBar(data.error.error);
+            this.toast.openSnackBar(data.error.error, 'error-snackbar');
             this.store.dispatch(signupFailure({ message: data.error.error }))
           },
         })
@@ -87,7 +73,7 @@ export class AccountEffectsService {
       ofType(logout),
       tap(() => {
         this.cookie.removeItem(environment.PATH_ACCESS_TOKEN);
-        this.router.navigate(['/']);
+        this.router.navigate(['account/login']);
       })
     )
   )

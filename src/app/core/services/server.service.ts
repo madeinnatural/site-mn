@@ -4,21 +4,32 @@ import { CookieService } from '@ngx-toolkit/cookie';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { from, map, Observable, of } from 'rxjs';
+import { ToastService } from '../../core/services/toast.service';
+import { HttpClient, HttpHeaders, HttpEvent } from '@angular/common/http';
+import { catchError, from, map, Observable, of, switchMap } from 'rxjs';
 import { ProductList } from '../model/interfaces/Product';
+import { HttpErrorResponse } from '../domain/model/http/http.model';
+
 
 @Injectable({providedIn: 'root'})
 export class ServerService {
 
-  private shouldReportErrors = true;
-
   constructor(
-    private cookies: CookieService,
-    private global: GlobalEventService,
-    private router: Router,
-    public http: HttpClient,
+    private cookies :CookieService,
+    private global  :GlobalEventService,
+    private router :Router,
+    public http    :HttpClient,
+    public toast   :ToastService
   ) {}
+
+  post<T>(url: string, data: any, options?: any): Observable< HttpEvent<T> | null> {
+    return this.http.post<T>(url, data, options).pipe(
+      catchError((error: HttpErrorResponse) => {
+        this.toast.openSnackBar(error.error.error, 'error-snackbar');
+        return of(null);
+      })
+    )
+  }
 
   async updatePassword (password: string) {
     return this.talkToServer('users/update_password', {password}, {type: 'PUT'});
@@ -159,7 +170,6 @@ export class ServerService {
     return await new Promise((resolve, reject) => {
       obs.subscribe(
         (response) => {
-          this.shouldReportErrors = response.headers.get('Allow-Error-Report') == 'true';
           resolve(response.body);
         },
         (error) => {

@@ -1,19 +1,18 @@
 import {
   Component,
-  OnInit,
   Input,
   QueryList,
   ContentChildren,
   Output,
   EventEmitter,
 } from '@angular/core';
-import { GlobalEventService } from 'src/app/core/services/global.service';
 import { MnInputComponent } from '../input/input.component';
 
 export interface Submitable {
   submit(): Promise<any>;
   cancel?(): Promise<any>;
 }
+
 @Component({
   selector: 'mn-form',
   templateUrl: './mn-form.component.html',
@@ -24,7 +23,7 @@ export class MnFormComponent {
   @Input() cancelName?: string;
 
   inputs: MnInputComponent[] = [];
-  @Input() submitable?: Submitable; // o submitable falha quando não passar na customvalidation
+  @Input() submitable?: Submitable;
 
   @Input() submitIcon = '';
   @Input() submitLeftIcon = '';
@@ -42,9 +41,7 @@ export class MnFormComponent {
   @ContentChildren(MnInputComponent, { descendants: true })
   inputs2?: QueryList<MnInputComponent>;
 
-  constructor(private global: GlobalEventService) { }
-
-
+  constructor() { }
 
   ngAfterContentInit() {
     this.inputs = this.inputs2?.toArray() || [];
@@ -79,7 +76,6 @@ export class MnFormComponent {
         valid = false;
       }
     }
-
     return valid;
   }
 
@@ -128,26 +124,18 @@ export class MnFormComponent {
     } else {
       if (this.showToastForm) {
         const noValid: Array<string> = [];
-
         for (const goinput of this.inputs) {
-          if (!goinput.validate()) {
-            noValid.push(goinput.name);
-          }
+          if (!goinput.validate()) noValid.push(goinput.name);
         }
-
         const showTime = (campos: Array<string>) => {
           let localMsg: string = `Você não preencheu ${campos.length > 1
             ? ' campos obrigatórios.'
             : ` o campo ${campos[0]}.`
             } `;
-
           localMsg = localMsg.replace(/.$/, '').replace(/(\r\n|\n|\r)/gm, '');
-          this.global.goAlert.emit({ type: 'warning', text: localMsg, duration: 3000});
         };
-
         showTime(noValid);
       }
-
       return new Promise((done) => {
         done(true);
       });

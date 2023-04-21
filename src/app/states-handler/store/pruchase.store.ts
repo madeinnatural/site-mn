@@ -1,3 +1,4 @@
+import { PurchaseHistory } from '../../core/domain/model/financial/purchase-history';
 import { createAction, createReducer, on, props } from "@ngrx/store";
 import { PurchaseModel } from "src/app/core/domain/model/financial/purchase";
 import { Order } from "src/app/core/domain/model/logistics/cart";
@@ -42,6 +43,10 @@ export const getPurchaseOrderByIdFail = createAction(PurchaseActions.GET_PURCHAS
 
 export const setPurchases = createAction(PurchaseActions.SET_PURCHASES, props<{ payload: PurchaseModel }>())
 
+export const getPurchaseHistory = createAction(PurchaseActions.GET_HISTORY_PURCHASE_ORDER)
+export const getPurchaseHistorySuccess = createAction(PurchaseActions.GET_HISTORY_PURCHASE_ORDER_SUCCESS, props<{ payload: PurchaseHistory[] }>())
+export const getPurchaseHistoryFail = createAction(PurchaseActions.GET_HISTORY_PURCHASE_ORDER_FAIL, props<{ payload: PurchaseHistory[] }>())
+
 const initializePurchase: PurchaseModel[] = [];
 export const purchaseReducer = createReducer(
   initializePurchase,
@@ -57,4 +62,15 @@ export const purchaseReducer = createReducer(
       purchases: payload
     }
   }),
+)
+
+const initializePurchaseHistory: PurchaseHistory[] = [];
+export const purchaseHistoryReducer = createReducer(
+  initializePurchaseHistory,
+  on(getPurchaseHistorySuccess, (state, { payload }) => {
+    return {
+      ...state,
+      purchaseHistory: payload
+    }
+  })
 )

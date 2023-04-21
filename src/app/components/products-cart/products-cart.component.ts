@@ -48,7 +48,6 @@ export class ProductsCartComponent {
     private store: Store<any>,
   ){
     this.store.dispatch(getFilters());
-    this.store.dispatch(loadProducts());
     this.currentFilter$.subscribe(() => this.store.dispatch(loadProducts()));
   }
 

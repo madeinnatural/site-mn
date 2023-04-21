@@ -20,7 +20,7 @@ export class FilterEffectsService {
     () => this.actions$.pipe(
       ofType(getFilters),
       switchMap(() => this.http.get<ListFilter>('get-product-filter')),
-      tap((filter: ListFilter) => this.store.dispatch(setFilters({props: filter}))),
+      tap((filter: ListFilter) => this.store.dispatch<any>(setFilters({props: filter}))),
       map((filter: ListFilter) => successLoadFilter({props: filter}))
     )
   )
