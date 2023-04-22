@@ -31,7 +31,8 @@ const initializeCartItem: CartModel = {
   id: '',
   cartItem: [],
   orders: [],
-  total: 0
+  total: 0,
+  createdAt: new Date()
 }
 export const cartReducer = createReducer(
   initializeCartItem,

@@ -83,6 +83,8 @@ import { ButtonLupaComponent } from './search/button/button-lupa/button-lupa.com
 import { SliderPriceComponent } from './avanced-filter/slider-price/slider-price.component';
 import { SelectFilterComponent } from './avanced-filter/select-filter/select-filter.component';
 import { BodyComponent } from './table/body/body.component';
+import { HeardsComponent } from './profile/heards/heards.component';
+import { ProfileBodyComponent } from './profile/body/body.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +127,8 @@ import { BodyComponent } from './table/body/body.component';
     SliderPriceComponent,
     SelectFilterComponent,
     BodyComponent,
+    HeardsComponent,
+    ProfileBodyComponent,
   ],
   imports: [
     CommonModule,
@@ -207,7 +211,9 @@ import { BodyComponent } from './table/body/body.component';
     ButtonInitCartComponent,
     CardChooseComponent,
     SliderPriceComponent,
-    SelectFilterComponent
+    SelectFilterComponent,
+    HeardsComponent,
+    ProfileBodyComponent
   ],
 })
 export class ComponentsModule {}

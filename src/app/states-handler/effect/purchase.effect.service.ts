@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { purchaseOrder, purchaseOrderSuccess } from "../store/pruchase.store";
+import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory, getPurchaseHistorySuccess, purchaseOrder, purchaseOrderSuccess } from "../store/pruchase.store";
 import { map, switchMap, tap } from "rxjs";
 
 import { CartModel, Order } from '../../core/domain/model/logistics/cart';
@@ -39,6 +39,14 @@ export class PurchaseEffectService {
         this.router.navigate([`profile/pedidos`], { queryParams: {id: purchase.id}});
         return purchaseOrderSuccess({ payload: purchase })
       })
+    )
+  );
+
+  purchaseHistory$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(getPurchaseHistory),
+      switchMap(() => this.http.get<{ history: PurchaseHistoryGroupedByYearMonth }>('/purchase/history')),
+      map(purchaseHistory => getPurchaseHistorySuccess({ payload: {...purchaseHistory.history } }))
     )
   );
 }

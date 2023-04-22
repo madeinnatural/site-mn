@@ -38,7 +38,7 @@ export class HeaderComponent {
   goHome(){this.nav.navigate(['/'])}
   closeMenu () {this.active = !this.active}
   goCart() {this.nav.navigate(['cart']);}
-  goProfile() {this.nav.navigate(['/profile/profile_data'])}
+  goProfile() {this.nav.navigate(['/profile/config'])}
 
 }
 

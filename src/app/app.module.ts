@@ -41,6 +41,7 @@ import { addressReducer } from './states-handler/store/address.store';
 import { PurchaseEffectService } from './states-handler/effect/purchase.effect.service';
 import { purchaseHistoryReducer, purchaseReducer } from './states-handler/store/pruchase.store';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { breadcrumbReducer } from './states-handler/store/breadcrumb.store';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
       error            :errorReducer,
       address          :addressReducer,
       purchases        :purchaseReducer,
-      purchasesHistory :purchaseHistoryReducer
+      purchasesHistory :purchaseHistoryReducer,
+      breadcrumb       :breadcrumbReducer
     },{}),
     EffectsModule.forRoot([
       FilterEffectsService,

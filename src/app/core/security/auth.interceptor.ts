@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { CookieService } from '@ngx-toolkit/cookie';
 
 import { environment } from '../../../environments/environment';
+import { BreadCrumb, addBreadcrumb } from 'src/app/states-handler/store/breadcrumb.store';
+import { Store } from '@ngrx/store';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -12,6 +14,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private cookie: CookieService,
     private router: Router,
+    private store: Store<{ breadcrumb: BreadCrumb[] }>
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

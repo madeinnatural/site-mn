@@ -17,5 +17,6 @@ export interface CartModel {
   account?: AccountModel
   cartItem: ProductModel[],
   orders: Order[],
-  total: number
+  total: number,
+  createdAt: Date,
 }

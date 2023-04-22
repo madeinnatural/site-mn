@@ -55,6 +55,8 @@ import { MatTreeModule } from '@angular/material/tree';
 import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundComponent.component';
 import { SignupComponent } from './account/register/signup.component';
 import { SendPasswordRecoverySuccessComponent } from './account/password-recovery/send-password-recovery-success/send-password-recovery-success.component';
+import { ProfileBodyComponent } from '../components/profile/body/body.component';
+import { BodyComponent } from '../components/table/body/body.component';
 
 
 @NgModule({
@@ -72,7 +74,7 @@ import { SendPasswordRecoverySuccessComponent } from './account/password-recover
     PasswordRecoveryComponent,
     RecoveryFormComponent,
     PageNotFoundComponentComponent,
-    SendPasswordRecoverySuccessComponent
+    SendPasswordRecoverySuccessComponent,
   ],
   imports: [
     CommonModule,
@@ -115,7 +117,6 @@ import { SendPasswordRecoverySuccessComponent } from './account/password-recover
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-
   ],
   exports: [
     HomeComponent,
@@ -129,7 +130,8 @@ import { SendPasswordRecoverySuccessComponent } from './account/password-recover
     ProductListComponent,
     PurchaseSummaryComponent,
     RecoveryFormComponent,
-    SendPasswordRecoverySuccessComponent
+    SendPasswordRecoverySuccessComponent,
+    ProfileBodyComponent
   ],
   providers: [
     PurchaseService,

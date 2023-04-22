@@ -19,30 +19,32 @@ import { SendPasswordRecoverySuccessComponent } from './account/password-recover
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'account',
+  {path: 'home', component: HomeComponent, data: { title : 'Home' }},
+  {path: 'account', data: { title : 'Account' },
     children: [
-      {path: 'login',  component: LoginComponent },
-      {path: 'signup', component: SignupComponent }
+      {path: 'login',  component: LoginComponent, data: { title : 'Login' } },
+      {path: 'signup', component: SignupComponent, data: { title : 'Signup' } },
     ]
   },
-  {path: 'cart',   canActivate: [AuthQuard],component: CartComponent},
-  {path: 'profile',canActivate: [AuthQuard],
+  {path: 'cart',   canActivate: [AuthQuard], component: CartComponent, data: { title : 'Cart' }},
+  {path: 'profile', canActivate: [AuthQuard], data: { title : 'Profile' },
     children: [
-      {path: 'pedidos',      canActivate: [AuthQuard], component: ProfileRequestsComponent},
-      {path: 'profile_data', canActivate: [AuthQuard], component: ProfileDataComponent    },
-      {path: 'cotacao',      canActivate: [AuthQuard], component: ProfileCotacaoComponent }
+      {path: 'config',  canActivate: [AuthQuard], component: ProfileDataComponent, data: { title : 'Configurações' } },
+      {path: 'pedidos', canActivate: [AuthQuard], component: ProfileRequestsComponent, data: { title : 'Pedidos' }},
+      {path: 'cotacao', canActivate: [AuthQuard], component: ProfileCotacaoComponent, data: { title : 'Cotação' } },
+      {path:'**', redirectTo: 'config'}
+    ],
+  },
+  {path: 'product_detail', component: ProductDetailComponent, data: { title : 'Product Detail' }},
+  {path: 'product_list', component: ProductListComponent, data: { title : 'Product List' }},
+  {path: 'purchase_summary', component: PurchaseSummaryComponent, data: { title : 'Purchase Summary' }},
+  {path: 'password-recovery', component: PasswordRecoveryComponent, data: { title : 'Password Recovery' },
+    children: [
+      { path: 'success', component: SendPasswordRecoverySuccessComponent, data: { title : 'Password Recovery Success' } },
     ]
   },
-  {path: 'product_detail', component: ProductDetailComponent},
-  {path: 'product_list', component: ProductListComponent},
-  {path: 'purchase_summary', component: PurchaseSummaryComponent},
-  {path: 'password-recovery', component: PasswordRecoveryComponent,
-    children: [
-      { path: 'success', component: SendPasswordRecoverySuccessComponent }
-    ]
-  },
-  {path: 'password-recovery/page/:id', component: RecoveryFormComponent},
-  {path: 'page-not-found', component: PageNotFoundComponentComponent},
+  {path: 'password-recovery/page/:id', component: RecoveryFormComponent, data: { title : 'Password Recovery Form' }},
+  {path: 'page-not-found', component: PageNotFoundComponentComponent, data: { title : 'Page Not Found' }},
   {path: '**', redirectTo: 'page-not-found'}
 ];
 

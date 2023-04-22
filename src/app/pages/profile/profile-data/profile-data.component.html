@@ -1,39 +1,20 @@
 <app-header></app-header>
 
-<!--=========== minha conta ===========-->
-<section class="w-100 section_minha_conta mb-5" *ngIf="account$ | async as account">
+<section class="section_minha_conta" *ngIf="account$ | async as account">
   <div class="container">
-
-    <!-- CAMINHO DE PÃO -->
-    <div class="row">
-      <div class="col-12 mb-3">
-        <div style="white-space: nowrap; color: #686868;">
-          Home <i class="fa fa-angle-right"></i>
-          <strong style="color: #000; padding-left: 5px;">Minha conta</strong>
-        </div>
-      </div>
-      <div class="col-12">
-        <div class="pt-3 pl-3 mr-4"
-          style="position: relative; background-image: url('assets/img/circles.png'); background-size: 72px 72px; background-repeat: no-repeat;">
-          <h3 class="bg-white pt-2 px-3"><strong>Bem Vindo, {{welcomeName}}!</strong></h3>
-        </div>
-      </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-1"></div>
-
-      <div class="col-12 col-md-4 col-lg-3 mb-4">
-        <app-menu-profile></app-menu-profile>
-      </div>
-
+    <profile-heards class="row"></profile-heards>
+    <profile-body class="row">
+      <app-menu-profile></app-menu-profile>
       <div class="col-12 col-md-6 col-lg-7">
-        <div class="w-100 profileData d-flex justify-content-between flex-column">
-
+        <div class="profileData d-flex justify-content-between flex-column">
           <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Atualizar">
+            <br>
+            <h4>
+              <strong>Informações Pessoais</strong>
+            </h4>
+            <br>
 
             <mn-input archetype="nome" placeholder="Nome Completo" [(value)]="account.name" size="sm" requery>
-              <h6>Informações Pessoais</h6>
             </mn-input>
             <br>
 
@@ -46,42 +27,55 @@
             <br>
 
           </mn-form>
-
-          <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
-
-            <mn-input archetype="email" placeholder="Email" [(value)]="account.email" size="sm" requery>
-              <h6>Informações de Login</h6>
-            </mn-input>
-            <mn-input archetype="password" placeholder="Nova senha" [(value)]="password" size="sm" requery>
-            </mn-input>
-            <mn-input archetype="password" placeholder="Confirmar Senha" [(value)]="password_confirmation" size="sm"
-              requery>
-            </mn-input>
-          </mn-form>
-
-          <mn-form class="form pt-4" [submitable]="updateDataAddress" *ngIf="address$ | async as address">
-
-            <mn-input archetype="address" placeholder="Rua" [(value)]="address.street" size="sm" requery>
-              <h6>Endereço</h6>
-            </mn-input>
-
-            <mn-input archetype="text" placeholder="Número" [(value)]="address.number" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="text" placeholder="Cidade" [(value)]="address.city" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="select" placeholder="Estado" [(value)]="address.state" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="cep" placeholder="CEP" [(value)]="address.cep" size="sm" requery>
-            </mn-input>
-
-          </mn-form>
-
         </div>
+
+        <br>
+        <h4>Informações de Login</h4>
+        <br>
+        <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
+          <mn-input archetype="email" placeholder="Email" [(value)]="account.email" size="sm" requery>
+          </mn-input>
+          <mn-input archetype="password" placeholder="Nova senha" [(value)]="password" size="sm" requery>
+          </mn-input>
+          <mn-input archetype="password" placeholder="Confirmar Senha" [(value)]="password_confirmation" size="sm"
+            requery>
+          </mn-input>
+        </mn-form>
+
+        <br>
+        <h4>Endereço</h4>
+        <br>
+        <mn-form class="form pt-4" [submitable]="updateDataAddress" *ngIf="address$ | async as address">
+
+          <mn-input archetype="address" placeholder="Rua" [(value)]="address.street" size="sm" requery>
+          </mn-input>
+
+          <mn-input archetype="text" placeholder="Número" [(value)]="address.number" size="sm" requery>
+          </mn-input>
+
+          <mn-input archetype="text" placeholder="Cidade" [(value)]="address.city" size="sm" requery>
+          </mn-input>
+
+          <mn-input archetype="select" placeholder="Estado" [(value)]="address.state" size="sm" requery>
+          </mn-input>
+
+          <mn-input archetype="cep" placeholder="CEP" [(value)]="address.cep" size="sm" requery>
+          </mn-input>
+
+        </mn-form>
+
+        <ng-template #loading>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div>
+                  <app-loading></app-loading>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
       </div>
-    </div>
+    </profile-body>
   </div>
 </section>
-<!--=========== fim minha conta ===========-->

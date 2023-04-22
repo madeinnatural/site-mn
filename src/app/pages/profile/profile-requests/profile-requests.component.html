@@ -1,0 +1,85 @@
+<app-header></app-header>
+<section class="section_minha_conta">
+  <div class="container">
+    <profile-heards class="row"></profile-heards>
+    <profile-body class="row">
+      <app-menu-profile></app-menu-profile>
+      <div class="col-12 col-md-6 col-lg-7">
+        <ng-container class="compra" *ngIf="purchaseHistory$ | async as history; else loading">
+          <div class="cart-purchase-history" *ngFor="let year of history.year">
+            <div *ngFor="let month of year.month">
+              <h5 class="mb-3">
+                <strong>
+                  {{ month.label.length > 9 ? month.label : '0' + month.label.toString() }}
+                  {{year.label}}
+                </strong>
+              </h5>
+
+              <div class="card-body p-0">
+                <div class="card mb-5" style="border-radius: 0;">
+                  <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
+                    <div class="mb-3 mb-lg-0">
+                      <div>Vendido e entrege por</div>
+                      <h3 class="_color_green mb-0" style="font-weight: 700;">NATURAL</h3>
+                    </div>
+                    <div class="d-flex align-items-center">
+                      <i class="fa fa-exclamation-circle mr-2"></i>
+                      <h2 class="mb-0">
+                        {{ year.total| currency:'BRL':true:'1.2-2' }}
+                        <i class="fa fa-angle-right ml-2"></i>
+                      </h2>
+                    </div>
+                  </div>
+                  <table class="table mb-0">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="col_table">Data</th>
+                        <th scope="col" class="col_table">Quantidade</th>
+                        <th scope="col" class="col_table response_format" colspan="2">Valor final</th>
+                        <th scope="col" class="col_table_final hidder"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let day of month.day;">
+                        <td class="row_table" scope="row"> {{ day.label | date:'dd/MM HH:mm':'America/Sao_Paulo'}}
+                        </td>
+                        <td style="text-align: start !important;" scope="row"> {{ day.purchases }}</td>
+                        <td class="row_table response_format" style="text-align: start !important;" scope="row">
+                          <strong>{{ day.total | currency:'BRL':true:'1.2-2' }}</strong>
+                          <button class="show btn btn_detial">
+                            Detalhes
+                          </button>
+                        </td>
+                        <td class="row_table hidder " scope="row">
+                          <button class="btn btn_detial">
+                            Detalhes
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+
+
+              </div>
+
+
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <div class="row">
+            <div class="col-12">
+              <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+                <div>
+                  <app-loading></app-loading>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </profile-body>
+  </div>
+</section>
