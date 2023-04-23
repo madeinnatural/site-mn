@@ -4,9 +4,11 @@ import { ProductList } from 'src/app/core/model/interfaces/Product';
 import { Component, Injectable, OnInit, Inject } from '@angular/core'
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
 import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CartModel } from 'src/app/core/domain/model/logistics/cart';
+import { ProductModel } from '../products-cart/imports';
 
 export interface DialogData {
-  product: ProductList[];
+  product: { quantity: number; product: CartModel; }[];
 }
 
 @Component({
@@ -19,7 +21,7 @@ export class ModalComponent implements OnInit {
 
   displayedColumns: string[] = ['produtos', 'quantidade', 'price', 'valor'];
 
-  products: ProductList[] = [];
+  products:  { quantity: number; product: ProductModel; }[];
   totalPrice: number = 0;
 
   constructor (private modalService: NgbModal,
@@ -27,7 +29,11 @@ export class ModalComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
   )
   {
-    this.products = data.product;
+
+    this.products = data.product as any as { quantity: number; product: ProductModel; }[]
+    const totalPrice = this.products.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
+
+    this.totalPrice = totalPrice;
     // this.totalPrice = data.product.map(t => t.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
   }
 

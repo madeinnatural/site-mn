@@ -26,7 +26,7 @@ const routes: Routes = [
       {path: 'signup', component: SignupComponent, data: { title : 'Signup' } },
     ]
   },
-  {path: 'cart',   canActivate: [AuthQuard], component: CartComponent, data: { title : 'Cart' }},
+  {path: 'cart',   canActivate: [AuthQuard], component: CartComponent, data: { title : 'Finalizar Compra' }},
   {path: 'profile', canActivate: [AuthQuard], data: { title : 'Profile' },
     children: [
       {path: 'config',  canActivate: [AuthQuard], component: ProfileDataComponent, data: { title : 'Configurações' } },

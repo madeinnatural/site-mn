@@ -16,7 +16,7 @@ export interface PurchaseHistoryGroupedByYearMonth  {
         purchases: {
           quantity: number;
           product: CartModel;
-        }
+        }[]
       }[]
     }[]
   }[]

@@ -1,23 +1,23 @@
-import { map, Observable } from 'rxjs';
-import { PurchaseHistory } from './../../../core/model/interfaces/Product';
-import { select, Store } from '@ngrx/store';
+import {  Store } from '@ngrx/store';
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { ModalComponent } from './../../../components/modal/modal.component';
 import { ProductList } from '../../../core/model/interfaces/Product';
-import { CartItem, CartModel } from 'src/app/core/domain/model/logistics/cart';
-import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory } from 'src/app/states-handler/store/pruchase.store';
-import { ProductModel } from 'src/app/components/products-cart/imports';
-import { PurchaseModel } from 'src/app/core/domain/model/financial/purchase';
+import { CartItem, CartModel } from '../../../core/domain/model/logistics/cart';
+import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory } from '../../../states-handler/store/pruchase.store';
+
+import { MesPorExtensoPipe } from 'src/app/core/pipe/monthExtencer.pipe';
 
 import { LOCALE_ID } from '@angular/core';
+import { ProductModel } from 'src/app/components/products-cart/imports';
+import { PurchaseModel } from 'src/app/core/domain/model/financial/purchase';
 
 @Component({
   selector: 'app-profile-requests',
   templateUrl: './profile-requests.component.html',
-  styleUrls: ['./profile-requests.component.scss']
+  styleUrls: ['./profile-requests.component.scss'],
 })
 export class ProfileRequestsComponent {
 
@@ -26,16 +26,37 @@ export class ProfileRequestsComponent {
     private router: Router,
     private store: Store<{ purchasesHistory: PurchaseHistoryGroupedByYearMonth }>,
     public dialog: MatDialog,
-    @Inject(LOCALE_ID) public locale: string
   ) {
     this.store.dispatch(getPurchaseHistory());
+  }
+
+  tranformeNumber (value: string) {
+    function transform(mes: number): string {
+      const meses = [
+        'Janeiro',
+        'Fevereiro',
+        'Março',
+        'Abril',
+        'Maio',
+        'Junho',
+        'Julho',
+        'Agosto',
+        'Setembro',
+        'Outubro',
+        'Novembro',
+        'Dezembro'
+      ];
+
+      return meses[mes - 1];
+    }
+    return transform(Number(value) + 1);
   }
 
   gotoRouter(url:string){
     this.router.navigateByUrl(url)
   }
 
-  async openDetail(product?: CartItem[]) {
+  async openDetail(product?: { quantity: number; product: CartModel; }[]) {
 
     const dialogRef = this.dialog.open(ModalComponent , {
       width: '100%',
@@ -50,8 +71,6 @@ export class ProfileRequestsComponent {
   goToProductList() {
     this.router.navigateByUrl('/product_list?query=%20%20');
   }
-
-
 
 }
 

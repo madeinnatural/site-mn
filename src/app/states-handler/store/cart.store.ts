@@ -110,7 +110,9 @@ export const cartReducer = createReducer(
   on(clearCart, (state) => {
     return {
       ...state,
-      orders: []
+      orders: [],
+      cartItem: [],
+      total: 0
     }
   }),
   on(loadCart, (state) => {

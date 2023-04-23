@@ -1,20 +1,17 @@
 <app-header></app-header>
 <section class="w-100 pt-5 section_carrinho_de_compras" *ngIf="cart$ | async as cart">
       <div class="container">
+
           <div class="row">
-              <div class="col-12 mb-3">
-                  <div style="white-space: nowrap; color: #686868;">
-                      Home <i class="fa fa-angle-right"></i>
-                      Carrinho de compras <i class="fa fa-angle-right"></i>
-                      <strong style="color: #000;"> Checkout</strong>
-                  </div>
-              </div>
+            <app-breadcrumbs></app-breadcrumbs>
           </div>
+
           <div class="row">
               <div class="col-12">
                   <h2 style="font-weight: 700;" class="mb-5">Carrinho de compras</h2>
               </div>
           </div>
+
           <div class="row">
               <div class="col-12 col-lg-8 cont_produtos">
                   <div class="card mb-5" style="border-radius: 0;">

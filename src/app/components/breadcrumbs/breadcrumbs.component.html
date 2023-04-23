@@ -1,11 +1,8 @@
-
-
-  <div class="col-12 mb-3">
-    <nav *ngFor="let bread of breadcrumbs; last as lasItem" style="white-space: nowrap;">
-      <a  *ngIf="!lasItem" style="text-decoration: none; color: #686868; padding-right: 5px;" [routerLink]="[bread.url]">{{bread.name}}</a>
-      <i *ngIf="lasItem" class="fa fa-angle-right"></i>
-      <strong *ngIf="lasItem" [routerLink]="[bread.url]" style="color: #000; padding-left: 5px;">{{bread.name}}</strong>
-    </nav>
-  </div>
-
-
+<div *ngIf="breadcrumb$ | async as breadcrumb" style="color: #686868; padding-top: 25px;">
+  <ng-container *ngFor="let bread of breadcrumb; let last = last;" >
+    <a [routerLink]="bread.url" [class]=" !last ? 'normal-crumb' : 'current-crumb'">
+      {{ bread.label | titlecase }}
+    </a>
+    <i class="fa fa-angle-right" [class]=" last ? 'hider' : ''" ></i>
+  </ng-container>
+</div>

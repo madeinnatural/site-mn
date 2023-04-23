@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Input, Inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FilterClass, setMainCategorie, setPrice } from '../../states-handler/store/filter.store';
-import { Observable } from 'rxjs';
+import { Observable, Subject, debounceTime } from 'rxjs';
 
 interface o {currentFilter: FilterClass, filterList: FilterResponse}
 
@@ -34,6 +34,7 @@ export class AvancedFilterComponent {
   provider$ = this.store.pipe<string>(select('provider'));
   filterList$: Observable<FilterResponse>
 
+  private searchSubject: Subject<{max: number, min: number}> = new Subject<{max: number, min: number}>();
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
     private store: Store<any>,
@@ -42,10 +43,13 @@ export class AvancedFilterComponent {
     }
   ){
     this.filterList$ = DataDialog.data.filterList;
+    this.searchSubject.pipe(debounceTime(800)).subscribe(values => {
+      this.store.dispatch(setPrice({ min: values.min, max: values.max }));
+    });
   }
 
   calculationPrice ({ min, max }: { min: number, max: number }) {
-    this.store.dispatch(setPrice({ min, max }));
+    this.searchSubject.next({ min, max });
   }
 
   onNoClick() { this.dialogRef.close(); }

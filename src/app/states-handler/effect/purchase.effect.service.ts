@@ -3,12 +3,13 @@ import { Injectable } from "@angular/core";
 import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory, getPurchaseHistorySuccess, purchaseOrder, purchaseOrderSuccess } from "../store/pruchase.store";
-import { map, switchMap, tap } from "rxjs";
+import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory, getPurchaseHistorySuccess, purchaseOrder, purchaseOrderFail, purchaseOrderSuccess } from "../store/pruchase.store";
+import { map, switchMap, tap, catchError, of } from "rxjs";
 
 import { CartModel, Order } from '../../core/domain/model/logistics/cart';
 import { PurchaseModel } from '../../core/domain/model/financial/purchase';
 import { ToastService } from '../../core/services/toast.service';
+import { clearCart } from '../store/cart.store';
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +47,17 @@ export class PurchaseEffectService {
     () => this.actions$.pipe(
       ofType(getPurchaseHistory),
       switchMap(() => this.http.get<{ history: PurchaseHistoryGroupedByYearMonth }>('/purchase/history')),
-      map(purchaseHistory => getPurchaseHistorySuccess({ payload: {...purchaseHistory.history } }))
+      map(purchaseHistory => {
+        this.store$.dispatch(clearCart());
+        return getPurchaseHistorySuccess({ payload: {...purchaseHistory.history } })
+      }),
+      catchError(err => {
+      this.toast.openSnackBar(
+        'Ocorreu um erro ao buscar o histórico de compras, tente novamente mais tarde.',
+        'error-snackbar'
+        );
+        return of(purchaseOrderFail({ payload: err }))
+      }),
     )
   );
 }

@@ -1,3 +1,4 @@
+import { ProductModel } from "../../domain/model/product/product";
 
 
 export class Item {
@@ -182,5 +183,5 @@ export interface ProductsDisplay {
 
 export interface ProductList {
   quantity: number,
-  product: Product,
+  product: ProductModel,
 }

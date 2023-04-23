@@ -1,0 +1,15 @@
+.normal-crumb {
+  color: #686868; text-decoration: none;
+}
+
+.current-crumb {
+  // deixar link atual sem link clicável  com hover e escuro da cor verde
+  cursor: pointer;
+  color: #45842e;
+  font-size: 1.3rem;
+  text-decoration: none;
+}
+
+.hider {
+  display: none;
+}

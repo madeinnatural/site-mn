@@ -57,6 +57,7 @@ import { SignupComponent } from './account/register/signup.component';
 import { SendPasswordRecoverySuccessComponent } from './account/password-recovery/send-password-recovery-success/send-password-recovery-success.component';
 import { ProfileBodyComponent } from '../components/profile/body/body.component';
 import { BodyComponent } from '../components/table/body/body.component';
+import { MesPorExtensoPipe } from '../core/pipe/monthExtencer.pipe';
 
 
 @NgModule({
@@ -131,11 +132,12 @@ import { BodyComponent } from '../components/table/body/body.component';
     PurchaseSummaryComponent,
     RecoveryFormComponent,
     SendPasswordRecoverySuccessComponent,
-    ProfileBodyComponent
+    ProfileBodyComponent,
+
   ],
   providers: [
     PurchaseService,
-    ServerService
+    ServerService,
   ]
 })
 export class PagesModule { }

@@ -10,11 +10,10 @@
             <div *ngFor="let month of year.month">
               <h5 class="mb-3">
                 <strong>
-                  {{ month.label.length > 9 ? month.label : '0' + month.label.toString() }}
-                  {{year.label}}
+                  {{ tranformeNumber(month.label) }}
+                  {{ year.label }}
                 </strong>
               </h5>
-
               <div class="card-body p-0">
                 <div class="card mb-5" style="border-radius: 0;">
                   <div class="card-header d-block d-lg-flex justify-content-between align-items-center">
@@ -25,7 +24,7 @@
                     <div class="d-flex align-items-center">
                       <i class="fa fa-exclamation-circle mr-2"></i>
                       <h2 class="mb-0">
-                        {{ year.total| currency:'BRL':true:'1.2-2' }}
+                        {{ month.total| currency:'BRL':true:'1.2-2' }}
                         <i class="fa fa-angle-right ml-2"></i>
                       </h2>
                     </div>
@@ -33,41 +32,35 @@
                   <table class="table mb-0">
                     <thead>
                       <tr>
-                        <th scope="col" class="col_table">Data</th>
-                        <th scope="col" class="col_table">Quantidade</th>
+                        <th scope="col" class="col_table">Dia</th>
+                        <th scope="col" class="col_table" style="text-align: end !important;">Quantidade</th>
                         <th scope="col" class="col_table response_format" colspan="2">Valor final</th>
                         <th scope="col" class="col_table_final hidder"></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let day of month.day;">
-                        <td class="row_table" scope="row"> {{ day.label | date:'dd/MM HH:mm':'America/Sao_Paulo'}}
+                        <td class="row_table" scope="row">
+                          <strong>{{ day.label  }}</strong>
                         </td>
-                        <td style="text-align: start !important;" scope="row"> {{ day.purchases }}</td>
-                        <td class="row_table response_format" style="text-align: start !important;" scope="row">
+                        <td style="text-align: end !important;" scope="row">
+                          <button class="btn btn_detial w-100" (click)="openDetail(day.purchases)">
+                            {{ 'Quantidade: ' + day.purchases.length }} |
+                            Ver Detalhes
+                          </button>
+                        </td>
+                        <td class="row_table" scope="row">
                           <strong>{{ day.total | currency:'BRL':true:'1.2-2' }}</strong>
-                          <button class="show btn btn_detial">
-                            Detalhes
-                          </button>
-                        </td>
-                        <td class="row_table hidder " scope="row">
-                          <button class="btn btn_detial">
-                            Detalhes
-                          </button>
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
-
-
-
               </div>
-
-
             </div>
           </div>
         </ng-container>
+
         <ng-template #loading>
           <div class="row">
             <div class="col-12">

@@ -42,11 +42,13 @@ import { PurchaseEffectService } from './states-handler/effect/purchase.effect.s
 import { purchaseHistoryReducer, purchaseReducer } from './states-handler/store/pruchase.store';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
 import { breadcrumbReducer } from './states-handler/store/breadcrumb.store';
+import { MesPorExtensoPipe } from './core/pipe/monthExtencer.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     phoneMaskBrDirective,
+    MesPorExtensoPipe,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
-<router-outlet></router-outlet>
+<router-outlet *ngIf="router.events | async loading"></router-outlet>
 <!-- <resumo-compra [dataBar]="counterBarData"></resumo-compra> -->
 
-<div *ngIf="router.events | async loading" class="row">
+<ng-template class="row" #loading>
   <div class="col-12">
     <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
       <svg class="tea" width="37" height="48" viewbox="0 0 37 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -21,4 +21,4 @@
       </svg>
     </div>
   </div>
-</div>
+</ng-template>
