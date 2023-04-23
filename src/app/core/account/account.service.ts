@@ -18,6 +18,7 @@ export class AccountService {
   ) {}
 
   login(data: LoginRequest) {
+    if (!data.email || !data.password) throw new Error('Email and password are required');
     this.store.dispatch(login({ payload: data }));
   }
 

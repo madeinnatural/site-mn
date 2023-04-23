@@ -14,42 +14,40 @@
             </h4>
             <br>
 
-            <mn-input archetype="nome" placeholder="Nome Completo" [(value)]="account.name" size="sm" requery>
+            <mn-input archetype="nome" placeholder="Nome Completo" [value]="account.name" (change)="changePersonalInfo($event, 'name')" size="sm" requery>
             </mn-input>
             <br>
 
-            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [(value)]="account.cpfCnpj" size="sm" requery>
+            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [value]="account.cpfCnpj" (change)="changePersonalInfo($event, 'cpfCnpj')" size="sm" requery>
             </mn-input>
             <br>
 
-            <mn-input archetype="phone" placeholder="Telefone" [(value)]="account.phone" size="sm" requery>
+            <mn-input archetype="phone" placeholder="Telefone" [value]="account.phone" (change)="changePersonalInfo($event, 'phone')" size="sm" requery>
             </mn-input>
             <br>
+
 
           </mn-form>
         </div>
 
         <br>
-        <h4>Informações de Login</h4>
+        <h4><strong>Informações de Login</strong></h4>
         <br>
         <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
-          <mn-input archetype="email" placeholder="Email" [(value)]="account.email" size="sm" requery>
+          <mn-input archetype="email" placeholder="Email" [(value)]="account.email" (change)="changePersonalLogin($event, 'email')" size="sm" requery>
           </mn-input>
-          <mn-input archetype="password" placeholder="Nova senha" [(value)]="password" size="sm" requery>
-          </mn-input>
-          <mn-input archetype="password" placeholder="Confirmar Senha" [(value)]="password_confirmation" size="sm"
-            requery>
+          <mn-input archetype="password" placeholder="Nova senha" (change)="changePersonalLogin($event, 'password')" size="sm" requery>
           </mn-input>
         </mn-form>
 
         <br>
-        <h4>Endereço</h4>
+        <h4><strong>Endereço</strong></h4>
         <br>
         <mn-form class="form pt-4" [submitable]="updateDataAddress" *ngIf="address$ | async as address">
 
           <mn-input archetype="address" placeholder="Rua" [(value)]="address.street" size="sm" requery>
           </mn-input>
-
+          <br>
           <mn-input archetype="text" placeholder="Número" [(value)]="address.number" size="sm" requery>
           </mn-input>
 

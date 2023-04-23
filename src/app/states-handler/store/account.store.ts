@@ -24,6 +24,8 @@ export enum AccountActionTypes {
   SIGNUP_SUCCESS  = '[Account] Signup Success',
   SIGNUP_FAILURE  = '[Account] Signup Failure',
   UPDATE          = '[Account] Update',
+  UPDATE_PERSONAL_INFORMATION = '[Account] Update Personal Information',
+  UPDATE_PERSONAL_LOGIN = '[Account] Update Personal Login',
 }
 
 // LOGIN
@@ -41,6 +43,19 @@ export const logoutSuccess = createAction( AccountActionTypes.LOGOUT_SUCCESS )
 // UPDATE ACCOUNT
 export const updateAccount = createAction( AccountActionTypes.UPDATE, props<{account: AccountModel}>())
 
+// API CALLS
+export const updatePersonalInformation = createAction( AccountActionTypes.UPDATE_PERSONAL_INFORMATION, props<{payload: {
+  name: string;
+  phone: string;
+  cpfCnpj: string;
+}}>());
+
+export const updatePersonalLogin = createAction( AccountActionTypes.UPDATE_PERSONAL_LOGIN, props<{payload: {
+  email: string;
+  password: string;
+}}>());
+
+
 const initializeAccount: AccountModel = {
   id: '',
   name: '',
@@ -49,11 +64,12 @@ const initializeAccount: AccountModel = {
   cpfCnpj: '',
   password: '',
 }
+
 export const accountReducer = createReducer(
   initializeAccount,
   on(updateAccount, (state, action) => {
     return { ...action.account }
-  })
+  }),
 )
 
 

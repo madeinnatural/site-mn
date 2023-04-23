@@ -21,7 +21,7 @@ export class ModalComponent implements OnInit {
 
   displayedColumns: string[] = ['produtos', 'quantidade', 'price', 'valor'];
 
-  products:  { quantity: number; product: ProductModel; }[];
+  products:  { quantity: number; product: ProductModel; }[] = [];
   totalPrice: number = 0;
 
   constructor (private modalService: NgbModal,
@@ -30,10 +30,12 @@ export class ModalComponent implements OnInit {
   )
   {
 
-    this.products = data.product as any as { quantity: number; product: ProductModel; }[]
-    const totalPrice = this.products.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
+    console.log('data', data);
 
-    this.totalPrice = totalPrice;
+    // this.products = data.product as any as { quantity: number; product: ProductModel; }[]
+    // const totalPrice = this.products.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
+
+    // this.totalPrice = totalPrice;
     // this.totalPrice = data.product.map(t => t.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
   }
 
