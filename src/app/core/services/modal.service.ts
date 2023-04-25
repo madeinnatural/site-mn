@@ -9,8 +9,9 @@ export class ModalService {
   openModal(component: any, data?: any) {
     const dialogRef = this.dialog.open(component , {
       width: '50%',
-      data: { data }
+      data,
     });
     return dialogRef;
   }
+
 }

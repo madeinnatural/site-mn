@@ -1,14 +1,13 @@
 import { ProfileRequestsComponent } from './../../pages/profile/profile-requests/profile-requests.component';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ProductList } from 'src/app/core/model/interfaces/Product';
-import { Component, Injectable, OnInit, Inject } from '@angular/core'
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap'
-import { MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { CartModel } from 'src/app/core/domain/model/logistics/cart';
-import { ProductModel } from '../products-cart/imports';
+import { Component, Injectable, Inject } from '@angular/core'
+import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { CartModel } from '../../core/domain/model/logistics/cart';
+import { ModalService } from '../products-cart/imports';
+import { ModalProductComponent } from './modal-product/modal-product.component';
 
 export interface DialogData {
-  product: { quantity: number; product: CartModel; }[];
+  carts: CartModel[]
 }
 
 @Component({
@@ -17,29 +16,24 @@ export interface DialogData {
   styleUrls: ['./modal.component.scss']
 })
 @Injectable()
-export class ModalComponent implements OnInit {
+export class ModalComponent {
 
   displayedColumns: string[] = ['produtos', 'quantidade', 'price', 'valor'];
-
-  products:  { quantity: number; product: ProductModel; }[] = [];
+  carts:  CartModel[] = [];
   totalPrice: number = 0;
 
-  constructor (private modalService: NgbModal,
+  constructor (
+    private modalService: ModalService,
     public dialogRef: MatDialogRef<ProfileRequestsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    @Inject(MAT_DIALOG_DATA) public dialog: DialogData,
   )
   {
-
-    console.log('data', data);
-
-    // this.products = data.product as any as { quantity: number; product: ProductModel; }[]
-    // const totalPrice = this.products.map(t => t.product.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
-
-    // this.totalPrice = totalPrice;
-    // this.totalPrice = data.product.map(t => t.price * t.quantity).reduce((acc, value) => acc + Number(value), 0);
+    this.carts = dialog.carts;
+    this.totalPrice = this.carts.reduce((acc, cart) => acc + cart.total, 0);
   }
 
-
-  ngOnInit(): void { }
+  openDetail(items: any) {
+    const modalRef = this.modalService.openModal(ModalProductComponent, { items: items.cart.cartItem });
+  }
 }
 

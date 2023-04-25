@@ -1,18 +1,11 @@
 import {  Store } from '@ngrx/store';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 
 import { ModalComponent } from './../../../components/modal/modal.component';
-import { ProductList } from '../../../core/model/interfaces/Product';
-import { CartItem, CartModel } from '../../../core/domain/model/logistics/cart';
+import { CartModel } from '../../../core/domain/model/logistics/cart';
 import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory } from '../../../states-handler/store/pruchase.store';
-
-import { MesPorExtensoPipe } from 'src/app/core/pipe/monthExtencer.pipe';
-
-import { LOCALE_ID } from '@angular/core';
-import { ProductModel } from 'src/app/components/products-cart/imports';
-import { PurchaseModel } from 'src/app/core/domain/model/financial/purchase';
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-profile-requests',
@@ -23,9 +16,8 @@ export class ProfileRequestsComponent {
 
   purchaseHistory$ = this.store.select('purchasesHistory');
   constructor(
-    private router: Router,
     private store: Store<{ purchasesHistory: PurchaseHistoryGroupedByYearMonth }>,
-    public dialog: MatDialog,
+    private modalService: ModalService
   ) {
     this.store.dispatch(getPurchaseHistory());
   }
@@ -52,32 +44,12 @@ export class ProfileRequestsComponent {
     return transform(Number(value) + 1);
   }
 
-  gotoRouter(url:string){
-    this.router.navigateByUrl(url)
-  }
-
-  async openDetail(product?: { quantity: number; product: CartModel; }[]) {
-
-    const dialogRef = this.dialog.open(ModalComponent , {
-      width: '100%',
-      data: { product: product }
-    });
-
-    dialogRef.afterClosed().subscribe((result: any) => {
-      console.log(`Dialog result: ${result}`);
-    });
-  }
-
-  goToProductList() {
-    this.router.navigateByUrl('/product_list?query=%20%20');
+  async openDetail(carts: CartModel[]) {
+    const modal = this.modalService.openModal(ModalComponent, { carts });
+    modal.afterClosed().subscribe(result => { });
   }
 
 }
-
-export class Modal {
-  product: ProductList[] = [];
-}
-
 
 
 

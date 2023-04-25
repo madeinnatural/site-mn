@@ -85,6 +85,7 @@ import { SelectFilterComponent } from './avanced-filter/select-filter/select-fil
 import { BodyComponent } from './table/body/body.component';
 import { HeardsComponent } from './profile/heards/heards.component';
 import { ProfileBodyComponent } from './profile/body/body.component';
+import { ModalProductComponent } from './modal/modal-product/modal-product.component';
 
 @NgModule({
   declarations: [
@@ -129,6 +130,7 @@ import { ProfileBodyComponent } from './profile/body/body.component';
     BodyComponent,
     HeardsComponent,
     ProfileBodyComponent,
+    ModalProductComponent,
   ],
   imports: [
     CommonModule,
@@ -213,7 +215,8 @@ import { ProfileBodyComponent } from './profile/body/body.component';
     SliderPriceComponent,
     SelectFilterComponent,
     HeardsComponent,
-    ProfileBodyComponent
+    ProfileBodyComponent,
+    ModalProductComponent
   ],
 })
 export class ComponentsModule {}

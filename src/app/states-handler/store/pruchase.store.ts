@@ -13,10 +13,7 @@ export interface PurchaseHistoryGroupedByYearMonth  {
       day: {
         label: string;
         total: number;
-        purchases: {
-          quantity: number;
-          product: CartModel;
-        }[]
+        purchases: CartModel[]
       }[]
     }[]
   }[]
