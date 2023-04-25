@@ -43,24 +43,26 @@
         <br>
         <h4><strong>Endereço</strong></h4>
         <br>
-        <mn-form class="form pt-4" [submitable]="updateDataAddress" *ngIf="address$ | async as address">
 
-          <mn-input archetype="address" placeholder="Rua" [(value)]="address.street" size="sm" requery>
-          </mn-input>
-          <br>
-          <mn-input archetype="text" placeholder="Número" [(value)]="address.number" size="sm" requery>
-          </mn-input>
+        <div *ngFor="let addr of account.address; let i = index">
+          <mn-form class="form pt-4" [submitable]="updateDataAddress">
+            <mn-input archetype="address" placeholder="Rua" (change)="changePersonalAddress($event, i, 'street')" [value]="address[i].street" size="sm" requery>
+            </mn-input>
+            <br>
+            <mn-input archetype="text" placeholder="Número" (change)="changePersonalAddress($event, i, 'number')" [value]="address[i].number" size="sm" requery>
+            </mn-input>
 
-          <mn-input archetype="text" placeholder="Cidade" [(value)]="address.city" size="sm" requery>
-          </mn-input>
+            <mn-input archetype="text" placeholder="Cidade" (change)="changePersonalAddress($event, i, 'city')" [value]="address[i].city" size="sm" requery>
+            </mn-input>
 
-          <mn-input archetype="select" placeholder="Estado" [(value)]="address.state" size="sm" requery>
-          </mn-input>
+            <mn-input archetype="select" placeholder="Estado" (change)="changePersonalAddress($event, i, 'state')" [value]="address[i].state" size="sm" requery>
+            </mn-input>
 
-          <mn-input archetype="cep" placeholder="CEP" [(value)]="address.cep" size="sm" requery>
-          </mn-input>
-
-        </mn-form>
+            <mn-input archetype="cep" placeholder="CEP" (change)="changePersonalAddress($event, i, 'zipCode')" [value]="address[i].zipCode" size="sm" requery>
+            </mn-input>
+          </mn-form>
+        </div>
+        <br>
 
         <ng-template #loading>
           <div class="row">
@@ -77,3 +79,5 @@
     </profile-body>
   </div>
 </section>
+
+<app-footer></app-footer>

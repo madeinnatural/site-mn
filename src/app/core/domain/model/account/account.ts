@@ -1,11 +1,14 @@
 
 export interface AddressModel {
-  id: string
-  cep: string
-  street: string
-  number: string
-  city: string
-  state: string
+  id         : string
+  street     : string
+  number     : string
+  district   : string
+  city       : string
+  state      : string
+  zipCode    : string
+  createdAt  ?: Date
+  updatedAt  ?: Date
 }
 
 export interface AccountModel {
@@ -18,5 +21,6 @@ export interface AccountModel {
   accessToken?: string
   role?: string
   passwordResetToken?: string
-  passwordResetExpires?: Date
+  passwordResetExpires?: Date,
+  address?: AddressModel[]
 }

@@ -26,6 +26,8 @@ export class ProfileDataComponent {
     password: '',
   }
 
+  address: AddressModel[] = [];
+
   account$ = this.store.select('account').pipe(
     map((account: AccountModel) => {
       this.welcomeName = account.name;
@@ -38,6 +40,8 @@ export class ProfileDataComponent {
         email: account.email,
         password: account.password,
       }
+      console.log(account);
+      if (account.address) this.address = account.address;
       return account;
     })
   )
@@ -60,6 +64,10 @@ export class ProfileDataComponent {
 
   changePersonalLogin(event: any, taget: 'email' | 'password') {
     this.persinalLogin[taget] = event.target.value;
+  }
+
+  changePersonalAddress(event: any, index: number, taget: 'street' | 'number' | 'district' | 'city' | 'state' | 'zipCode' ) {
+    this.address[index][taget] = event.target.value;
   }
 
   updateDataAddress: Submitable = {

@@ -63,6 +63,16 @@ const initializeAccount: AccountModel = {
   phone: '',
   cpfCnpj: '',
   password: '',
+  accessToken: '',
+  address: [{
+    id      : '',
+    street  : '',
+    number  : '',
+    district: '',
+    city    : '',
+    state   : '',
+    zipCode : '',
+  }]
 }
 
 export const accountReducer = createReducer(
