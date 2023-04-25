@@ -1,6 +1,6 @@
 <div class="section w-100">
 
-  <table class="table">
+  <table class="table table-light">
     <thead>
       <tr>
         <th scope="col">Data de compra</th>
@@ -14,7 +14,7 @@
         <td scope="row">{{ cart.createdAt | date: "dd/MM/yyyy" }}</td>
         <td scope="row"><strong>{{ cart.total | currency:'BRL':true:'1.2-2' }}</strong></td>
         <td scope="row">
-          <button mat-raised-button (click)="openDetail(cart)" >Detalhe</button>
+          <button mat-raised-button style="width: 1rem !important; margin: 0; padding: 0;" (click)="openDetail(cart)" >Detalhe</button>
         </td>
       </tr>
     </tbody>

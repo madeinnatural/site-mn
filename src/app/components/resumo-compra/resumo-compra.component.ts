@@ -1,6 +1,8 @@
 import { CounterBarData } from './../../core/model/interfaces/Utils';
 import { Router } from '@angular/router';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CartModel } from 'src/app/core/domain/model/logistics/cart';
 
 @Component({
   selector: 'resumo-compra',
@@ -9,14 +11,22 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 })
 export class ResumoCompraComponent implements OnInit {
 
-  @Input() dataBar: CounterBarData = {
+  dataBar: CounterBarData = {
     totalPrice: 0,
     quantity: 0,
   }
 
   constructor(
     public route: Router,
-  ) { }
+    private store: Store<{cart: CartModel}>
+  ) {
+    this.store.select('cart').subscribe((cart: CartModel) => {
+      this.dataBar = {
+        totalPrice: cart.total,
+        quantity: cart.orders.reduce((acc, order) => acc + order.quantity, 0),
+      }
+    })
+  }
 
   goCart() {
     const url = '/cart';

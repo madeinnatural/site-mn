@@ -1,6 +1,5 @@
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
-import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ProfileRequestsComponent } from './profile/profile-requests/profile-requests.component';
@@ -37,7 +36,6 @@ const routes: Routes = [
   },
   {path: 'product_detail', component: ProductDetailComponent, data: { title : 'Product Detail' }},
   {path: 'product_list', component: ProductListComponent, data: { title : 'Product List' }},
-  {path: 'purchase_summary', component: PurchaseSummaryComponent, data: { title : 'Purchase Summary' }},
   {path: 'password-recovery', component: PasswordRecoveryComponent, data: { title : 'Password Recovery' },
     children: [
       { path: 'success', component: SendPasswordRecoverySuccessComponent, data: { title : 'Password Recovery Success' } },

@@ -1,9 +1,7 @@
 import { RecoveryFormComponent } from './account/password-recovery/recovery-form/recovery-form.component';
 import { PasswordRecoveryComponent } from './account/password-recovery/password-recovery.component';
 import { ServerService } from '../core/services/server.service';
-import { PurchaseService } from './../core/services/purchase.service';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { PurchaseSummaryComponent } from './purchase-summary/purchase-summary.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { LoginComponent } from './account/login/login.component';
 import { ProfileCotacaoComponent } from './profile/profile-cotacao/profile-cotacao.component';
@@ -56,9 +54,6 @@ import { PageNotFoundComponentComponent } from './page-not-found/PageNotFoundCom
 import { SignupComponent } from './account/register/signup.component';
 import { SendPasswordRecoverySuccessComponent } from './account/password-recovery/send-password-recovery-success/send-password-recovery-success.component';
 import { ProfileBodyComponent } from '../components/profile/body/body.component';
-import { BodyComponent } from '../components/table/body/body.component';
-import { MesPorExtensoPipe } from '../core/pipe/monthExtencer.pipe';
-
 
 @NgModule({
   declarations: [
@@ -71,7 +66,6 @@ import { MesPorExtensoPipe } from '../core/pipe/monthExtencer.pipe';
     LoginComponent,
     SignupComponent,
     ProductListComponent,
-    PurchaseSummaryComponent,
     PasswordRecoveryComponent,
     RecoveryFormComponent,
     PageNotFoundComponentComponent,
@@ -129,14 +123,11 @@ import { MesPorExtensoPipe } from '../core/pipe/monthExtencer.pipe';
     LoginComponent,
     SignupComponent,
     ProductListComponent,
-    PurchaseSummaryComponent,
     RecoveryFormComponent,
     SendPasswordRecoverySuccessComponent,
     ProfileBodyComponent,
-
   ],
   providers: [
-    PurchaseService,
     ServerService,
   ]
 })

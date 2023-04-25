@@ -1,4 +1,4 @@
-<div class="navBottom border-top border-success" [class.active]="dataBar.totalPrice >= 0">
+<div class="navBottom border-top border-success" [class.active]="dataBar.totalPrice > 0">
 
   <div *ngIf="innerWidth > 764 && innerWidth > 600">
     <div class="d-flex justify-content-around">
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div *ngIf="innerWidth > 390 && innerWidth <= 764">
+  <!-- <div *ngIf="innerWidth > 390 && innerWidth <= 764">
     <div class="d-flex justify-content-center" style="gap: 50px;">
 
       <div class="d-flex flex-column pl-4">
@@ -29,19 +29,16 @@
       </button>
 
     </div>
-  </div>
+  </div> -->
 
-  <div *ngIf="innerWidth <= 390">
+  <div *ngIf="innerWidth <= 720">
     <div class="d-flex justify-content-around">
-
       <div class="card-body resumo">
-        <h5 class="card-title">Resumo da compra</h5>
+        <h5 class="card-title">Resumo</h5>
         <h6>Q. de itens: {{dataBar.quantity}}</h6>
         <h6 class="card-subtitle text-muted">Total:{{ dataBar.totalPrice | currency:undefined:"R$"}}</h6>
       </div>
-
-      <app-button-cart (click)="goCart()" style="align-self: center !important; vertical-align: text-top;"></app-button-cart>
-
+      <app-button-cart (click)="goCart()" ></app-button-cart>
     </div>
   </div>
 

@@ -5,8 +5,6 @@ import { Actions, ofType } from "@ngrx/effects";
 import { Store } from '@ngrx/store';
 import { CartModel } from '../../core/domain/model/logistics/cart';
 import { loadCart, loadCartSuccess, updateCart } from '../store/cart.store';
-import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { ToastComponent } from 'src/app/components/toast/toast.component';
 
 @Injectable({
   providedIn: 'root'

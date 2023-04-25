@@ -1,7 +1,7 @@
-import { ProfileRequestsComponent } from './../../pages/profile/profile-requests/profile-requests.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Component, Injectable, Inject } from '@angular/core'
 import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ProfileRequestsComponent } from './../../pages/profile/profile-requests/profile-requests.component';
 import { CartModel } from '../../core/domain/model/logistics/cart';
 import { ModalService } from '../products-cart/imports';
 import { ModalProductComponent } from './modal-product/modal-product.component';

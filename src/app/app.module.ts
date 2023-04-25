@@ -17,7 +17,6 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgbModule, NgbPaginationModule, NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { productShowcaseReducer } from './states-handler/store/product-showcase.store';
-import { HttpService } from './core/services/http.service';
 import { AuthInterceptor } from './core/security/auth.interceptor';
 import { phoneMaskBrDirective } from './core/directives/phone-mask-br.directive';
 import { ComponentsModule } from './components/components.module';
@@ -96,7 +95,6 @@ import { MesPorExtensoPipe } from './core/pipe/monthExtencer.pipe';
   ],
   providers: [
     AuthQuard,
-    HttpService,
     MatSnackBar,
     MatSnackBarConfig,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},

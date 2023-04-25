@@ -48,13 +48,9 @@ export class GlobalEventService {
     const localAuthToken = this.AUTH_TOKEN_COOKIE;
     const localCurrentUser = this.CURRENT_USER_COOKIE;
     const current_user = JSON.stringify(user);
-
     this.cookieService.setItem(localCurrentUser, current_user);
     this.cookieService.setItem(localAuthToken, auth_token);
-
-
     window.localStorage.setItem(localCurrentUser,current_user);
-
     this.loginEvent.emit(user);
   }
 
