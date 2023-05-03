@@ -17,6 +17,7 @@ export class ToastService {
   }
 
   openSnackBar(msg: string, panel:'error-snackbar' | 'success-snackbar' | 'warning-snackbar' = 'success-snackbar') {
+    if (!msg) msg = 'Ocorreu um erro inesperado';
     this.config.horizontalPosition = 'end';
     this.config.verticalPosition = 'top';
     this.config.data = {

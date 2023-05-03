@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Component, Input, Inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { FilterClass, setMainCategorie, setPrice } from '../../states-handler/store/filter.store';
-import { Observable, Subject, debounceTime } from 'rxjs';
+import { Observable, Subject, debounceTime, map } from 'rxjs';
 
 interface o {currentFilter: FilterClass, filterList: FilterResponse}
 
@@ -42,7 +42,21 @@ export class AvancedFilterComponent {
       data:  { filterList: Observable<FilterResponse> }
     }
   ){
-    this.filterList$ = DataDialog.data.filterList;
+    // Filtrar todos os dados que são invalidos DataDialog.data.filterList.pipe()
+    const data = DataDialog.data.filterList.pipe(
+      map((value: FilterResponse) => {
+        return {
+          ...value,
+          mainCategory: value.celmar ? value.celmar : 'Todos',
+          category: value.celmar ? value.celmar : 'Todos',
+          subCategory: value.celmar ? value.celmar : 'Todos',
+          package: value.celmar ? value.celmar : 'Todos',
+          unit: value.celmar ? value.celmar : 'Todos',
+        }
+      })
+    );
+
+    this.filterList$ = DataDialog.data.filterList.pipe();
     this.searchSubject.pipe(debounceTime(800)).subscribe(values => {
       this.store.dispatch(setPrice({ min: values.min, max: values.max }));
     });

@@ -42,11 +42,20 @@ export class SignupComponent {
 
   submit: Submitable = {
     submit: async () => {
-      this.accountService.signup(this.formRegister);
-      return new Promise((ok) => {
-        setTimeout(() => {
-          ok(true)
-        }, 1000)
+      return new Promise(async (ok, res) => {
+        try {
+          const response = await this.accountService.signup(this.formRegister);
+          ok(response);
+        } catch (error) {
+          console.log('ERROR ERROSO',error);
+          const msg = (error as any).error.error || 'Erro ao cadastrar';
+          if (msg.toLocaleLowerCase().includes('email')) {
+            this.email?.postInvalidade(msg);
+          } else if (msg.toLocaleLowerCase().includes('cpfcnpj')) {
+            this.cpfCnpj?.postInvalidade(msg);
+          }
+          res(error);
+        }
       });
     },
   };

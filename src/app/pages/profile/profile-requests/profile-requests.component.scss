@@ -45,3 +45,37 @@
 .cart-purchase-history {
   margin-top: 2rem;
 }
+
+@media screen and (min-width: 767px) {
+  .profile {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    &-body {
+      display: flex;
+      justify-content: space-between;
+      &-menu {
+        &-item {
+          margin-bottom: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .profile {
+    &-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding: 20px;
+      gap: 43px;
+      &-menu {
+        margin: 10px;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 import { createAction, createReducer, on, props } from "@ngrx/store";
-import { AccountModel } from "src/app/core/domain/model/account/account";
+import { AccountModel, AddressModel } from "src/app/core/domain/model/account/account";
 
 export interface LoginRequest {
   email: string;
@@ -26,6 +26,8 @@ export enum AccountActionTypes {
   UPDATE          = '[Account] Update',
   UPDATE_PERSONAL_INFORMATION = '[Account] Update Personal Information',
   UPDATE_PERSONAL_LOGIN = '[Account] Update Personal Login',
+  UPDATE_DATA_ADDRESS = '[Account] Update Data Address',
+  UPDATE_DATA_ADDRESS_SUCCESS = '[Account] Update Data Address Success',
 }
 
 // LOGIN
@@ -50,11 +52,12 @@ export const updatePersonalInformation = createAction( AccountActionTypes.UPDATE
   cpfCnpj: string;
 }}>());
 
-export const updatePersonalLogin = createAction( AccountActionTypes.UPDATE_PERSONAL_LOGIN, props<{payload: {
+export const updatePersonalLogin = createAction( AccountActionTypes.UPDATE_PERSONAL_LOGIN, props<{ payload: {
   email: string;
   password: string;
 }}>());
 
+export const updateDataAddress = createAction( AccountActionTypes.UPDATE_DATA_ADDRESS, props<{ payload: AddressModel }>());
 
 const initializeAccount: AccountModel = {
   id: '',
@@ -83,3 +86,23 @@ export const accountReducer = createReducer(
 )
 
 
+export interface PayloadAddres {
+  address: string
+  number: string
+  complement: string
+  district: string
+  city: string
+  state: string
+  zipCode: string
+}
+
+export interface PayloadPersonal {
+  name: string
+  phone: string
+  cpfCnpj: string
+}
+
+export interface PayloadLogin {
+  email: string
+  password: string
+}

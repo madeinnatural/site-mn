@@ -4,8 +4,16 @@
     <profile-heards class="row"></profile-heards>
     <profile-body class="row">
       <app-menu-profile></app-menu-profile>
+      <br>
+      <br>
       <div class="col-12 col-md-6 col-lg-7">
         <ng-container class="compra" *ngIf="purchaseHistory$ | async as history; else loading">
+          <br>
+          <br>
+          <div *ngIf="!history.year.length" style="text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+            <img height="58" width="58" src="assets/img/caixa-registradora.png" alt="">
+            <strong>Nenhuma compra realizada</strong>
+          </div>
           <div class="cart-purchase-history" *ngFor="let year of history.year">
             <div *ngFor="let month of year.month">
               <h5 class="mb-3">

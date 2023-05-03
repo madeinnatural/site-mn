@@ -4,7 +4,8 @@ import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 import { Store } from '@ngrx/store';
 import { AccountModel, AddressModel } from 'src/app/core/domain/model/account/account';
 import { map } from 'rxjs';
-import { updatePersonalInformation, updatePersonalLogin } from 'src/app/states-handler/store/account.store';
+import { PayloadAddres, PayloadLogin, PayloadPersonal, updatePersonalInformation, updatePersonalLogin } from 'src/app/states-handler/store/account.store';
+import { ProfileService } from 'src/app/core/services/profile.service';
 
 @Component({
   selector: 'app-profile-data',
@@ -15,18 +16,33 @@ export class ProfileDataComponent {
 
   welcomeName: string = '';
 
-  personalInfo = {
+  personalInfo: PayloadPersonal = {
     name: '',
     phone: '',
     cpfCnpj: '',
   }
-
-  persinalLogin = {
+  persinalLogin: PayloadLogin = {
     email: '',
     password: '',
   }
 
-  address: AddressModel[] = [];
+  address: AddressModel[] = [{
+    street: '',
+    number: '',
+    city: '',
+    district: '',
+    state: '',
+    zipCode: ''
+  }];
+
+  addressUpdated: AddressModel = {
+    street: '',
+    number: '',
+    city: '',
+    district: '',
+    state: '',
+    zipCode: ''
+  }
 
   account$ = this.store.select('account').pipe(
     map((account: AccountModel) => {
@@ -40,16 +56,13 @@ export class ProfileDataComponent {
         email: account.email,
         password: account.password,
       }
-      console.log(account);
       if (account.address) this.address = account.address;
       return account;
     })
   )
-
-  address$ = this.store.select('address');
   constructor(
-    public router: Router,
-    public store: Store<{ account: AccountModel, address: AddressModel}>
+    public store: Store<{ account: AccountModel, address: AddressModel}>,
+    public profileService: ProfileService
   ) {}
 
   password = '';
@@ -71,28 +84,24 @@ export class ProfileDataComponent {
   }
 
   updateDataAddress: Submitable = {
-    submit: () => {
-      return new Promise(async (resolve, reject) => {
-        resolve(true);
-      })
+    submit: async () =>  {
+      return await this.profileService.updateAddress({
+        dataAddress: this.addressUpdated,
+      });
     }
   }
 
   updateDataPesonal: Submitable = {
     submit: async () => {
-      return new Promise(async (resolve, reject) => {
-        this.store.dispatch(updatePersonalInformation({payload: this.personalInfo }))
-        resolve(true);
-      });
+      if(!this.personalInfo) return Promise.resolve(false);
+      return await this.profileService.updatePersonalInformation(this.personalInfo);
     }
   }
 
   updateDataLogin: Submitable = {
     submit: async () => {
-      return new Promise(async (resolve, reject) => {
-        this.store.dispatch(updatePersonalLogin({ payload: this.persinalLogin }))
-        resolve(true);
-      });
+      if(!this.persinalLogin) return Promise.resolve(false);
+      return await this.profileService.updateLoginInformation(this.persinalLogin);
     }
   }
 

@@ -23,23 +23,19 @@ export class LoginComponent {
   constructor(
     public formBuilder: FormBuilder,
     private accountService: AccountService,
-    private router: Router,
-    private store: Store<{error: ErrorStore}>
-  ) {
-    this.store.select('error').subscribe((error) => {
-      if (error.trace == 'LOGIN_FAILURE') {
-        this.emailInput?.postInvalidade(error.error);
-      }
-    })
-  }
+    private router: Router
+  ) {}
 
   submit: Submitable = {
     submit: async () => {
-      return await new Promise((ok) => {
-        this.accountService.login({ email: this.email, password: this.password });
-        setTimeout(() => {
-          ok(true)
-        }, 1000);
+      return await new Promise(async (ok, res) => {
+        try {
+          const response = await this.accountService.login({ email: this.email, password: this.password });
+          ok(response)
+        } catch (error) {
+          this.emailInput?.postInvalidade('Email ou senha incorretos');
+          res(error)
+        }
       });
     }
   }

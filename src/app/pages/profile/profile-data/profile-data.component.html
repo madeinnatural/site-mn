@@ -1,68 +1,53 @@
 <app-header></app-header>
 
-<section class="section_minha_conta" *ngIf="account$ | async as account">
-  <div class="container">
-    <profile-heards class="row"></profile-heards>
-    <profile-body class="row">
-      <app-menu-profile></app-menu-profile>
+<section class="section_minha_conta profile" *ngIf="account$ | async as account">
+  <div class="container" style="margin-bottom: 10rem; align-items: center;">
+    <profile-heards class="profile-heards"></profile-heards>
+    <profile-body class="profile-body">
+      <app-menu-profile class="profile-body-menu"></app-menu-profile>
       <div class="col-12 col-md-6 col-lg-7">
         <div class="profileData d-flex justify-content-between flex-column">
           <mn-form class="form" [submitable]="updateDataPesonal" buttonName="Atualizar">
-            <br>
             <h4>
               <strong>Informações Pessoais</strong>
             </h4>
-            <br>
-
-            <mn-input archetype="nome" placeholder="Nome Completo" [value]="account.name" (change)="changePersonalInfo($event, 'name')" size="sm" requery>
+            <mn-input archetype="nome" placeholder="Nome Completo" [value]="account.name"
+              (change)="changePersonalInfo($event, 'name')" size="sm" requery>
             </mn-input>
-            <br>
-
-            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [value]="account.cpfCnpj" (change)="changePersonalInfo($event, 'cpfCnpj')" size="sm" requery>
+            <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [value]="account.cpfCnpj"
+              (change)="changePersonalInfo($event, 'cpfCnpj')" size="sm" requery>
             </mn-input>
-            <br>
-
-            <mn-input archetype="phone" placeholder="Telefone" [value]="account.phone" (change)="changePersonalInfo($event, 'phone')" size="sm" requery>
-            </mn-input>
-            <br>
-
-
-          </mn-form>
-        </div>
-
-        <br>
-        <h4><strong>Informações de Login</strong></h4>
-        <br>
-        <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
-          <mn-input archetype="email" placeholder="Email" [(value)]="account.email" (change)="changePersonalLogin($event, 'email')" size="sm" requery>
-          </mn-input>
-          <mn-input archetype="password" placeholder="Nova senha" (change)="changePersonalLogin($event, 'password')" size="sm" requery>
-          </mn-input>
-        </mn-form>
-
-        <br>
-        <h4><strong>Endereço</strong></h4>
-        <br>
-
-        <div *ngFor="let addr of account.address; let i = index">
-          <mn-form class="form pt-4" [submitable]="updateDataAddress">
-            <mn-input archetype="address" placeholder="Rua" (change)="changePersonalAddress($event, i, 'street')" [value]="address[i].street" size="sm" requery>
-            </mn-input>
-            <br>
-            <mn-input archetype="text" placeholder="Número" (change)="changePersonalAddress($event, i, 'number')" [value]="address[i].number" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="text" placeholder="Cidade" (change)="changePersonalAddress($event, i, 'city')" [value]="address[i].city" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="select" placeholder="Estado" (change)="changePersonalAddress($event, i, 'state')" [value]="address[i].state" size="sm" requery>
-            </mn-input>
-
-            <mn-input archetype="cep" placeholder="CEP" (change)="changePersonalAddress($event, i, 'zipCode')" [value]="address[i].zipCode" size="sm" requery>
+            <mn-input archetype="phone" placeholder="Telefone" [value]="account.phone"
+              (change)="changePersonalInfo($event, 'phone')" size="sm" requery>
             </mn-input>
           </mn-form>
+          <br>
+
+          <h4><strong>Informações de Login</strong></h4>
+          <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
+            <mn-input archetype="email" placeholder="Email" [(value)]="account.email"
+              (change)="changePersonalLogin($event, 'email')" size="sm" requery>
+            </mn-input>
+            <mn-input archetype="password" placeholder="Nova senha" (change)="changePersonalLogin($event, 'password')"
+              size="sm" requery>
+            </mn-input>
+          </mn-form>
+          <br>
+
+          <h4><strong>Endereço</strong></h4>
+          <div *ngIf="account.address && !account.address.length; else singupAddress">
+            <!-- Card informado ao usuário para cadastrar endereço -->
+
+          </div>
+          <br>
+          <ng-template #singupAddress>
+            <mn-form class="form" [submitable]="updateDataAddress" buttonName="Cadastrar Endereço">
+              <mn-input archetype="email" placeholder="Rua" [(value)]="addressUpdated.street" size="sm" requery>
+              </mn-input>
+            </mn-form>
+          </ng-template>
+          <br>
         </div>
-        <br>
 
         <ng-template #loading>
           <div class="row">

@@ -3,12 +3,7 @@
   <label for="{{name}}" #thelabel [hidden]="thelabel.childNodes.length == 0">
     <ng-content></ng-content>
   </label>
-
-
-  <small class="form-group-counter" [class.text-danger]="counterNumber < 0" *ngIf="maxCounter">{{
-    counterNumber}}</small>
-
-
+  <small class="form-group-counter" [class.text-danger]="counterNumber < 0" *ngIf="maxCounter">{{counterNumber}}</small>
   <ng-container *ngIf="getActualType() == 'textarea'">
     <mat-label>{{placeholder}}</mat-label>
     <textarea class="form-control form-control-{{size}}" #textarea [(ngModel)]="value" (input)="updateCounter()"
@@ -22,14 +17,28 @@
 
     <mat-form-field style="width: 100%; height: 10px;" appearance="legacy">
 
-      <mat-label>{{placeholder}}</mat-label>
+      <mat-label style="color: black !important;"><h5>{{placeholder}}</h5></mat-label>
 
-      <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType != 'password'" #input
-        [class.is-invalid]="invalid" matInput placeholder="{{inputBlur}}" class="form-control-{{size}}"
-        [type]="actualType" tabindex="1" [(ngModel)]="value" (blur)="onBlur()" (focus)="focus()" [textMask]="tmask"
-        [disabled]="disabled" [readonly]="readonly" [ngClass]="['text-input', innerClass]" attr.id="{{name}}"
-        [maxlength]="maxCounter ? maxCounter : maxLength" (ngModelChange)="updateCounter()"
-        (keydown)="handleBackspace($event)" attr.data-checkout="{{dataCheckout || 'false'}}" />
+      <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType != 'password'"
+         #input
+         matInput
+         placeholder="{{inputBlur}}"
+         class="form-control-{{size}}"
+        [class.is-invalid]="invalid"
+        [type]="actualType"
+        tabindex="1"
+        [(ngModel)]="value"
+        (blur)="onBlur()"
+        (focus)="focus()"
+        [textMask]="tmask"
+        [disabled]="disabled"
+        [readonly]="readonly"
+        [ngClass]="['text-input', innerClass]"
+        attr.id="{{name}}"
+        [maxlength]="maxCounter ? maxCounter : maxLength"
+        (ngModelChange)="updateCounter()"
+        (keydown)="handleBackspace($event)"
+        attr.data-checkout="{{dataCheckout || 'false'}}" />
 
 
       <input *ngIf="!(getActualType()=='select') && !(getActualType()=='textarea') && actualType == 'password'" #input
