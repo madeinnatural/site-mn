@@ -56,7 +56,7 @@ export class AvancedFilterComponent {
       })
     );
 
-    this.filterList$ = DataDialog.data.filterList.pipe();
+    this.filterList$ = data;
     this.searchSubject.pipe(debounceTime(800)).subscribe(values => {
       this.store.dispatch(setPrice({ min: values.min, max: values.max }));
     });
