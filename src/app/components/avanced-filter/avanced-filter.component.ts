@@ -1,9 +1,9 @@
-import { FilterResponse, setPackage, setSubCategorie, changeProvider, setCategory, setUnit } from './../../states-handler/store/filter.store';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { FilterClass, setMainCategorie, setPrice } from '../../states-handler/store/filter.store';
 import { Observable, Subject, debounceTime, map } from 'rxjs';
+import { FilterResponse, setPackage, setSubCategorie, setCategory, setUnit } from './../../states-handler/store/filter.store';
+import { FilterClass, setMainCategorie, setPrice } from '../../states-handler/store/filter.store';
 
 interface o {currentFilter: FilterClass, filterList: FilterResponse}
 
@@ -38,28 +38,10 @@ export class AvancedFilterComponent {
   constructor(
     public dialogRef: MatDialogRef<AvancedFilterComponent>,
     private store: Store<any>,
-    @Inject(MAT_DIALOG_DATA) public DataDialog: {
-      data:  { filterList: Observable<FilterResponse> }
-    }
+    @Inject(MAT_DIALOG_DATA) public DataDialog: { filterList: Observable<FilterResponse> }
   ){
-    // Filtrar todos os dados que são invalidos DataDialog.data.filterList.pipe()
-    const data = DataDialog.data.filterList.pipe(
-      map((value: FilterResponse) => {
-        return {
-          ...value,
-          mainCategory: value.celmar ? value.celmar : 'Todos',
-          category: value.celmar ? value.celmar : 'Todos',
-          subCategory: value.celmar ? value.celmar : 'Todos',
-          package: value.celmar ? value.celmar : 'Todos',
-          unit: value.celmar ? value.celmar : 'Todos',
-        }
-      })
-    );
-
-    this.filterList$ = data;
-    this.searchSubject.pipe(debounceTime(800)).subscribe(values => {
-      this.store.dispatch(setPrice({ min: values.min, max: values.max }));
-    });
+    this.filterList$ = DataDialog.filterList;
+    this.searchSubject.pipe(debounceTime(800)).subscribe(({min, max}) =>this.store.dispatch(setPrice({ min, max })));
   }
 
   calculationPrice ({ min, max }: { min: number, max: number }) {

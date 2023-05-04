@@ -1,11 +1,10 @@
 import {  Store } from '@ngrx/store';
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 
 import { ModalComponent } from './../../../components/modal/modal.component';
 import { CartModel } from '../../../core/domain/model/logistics/cart';
 import { PurchaseHistoryGroupedByYearMonth, getPurchaseHistory } from '../../../states-handler/store/pruchase.store';
-import { ModalService } from 'src/app/core/services/modal.service';
+import { ModalService } from '../../../core/services/modal.service';
 
 @Component({
   selector: 'app-profile-requests',

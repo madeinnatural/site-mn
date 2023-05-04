@@ -1,8 +1,8 @@
 <app-header></app-header>
 
-<section class="section_minha_conta profile" *ngIf="account$ | async as account">
+<section class="section_minha_conta" *ngIf="account$ | async as account">
   <div class="container" style="margin-bottom: 10rem; align-items: center;">
-    <profile-heards class="profile-heards"></profile-heards>
+    <profile-heards></profile-heards>
     <profile-body class="profile-body">
       <app-menu-profile class="profile-body-menu"></app-menu-profile>
       <div class="col-12 col-md-6 col-lg-7">
@@ -14,9 +14,11 @@
             <mn-input archetype="nome" placeholder="Nome Completo" [value]="account.name"
               (change)="changePersonalInfo($event, 'name')" size="sm" requery>
             </mn-input>
+            <br>
             <mn-input archetype="cpf,cnpj" placeholder="CPF/CNPJ" [value]="account.cpfCnpj"
               (change)="changePersonalInfo($event, 'cpfCnpj')" size="sm" requery>
             </mn-input>
+            <br>
             <mn-input archetype="phone" placeholder="Telefone" [value]="account.phone"
               (change)="changePersonalInfo($event, 'phone')" size="sm" requery>
             </mn-input>
@@ -24,20 +26,19 @@
           <br>
 
           <h4><strong>Informações de Login</strong></h4>
-          <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin">
-            <mn-input archetype="email" placeholder="Email" [(value)]="account.email"
+          <mn-form class="form pt-4" buttonName="Atualizar" [submitable]="updateDataLogin"  buttonName="Atualizar">
+            <mn-input archetype="email" placeholder="Email" [value]="account.email"
               (change)="changePersonalLogin($event, 'email')" size="sm" requery>
             </mn-input>
-            <mn-input archetype="password" placeholder="Nova senha" (change)="changePersonalLogin($event, 'password')"
-              size="sm" requery>
+            <br>
+            <mn-input archetype="password" placeholder="Nova senha"
+              (change)="changePersonalLogin($event, 'password')" size="sm" requery>
             </mn-input>
           </mn-form>
           <br>
 
-          <h4><strong>Endereço</strong></h4>
+          <!-- <h4><strong>Endereço</strong></h4>
           <div *ngIf="account.address && !account.address.length; else singupAddress">
-            <!-- Card informado ao usuário para cadastrar endereço -->
-
           </div>
           <br>
           <ng-template #singupAddress>
@@ -45,7 +46,7 @@
               <mn-input archetype="email" placeholder="Rua" [(value)]="addressUpdated.street" size="sm" requery>
               </mn-input>
             </mn-form>
-          </ng-template>
+          </ng-template> -->
           <br>
         </div>
 

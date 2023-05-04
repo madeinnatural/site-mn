@@ -5,7 +5,7 @@
 @media screen and (min-width: 767px) {
   .profile {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     margin-top: 20px;
     flex-wrap: wrap;
     &-body {
@@ -28,8 +28,10 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      text-align: center;
       margin-bottom: 20px;
-      padding: 20px;
+      padding: 0;
+      margin: 0;
       gap: 43px;
       &-menu {
         margin: 10px;

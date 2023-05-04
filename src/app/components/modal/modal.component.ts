@@ -26,14 +26,13 @@ export class ModalComponent {
     private modalService: ModalService,
     public dialogRef: MatDialogRef<ProfileRequestsComponent>,
     @Inject(MAT_DIALOG_DATA) public dialog: DialogData,
-  )
-  {
+  ){
     this.carts = dialog.carts;
-    this.totalPrice = this.carts.reduce((acc, cart) => acc + cart.total, 0);
+    this.totalPrice = this.carts.reduce(( acc,{ total }) => acc + total, 0);
   }
 
   openDetail(items: any) {
-    const modalRef = this.modalService.openModal(ModalProductComponent, { items: items.cart.cartItem });
+    this.modalService.openModal(ModalProductComponent, { items: items.cart.cartItem });
   }
 }
 

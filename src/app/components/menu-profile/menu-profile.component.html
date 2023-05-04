@@ -3,19 +3,19 @@
     <a>
       Meus dados
     </a>
-    <mn-icon name="arrow-next" size="xs" ></mn-icon>
+    <mn-icon class="hidden-mobile" name="arrow-next" size="xs" ></mn-icon>
   </div>
   <div class=" menu_profile_item" (click)="replace('pedidos')" [class]="router.url == '/profile/pedidos' ? 'opt_menu_left current_page' : 'opt_menu_left'">
     <a>
       Meus pedidos
     </a>
-    <mn-icon name="arrow-next" size="xs" ></mn-icon>
+    <mn-icon class="hidden-mobile" name="arrow-next" size="xs" ></mn-icon>
   </div>
   <div class=" menu_profile_item" (click)="logOut()" [class]="'opt_menu_left' ">
     <a>
       Sair
     </a>
-    <mn-icon name="arrow-next" size="xs" ></mn-icon>
+    <mn-icon class="hidden-mobile" name="arrow-next" size="xs" ></mn-icon>
   </div>
 </div>
 

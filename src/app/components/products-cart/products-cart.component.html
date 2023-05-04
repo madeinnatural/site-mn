@@ -4,11 +4,11 @@
     <mat-tab-group (selectedIndexChange)="onTabClick($event)">
         <div class="row">
           <div class="col-12">
-            <mat-tab label="Produtos a granel">
+            <mat-tab label="Caixa fechada">
               <mn-table [currentPage]="currentPage" [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" ></mn-table>
               <h6 style="font-size: 14px">* Compra minima por forncedor - R$400.00</h6>
             </mat-tab>
-            <mat-tab label="Produtos caixa fechada">
+            <mat-tab label="Granel">
               <mn-table [currentPage]="currentPage" [showcases]="productShowcase$" (itemAdd)="addItemCart($event)" (itemRm)="removeItem($event)" ></mn-table>
               <h6 style="font-size: 14px">* Compra minima por forncedor - R$400.00</h6>
             </mat-tab>

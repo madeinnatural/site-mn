@@ -1,11 +1,10 @@
-import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-import { Submitable } from 'src/app/components/mn-form/mn-form.component';
 import { Store } from '@ngrx/store';
-import { AccountModel, AddressModel } from 'src/app/core/domain/model/account/account';
 import { map } from 'rxjs';
-import { PayloadAddres, PayloadLogin, PayloadPersonal, updatePersonalInformation, updatePersonalLogin } from 'src/app/states-handler/store/account.store';
-import { ProfileService } from 'src/app/core/services/profile.service';
+import { Submitable } from '../../../components/mn-form/mn-form.component';
+import { PayloadLogin, PayloadPersonal } from '../../../states-handler/store/account.store';
+import { AccountModel, AddressModel } from '../../../core/domain/model/account/account';
+import { ProfileService } from '../../../core/services/profile.service';
 
 @Component({
   selector: 'app-profile-data',
